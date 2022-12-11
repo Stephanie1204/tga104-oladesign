@@ -12,8 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import order.model.OrderBean;
-import order.model.OrderDAO;
+import com.tibame.tga104.g2.oladesign.order.controller.OrderBean;
+import com.tibame.tga104.g2.oladesign.order.controller.OrderDAO;
 
 public class OrderDAOJdbc implements OrderDAO {
 

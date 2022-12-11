@@ -2,8 +2,6 @@ package com.tibame.tga104.g2.oladesign.product.model.type;
 
 import java.util.List;
 
-import model.dao.TypeDAOJdbc;
-
 public class TypeService {
 
 	//create productDAO object

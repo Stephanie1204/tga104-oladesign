@@ -2,8 +2,8 @@ package com.tibame.tga104.g2.oladesign.product.model.product;
 
 import java.util.ArrayList;
 import java.util.List;
+import redis.clients.jedis.Jedis;
 
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Jedis;
 
 public class ProductDAORedis implements ProductDAO_Cart {
 

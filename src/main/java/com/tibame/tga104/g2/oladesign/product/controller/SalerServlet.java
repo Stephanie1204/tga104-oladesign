@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import Product.model.ProductBean;
-import Product.model.ProductService;
+import com.tibame.tga104.g2.oladesign.product.model.product.ProductBean;
+import com.tibame.tga104.g2.oladesign.product.model.product.ProductService;
 
 @WebServlet(urlPatterns = { "/pages/saler.controller" })
 @MultipartConfig(

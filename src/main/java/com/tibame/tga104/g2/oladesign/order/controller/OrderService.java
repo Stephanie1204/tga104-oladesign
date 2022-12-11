@@ -2,7 +2,7 @@ package com.tibame.tga104.g2.oladesign.order.controller;
 
 import java.util.List;
 
-import model.dao.OrderDAOJdbc;
+import com.tibame.tga104.g2.oladesign.order.model.OrderDAOJdbc;
 
 public class OrderService {
 	

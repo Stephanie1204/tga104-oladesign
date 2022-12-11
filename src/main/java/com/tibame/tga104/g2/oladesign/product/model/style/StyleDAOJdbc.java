@@ -12,9 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import Style.model.StyleBean;
-import Style.model.StyleDAO;
-
 public class StyleDAOJdbc implements StyleDAO{
 
 	private DataSource dataSource;

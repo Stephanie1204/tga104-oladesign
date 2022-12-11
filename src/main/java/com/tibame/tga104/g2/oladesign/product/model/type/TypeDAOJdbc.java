@@ -12,9 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import Type.model.TypeBean;
-import Type.model.TypeDAO;
-
 public class TypeDAOJdbc implements TypeDAO{
 
 	private DataSource dataSource;
