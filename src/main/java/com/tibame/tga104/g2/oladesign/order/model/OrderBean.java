@@ -1,4 +1,4 @@
-package com.tibame.tga104.g2.oladesign.order.controller;
+package com.tibame.tga104.g2.oladesign.order.model;
 
 import java.sql.Timestamp;
 

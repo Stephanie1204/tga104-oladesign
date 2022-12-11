@@ -1,0 +1,26 @@
+div.conditions {
+	display: inline-block;
+	left: 10px;
+	margin-bottom:10px;
+}
+
+div.conditions>label {
+	font-size: 13px;
+	width: 65px;
+}
+
+div.conditions>input {
+	font-size: 12px;
+	height: 25px;
+	width: 110px;
+	margin-left: 15px;
+	border-radius: 5px;
+	border: solid 1px #e8e8e8;
+	float: Right;
+}
+
+div.btn-submit{
+	display: inline-block;
+	left: 10px;
+	margin-bottom:10px;
+}

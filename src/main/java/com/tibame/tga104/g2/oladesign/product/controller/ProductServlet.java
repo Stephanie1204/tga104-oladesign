@@ -159,7 +159,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		if (prodaction.equals("Select") && errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/ogani_master/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/homePage/index.jsp").forward(request, response);
 			return;
 		}
 		if (prodaction.equals("Insert") && errors != null && !errors.isEmpty()) {
@@ -195,7 +195,7 @@ public class ProductServlet extends HttpServlet {
 			// 將得到的list 結果傳送代入下一個要傳遞的參數 並且定義其名稱為"select"(在下一行的display.jsp中的${select}就是這邊來的)
 			request.setAttribute("select", result);
 			// 傳遞result list到下面指定的jsp檔
-			request.getRequestDispatcher("/ogani_master/searchResults.jsp").forward(request, response);
+			request.getRequestDispatcher("/homePage/searchResults.jsp").forward(request, response);
 		} else if (prodaction != null && prodaction.equals("Insert")) {
 			ProductBean result = productService.insert(bean);
 			if (result == null) {
@@ -233,16 +233,16 @@ public class ProductServlet extends HttpServlet {
 		else if (prodaction != null && prodaction.equals("AddCart")) {
 			productService.insertCart(comTaxId, productId);
 
-			request.getRequestDispatcher("/ogani_master/productPage.jsp").forward(request, response);
+			request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("DeleteFromCart")) {	
 			productService.deleteFromCart(comTaxId, productId);
 
-			request.getRequestDispatcher("/ogani_master/shopping_cart.jsp").forward(request, response);
+			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 
 		} else {
 			errors.put("action", "Unknown Action:" + prodaction);
-			request.getRequestDispatcher("/ogani_master/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/homePage/index.jsp").forward(request, response);
 		}
 
 		System.out.println("pass4");

@@ -7,47 +7,67 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class StyleDAOJdbc implements StyleDAO{
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
-	private DataSource dataSource;
-	public StyleDAOJdbc() {
+public class StyleDAOJdbc implements StyleDAO {
+
+	private static DataSource dataSource = null;
+	static {
 		System.out.println("pass jdbc connect");
-		try {
-			Context ctx = new InitialContext();
-			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/xxx");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("password");
+		dataSource = new HikariDataSource(config);
+
 	}
-	
+
 	private static final String GET_ALL_TYPE = "SELECT STYLE_CODE, STYLE_NAME FROM PRODUCT_STYLE";
 
 	@Override
-	public List<StyleBean>  getAll() {
+	public List<StyleBean> getAll() {
 		List<StyleBean> result = null;
-		
-		try(
-				Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(GET_ALL_TYPE);
-				ResultSet rset = stmt.executeQuery();) {
-				
-				result = new ArrayList<StyleBean>();
-				
-				while(rset.next()) {
-					StyleBean bean = new StyleBean();
-					bean.setStyleCode(rset.getString("STYLE_CODE"));
-					bean.setStyleName(rset.getString("STYLE_NAME"));
-	
-					result.add(bean);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		System.out.println("jdbc style");
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_ALL_TYPE);
+			ResultSet rset = stmt.executeQuery();
+			result = new ArrayList<StyleBean>();
+
+			while (rset.next()) {
+				StyleBean bean = new StyleBean();
+				bean.setStyleCode(rset.getString("STYLE_CODE"));
+				bean.setStyleName(rset.getString("STYLE_NAME"));
+
+				result.add(bean);
 			}
-			return result;
+			if (conn != null) {
+				System.out.println("style closed");
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
 	}
 }

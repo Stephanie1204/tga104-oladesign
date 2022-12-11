@@ -1,4 +1,4 @@
-package com.tibame.tga104.g2.oladesign.product.controller;
+package com.tibame.tga104.g2.oladesign.order.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tibame.tga104.g2.oladesign.order.controller.OrderService;
+import com.tibame.tga104.g2.oladesign.order.model.OrderService;
 
 //servlet3.0以後，我們可以不用再web.xml裏面配置servlet，只需要加上@WebServlet註解就可以修改該servlet的屬性
 @WebServlet(urlPatterns = { "/pages/order.controller" })

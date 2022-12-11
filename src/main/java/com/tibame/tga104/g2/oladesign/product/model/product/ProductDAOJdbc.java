@@ -8,22 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ProductDAOJdbc implements ProductDAO {
-	private DataSource dataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
-	public ProductDAOJdbc() {
+public class ProductDAOJdbc implements ProductDAO {
+
+	private static DataSource dataSource = null;
+	static {
 		System.out.println("pass jdbc connect");
-		try {
-			Context ctx = new InitialContext();
-			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/xxx");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("password");
+		dataSource = new HikariDataSource(config);
+
 	}
 
 	//
@@ -33,12 +33,15 @@ public class ProductDAOJdbc implements ProductDAO {
 
 	@Override
 	public List<ProductBean> select() {
+
 		List<ProductBean> result = null;
-		try (
-//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(GET_ALL_PRODUCT);
-				ResultSet rset = stmt.executeQuery();) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		System.out.println("jdbc selectAll");
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_ALL_PRODUCT);
+			ResultSet rset = stmt.executeQuery();
 
 			result = new ArrayList<ProductBean>();
 			while (rset.next()) {
@@ -66,6 +69,21 @@ public class ProductDAOJdbc implements ProductDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return result;
 	}
@@ -78,12 +96,15 @@ public class ProductDAOJdbc implements ProductDAO {
 	@Override
 	public List<ProductBean> select(String name) {
 		List<ProductBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		System.out.println("jdbc selectAll_byName");
 		if (name != null) {
 
 			ResultSet rset = null;
-			try (Connection conn = dataSource.getConnection();
-					PreparedStatement stmt = conn.prepareStatement(GET_ALL_PRODUCT_BYNAME);) {
-
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(GET_ALL_PRODUCT_BYNAME);
 				String tempName = "%" + name.trim() + "%";
 				stmt.setString(1, tempName);
 				rset = stmt.executeQuery();
@@ -116,13 +137,26 @@ public class ProductDAOJdbc implements ProductDAO {
 					result.add(bean);
 					System.out.println(result);
 				}
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				if (rset != null) {
 					try {
 						rset.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -141,16 +175,19 @@ public class ProductDAOJdbc implements ProductDAO {
 	@Override
 	public List<ProductBean> select(String name, String typeCode, String styleCode, int price) {
 		List<ProductBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		System.out.println("jdbc selectAll_byCondition");
 		if (name != null) {
 
 			ResultSet rset = null;
-			try (Connection conn = dataSource.getConnection();
-					PreparedStatement stmt = conn.prepareStatement(GET_ALL_PRODUCT_BYCONDITION);) {
-
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(GET_ALL_PRODUCT_BYCONDITION);
 				String tempName = "%" + name.trim() + "%";
 				stmt.setString(1, tempName);
 
-				if(price <= 0) {
+				if (price <= 0) {
 					price = Integer.MAX_VALUE;
 				}
 				stmt.setInt(2, price);
@@ -187,13 +224,26 @@ public class ProductDAOJdbc implements ProductDAO {
 					result.add(bean);
 //					System.out.println(result);
 				}
-
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				if (rset != null) {
 					try {
 						rset.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -212,12 +262,15 @@ public class ProductDAOJdbc implements ProductDAO {
 	@Override
 	public List<ProductBean> selectByComTaxId(String comTaxId) {
 		List<ProductBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		System.out.println("jdbc selectAll_bycomTaxId");
 		if (comTaxId != null) {
 
 			ResultSet rset = null;
-			try (Connection conn = dataSource.getConnection();
-					PreparedStatement stmt = conn.prepareStatement(GET_ALL_PRODUCT_BY_COMTAXID);) {
-
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(GET_ALL_PRODUCT_BY_COMTAXID);
 				stmt.setString(1, comTaxId);
 				rset = stmt.executeQuery();
 
@@ -234,7 +287,7 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setStock(rset.getInt("STOCK"));
 					bean.setSafeStock(rset.getInt("SAFE_STOCK"));
 					bean.setStatus(rset.getBoolean("STATUS"));
-					
+
 					byte[] buffer = rset.getBytes("IMG");
 					if (buffer.length != 0 && buffer != null) {
 						bean.setProductImgBase64(buffer);
@@ -243,15 +296,30 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setTypeName(rset.getString("TYPE_NAME"));
 					bean.setStyleName(rset.getString("STYLE_NAME"));
 					result.add(bean);
-
 				}
-
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				if (rset != null) {
 					try {
 						rset.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -269,9 +337,12 @@ public class ProductDAOJdbc implements ProductDAO {
 	@Override
 	public ProductBean selectByProdId(int prodId) {
 		ProductBean result = null;
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(GET_PRODUCT_BY_PRODID);) {
-
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		System.out.println("jdbc selectAll byprodId");
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_PRODUCT_BY_PRODID);
 			stmt.setInt(1, prodId);
 			ResultSet rset = stmt.executeQuery();
 			result = new ProductBean();
@@ -287,7 +358,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				result.setStock(rset.getInt("STOCK"));
 				result.setSafeStock(rset.getInt("SAFE_STOCK"));
 				result.setStatus(rset.getBoolean("STATUS"));
-				
+
 				byte[] buffer = rset.getBytes("IMG");
 				if (buffer.length != 0 && buffer != null) {
 					result.setProductImgBase64(buffer);
@@ -296,8 +367,27 @@ public class ProductDAOJdbc implements ProductDAO {
 				result.setTypeName(rset.getString("TYPE_NAME"));
 				result.setStyleName(rset.getString("STYLE_NAME"));
 			}
+			if (conn != null) {
+				conn.close();
+				System.out.println("select byId closed");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return result;
 	}
@@ -312,15 +402,22 @@ public class ProductDAOJdbc implements ProductDAO {
 	@Override
 	public ProductBean insert(ProductBean bean) {
 		ProductBean result = null;
-
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		PreparedStatement stmt_maxId = null;
+		PreparedStatement stmt_type = null;
+		PreparedStatement stmt_style = null;
+		PreparedStatement stmt_img = null;
+		System.out.println("jdbc insert");
 		//
 		if (bean != null && bean.getComTaxId() != null) {
-			try (Connection conn = dataSource.getConnection();
-					PreparedStatement stmt = conn.prepareStatement(INSERT);
-					PreparedStatement stmt_maxId = conn.prepareStatement(GET_MAX_PRODID);
-					PreparedStatement stmt_type = conn.prepareStatement(GET_TYPENAME);
-					PreparedStatement stmt_style = conn.prepareStatement(GET_STYLENAME);
-					PreparedStatement stmt_img = conn.prepareStatement(INSERT_IMG);) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(INSERT);
+				stmt_maxId = conn.prepareStatement(GET_MAX_PRODID);
+				stmt_type = conn.prepareStatement(GET_TYPENAME);
+				stmt_style = conn.prepareStatement(GET_STYLENAME);
+				stmt_img = conn.prepareStatement(INSERT_IMG);
 				stmt.setString(1, bean.getComTaxId());
 				stmt.setString(2, bean.getTypeCode());
 				stmt.setString(3, bean.getStyleCode());
@@ -330,10 +427,10 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(7, bean.getStock());
 				stmt.setInt(8, bean.getSafeStock());
 				stmt.setBoolean(9, bean.isStatus());
-				
+
 				InputStream is = bean.getProductImg();
 				stmt.setBlob(10, is);
-				
+
 				//
 				int i = stmt.executeUpdate();
 				stmt_type.setString(1, bean.getTypeCode());
@@ -357,8 +454,55 @@ public class ProductDAOJdbc implements ProductDAO {
 				while (styleName.next()) {
 					result.setStyleName(styleName.getString("STYLE_NAME"));
 				}
+
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt_maxId != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt_type != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt_style != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt_img != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		return result;
@@ -369,12 +513,17 @@ public class ProductDAOJdbc implements ProductDAO {
 	@Override
 	public ProductBean update(ProductBean bean) {
 		ProductBean result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		PreparedStatement stmt_type = null;
+		PreparedStatement stmt_style = null;
+		System.out.println("jdbc update");
 		if (bean != null) {
-			try (Connection conn = dataSource.getConnection();
-					PreparedStatement stmt = conn.prepareStatement(UPDATE);
-					PreparedStatement stmt_type = conn.prepareStatement(GET_TYPENAME);
-					PreparedStatement stmt_style = conn.prepareStatement(GET_STYLENAME);) {
-
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE);
+				stmt_type = conn.prepareStatement(GET_TYPENAME);
+				stmt_style = conn.prepareStatement(GET_STYLENAME);
 				stmt.setString(1, bean.getTypeCode());
 				stmt.setString(2, bean.getStyleCode());
 				stmt.setString(3, bean.getName());
@@ -383,11 +532,11 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(6, bean.getStock());
 				stmt.setInt(7, bean.getSafeStock());
 				stmt.setBoolean(8, bean.isStatus());
-	
+
 				stmt.setBytes(9, bean.getProductImgByteArray());
-	
+
 				stmt.setInt(10, bean.getProductId());
-				
+
 				int i = stmt.executeUpdate();
 				System.out.println(i);
 				//
@@ -405,9 +554,43 @@ public class ProductDAOJdbc implements ProductDAO {
 				while (styleName.next()) {
 					result.setStyleName(styleName.getString("STYLE_NAME"));
 				}
+
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt_type != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (stmt_style != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
+
 		}
 		return result;
 	}
@@ -416,11 +599,18 @@ public class ProductDAOJdbc implements ProductDAO {
 
 	@Override
 	public boolean delete(int productId) {
-		try (Connection conn = dataSource.getConnection(); PreparedStatement stmt = conn.prepareStatement(DELETE);) {
-
+		System.out.println("jdbc delete");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(DELETE);
 			stmt.setInt(1, productId);
 			int i = stmt.executeUpdate();
 			if (i == 1) {
+				if (conn != null) {
+					conn.close();
+				}
 				return true;
 			}
 		} catch (SQLException e) {

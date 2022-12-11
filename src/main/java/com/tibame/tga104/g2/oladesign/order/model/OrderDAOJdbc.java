@@ -7,26 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.tibame.tga104.g2.oladesign.order.controller.OrderBean;
-import com.tibame.tga104.g2.oladesign.order.controller.OrderDAO;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class OrderDAOJdbc implements OrderDAO {
 
 	private DataSource dataSource;
 
 	public OrderDAOJdbc() {
-		System.out.println("pass jdbc connect");
-		try {
-			Context ctx = new InitialContext();
-			dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/xxx");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		System.out.println("pass jdbc order connect");
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("password");
+		dataSource = new HikariDataSource(config);
 	}
 
 	private static final String GET_ORDER_BYMEMID = "SELECT * FROM ORDERS WHERE MEM_ID=?";
