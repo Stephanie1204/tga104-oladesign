@@ -6,11 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "Aa82822232";
+	static {
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("Aa82822232");
+
+		ds = new HikariDataSource(config);
+		
+//		try {
+//			Context ctx = new InitialContext();
+//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
+//		} catch (NamingException e) {
+//			e.printStackTrace();
+//		}
+	}
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO INTERMAIL_QN (NUM_QUE,TYPE) VALUES (?, ?)";
@@ -75,7 +89,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 		try {
 
-			Class.forName(driver);
+			Class.forName(config);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 

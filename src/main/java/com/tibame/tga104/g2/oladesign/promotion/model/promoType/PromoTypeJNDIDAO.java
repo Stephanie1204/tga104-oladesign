@@ -17,9 +17,9 @@ public class PromoTypeJNDIDAO implements PromoTypeDAOInterface {
 	private static DataSource ds = null;
 	static {
 		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/simpsons");
-		config.setUsername("bart");
-		config.setPassword("51mp50n");
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("Aa82822232");
 
 		ds = new HikariDataSource(config);
 		
