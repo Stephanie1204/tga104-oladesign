@@ -19,7 +19,7 @@ public class PromoTypeJNDIDAO implements PromoTypeDAOInterface {
 		HikariConfig config = new HikariConfig();
 		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
 		config.setUsername("root");
-		config.setPassword("Aa82822232");
+		config.setPassword("password");
 
 		ds = new HikariDataSource(config);
 		
