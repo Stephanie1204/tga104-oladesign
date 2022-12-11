@@ -12,9 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tibame.tga104.g2.oladesign.CompanyCommon.MemberCheckService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemByCheckVO;
@@ -25,65 +26,68 @@ import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 public class Company_MemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		doGet(req, res);
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		HttpSession session = req.getSession();
-		String account = (String) session.getAttribute("account");
+		res.setContentType("text/html;charset=UTF-8");
+//		HttpSession session = req.getSession();
+//		String account = (String) session.getAttribute("account");
 		String action = req.getParameter("action");
 		// 點選菜單攔中的"賣家基本資料"按鈕時判斷該會員是否已開通賣家功能,已開通=>帶入基本資料,未開通=>空白表單
 		if ("doGetCompantMembetInfo".equals(action)) {
 			String memId = req.getParameter("memId");
-			
-			MemberCheckService memberService = new MemberCheckService();
-			Boolean isMemberHasCom = memberService.doCheckMemberHasCom(memId);
-			PrintWriter pw = res.getWriter();
-			
-			Company_MemVO company_memVO = new Company_MemByCheckVO();
-			company_memVO.setComTaxId("comTaxId");
-			Company_MemByCheckVO company_membycheckVO = new Company_MemByCheckVO();
-			company_membycheckVO = (Company_MemByCheckVO) company_memVO;
-			company_membycheckVO.setIsMemberHasCom(isMemberHasCom);			
-			
-			pw.write("{\"isMemberHasCom\": " + isMemberHasCom);
 
-			if (isMemberHasCom) {
-				Company_MemService company_memSvc = new Company_MemService();
+			// init
+//			MemberCheckService memberService = new MemberCheckService();
+			Company_MemVO company_MemVO = new Company_MemVO();
+			Company_MemByCheckVO result = new Company_MemByCheckVO();
 
-//				Company_MemVO company_memVO = new Company_MemVO();
-				company_memVO = company_memSvc.doGetCompanyMemByMemId(memId);
-				
-//				 Gson gson = new Gson();
-//			     String jsonString = gson.toJson(company_memVO);
-			     
-//			     pw.write(jsonString);
-				
-//				pw.write(", \"comTaxId\": \"" + company_memVO.getComTaxId()
-//						+ "\"");
-//				pw.write(", \"memId\": \"" + company_memVO.getMemId() + "\"");
-//				pw.write(", \"comName\": \"" + company_memVO.getComName()
-//						+ "\"");
-//				pw.write(", \"comAddress\": \"" + company_memVO.getComAddress()
-//						+ "\"");
-//				pw.write(", \"comPhone\": \"" + company_memVO.getComPhone()
-//						+ "\"");
-//				pw.write(", \"comOwner\": \"" + company_memVO.getComOwner()
-//						+ "\"");
-//				pw.write(", \"ownerPhone\": \"" + company_memVO.getOwnerPhone()
-//						+ "\"");
-//				pw.write(", \"comBankaccount\": \""
-//						+ company_memVO.getComBankaccount() + "\"");
-//				pw.write(", \"comRegdate\": \"" + company_memVO.getComRegdate()
-//						+ "\"");
+//			// 判斷該會員是否有廠商設定
+//			Boolean isMemberHasCom = memberService.doCheckMemberHasCom(memId);
+			Company_MemService company_memSvc = new Company_MemService();
+			company_MemVO = company_memSvc.doGetCompanyMemByMemId(memId);
+
+			if (company_MemVO == null) {
+				result.setIsMemberHasCom(false);
+			} else {
+				result.setComTaxId(company_MemVO.getComTaxId());
+				result.setMemId(company_MemVO.getMemId());
+				result.setComName(company_MemVO.getComName());
+				result.setComAddress(company_MemVO.getComAddress());
+				result.setComPhone(company_MemVO.getComPhone());
+				result.setComOwner(company_MemVO.getComOwner());
+				result.setOwnerPhone(company_MemVO.getOwnerPhone());
+				result.setComBankaccount(company_MemVO.getComBankaccount());
+				result.setComRegdate(company_MemVO.getComRegdate());
+				result.setIsMemberHasCom(true);
 			}
 
-			pw.write("}");
+			// 如有廠商，則設定廠商VO
+//			if (isMemberHasCom) {
+//
+//				result.setComTaxId(company_membycheckVO.getComTaxId());
+//				result.setMemId(company_membycheckVO.getMemId());
+//				result.setComName(company_membycheckVO.getComName());
+//				result.setComAddress(company_membycheckVO.getComAddress());
+//				result.setComPhone(company_membycheckVO.getComPhone());
+//				result.setComOwner(company_membycheckVO.getComOwner());
+//				result.setOwnerPhone(company_membycheckVO.getOwnerPhone());
+//				result.setComBankaccount(company_membycheckVO.getComBankaccount());
+//				result.setComRegdate(company_membycheckVO.getComRegdate());
+//			}
+
+//			result.setIsMemberHasCom(isMemberHasCom);
+
+			// 準備res
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(result);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
 
 			// 寫好RS給AJAX
 			pw.flush();
@@ -149,24 +153,21 @@ public class Company_MemServlet extends HttpServlet {
 			// 銀行帳戶
 			String com_bankaccount = req.getParameter("com_bankaccount");
 			String com_bankaccountReg = "^\\d{10,16}$";
-			if (!"".equals(com_bankaccount.trim())
-					&& !com_bankaccount.trim().matches(com_bankaccountReg)) {
+			if (!"".equals(com_bankaccount.trim()) && !com_bankaccount.trim().matches(com_bankaccountReg)) {
 				errorMsgs.add("銀行帳戶：長度需在10-16碼之間");
 			}
 			Company_MemVO company_memVO = new Company_MemVO();
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("company_memVO", company_memVO);
-				RequestDispatcher failureView = req.getRequestDispatcher(
-						"/CompanyBackEnd/pages/setcompany_member.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/setcompany_member.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.addCompany_Mem(com_taxid, mem_id, com_name,
-					iscom_address, com_phone, com_owner, owner_phone,
+			company_memSvc.addCompany_Mem(com_taxid, mem_id, com_name, iscom_address, com_phone, com_owner, owner_phone,
 					com_bankaccount);
 			req.setAttribute("company_memVO", company_memVO);
-			String url = "/CompanyBackEnd/pages/listonecompany_member.jsp";
+			String url = "/CompanyBackEnd/listonecompany_member.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -194,7 +195,7 @@ public class Company_MemServlet extends HttpServlet {
 			} // else if (!com_address.trim().matches(com_addressReg)) {
 				// errorMsgs.add("公司地址的正則表達規則");
 				// }
-			// 公司電話
+				// 公司電話
 			String com_phone = req.getParameter("com_phone");
 			String com_phoneReg = "^(\\d{2,3}-?|\\d{2,3})\\d{3,4}-?\\d{4}$";
 			if (com_phone == null || com_phone.trim().length() == 0) {
@@ -221,63 +222,52 @@ public class Company_MemServlet extends HttpServlet {
 			// 銀行帳戶
 			String com_bankaccount = req.getParameter("com_bankaccount");
 			String com_bankaccountReg = "^\\d{10,16}$";
-			if (!"".equals(com_bankaccount.trim())
-					&& !com_bankaccount.trim().matches(com_bankaccountReg)) {
+			if (!"".equals(com_bankaccount.trim()) && !com_bankaccount.trim().matches(com_bankaccountReg)) {
 				errorMsgs.add("銀行帳戶：長度需在10-16碼之間");
 			}
 			Company_MemVO company_memVO = new Company_MemVO();
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("company_memVO", company_memVO);
-				RequestDispatcher failureView = req.getRequestDispatcher(
-						"/back-end/company_member/pages/setcompany_member.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/setcompany_member.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.updateCompany_Mem(com_taxid, mem_id, com_name,
-					com_address, com_phone, com_owner, owner_phone,
-					com_bankaccount);
+			company_memSvc.updateCompany_Mem(com_taxid, mem_id, com_name, com_address, com_phone, com_owner,
+					owner_phone, com_bankaccount);
 			company_memVO = company_memSvc.getOneCompany_Mem(com_taxid);
 			req.setAttribute("company_memVO", company_memVO);
-			String url = "/CompanyBackEnd/pages/listonecompany_member.jsp";
+			String url = "/CompanyBackEnd/listonecompany_member.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
-		
+
 		if ("doSetStoreInfo".equals(action)) {
 			String comtaxId = req.getParameter("comtaxId");
-			
+
 			PrintWriter pw = res.getWriter();
 
-			
 			Company_MemService company_memSvc = new Company_MemService();
-			if((company_memSvc.doGetCompanyMemByTaxId(comtaxId))!=null) {
+			if ((company_memSvc.doGetCompanyMemByTaxId(comtaxId)) != null) {
 				Company_MemVO company_memVO = new Company_MemVO();
 				company_memVO = company_memSvc.doGetCompanyMemByTaxId(comtaxId);
-				pw.write("{\"isComHasStore\": " + company_memVO);				
+				pw.write("{\"isComHasStore\": " + company_memVO);
 				byte[] store_logo_bytes = null;
 				byte[] store_banner_bytes = null;
 				// 賣場logo
 				Part store_logo = req.getPart("store_logo");
 				store_logo_bytes = store_logo.getInputStream().readAllBytes();
-				store_logo_bytes = store_logo_bytes.length == 0
-						? null
-						: store_logo_bytes;
+				store_logo_bytes = store_logo_bytes.length == 0 ? null : store_logo_bytes;
 				// 賣場Banner
 				Part store_banner = req.getPart("store_banner");
 				store_banner_bytes = store_banner.getInputStream().readAllBytes();
-				store_banner_bytes = store_banner_bytes.length == 0? null: store_banner_bytes;
-				
-				pw.write(", \"comTaxId\": \"" + company_memVO.getComTaxId()
-				+ "\"");
-				pw.write(", \"store_name\": \"" + company_memVO.getStoreName()
-						+ "\"");
+				store_banner_bytes = store_banner_bytes.length == 0 ? null : store_banner_bytes;
+
+				pw.write(", \"comTaxId\": \"" + company_memVO.getComTaxId() + "\"");
+				pw.write(", \"store_name\": \"" + company_memVO.getStoreName() + "\"");
 				pw.write(", \"store_intro\": \"" + company_memVO.getStoreIntro() + "\"");
-				pw.write(", \"store_logo\": \"" + company_memVO.getStoreLogoString()
-						+ "\"");
-				pw.write(", \"store_banner\": \"" + company_memVO.getStoreBannerString()
-						+ "\"");
+				pw.write(", \"store_logo\": \"" + company_memVO.getStoreLogoString() + "\"");
+				pw.write(", \"store_banner\": \"" + company_memVO.getStoreBannerString() + "\"");
 			}
 
 			pw.write("}");
@@ -285,8 +275,7 @@ public class Company_MemServlet extends HttpServlet {
 			// 寫好RS給AJAX
 			pw.flush();
 		}
-		
-		 
+
 		if ("insertforshop".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -303,8 +292,7 @@ public class Company_MemServlet extends HttpServlet {
 			// 賣場簡介
 			String store_intro = req.getParameter("store_intro");
 			String store_introReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,2000}$";
-			if (!"".equals(store_intro.trim())
-					&& !store_name.trim().matches(store_introReg)) {
+			if (!"".equals(store_intro.trim()) && !store_name.trim().matches(store_introReg)) {
 				errorMsgs.add("賣場簡介：只能是中、英文,且長度需在2-1000之間");
 			}
 
@@ -313,15 +301,11 @@ public class Company_MemServlet extends HttpServlet {
 			// 賣場logo
 			Part store_logo = req.getPart("store_logo");
 			store_logo_bytes = store_logo.getInputStream().readAllBytes();
-			store_logo_bytes = store_logo_bytes.length == 0
-					? null
-					: store_logo_bytes;
+			store_logo_bytes = store_logo_bytes.length == 0 ? null : store_logo_bytes;
 			// 賣場Banner
 			Part store_banner = req.getPart("store_banner");
 			store_banner_bytes = store_banner.getInputStream().readAllBytes();
-			store_banner_bytes = store_banner_bytes.length == 0
-					? null
-					: store_banner_bytes;
+			store_banner_bytes = store_banner_bytes.length == 0 ? null : store_banner_bytes;
 
 			Company_MemVO company_memVO = new Company_MemVO();
 			company_memVO.setStoreName(store_name);
@@ -333,8 +317,8 @@ public class Company_MemServlet extends HttpServlet {
 			 **************************/
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("company_memVO", company_memVO); // 含有輸入格式錯誤的company_memVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher(
-						"/back-end/company_member/pages/setcompany_forshop.jsp");
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/company_member/pages/setcompany_forshop.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -342,8 +326,7 @@ public class Company_MemServlet extends HttpServlet {
 			 * Contoller第二步開始查詢資料
 			 ************************/
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.addCompany_Mem(store_name, store_intro,
-					store_logo_bytes, store_banner_bytes);
+			company_memSvc.addCompany_Mem(store_name, store_intro, store_logo_bytes, store_banner_bytes);
 			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
 			req.setAttribute("company_memVO", company_memVO);
 			String url = "/CompanyBackEnd/pages/listonecompany_forshop.jsp";
@@ -354,7 +337,6 @@ public class Company_MemServlet extends HttpServlet {
 			 ********************/
 
 		}
-		
 
 		// if ("updateforcompany".equals(action)) {
 		// List<String> errorMsgs = new LinkedList<String>();

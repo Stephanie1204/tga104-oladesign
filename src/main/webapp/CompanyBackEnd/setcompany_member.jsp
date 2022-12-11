@@ -338,12 +338,12 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
                         locale : 'zh-TW'
                     });
          	       //會員資料先寫死,合在一起之後要改
-                    $("#mem_id").val("220020").attr('readonly', true);
+                    $("#mem_id").val("220017").attr('readonly', true);
 
                     // ajax call api to get CompantMembetInfo
                     $.ajax({
                         type : 'POST',
-                        url : 'http://localhost:8081/TGA104G2/back-end/company_member/pages/company_memberdo?action=doGetCompantMembetInfo&memId=220020',
+                        url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_memberdo?action=doGetCompantMembetInfo&memId=220017',
                         success : function (data, status, xhr) {
                             var dataJson = JSON.parse(data);
 
