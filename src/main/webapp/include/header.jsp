@@ -1,8 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- header css -->
-<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../static/css/header.css" type="text/css" />
+<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/header.css" type="text/css" />
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/51435664f6.js" crossorigin="anonymous"></script>
 
 <header class="header">
 	<div class="row">

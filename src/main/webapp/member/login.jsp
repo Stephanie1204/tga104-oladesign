@@ -86,14 +86,14 @@ System.out.println("memberVO="+memberVO);
 </style>
 
 <!-- Custom styles for this template -->
-<link href="./css/login.css" rel="stylesheet" />
+<link href="../css/login.css" rel="stylesheet" />
 </head>
 <body class="text-center">
 <!-- 	    <button type="button" class="login">登入/註冊</button> -->
 	<div class="container1">
 		<!-- <div class="filter"></div> -->
 		<main class="form-signin w-100 m-auto main">
-			<form method="post" action="<%=request.getContextPath()%>/front-end/regist-login/login/MemberLogin">
+			<form method="post" action="<%=request.getContextPath()%>/member/MemberLogin">
 <!-- 				<button type="button" class="btn-close" aria-label="Close"></button> -->
 				<!--關閉登入頁面按鈕-->
 				<img class="mb-4 logo" src="../img/OLA_Logo.svg" alt="logo" />
@@ -123,7 +123,7 @@ System.out.println("memberVO="+memberVO);
 					<input type="hidden" name="action" value="login">
 					<button id="login" class="btn" type="submit">登入</button>
 				</div>
-				<a class="forget" href="<%=request.getContextPath()%>/front-end/regist-login/login/forgetpwd.html">忘記密碼?</a>
+				<a class="forget" href="<%=request.getContextPath()%>/member/forgetpwd.jsp">忘記密碼?</a>
 				<!-- <div class="or">
             <hr />
             <span>使用其他帳號登入</span>
@@ -140,7 +140,7 @@ System.out.println("memberVO="+memberVO);
           </div> -->
 				<div class="regist">
 					還不是會員嗎? <a class=""
-						href="<%=request.getContextPath()%>/front-end/regist-login/registration/memRegist.jsp">立即註冊</a>
+						href="<%=request.getContextPath()%>/member/memRegist.jsp">立即註冊</a>
 				</div>
 			</form>
 		</main>

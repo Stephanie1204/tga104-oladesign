@@ -12,20 +12,13 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>OLA Design | 會員註冊</title>
 
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/51435664f6.js" crossorigin="anonymous"></script>
-
-<!-- header css -->
-<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/header.css" type="text/css" />
-  
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
 
 <!-- Theme style -->
-<link rel="stylesheet" href="./css/adminlte.min.css" />
-<link rel="stylesheet" href="./css/memReg.css" />
+<link rel="stylesheet" href="../css/adminlte.min.css" />
+<link rel="stylesheet" href="../css/memReg.css" />
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
@@ -56,7 +49,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 						<div class="card card-primary">
 
 							<!-- form start -->
-							<form class="reg" method="post" action="<%=request.getContextPath()%>/front-end/regist-login/registration/MemberRegist">
+							<form class="reg" method="post" action="<%=request.getContextPath()%>/member/MemberRegist">
 								<div class="card-body">
 									<div class="form-group col-md-6">
 										<label for="account">帳號(Email)<span id="star">* </span><span class="error">${errorMsgs.account}</span>

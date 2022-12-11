@@ -14,6 +14,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 
 
@@ -26,12 +28,13 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/tga104g2");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("password");
+
+		ds = new HikariDataSource(config);
+		
 	}
 
 	private static final String InsertSQL = 

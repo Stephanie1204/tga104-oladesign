@@ -17,7 +17,7 @@ import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
 
 
-@WebServlet("/front-end/regist-login/login/MemberLogin")
+@WebServlet("/member/MemberLogin")
 public class MemberLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -58,7 +58,7 @@ public class MemberLogin extends HttpServlet {
 			
 			if(!errorMsgs.isEmpty()) {
 				request.setAttribute("memberVO", memberVO);
-				String url = "/front-end/regist-login/login/login.jsp";
+				String url = "/member/login.jsp";
 				RequestDispatcher errView = request.getRequestDispatcher(url);
 				errView.forward(request, response);
 				return;
@@ -73,7 +73,7 @@ public class MemberLogin extends HttpServlet {
 			
 			if(!errorMsgs.isEmpty()) {
 				request.setAttribute("memberVO", memberVO);
-				String url = "/front-end/regist-login/login/login.jsp";
+				String url = "/member/login.jsp";
 				RequestDispatcher errView = request.getRequestDispatcher(url);
 				errView.forward(request, response);
 				return;
@@ -96,7 +96,7 @@ public class MemberLogin extends HttpServlet {
 				e.printStackTrace();
 			}
 			//無來源網頁重導至首頁
-			response.sendRedirect(request.getContextPath() + "/front-end/front-index.jsp");;
+			response.sendRedirect(request.getContextPath() + "/front-index.jsp");;
 		}
 	}
 }

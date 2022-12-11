@@ -82,10 +82,6 @@ public class MemberMailService {
 				try {
 					transport.connect();
 					transport.sendMessage(message, message.getAllRecipients());
-					/*
-					 * javax.mail.SendFailedException: Invalid Addresses;
-  nested exception is:
-	com.sun.mail.smtp.SMTPAddressFailedException: 555 5.5.2 Syntax error. y2-20020a17090264c200b001769206a766sm1507062pli.307 - gsmtp*/
 				} finally {
 					transport.close();
 				}
