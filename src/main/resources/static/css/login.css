@@ -1,0 +1,170 @@
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: "Cairo", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	
+	background-image: url("../img/pexels-lukas-628233.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+div.container1{
+  background-color: hsla(0, 0%, 0%, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  min-height: 100vh;
+/*   display: none; */
+}
+
+.form-signin {
+  max-width: 450px;
+  padding: 15px;
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color: white;
+  border-radius: 5%;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;  
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/*---------------------
+  my CSS
+-----------------------*/
+
+h1{
+  color: #4F4E4D
+}
+
+main.main{
+  width: 750px;
+}
+
+button.login{
+  float: right;
+}
+
+/* form */
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form img.logo{
+  margin-top: 30px;
+  width: 60%;
+}
+
+form div{
+  width: 80%;
+}
+
+form button.btn-close{
+  align-self: flex-end;
+}
+
+form button.btn{
+  width: 50%;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  background-color: #E4CD8D;
+  border: none;
+  color: #4F4E4D;
+  font-size: 20px;
+}
+
+form button.btn:hover{
+  background-color: #f0d383;
+}
+
+form a{
+  text-decoration: none;
+}
+
+form div.regist{
+  margin: 10px 0 10px 0;
+}
+
+div.error li{
+	list-style: none;
+}
+
+ol, ul{
+	padding: 0;
+}
+
+/* �ĤT��n�J*/
+
+/* form div.or span{
+  color: gray;
+}
+
+div.other_account{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+div.other_account ul{
+  list-style: none;
+  padding: 0;
+}
+
+div.other_account ul li{
+  border-radius: 5px;
+  
+  margin-top: 10px;
+}
+
+div.other_account ul li span{
+  color: #4F4E4D;
+  font-size: 18px;
+}
+
+img.google_icon{
+  width: 20px;
+  margin: 0 5px;
+}
+
+div.other_account ul li a{
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+} */
