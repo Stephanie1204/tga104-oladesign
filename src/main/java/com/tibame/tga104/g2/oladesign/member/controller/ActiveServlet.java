@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import redis.clients.jedis.Jedis;
 
 
-@WebServlet("/front-end/regist-login/registration/MemberMailServlet")
+@WebServlet("/member/MemberMailServlet")
 public class ActiveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,7 +34,7 @@ public class ActiveServlet extends HttpServlet {
 		
 		jedis.close();
 		
-		RequestDispatcher successView = request.getRequestDispatcher("/front-end/regist-login/login/login.jsp");
+		RequestDispatcher successView = request.getRequestDispatcher("/member/login.jsp");
 		successView.forward(request, response);
 	}
 }
