@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #4F4E4D;
+    font-size: 20px;
+}
+
+body{
+    background-image: url("../../img/pexels-cottonbro-studio-10202993.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+div.login-box{
+    width: 400px;
+}
+
+button.btn{
+    background-color: #E4CD8D;
+    color: #4F4E4D;
+    border: none;
+}
+
+button.btn:hover{
+    background-color: #f0d383;
+    color: #4F4E4D;
+}
+
+h1.reset{
+    font-weight: bolder;
+}
