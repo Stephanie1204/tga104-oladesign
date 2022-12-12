@@ -802,12 +802,12 @@
                                         <th class="" style="padding-right:0px;">
                                             <input id="selall" type="checkbox" class="icheckbox_square-blue">
                                         </th>
-                                        <th class="sorting_asc">ID</th>
-                                        <th class="sorting">订单编号</th>
-                                        <th class="sorting">订单名称</th>
-                                        <th class="sorting">金额</th>
-                                        <th class="sorting">下单时间</th>
-                                        <th class="sorting">订单状态</th>
+                                        <th class="sorting_asc">促銷專案編號</th>
+                                        <th class="sorting">廠商統編</th>
+                                        <th class="sorting">專案名稱</th>
+                                        <th class="sorting">開始日期</th>
+                                        <th class="sorting">結束日期</th>
+                                        <th class="sorting">折扣碼</th>
 
                                         <th class="text-center">操作</th>
                                     </tr>

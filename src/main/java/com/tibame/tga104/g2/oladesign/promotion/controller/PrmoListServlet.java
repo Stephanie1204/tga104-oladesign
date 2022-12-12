@@ -13,8 +13,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoService;
 
-@WebServlet("/test")
-public class TestServlet extends HttpServlet {
+@WebServlet("/promoList")
+public class PrmoListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PromoService service;
 
