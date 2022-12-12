@@ -26,15 +26,28 @@ public class ProductBean {
 	private String productImgBase64;
 	private InputStream productImg;
 	//
+	private int cartQuantity;
+	//
+	public int getCartQuantity() {
+		return cartQuantity;
+	}
+	
+	public void setCartQuantity(int cartQuantity) {
+		this.cartQuantity = cartQuantity;
+	}
+	
 	public byte[] getProductImgByteArray() {
 		return productImgByteArray;
 	}
+	
 	public void setProductImgByteArray(byte[] productImgByteArray) {
 		this.productImgByteArray = productImgByteArray;
 	}
+	
 	public InputStream getProductImg() {
 		return productImg;
 	}
+	
 	public void setProductImg(InputStream inputStream) {
 		this.productImg = inputStream;
 	}
