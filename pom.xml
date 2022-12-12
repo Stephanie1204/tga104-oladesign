@@ -63,7 +63,6 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
@@ -73,12 +72,11 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20220924</version>
-=======
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
->>>>>>> 6fae8c6edb0b66240c1bec98654a6cae9d70024e
 		</dependency>
 	</dependencies>
 
