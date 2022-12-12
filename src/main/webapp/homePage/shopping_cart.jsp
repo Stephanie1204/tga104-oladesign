@@ -83,8 +83,7 @@ if (userId != null) {
 		<!-- organi logo -->
 		<div class="humberger__menu__logo">
 			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-				alt="" /></a>
+				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a>
 		</div>
 
 		<!-- shopping cart and heart on the right -->
@@ -92,24 +91,17 @@ if (userId != null) {
 		<div class="humberger__menu__widget">
 			<!-- login button on the top-->
 			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i> Login</a>
+				<a href="#"><i class="fa fa-user"></i>登入</a>
 			</div>
 		</div>
 
 		<nav class="humberger__menu__nav mobile-menu">
 		<ul>
 			<li class="active"><a
-				href="<%=request.getContextPath()%>/homePage/index.jsp">Home</a></li>
+				href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
 			<li><a href="./shop-grid.html">Shop</a></li>
-			<li><a href="#">Pages</a>
-				<ul class="header__menu__dropdown">
-					<li><a href="./shop-details.html">Shop Details</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">Shoping
-							Cart</a></li>
-					<li><a href="./checkout.html">Check Out</a></li>
-					<li><a href="./blog-details.html">Blog Details</a></li>
-				</ul></li>
+			<li><a
+				href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
 			<li><a href="./blog.html">Blog</a></li>
 			<li><a href="./contact.html">Contact</a></li>
 		</ul>
@@ -151,17 +143,10 @@ if (userId != null) {
 				<nav class="header__menu">
 				<ul>
 					<li class="active"><a
-						href="<%=request.getContextPath()%>/homePage/index.jsp">Home</a></li>
+						href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
 					<li><a href="./shop-grid.html">Shop</a></li>
-					<li><a href="#">Pages</a>
-						<ul class="header__menu__dropdown">
-							<li><a href="./shop-details.html">Shop Details</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">Shoping
-									Cart</a></li>
-							<li><a href="./checkout.html">Check Out</a></li>
-							<li><a href="./blog-details.html">Blog Details</a></li>
-						</ul></li>
+					<li><a
+						href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
 					<li><a href="./blog.html">Blog</a></li>
 					<li><a href="./contact.html">Contact</a></li>
 				</ul>
@@ -250,11 +235,36 @@ if (userId != null) {
 												<h5>${ row_product.name }</h5></td>
 											<td class="shoping__cart__price">$${ row_product.price }</td>
 											<td class="shoping__cart__quantity">
-												<div class="quantity">
-													<div class="pro-qty">
-														<input type="text" value="1">
-													</div>
-												</div>
+												<form action="<c:url value="/pages/product.controller" />"
+													method="post">
+													<input type="hidden" name="productId"
+														value="${ row_product.productId }"> <input
+														type="hidden" name="comTaxId"
+														value="${ row_product.comTaxId }"> <input
+														type="hidden" name="prodaction" value="UpdateCart">
+													<select id="qty" size="1" name="quantity"
+														onchange="submit();">
+														<option value="1"
+															${ row_product.cartQuantity == 1 ? 'selected': ""}>1
+														<option value="2"
+															${ row_product.cartQuantity == 2 ? 'selected': ""}>2
+														<option value="3"
+															${ row_product.cartQuantity == 3 ? 'selected': ""}>3
+														<option value="4"
+															${ row_product.cartQuantity == 4 ? 'selected': ""}>4
+														<option value="5"
+															${ row_product.cartQuantity == 5 ? 'selected': ""}>5
+														<option value="6"
+															${ row_product.cartQuantity == 6 ? 'selected': ""}>6
+														<option value="7"
+															${ row_product.cartQuantity == 7 ? 'selected': ""}>7
+														<option value="8"
+															${ row_product.cartQuantity == 8 ? 'selected': ""}>8
+														<option value="9"
+															${ row_product.cartQuantity == 9 ? 'selected': ""}>9
+													</select>
+												</form>
+
 											</td>
 											<td class="shoping__cart__item__close">
 												<form action="<c:url value="/pages/product.controller" />"
@@ -297,7 +307,8 @@ if (userId != null) {
 						<li>Subtotal <span>$454.98</span></li>
 						<li>Total <span>$454.98</span></li>
 					</ul>
-					<a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+					<a href="<%=request.getContextPath()%>/homePage/checkOut.jsp"
+						class="primary-btn">結帳</a>
 				</div>
 			</div>
 		</div>
@@ -395,11 +406,10 @@ if (userId != null) {
 		src="<%=request.getContextPath()%>/homePage/js/jquery-ui.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/jquery.slicknav.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/homePage/js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/homePage/js/mixitup.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/owl.carousel.min.js"></script>
-		
+
 	<script src="<%=request.getContextPath()%>/homePage/js/main.js"></script>
 
 	<script

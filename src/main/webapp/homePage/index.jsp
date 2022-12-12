@@ -62,8 +62,7 @@
 		<!-- organi logo -->
 		<div class="humberger__menu__logo">
 			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-				alt="" /></a>
+				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a>
 		</div>
 
 		<!-- shopping cart and heart on the right -->
@@ -71,24 +70,17 @@
 		<div class="humberger__menu__widget">
 			<!-- login button on the top-->
 			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i> Login</a>
+				<a href="#"><i class="fa fa-user"></i>登入</a>
 			</div>
 		</div>
 
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
 				<li class="active"><a
-					href="<%=request.getContextPath()%>/homePage/index.jsp">Home</a></li>
+					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
 				<li><a href="./shop-grid.html">Shop</a></li>
-				<li><a href="#">Pages</a>
-					<ul class="header__menu__dropdown">
-						<li><a href="./shop-details.html">Shop Details</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">Shoping
-								Cart</a></li>
-						<li><a href="./checkout.html">Check Out</a></li>
-						<li><a href="./blog-details.html">Blog Details</a></li>
-					</ul></li>
+				<li><a
+					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
 				<li><a href="./blog.html">Blog</a></li>
 				<li><a href="./contact.html">Contact</a></li>
 			</ul>
@@ -129,17 +121,11 @@
 					</div>
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="<%=request.getContextPath()%>/homePage/index.jsp">Home</a></li>
+							<li class="active"><a
+								href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
 							<li><a href="./shop-grid.html">Shop</a></li>
-							<li><a href="#">Pages</a>
-								<ul class="header__menu__dropdown">
-									<li><a href="./shop-details.html">Shop Details</a></li>
-									<li><a
-										href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">Shoping
-											Cart</a></li>
-									<li><a href="./checkout.html">Check Out</a></li>
-									<li><a href="./blog-details.html">Blog Details</a></li>
-								</ul></li>
+							<li><a
+								href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
 							<li><a href="./blog.html">Blog</a></li>
 							<li><a href="./contact.html">Contact</a></li>
 						</ul>
@@ -191,7 +177,7 @@
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>條件篩選</span>
 						</div>
-						<!-- 送到value指定的servlet -->>
+						<!-- 送到value指定的servlet -->
 						<form action="<c:url value="/pages/product.controller" />"
 							method="get">
 							<ul>
@@ -845,13 +831,11 @@
 		src="<%=request.getContextPath()%>/homePage/js/jquery-ui.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/jquery.slicknav.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/homePage/js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/homePage/js/mixitup.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/homePage/js/main.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/homePage/js/clearInput.js"></script>
+	<script src="<%=request.getContextPath()%>/homePage/js/clearInput.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
