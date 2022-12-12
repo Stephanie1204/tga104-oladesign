@@ -11,5 +11,4 @@ public class Company_MemByCheckVO extends Company_MemVO {
 	public void setIsMemberHasCom(Boolean isMemberHasCom) {
 		this.isMemberHasCom = isMemberHasCom;
 	}
-
 }

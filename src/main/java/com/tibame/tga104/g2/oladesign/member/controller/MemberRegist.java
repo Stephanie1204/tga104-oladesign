@@ -19,7 +19,7 @@ import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 import redis.clients.jedis.Jedis;
 
 
-@WebServlet("/front-end/regist-login/registration/MemberRegist")
+@WebServlet("/member/MemberRegist")
 public class MemberRegist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Integer count = 0;
@@ -123,7 +123,7 @@ public class MemberRegist extends HttpServlet {
 				
 				if(!errorMsgs.isEmpty()) {
 					request.setAttribute("memberVO", memberVO);
-					RequestDispatcher errView = request.getRequestDispatcher("/front-end/regist-login/registration/memRegist.jsp");
+					RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
 					errView.forward(request, response);
 					return;
 				}
@@ -137,12 +137,12 @@ public class MemberRegist extends HttpServlet {
 				
 				if(!errorMsgs.isEmpty()) { //判斷帳號已經存在的錯誤
 					request.setAttribute("memberVO", memberVO);
-					RequestDispatcher errView = request.getRequestDispatcher("/front-end/regist-login/registration/memRegist.jsp");
+					RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
 					errView.forward(request, response);
 					return;
 				}
 //				轉交sendMail.jsp
-				String url = "/front-end/regist-login/registration/sendMail.jsp";
+				String url = "/member/sendMail.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 				

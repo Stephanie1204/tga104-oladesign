@@ -19,10 +19,6 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 	private static final String INSERT_STMT = "insert into COMPANY_MEM(COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT) values(?,?,?,?,?,?,?,?)";
 
 	private static final String FIND_BY_MEM_ID = "SELECT COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT,COM_REGDATE FROM TGA104G2.COMPANY_MEM WHERE MEM_ID =?;";
-	
-	private static final String FIND_BY_COM_TAXID = "SELECT STORE_NAME,STORE_INTRO,STORE_LOGO,STORE_BANNER FROM TGA104G2.COMPANY_MEM WHERE COM_TAXID =?";
-	
-	private static final String INSERT_SHOP = "insert into COMPANY_MEM(STORE_NAME,STORE_INTRO,STORE_LOGO,STORE_BANNER) values(?,?,?,?) where COM_TAXID =?";
 
 	private static final String GET_ALL_STMT = "select COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT,STORE_NAME,COM_REGDATE,STORE_INTRO,STORE_LOGO,STORE_BANNER from COMPANY_MEM order by COM_TAXID";
 
@@ -172,94 +168,6 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 	}
 	
 	@Override
-	public Company_MemVO findByComtaxId(String comtaxid) {
-
-		Company_MemVO company_memVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USERID, PASSWORD);
-			pstmt = con.prepareStatement(FIND_BY_COM_TAXID);
-
-			pstmt.setString(1, comtaxid);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				company_memVO = new Company_MemVO();
-				company_memVO.setStoreName(rs.getString("STORE_NAME"));
-				company_memVO.setStoreIntro(rs.getString("STORE_INTRO"));
-				company_memVO.setStoreLogo(rs.getBytes("STORE_LOGO"));
-				company_memVO.setStoreBanner(rs.getBytes("STORE_BANNER"));
-			}
-
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		return company_memVO;
-	}
-	
-	@Override
-	public void insertforshop(Company_MemVO company_memVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USERID, PASSWORD);
-			pstmt = con.prepareStatement(INSERT_SHOP);
-
-			pstmt.setString(1, company_memVO.getStoreName());
-			pstmt.setString(2, company_memVO.getStoreIntro());
-			pstmt.setBytes(3, company_memVO.getStoreLogo());
-			pstmt.setBytes(4, company_memVO.getStoreBanner());
-			pstmt.setString(5, company_memVO.getComTaxId());
-			pstmt.executeUpdate();
-
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-
-
-	@Override
 	public void updateforshop(Company_MemVO company_memVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -387,6 +295,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 
 		return company_memVO;
 	}
+	
 
 	@Override
 	public List<Company_MemVO> getAll() {
