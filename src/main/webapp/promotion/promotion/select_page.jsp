@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ page import="com.tibame.tga104.g2.oladesign.promotion.controller.*"%> --%>
 
 <html>
 <head>
@@ -75,16 +76,16 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="promoSvc" scope="page" class="com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoService" />
+<%--   <jsp:useBean id="promoSvc" scope="page" class="com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoService" /> --%>
  
-   
+  
   <li>
      <FORM METHOD="post" ACTION="promo.do" >
        <b>選擇促銷專案編號:</b>
        <select name="promoId">
-         <c:forEach var="promoVO" items="${promoSvc.all}" > 
+         <c:forEach var="promoVO" items="${testServlet.xxx}" > 
           <option value="${promoVO.promoId}">${promoVO.promoId}
-         </c:forEach>   
+         </c:forEach> 
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
@@ -117,7 +118,7 @@
 <h3>商品促銷專案查詢:</h3>
 <ul>
 	<li>
-	    <FORM METHOD="post" ACTION="promoItem.do" >
+	    <FORM METHOD="post" ACTION="/oladesign/promoItem.do" >
 	        <b>輸入商品編號 :</b>
 	        <input type="text" name="prodId" value="${param.prodId}" placeholder="請輸入完整商品編號"><font color=red>${errorMsgs.prodId}</font>
 	        <input type="hidden" name="action" value="getOneForDisplay_byProdID">

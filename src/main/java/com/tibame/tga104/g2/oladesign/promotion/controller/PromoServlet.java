@@ -19,7 +19,7 @@ import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoService;
 import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoVO;
 
 
-@WebServlet(name="PromoServlet",urlPatterns="/promotion/promo.do")
+@WebServlet("/promo.do")
 public class PromoServlet extends HttpServlet {
 
 	private PromoService promoSvc;
@@ -28,6 +28,7 @@ public class PromoServlet extends HttpServlet {
 		ApplicationContext context = (ApplicationContext)
 				application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 		this.promoSvc = context.getBean("promoService", PromoService.class);
+		
 	}
 	
 	@Override
@@ -41,6 +42,8 @@ public class PromoServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
+		System.out.println("hello");
+		
 //=====================查資料======================================================================================
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
@@ -53,12 +56,11 @@ public class PromoServlet extends HttpServlet {
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.put("promoId","請輸入促銷專案編號");
 				}
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/promotion/select_page.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;
 				}
 				
 				Integer promoId = null;
@@ -67,12 +69,11 @@ public class PromoServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.put("promoId","促銷專案編號格式不正確");
 				}
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/promotion/select_page.jsp");
 					failureView.forward(req, res);
-					return;//程式中斷
+					return;
 				}
 				
 				/***************************2.開始查詢資料*****************************************/

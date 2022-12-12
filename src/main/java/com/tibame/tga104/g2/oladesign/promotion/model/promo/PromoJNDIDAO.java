@@ -4,13 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +26,10 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 //			e.printStackTrace();
 //		}
 //	}
+	
+public PromoJNDIDAO() {
+	System.out.println("PromoJNDIDAO init");
+}
 
 	private static final String INSERT_STMT = " insert into PROMOTION(COM_TAXID, PROMO_NAME, START_DATE, END_DATE, COUPON) values(?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "select * from PROMOTION order by PROMO_ID desc"; // 反序排

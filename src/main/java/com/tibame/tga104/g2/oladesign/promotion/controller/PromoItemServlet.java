@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoVO;
 import com.tibame.tga104.g2.oladesign.promotion.model.promoItem.PromoItemService;
 import com.tibame.tga104.g2.oladesign.promotion.model.promoItem.PromoItemVO;
 
-
+@WebServlet("/promoItems.do")
 public class PromoItemServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
