@@ -1,7 +1,10 @@
 package com.tibame.tga104.g2.oladesign.product.model.product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import redis.clients.jedis.Jedis;
 
 
@@ -17,9 +20,12 @@ public class ProductDAORedis implements ProductDAO_Cart {
 
 		result = new ArrayList<ProductBean>();
 
-		for (String prodId : jedis.smembers(userId + ":" + comTaxId)) {
-//			System.out.println(prodId);
-			result.add(productDao.selectByProdId(Integer.parseInt(prodId)));
+		for (String prodId : jedis.zrange(userId + ":" + comTaxId, 0, -1)) {
+			System.out.println(prodId);
+			ProductBean bean = new ProductBean();
+			bean = productDao.selectByProdId(Integer.parseInt(prodId));
+			bean.setCartQuantity(jedis.zscore(userId + ":" + comTaxId, prodId).intValue());
+			result.add(bean);
 		}
 		jedis.close();
 		return result;
@@ -42,10 +48,25 @@ public class ProductDAORedis implements ProductDAO_Cart {
 		return result;
 	}
 
-	public void insert(String userId, String comTaxId, int productId) {
+	public void updateFromCart(String userId, String comTaxId, int productId, int quantity) {
 		Jedis jedis = new Jedis("localhost", 6379);
+		
+		Map<String, Double> userCart = new HashMap<>();
+		userCart.put(Integer.toString(productId), new Double(quantity));
+		
+		jedis.zadd(userId + ":" + comTaxId, userCart);
+		jedis.sadd(userId + "_buyFrom", comTaxId);
 
-		jedis.sadd(userId + ":" + comTaxId, Integer.toString(productId));
+		jedis.close();
+	}
+	
+	public void insert(String userId, String comTaxId, int productId, int quantity) {
+		Jedis jedis = new Jedis("localhost", 6379);
+		
+		Map<String, Double> userCart = new HashMap<>();
+		userCart.put(Integer.toString(productId), new Double(quantity));
+		
+		jedis.zadd(userId + ":" + comTaxId, userCart);
 		jedis.sadd(userId + "_buyFrom", comTaxId);
 
 		jedis.close();
@@ -54,8 +75,8 @@ public class ProductDAORedis implements ProductDAO_Cart {
 	public void deleteFromCart(String userId, String comTaxId, int productId) {
 		Jedis jedis = new Jedis("localhost", 6379);
 		System.out.println("delete");
-		jedis.srem(userId + ":" + comTaxId, Integer.toString(productId));
-		if(jedis.scard(userId + ":" + comTaxId) <= 0) {
+		jedis.zrem(userId + ":" + comTaxId, Integer.toString(productId));
+		if(jedis.zcard(userId + ":" + comTaxId) <= 0) {
 			jedis.srem(userId + "_buyFrom", comTaxId);
 		}
 		

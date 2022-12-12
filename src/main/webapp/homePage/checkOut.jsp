@@ -2,14 +2,31 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ page import="java.util.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
+<%
+ProductService prodSvc = new ProductService();
+String userId = "220001";
+if (userId != null) {
+
+	List<String> cartProductSaler = prodSvc.selectSaler(userId);
+
+	pageContext.setAttribute("saler", cartProductSaler);
+	pageContext.setAttribute("userId", userId);
+
+}
+%>
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="description" content="Ogani Template" />
-<meta name="keywords" content="Ogani, unica, creative, html" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<meta charset="UTF-8">
+<meta name="description" content="Ogani Template">
+<meta name="keywords" content="Ogani, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Ogani | Template</title>
 
 <!-- Google Font -->
@@ -42,9 +59,6 @@
 	type="text/css" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/conditionBar.css"
-	type="text/css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/results.css"
 	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -171,105 +185,160 @@
 	</header>
 	<!-- Header Section End -->
 
-	<!-- Hero Section Begin -->
-	<!-- middle part(all department and the big picture in the middle) -->
-	<section class="hero">
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg"
+		data-setbg="img/breadcrumb.jpg">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3">
-					<div class="hero__categories">
-						<div class="hero__categories__all">
-							<i class="fa fa-bars"></i> <span>條件篩選</span>
-						</div>
-						<form action="<c:url value="/pages/product.controller" />"
-							method="get">
-							<ul>
-								<div class="conditions">
-									<label for="typeCode">商品類別 </label>
-									<jsp:useBean id="typeSvc" scope="page"
-										class="com.tibame.tga104.g2.oladesign.product.model.type.TypeService" />
-									<select id="type" size="1" name="typeCode">
-										<option value="">無
-											<c:forEach var="typeBean" items="${typeSvc.getAll()}">
-												<option value="${typeBean.typeCode}">${typeBean.typeName}
-											</c:forEach>
-									</select>
-								</div>
-
-								<div class="conditions">
-									<label for="styleCode">商品風格 </label>
-									<jsp:useBean id="styleSvc" scope="page"
-										class="com.tibame.tga104.g2.oladesign.product.model.style.StyleService" />
-									<select id="style" size="1" name="styleCode">
-										<option value="">無
-											<c:forEach var="styleBean" items="${styleSvc.getAll()}">
-												<option value="${styleBean.styleCode}">${styleBean.styleName}
-											</c:forEach>
-									</select>
-								</div>
-
-								<div class="conditions">
-									<label for="price">價格(以下) </label> <input type="text"
-										name="price" value="${param.price}">
-								</div>
-								<span class="error">${errors.price}</span>
-								<div class="btn-submit">
-									<input type="submit" name="prodaction" value="Select">
-									<!-- 傳送select參數給action指向的servlet -->
-									<input type="button" id="btn-clear" value="Clear">
-								</div>
-							</ul>
-						</form>
-					</div>
-				</div>
-				<!-- the searh input part -->
-				<div class="col-lg-9">
-					<!-- big picture with vege and fruits in the middle -->
-					<div class="hero__item set-bg"
-						data-setbg="<%=request.getContextPath()%>/homePage/img/hero/banner.jpg">
-						<div class="hero__text">
-							<span>FRUIT FRESH</span>
-							<h2>
-								Vegetable <br />100% Organic
-							</h2>
-							<p>Free Pickup and Delivery Available</p>
-							<a href="#" class="primary-btn">SHOP NOW</a>
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>Checkout</h2>
+						<div class="breadcrumb__option">
+							<a href="<%=request.getContextPath()%>/homePage/index.jsp">Home</a>
+							<span>Checkout</span>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- Hero Section End -->
-	<section class="products">
+	<!-- Breadcrumb Section End -->
+
+	<!-- Checkout Section Begin -->
+	<section class="checkout spad">
 		<div class="container">
-			<h3>${fn:length(select)}項搜尋結果</h3>
-			<input type="hidden" name="result" id="resultNum"
-				value="${fn:length(select)}">
-
-			<c:if test="${not empty select}">
-				<div
-					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
-					<c:forEach var="row" items="${select}">
-						<div class="col">
-							<a
-								href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
-								class="results">
-
-
-								<div class="img_contents">
-									<img src="${row.productImgBase64}">
+			<div class="checkout__form">
+				<h4>Billing Details</h4>
+				<form action="#">
+					<div class="row">
+						<div class="col-lg-8 col-md-6">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											Fist Name<span>*</span>
+										</p>
+										<input type="text">
+									</div>
 								</div>
-
-								<div class="product_name">${row.getName()}</div>
-							</a>
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											Last Name<span>*</span>
+										</p>
+										<input type="text">
+									</div>
+								</div>
+							</div>
+							<div class="checkout__input">
+								<p>
+									Country<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<div class="checkout__input">
+								<p>
+									Address<span>*</span>
+								</p>
+								<input type="text" placeholder="Street Address"
+									class="checkout__input__add"> <input type="text"
+									placeholder="Apartment, suite, unite ect (optinal)">
+							</div>
+							<div class="checkout__input">
+								<p>
+									Town/City<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<div class="checkout__input">
+								<p>
+									Country/State<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<div class="checkout__input">
+								<p>
+									Postcode / ZIP<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											Phone<span>*</span>
+										</p>
+										<input type="text">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											Email<span>*</span>
+										</p>
+										<input type="text">
+									</div>
+								</div>
+							</div>
+							<div class="btn-submit">
+								<!-- 傳送select參數給action指向的servlet -->
+								<input type="button" id="btn-clear" value="Clear">
+							</div>
 						</div>
-					</c:forEach>
-				</div>
-			</c:if>
+						<div class="col-lg-4 col-md-6">
+							<div class="checkout__order">
+								<h4>Your Order</h4>
+								<div class="checkout__order__products">
+									Products <span>Total</span>
+								</div>
+								<ul>
+									<c:if test="${not empty saler}">
+										<c:forEach var="row_saler" items="${saler}">
+											<jsp:useBean id="proSvc" scope="page"
+												class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
+											<c:forEach var="row_product"
+												items="${proSvc.selectCart(userId, row_saler)}">
+												<li id="productName">${ row_product.name }</li>
+												<li>數量${row_product.cartQuantity }<span>$${
+														row_product.price * row_product.cartQuantity}</span>
+												</li>
+											</c:forEach>
+											<span>--------------------------</span>
+										</c:forEach>
+									</c:if>
+								</ul>
+								<div class="checkout__order__subtotal">
+									Subtotal <span>$750.99</span>
+								</div>
+								<div class="checkout__order__total">
+									Total <span>$750.99</span>
+								</div>
+								<div class="checkout__input__checkbox">
+									<label for="acc-or"> Create an account? <input
+										type="checkbox" id="acc-or"> <span class="checkmark"></span>
+									</label>
+								</div>
+								<p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do
+									eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<div class="checkout__input__checkbox">
+									<label for="payment"> Check Payment <input
+										type="checkbox" id="payment"> <span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="checkout__input__checkbox">
+									<label for="paypal"> Paypal <input type="checkbox"
+										id="paypal"> <span class="checkmark"></span>
+									</label>
+								</div>
+								<button type="submit" class="site-btn">PLACE ORDER</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</section>
-
+	<!-- Checkout Section End -->
 
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
@@ -278,8 +347,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="footer__about">
 						<div class="footer__about__logo">
-							<a href="./index.html"><img
-								src="<%=request.getContextPath()%>/homePage/img/logo.png" alt="" /></a>
+							<a href="./index.html"><img src="img/logo.png" alt=""></a>
 						</div>
 						<ul>
 							<li>Address: 60-49 Road 11378 New York</li>
@@ -315,7 +383,7 @@
 						<p>Get E-mail updates about our latest shop and special
 							offers.</p>
 						<form action="#">
-							<input type="text" placeholder="Enter your mail" />
+							<input type="text" placeholder="Enter your mail">
 							<button type="submit" class="site-btn">Subscribe</button>
 						</form>
 						<div class="footer__widget__social">
@@ -344,9 +412,7 @@
 							</p>
 						</div>
 						<div class="footer__copyright__payment">
-							<img
-								src="<%=request.getContextPath()%>/homePage/img/payment-item.png"
-								alt="" />
+							<img src="img/payment-item.png" alt="">
 						</div>
 					</div>
 				</div>
@@ -374,5 +440,9 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
+
+
+
 </body>
+
 </html>

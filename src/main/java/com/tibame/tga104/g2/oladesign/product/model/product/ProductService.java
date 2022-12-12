@@ -109,10 +109,16 @@ public class ProductService {
 		return result;
 	}
 	
-	public void insertCart(String comTaxId, int productId){
+	public void updateFromCart(String comTaxId, int productId, int quantity){
 		String userId = "220001";		
  
-		productDao_Cart.insert(userId, comTaxId, productId); 
+		productDao_Cart.updateFromCart(userId, comTaxId, productId, quantity); 
+	}
+	
+	public void insertCart(String comTaxId, int productId, int quantity){
+		String userId = "220001";		
+ 
+		productDao_Cart.insert(userId, comTaxId, productId, quantity); 
 	}
 	
 	public void deleteFromCart(String comTaxId, int productId){

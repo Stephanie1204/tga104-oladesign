@@ -8,10 +8,12 @@ public interface ProductDAO_Cart {
 	
 	public abstract List<String> selectSaler(String userId);
 	
-	public abstract void insert(String userId, String comTaxId, int productId);
+	public abstract void updateFromCart(String userId, String comTaxId, int productId, int quantity);
+	
+	public abstract void insert(String userId, String comTaxId, int productId, int quantity);
 	
 	public abstract void deleteFromCart(String userId, String comTaxId, int productId);
 	
-	public abstract void deleteFromCart(String userI);
+	public abstract void deleteFromCart(String userId);
 	
 }
