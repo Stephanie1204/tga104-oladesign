@@ -37,26 +37,6 @@ public class Company_MemService {
 		return dao.findByMemId(memId);
 	}
 
-	// 單一查詢:確認該會員是否已建立廠商資料
-	public Company_MemVO doGetCompanyMemByTaxId(String comtaxid) {
-		if (!(comtaxid == null)) {
-			return dao.findByMemId(comtaxid);
-		}
-		return null;
-	}
-
-	// 新增賣家介紹
-	public Company_MemVO addCompany_Mem(String storename, String storeintro,
-			byte[] storelogo, byte[] storebanner) {
-		Company_MemVO company_memVO = new Company_MemVO();
-		company_memVO.setStoreName(storename);
-		company_memVO.setStoreIntro(storeintro);
-		company_memVO.setStoreLogo(storelogo);
-		company_memVO.setStoreBanner(storebanner);
-		dao.insertforshop(company_memVO);
-		return company_memVO;
-	}
-
 	// 修改廠商資料
 	public Company_MemVO updateCompany_Mem(String comtaxid, Integer memid,
 			String comname, String comaddress, String comphone, String comowner,
@@ -76,14 +56,15 @@ public class Company_MemService {
 	}
 
 	// 修改賣家介紹
-	public Company_MemVO updateCompany_Mem(String storename, String storeintro,
+	public Company_MemVO updateforshop(String comtaxid,String storename, String storeintro,
 			byte[] storelogo, byte[] storebanner) {
 		Company_MemVO company_memVO = new Company_MemVO();
+		company_memVO.setComTaxId(comtaxid);
 		company_memVO.setStoreName(storename);
 		company_memVO.setStoreIntro(storeintro);
 		company_memVO.setStoreLogo(storelogo);
 		company_memVO.setStoreBanner(storebanner);
-		dao.update(company_memVO);
+		dao.updateforshop(company_memVO);
 		return company_memVO;
 
 	}

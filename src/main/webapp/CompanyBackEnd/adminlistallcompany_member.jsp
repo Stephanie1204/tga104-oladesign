@@ -72,7 +72,7 @@
 
 			<!-- 内容头部 -->
 			<section class="content-header">
-				<h1>廣告資料</h1>
+				<h1>廠商資料</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i
 							class="fa fa-dashboard"></i> </a></li>
@@ -126,13 +126,15 @@
 										<th class="" style="padding-right: 0px;"><input
 											id="selall" type="checkbox" class="icheckbox_square-blue">
 										</th>
-										<th class="sorting_asc">廣告編號</th>
-										<th class="sorting">公司統編</th>
-										<th class="sorting">廣告導入連結</th>
-										<th class="sorting">廣告開始日期</th>
-										<th class="sorting">廣告結束日期</th>
-										<th class="sorting">廣告圖片</th>
-										<th class="sorting">廣告狀態</th>
+										<th class="sorting_asc">公司統編</th>
+										<th class="sorting">會員編號</th>
+										<th class="sorting">公司名稱</th>
+										<th class="sorting">公司地址</th>
+										<th class="sorting">公司電話</th>
+										<th class="sorting">負責人</th>
+										<th class="sorting">負責人手機號碼</th>
+										<th class="sorting">銀行帳戶</th>
+										<th class="sorting">賣場名稱</th>
 										<th class="text-center">審核</th>
 									</tr>
 								</thead>
@@ -145,13 +147,17 @@
 
 									<tr>
 										<td><input name="ids" type="checkbox"></td>
-										<td>${advertisementVO.getAdId()}</td>
-										<td>${advertisementVO.getComTaxId()}</td>
-										<td>${advertisementVO.getStoreLink()}</td>
-										<td>${advertisementVO.getStartDate()}</td>
-										<td>${advertisementVO.getEndDate()}</td>
-										<td><img src="${advertisementVO.getAdImagesString()}"></td>
-										<td>${advertisementVO.getAdStatus()}</td>
+											<td>${company_memVO.comTaxid}</td>
+											<td>${company_memVO.memId}</td>
+											<td>${company_memVO.comName}</td>
+											<td>${company_memVO.comAddress}</td>
+											<td>${company_memVO.comPhone}</td>
+											<td>${company_memVO.comOwner}</td> 
+											<td>${company_memVO.ownerPhone}</td> 
+											<td>${company_memVO.comBankaccount}</td>
+											<td>${company_memVO.storeName}</td>
+											<td>${company_memVO.comRegdate}</td>
+											<td>${company_memVO.storeIntro}</td>    
 
 										<td class="text-center">
 											<button type="button" class="btn bg-olive btn-xs"

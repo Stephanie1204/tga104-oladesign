@@ -86,7 +86,12 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 								<div class="box-body">
 								
 									<div class="form-group">
-										<label for="com_taxid">統一編號<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="com_taxid" id="com_taxid" />
+										<label for="com_taxid">統一編號<font color=red><b>*</b></font></label> 
+										<input type="text" class="form-control" name="com_taxid" id="com_taxid" value="23045921" />
+									</div>
+									
+									<div class="form-group">
+										<label for="mem_id">會員編號<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="mem_id" id="mem_id" />
 									</div>
 									
 									<div class="form-group">
@@ -117,8 +122,12 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 									</div>
 
 									<div class="box-footer">
-										<input type="hidden" name="action" value="insertforshop"> <input type="submit" value="儲存" class="btn btn-primary"> 
-										
+										<input type="hidden" name="action" value=""> 
+										 <input type="submit" value="儲存" class="btn btn-primary"id="updateshop_save" disabled/>
+										<input type="button"value="修改資料" class="btn btn-primary" id="updateshop" > 
+										<input type="button" value="取消修改" class="btn btn-primary" id="cancle_updateshop"
+											style="display: none">
+
 									</div>
 								</div>
 								<!--/.col (left) -->
@@ -199,25 +208,47 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
             });
 
   	       //資料先寫死,合在一起之後要改
-            $("#com_taxid").val("23045921").attr('readonly', true);
-            
-            $.ajax({
-                type : 'POST',
-                url : 'http://localhost:8081/TGA104G2/back-end/company_member/pages/company_memberdo?action=doSetStoreInfo&comtaxId=23045921',
-                success : function (data, status, xhr) {
-                    var dataJson = JSON.parse(data);
+           $("#com_taxid").val("23045921").attr('readonly', true);
+           $("#mem_id").val("220020").attr('readonly', true);
 
-                    if (dataJson.isMemberHasCom) {
-                        // 開始set 資料
-                        $("#store_name").val(dataJson.comTaxId).attr('readonly', true);
-                        $("#store_intro").val(dataJson.comPhone).attr('readonly', true);
-                        $("#store_logo").val(dataJson.comName).attr('readonly', true);
-                        $("#store_banner").val(dataJson.comAddress).attr('readonly', true);
-                        $("#update_save").attr('disabled', 'disabled');
-                    }
-                }
-            });
-
+  	       
+	        $("#updateshop").on("click", ()=>{
+	            doSetForm(false);
+	        });
+	
+			$("#cancle_updateshop").on("click", ()=>{
+	            doSetForm(true);      				
+			})
+			
+	        function doSetForm(trueorfalse){
+	            $("#store_name").attr('readonly', trueorfalse);
+	            $("#store_logo").attr('readonly', trueorfalse);
+	            $("#store_banner").attr('readonly', trueorfalse);
+	            $("#updateshop_save").attr('disabled', trueorfalse?'disabled' : null);
+	            $("#action").val(trueorfalse?"insertforshop":"updateshop_save"); // 要把action改成update，才不會重複inser
+	            
+	            if(trueorfalse){
+					$("#updateshop").show();
+					$("#cancle_updateshop").hide();
+		            $("#store_logo").hide();
+		            $("#store_banner").hide();
+	            }else{
+	            	$("#updateshop").hide();
+	            	$("#cancle_updateshop").show();
+		            $("#store_logo").show();
+		            $("#store_banner").show();
+	            }
+	        }
+  	       
+  	       
+  	       
+  	       
+  	       
+  	       
+  	       
+  	       
+  	       
+          
         });
 
         // 设置激活菜单

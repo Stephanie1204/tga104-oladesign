@@ -16,7 +16,6 @@ import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tibame.tga104.g2.oladesign.CompanyCommon.MemberCheckService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemByCheckVO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
@@ -42,15 +41,14 @@ public class Company_MemServlet extends HttpServlet {
 			String memId = req.getParameter("memId");
 
 			// init
-//			MemberCheckService memberService = new MemberCheckService();
 			Company_MemVO company_MemVO = new Company_MemVO();
 			Company_MemByCheckVO result = new Company_MemByCheckVO();
 
 //			// 判斷該會員是否有廠商設定
-//			Boolean isMemberHasCom = memberService.doCheckMemberHasCom(memId);
 			Company_MemService company_memSvc = new Company_MemService();
 			company_MemVO = company_memSvc.doGetCompanyMemByMemId(memId);
 
+			// 如有廠商則設定VO
 			if (company_MemVO == null) {
 				result.setIsMemberHasCom(false);
 			} else {
@@ -65,22 +63,6 @@ public class Company_MemServlet extends HttpServlet {
 				result.setComRegdate(company_MemVO.getComRegdate());
 				result.setIsMemberHasCom(true);
 			}
-
-			// 如有廠商，則設定廠商VO
-//			if (isMemberHasCom) {
-//
-//				result.setComTaxId(company_membycheckVO.getComTaxId());
-//				result.setMemId(company_membycheckVO.getMemId());
-//				result.setComName(company_membycheckVO.getComName());
-//				result.setComAddress(company_membycheckVO.getComAddress());
-//				result.setComPhone(company_membycheckVO.getComPhone());
-//				result.setComOwner(company_membycheckVO.getComOwner());
-//				result.setOwnerPhone(company_membycheckVO.getOwnerPhone());
-//				result.setComBankaccount(company_membycheckVO.getComBankaccount());
-//				result.setComRegdate(company_membycheckVO.getComRegdate());
-//			}
-
-//			result.setIsMemberHasCom(isMemberHasCom);
 
 			// 準備res
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -241,46 +223,41 @@ public class Company_MemServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
-		if ("doSetStoreInfo".equals(action)) {
-			String comtaxId = req.getParameter("comtaxId");
-
-			PrintWriter pw = res.getWriter();
-
-			Company_MemService company_memSvc = new Company_MemService();
-			if ((company_memSvc.doGetCompanyMemByTaxId(comtaxId)) != null) {
-				Company_MemVO company_memVO = new Company_MemVO();
-				company_memVO = company_memSvc.doGetCompanyMemByTaxId(comtaxId);
-				pw.write("{\"isComHasStore\": " + company_memVO);
-				byte[] store_logo_bytes = null;
-				byte[] store_banner_bytes = null;
-				// 賣場logo
-				Part store_logo = req.getPart("store_logo");
-				store_logo_bytes = store_logo.getInputStream().readAllBytes();
-				store_logo_bytes = store_logo_bytes.length == 0 ? null : store_logo_bytes;
-				// 賣場Banner
-				Part store_banner = req.getPart("store_banner");
-				store_banner_bytes = store_banner.getInputStream().readAllBytes();
-				store_banner_bytes = store_banner_bytes.length == 0 ? null : store_banner_bytes;
-
-				pw.write(", \"comTaxId\": \"" + company_memVO.getComTaxId() + "\"");
-				pw.write(", \"store_name\": \"" + company_memVO.getStoreName() + "\"");
-				pw.write(", \"store_intro\": \"" + company_memVO.getStoreIntro() + "\"");
-				pw.write(", \"store_logo\": \"" + company_memVO.getStoreLogoString() + "\"");
-				pw.write(", \"store_banner\": \"" + company_memVO.getStoreBannerString() + "\"");
-			}
-
-			pw.write("}");
-
-			// 寫好RS給AJAX
-			pw.flush();
-		}
-
-		if ("insertforshop".equals(action)) {
+		if ("selectforshop".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			/******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
+			String com_taxid = req.getParameter("com_taxid");
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/listonecompany_forshop.jsp");
+				failureView.forward(req, res);
+				return; // 下面的程式不執行
+			}
+			/************************ Contoller第二步開始查詢資料 ****************/
+			Company_MemService company_memSvc = new Company_MemService();
+			Company_MemVO company_memVO = company_memSvc.getOneCompany_Mem(com_taxid);
+			// 如果在company_memVO找不到資料,回傳"查無資料"用forward跳回原本的頁面
+			if (company_memVO == null) {
+				errorMsgs.add("查無資料");
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/listonecompany_forshop.jsp");
+				failureView.forward(req, res);
+				return; // 下面的程式不執行
+			}
+			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
+			req.setAttribute("company_memVO", company_memVO); // 資料庫取出的company_memVO物件,存入req
+			String url = "/CompanyBackEnd/listonecompany_forshop.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 
+		}
+
+		if ("updateshop_save".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
+			String com_taxid = req.getParameter("com_taxid");
 			// 賣場名稱
 			String store_name = req.getParameter("store_name");
 			String store_nameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,100}$";
@@ -302,6 +279,7 @@ public class Company_MemServlet extends HttpServlet {
 			Part store_logo = req.getPart("store_logo");
 			store_logo_bytes = store_logo.getInputStream().readAllBytes();
 			store_logo_bytes = store_logo_bytes.length == 0 ? null : store_logo_bytes;
+			// 如果沒有圖片回傳null,如果有圖片傳該圖的byte[]
 			// 賣場Banner
 			Part store_banner = req.getPart("store_banner");
 			store_banner_bytes = store_banner.getInputStream().readAllBytes();
@@ -312,99 +290,22 @@ public class Company_MemServlet extends HttpServlet {
 			company_memVO.setStoreIntro(store_intro);
 			company_memVO.setStoreLogo(store_logo_bytes);
 			company_memVO.setStoreBanner(store_banner_bytes);
-			/*************************
-			 * 如有錯誤將forward回修改頁面
-			 **************************/
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("company_memVO", company_memVO); // 含有輸入格式錯誤的company_memVO物件,也存入req
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/company_member/pages/setcompany_forshop.jsp");
+				req.setAttribute("company_memVO", company_memVO); //
+				// 含有輸入格式錯誤的company_memVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/listonecompany_forshop.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
-			/************************
-			 * Contoller第二步開始查詢資料
-			 ************************/
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.addCompany_Mem(store_name, store_intro, store_logo_bytes, store_banner_bytes);
-			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
+			company_memSvc.updateforshop(com_taxid, store_name, store_intro, store_logo_bytes, store_banner_bytes);
+			company_memVO = company_memSvc.getOneCompany_Mem(com_taxid);
+
 			req.setAttribute("company_memVO", company_memVO);
-			String url = "/CompanyBackEnd/pages/listonecompany_forshop.jsp";
+			String url = "/CompanyBackEnd/listonecompany_forshop.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
-			/*************************
-			 * 處理來自listAll.page的刪除需求
-			 ********************/
-
 		}
-
-		// if ("updateforcompany".equals(action)) {
-		// List<String> errorMsgs = new LinkedList<String>();
-		// req.setAttribute("errorMsgs", errorMsgs);
-		//
-		// /******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
-		//
-		// // 賣場名稱
-		// String store_name = req.getParameter("store_name");
-		// String store_nameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,100}$";
-		// if (store_name == null || store_name.trim().length() == 0) {
-		// errorMsgs.add("賣場名稱請勿空白");
-		// } else if (!store_name.trim().matches(store_nameReg)) {
-		// errorMsgs.add("賣場名稱：只能是中、英文,且長度需在2-100之間");
-		// }
-		// // 賣場簡介
-		// String store_intro = req.getParameter("store_intro");
-		// String store_introReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,2000}$";
-		// if (!"".equals(com_bankaccount.trim()) &&
-		// !store_name.trim().matches(store_nameReg)) {
-		// errorMsgs.add("賣場簡介：只能是中、英文,且長度需在2-1000之間");
-		// }
-		//
-		// byte[] store_logo_bytes = null;
-		// byte[] store_banner_bytes = null;
-		// // 賣場logo
-		// Part store_logo = req.getPart("store_logo");
-		// store_logo_bytes = store_logo.getInputStream().readAllBytes();
-		// store_logo_bytes = store_logo_bytes.length == 0 ? null :
-		// store_logo_bytes;
-		// //如果沒有圖片回傳null,如果有圖片傳該圖的byte[]
-		// // 賣場Banner
-		// Part store_banner = req.getPart("store_banner");
-		// store_banner_bytes = store_banner.getInputStream().readAllBytes();
-		// store_banner_bytes = store_banner_bytes.length == 0 ? null :
-		// store_banner_bytes;
-		//
-		// Company_MemVO company_memVO = new Company_MemVO();
-		// company_memVO.setStoreName(store_name);
-		// company_memVO.setStoreIntro(store_intro);
-		// company_memVO.setStoreLogo(store_logo_bytes);
-		// company_memVO.setStoreBanner(store_banner_bytes);
-		// /************************* 如有錯誤將forward回修改頁面
-		// **************************/
-		// if (!errorMsgs.isEmpty()) {
-		// req.setAttribute("company_memVO", company_memVO); //
-		// 含有輸入格式錯誤的company_memVO物件,也存入req
-		// RequestDispatcher failureView = req
-		// .getRequestDispatcher("/back-end/company_member/updatecompany_member.jsp");
-		// failureView.forward(req, res);
-		// return; // 程式中斷
-		// }
-		// /************************ Contoller第二步開始查詢資料
-		// ************************/
-		// Company_MemService company_memSvc = new Company_MemService();
-		// company_memSvc.updateCompany_Mem(store_name, store_intro,
-		// store_logo_bytes,
-		// store_banner_bytes);
-		// /************************ Contoller第三步開始查詢完成,準備轉交 ****************/
-		// company_memVO = company_memSvc.getOneCompany_Mem(com_taxid);
-		//
-		//
-		// req.setAttribute("company_memVO", company_memVO);
-		// String url =
-		// "/back-end/company_member/pages/listOnecompany_member.jsp";
-		// RequestDispatcher successView = req.getRequestDispatcher(url);
-		// successView.forward(req, res);
-		// }
 
 		/************************* 處理select.page的需求 **************************/
 //		if ("getOne_For_Display".equals(action)) {

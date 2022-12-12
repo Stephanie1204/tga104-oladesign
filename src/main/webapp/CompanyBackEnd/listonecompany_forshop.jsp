@@ -81,22 +81,28 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 								</div>
 								<!-- /.box-header -->
 								<div class="box-body">
-																		<div class="form-group">
-										<label for="store_name">賣場名稱</label>
-										<input type="text" readonly="readonly" class="form-control" name="store_name"
-											id="store_name"
-											value="${company_memVO.getStoreName()}"/>
+									<div class="form-group">
+										<label for="com_taxid">統一編號<font color=red><b>*</b></font></label> 
+										<input type="text" class="form-control" name="com_taxid" id="com_taxid" value="23045921" />
+									</div>
+									
+									<div class="form-group">
+										<label for="mem_id">會員編號<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="mem_id" id="mem_id" />
+									</div>
+
+									<div class="form-group">
+										<label for="store_name">賣場名稱<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="store_name"
+											id="store_name" value="${(company_memVO == null) ? '' : company_memVO.getStoreName()}" />
 									</div>
 									<div class="form-group">
-										<label for="store_intro">賣場簡介</label>
-										<input type="text" readonly="readonly" class="form-control" name="store_intro"
-											id="store_intro"
-											value="${company_memVO.getStoreIntro()}"/>
+										<label for="store_intro">賣場簡介</label> <input type="text" class="form-control" name="store_intro" id="store_intro"
+											value="${(company_memVO == null) ? '' : company_memVO.getStoreIntro()}" />
 									</div>
 
 									<div class="form-group">
 										<label for="store_logo">賣場Logo</label>
 										<b><img src="${company_memVO.getStoreLogoString()}" width=30%/></b>
+										<input type="file" id="store_logo" name="store_logo" class="upl1" style="display: none;">
 										<br />
 											<p class="help-block"></p>
 									</div>
@@ -104,9 +110,20 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 									<div class="form-group">
 										<label for="store_banner">賣場Banner</label> 
 										<b><img src="${company_memVO.getStoreBannerString()}" width=30% /></b>
+										<input type="file" id="store_banner" name="store_banner" class="upl2" style="display: none;">
 										<p class="help-block"></p>
+										
 									</div>
 									<input type="hidden" name="com_taxid" value="${company_memVO.getComTaxId()}" />
+									
+									<div class="box-footer">
+										<input type="hidden" name="action" value="selectforshop"> 
+										 <input type="submit" value="儲存" class="btn btn-primary"id="updateshop_save" disabled/>
+										<input type="button"value="修改資料" class="btn btn-primary" id="updateshop" > 
+										<input type="button" value="取消修改" class="btn btn-primary" id="cancle_updateshop"
+											style="display: none">
+
+									</div>
 
 								</div>
 								<!--/.col (left) -->
@@ -189,6 +206,42 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			$(".textarea").wysihtml5({
 				locale : 'zh-TW'
 			});
+			
+	  	       //資料先寫死,合在一起之後要改
+	           $("#com_taxid").val("23045921").attr('readonly', true);
+	           $("#mem_id").val("220020").attr('readonly', true);
+
+	  	       
+		        $("#updateshop").on("click", ()=>{
+		            doSetForm(false);
+		        });
+		
+				$("#cancle_updateshop").on("click", ()=>{
+		            doSetForm(true);      				
+				})
+				
+		        function doSetForm(trueorfalse){
+		            $("#store_name").attr('readonly', trueorfalse);
+		            $("#store_intro").attr('readonly', trueorfalse);
+		            $("#updateshop_save").attr('disabled', trueorfalse?'disabled' : null);
+		            $("#action").val(trueorfalse?"selectforshop":"updateshop_save"); // 要把action改成update，才不會重複inser
+		            
+		            if(trueorfalse){
+						$("#updateshop").show();
+						$("#cancle_updateshop").hide();
+			            $("#store_logo").hide();
+			            $("#store_banner").hide();
+		            }else{
+		            	$("#updateshop").hide();
+		            	$("#cancle_updateshop").show();
+			            $("#store_logo").show();
+			            $("#store_banner").show();
+		            }
+		        }
+			
+			
+			
+			
 		});
 
 		// 设置激活菜单

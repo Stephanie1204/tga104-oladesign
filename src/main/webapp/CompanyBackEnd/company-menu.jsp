@@ -37,7 +37,7 @@
 							class="fa fa-circle-o"></i> 賣家基本資料
 					</a></li>
 
-					<li id="form-general"><a href="setcompany_forshop.jsp"> <i
+					<li id="form-general"><a href="listonecompany_forshop.jsp"> <i
 							class="fa fa-circle-o"></i> 賣場管理
 					</a></li>
 
