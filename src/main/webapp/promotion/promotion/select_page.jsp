@@ -83,7 +83,7 @@
      <FORM METHOD="post" ACTION="promo.do" >
        <b>選擇促銷專案編號:</b>
        <select name="promoId">
-         <c:forEach var="promoVO" items="${testServlet.xxx}" > 
+         <c:forEach var="promoVO" items="${xxx}" > 
           <option value="${promoVO.promoId}">${promoVO.promoId}
          </c:forEach> 
        </select>
