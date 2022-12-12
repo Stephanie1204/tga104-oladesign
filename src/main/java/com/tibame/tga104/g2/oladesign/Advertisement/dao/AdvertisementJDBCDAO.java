@@ -298,15 +298,5 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 	return list;
 
     }
-//    public static void main(String[] args) {
-//
-//	AdvertisementJDBCDAO dao = new AdvertisementJDBCDAO();
-//	// 查詢單筆資料---ok
-//	AdvertisementVO advertisementVO = dao.findByPrimaryKey("AD20221206000000009");
-//	System.out.print(advertisementVO.getComTaxId() + ",");
-//	System.out.print(advertisementVO.getStartDate() + ",");
-//	System.out.print(advertisementVO.getEndDate() + ",");
-//	System.out.print(advertisementVO.getAdStatus() + ",");
-//    }
 
 }

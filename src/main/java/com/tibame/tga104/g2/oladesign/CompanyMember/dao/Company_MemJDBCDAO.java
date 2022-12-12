@@ -18,7 +18,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 
 	private static final String INSERT_STMT = "insert into COMPANY_MEM(COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT) values(?,?,?,?,?,?,?,?)";
 
-	private static final String FIND_BY_MEM_ID = "SELECT COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT,COM_REGDATE FROM TGA104G2.COMPANY_MEM WHERE MEM_ID =?;";
+	private static final String FIND_BY_MEM_ID = "SELECT COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT, STORE_NAME,COM_REGDATE,STORE_INTRO,STORE_LOGO,STORE_BANNER FROM TGA104G2.COMPANY_MEM WHERE MEM_ID =?";
 
 	private static final String GET_ALL_STMT = "select COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT,STORE_NAME,COM_REGDATE,STORE_INTRO,STORE_LOGO,STORE_BANNER from COMPANY_MEM order by COM_TAXID";
 
@@ -59,7 +59,11 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 				company_memVO.setComOwner(rs.getString("COM_OWNER"));
 				company_memVO.setOwnerPhone(rs.getString("OWNER_PHONE"));
 				company_memVO.setComBankaccount(rs.getString("COM_BANKACCOUNT"));
+				company_memVO.setStoreName(rs.getString("STORE_NAME"));
 				company_memVO.setComRegdate(rs.getDate("COM_REGDATE"));
+				company_memVO.setStoreIntro(rs.getString("STORE_INTRO"));
+				company_memVO.setStoreLogo(rs.getBytes("STORE_LOGO"));
+				company_memVO.setStoreBanner(rs.getBytes("STORE_BANNER"));
 			}
 
 		} catch (ClassNotFoundException ce) {

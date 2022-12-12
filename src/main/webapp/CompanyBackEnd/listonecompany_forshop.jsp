@@ -12,7 +12,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <!-- 頁面Meta -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>OLA Design 賣家中心</title>
+<title>OLA Design 賣家中心 | 賣場管理 </title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
@@ -72,6 +72,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			<section class="content">
 				<div class="row">
 					<!-- form start -->
+					<form method="post" action="company_memberdo" name="form" enctype="multipart/form-data">
 					<!-- left column -->
 						<div class="col-md-6">
 							<!-- general form elements -->
@@ -117,7 +118,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 									<input type="hidden" name="com_taxid" value="${company_memVO.getComTaxId()}" />
 									
 									<div class="box-footer">
-										<input type="hidden" name="action" value="selectforshop"> 
+										<input type="hidden" name="action" value="updateshop_save"> 
 										 <input type="submit" value="儲存" class="btn btn-primary"id="updateshop_save" disabled/>
 										<input type="button"value="修改資料" class="btn btn-primary" id="updateshop" > 
 										<input type="button" value="取消修改" class="btn btn-primary" id="cancle_updateshop"
@@ -130,13 +131,11 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 							</div>
 							<!-- /.row -->
 						</div>
+					</form>
 				</div>
 			</section>
 			<!-- /.content -->
 		</div>
-
-
-
 		<!-- /.content-wrapper -->
 		<!-- 内容区域 /-->
 		<!-- Ola Design Footer -->
@@ -211,6 +210,26 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	           $("#com_taxid").val("23045921").attr('readonly', true);
 	           $("#mem_id").val("220020").attr('readonly', true);
 
+               // ajax call api to get CompantMembetInfo
+               $.ajax({
+                   type : 'POST',
+                   url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_memberdo?action=doGetStoreInfo&memId=220020',
+                   success : function (data, status, xhr) {
+                       var dataJson = JSON.parse(data);
+
+                       if (dataJson.isMemberHasCom) {
+                           // 開始set 資料
+                           $("#com_taxid").val(dataJson.comTaxId).attr('readonly', true);
+                           $("#mem_id").val(dataJson.memId).attr('readonly', true);
+                           $("#store_name").val(dataJson.storeName).attr('readonly', true);
+                           $("#store_intro").val(dataJson.storeIntro).attr('readonly', true);
+                           $("#store_logo").val(dataJson.storeLogo).attr('readonly', true);
+                           $("#store_banner").val(dataJson.storeBanner).attr('readonly', true);
+                           $("#update_save").attr('disabled', 'disabled');
+                       }
+                   }
+               });
+	           
 	  	       
 		        $("#updateshop").on("click", ()=>{
 		            doSetForm(false);
@@ -224,7 +243,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 		            $("#store_name").attr('readonly', trueorfalse);
 		            $("#store_intro").attr('readonly', trueorfalse);
 		            $("#updateshop_save").attr('disabled', trueorfalse?'disabled' : null);
-		            $("#action").val(trueorfalse?"selectforshop":"updateshop_save"); // 要把action改成update，才不會重複inser
+		            //$("#action").val(trueorfalse?"selectforshop":"updateshop_save"); // 要把action改成update，才不會重複inser
 		            
 		            if(trueorfalse){
 						$("#updateshop").show();
