@@ -19,7 +19,7 @@ public class MemberVO implements Serializable{
 	private Integer point;
 	private boolean isBan;
 	private boolean isCom;
-	private String veriCode;
+	private boolean isActive;
 	private byte[] memPhoto;
 	private String memPhotoBase64;
 	
@@ -28,9 +28,10 @@ public class MemberVO implements Serializable{
 	public String toString() {
 		return "MemberVO [memId=" + memId + ", memName=" + memName + ", account=" + account + ", password=" + password
 				+ ", memPhone=" + memPhone + ", memAddress=" + memAddress + ", memRegdate=" + memRegdate + ", sex="
-				+ sex + ", point=" + point + ", isBan=" + isBan + ", isCom=" + isCom + ", veriCode=" + veriCode
+				+ sex + ", point=" + point + ", isBan=" + isBan + ", isCom=" + isCom + ", isActive=" + isActive
 				+ ", memPhoto=" + Arrays.toString(memPhoto) + "]";
 	}
+	
 	public Integer getMemId() {
 		return memId;
 	}
@@ -97,12 +98,15 @@ public class MemberVO implements Serializable{
 	public void setCom(boolean isCom) {
 		this.isCom = isCom;
 	}
-	public String getVeriCode() {
-		return veriCode;
+	
+	public boolean isActive() {
+		return isActive;
 	}
-	public void setVeriCode(String veriCode) {
-		this.veriCode = veriCode;
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
+
 	public byte[] getMemPhoto() {
 		return memPhoto;
 	}

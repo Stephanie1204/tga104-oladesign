@@ -7,10 +7,15 @@ import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 
 
 public interface MemberDAO {
-	public void insert(MemberVO memberVO);
+	public Integer insert(MemberVO memberVO);
+	
 	public void update(MemberVO memberVO);
+	
 	public void delete(Integer memId);
+	
 	public MemberVO findByPrimaryKey(Integer memId);
+	
+	public MemberVO findByEmail(String account);
 	
 	public List<MemberVO>getAll();
 	
@@ -18,5 +23,5 @@ public interface MemberDAO {
 	
 	public boolean isCheckMail();
 	
-	public void activeMember(String account);
+	public void activeMember(Integer memId, Boolean isActive);
 }
