@@ -5,10 +5,10 @@
 
 	
 <%
-// Object memberVO = request.getAttribute("memberVO");
-// System.out.println("memberVO="+memberVO);
 MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
-System.out.println("memberVO="+memberVO);
+System.out.println("login memberVO="+memberVO);
+String message = (String)request.getAttribute("success");
+System.out.println("message="+message);
 %>	
 <html lang="en">
 <head>
@@ -147,6 +147,10 @@ System.out.println("memberVO="+memberVO);
 	</div>
 
 <!-- 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
-<!-- 	    <script src="./login.js"></script> -->
+	    <script>
+	    	if(<%=message%> == true){
+	    		alert("email驗證成功，現在可以登入使用OLA Design購物了!");
+	    	}
+	    </script>
 </body>
 </html>

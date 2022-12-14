@@ -30,3 +30,7 @@ button.btn:hover{
 h1.reset{
     font-weight: bolder;
 }
+
+div.error li{
+	list-style: none;
+}

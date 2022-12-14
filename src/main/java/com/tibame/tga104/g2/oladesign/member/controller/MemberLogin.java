@@ -1,6 +1,9 @@
 package com.tibame.tga104.g2.oladesign.member.controller;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,10 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
-
 
 
 @WebServlet("/member/MemberLogin")
@@ -52,9 +55,25 @@ public class MemberLogin extends HttpServlet {
 				
 			System.out.println("inputAccount= " + inputAccount);
 			System.out.println("inputPassword= " + inputPassword);
+			
+			MessageDigest md;
+			HexBinaryAdapter hba;
+			String passwordKey = null;
+			try {
+				if(inputPassword != null) {
+					md = MessageDigest.getInstance("SHA-256");
+					//digest方法參數為byte[]
+					byte[] hash = md.digest(inputPassword.getBytes(Charset.forName("UTF-8"))); //將密碼字串以UTF-8的方式轉換為位元組陣列
+					hba = new HexBinaryAdapter();
+					passwordKey = hba.marshal(hash); //將byte[] hash轉換為字串
+				}
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			
 //			比對資料庫
 			MemberService memSvc = new MemberService();
-			MemberVO memberVO = memSvc.memberLogin(inputAccount, inputPassword);
+			MemberVO memberVO = memSvc.memberLogin(inputAccount, passwordKey);
 			
 			if(!errorMsgs.isEmpty()) {
 				request.setAttribute("memberVO", memberVO);
@@ -67,8 +86,11 @@ public class MemberLogin extends HttpServlet {
 			if(memberVO == null) {
 				errorMsgs.add("帳號或密碼錯誤!");
 			}else if(memberVO.isBan()) {
-				System.out.println(memberVO.isBan());
-				errorMsgs.add("您的帳號未被開通，請聯絡客服");
+				System.out.println("isBan = " + memberVO.isBan());
+				errorMsgs.add("您的帳號已被封鎖，請聯絡客服");
+			}else if(!memberVO.isActive()) {
+				System.out.println("isActive= " + memberVO.isActive());
+				errorMsgs.add("您的帳號尚未完成驗證!");
 			}
 			
 			if(!errorMsgs.isEmpty()) {
@@ -84,6 +106,7 @@ public class MemberLogin extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("account", memberVO.getAccount()); //在session內設定已經登入過的標識
 			session.setAttribute("memName", memberVO.getMemName()); //在header顯示登入者姓名
+			session.setAttribute("memberVO", memberVO);
 			
 			try{
 				String location = (String)session.getAttribute("location");
@@ -96,7 +119,7 @@ public class MemberLogin extends HttpServlet {
 				e.printStackTrace();
 			}
 			//無來源網頁重導至首頁
-			response.sendRedirect(request.getContextPath() + "/front-index.jsp");;
+			response.sendRedirect(request.getContextPath() + "/homePage/index.jsp");
 		}
 	}
 }

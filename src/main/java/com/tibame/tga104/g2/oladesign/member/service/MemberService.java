@@ -13,7 +13,7 @@ public class MemberService {
 	private MemberDAO dao;
 	private boolean checkMail = true;
 	
-	public boolean isCheckMail() {
+	public boolean isCheckMail() { //註冊時不能輸入已存在的mail
 		return checkMail;
 	}
 	
@@ -34,7 +34,8 @@ public class MemberService {
 		memberVO.setSex(sex);
 		memberVO.setMemPhoto(memPhoto);
 		memberVO.setMemPhotoBase64(memPhoto); //不作為參數存進memberVO
-		dao.insert(memberVO);
+		Integer memId = dao.insert(memberVO);
+		memberVO.setMemId(memId);
 		if(!dao.isCheckMail()) {
 			this.checkMail = false;
 			System.out.println("mail已經存在");
@@ -74,6 +75,10 @@ public class MemberService {
 		return dao.findByPrimaryKey(memId);
 	}
 	
+	public MemberVO getOneMemberByEmail(String account) {
+		return dao.findByEmail(account);
+	}
+	
 	public List<MemberVO> getAll(){
 		return dao.getAll();
 	}
@@ -82,7 +87,7 @@ public class MemberService {
 		return dao.login(inputAccount, inputPassword);
 	}
 	
-	public void activeMember(String account) {
-		dao.activeMember(account);
+	public void activeMember(Integer memId, Boolean isActive) {
+		dao.activeMember(memId, isActive);
 	}
 }

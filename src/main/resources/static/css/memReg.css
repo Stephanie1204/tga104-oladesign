@@ -93,3 +93,12 @@ button.reg:hover{
 span.error{
 	color: #E86F62;
 }
+
+a.terms{
+	text-decoration: none;
+	color: #007bff;;
+}
+
+a.terms:hover{
+	color: #92AFBF;
+}
