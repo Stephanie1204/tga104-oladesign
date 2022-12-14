@@ -7,24 +7,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
+//	String driver = "com.mysql.cj.jdbc.Driver";
+//	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
+//	String userid = "root";
+//	String passwd = "password";
+	private static DataSource dataSource = null;
 	static {
+		System.out.println("pass jdbc connect");
 		HikariConfig config = new HikariConfig();
 		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
 		config.setUsername("root");
-		config.setPassword("Aa82822232");
+		config.setPassword("password");
+		dataSource = new HikariDataSource(config);
 
-		ds = new HikariDataSource(config);
-		
-//		try {
-//			Context ctx = new InitialContext();
-//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
 	}
+
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO INTERMAIL_QN (NUM_QUE,TYPE) VALUES (?, ?)";
@@ -43,8 +45,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, intermail_qnVO.getNumQue());
@@ -53,11 +54,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -89,8 +86,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 		try {
 
-			Class.forName(config);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, intermail_qnVO.getNumQue());
@@ -99,10 +95,6 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -133,8 +125,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, numQue);
@@ -142,10 +133,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -180,8 +168,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, numQue);
@@ -196,11 +183,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -242,8 +225,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -255,11 +237,7 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 				list.add(intermail_qnVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
