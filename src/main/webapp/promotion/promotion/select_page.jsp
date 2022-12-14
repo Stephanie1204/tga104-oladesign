@@ -27,6 +27,7 @@
 </style>
 </head>
 <body bgcolor='white'>
+--${comTaxId}--
 <table id="table-1">
    <tr><td><h3>促銷首頁</h3><h4>/promotion.select_page.jsp</h4></td></tr>
 </table>

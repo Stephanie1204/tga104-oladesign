@@ -2,14 +2,19 @@ package com.tibame.tga104.g2.oladesign.promotion.model.promoType;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class PromoTypeService {
 
+	@Autowired
 	private PromoTypeDAOInterface dao;
 
-	public PromoTypeService() {
-//		dao = new PromoTypeJDBCDAO();
-		dao = new PromoTypeJNDIDAO();
-	}
+//	public PromoTypeService() {
+////		dao = new PromoTypeJDBCDAO();
+//		dao = new PromoTypeJNDIDAO();
+//	}
 
 	public PromoTypeVO addPromoType(String code, String name) {
 		PromoTypeVO promoTypeVO = new PromoTypeVO();

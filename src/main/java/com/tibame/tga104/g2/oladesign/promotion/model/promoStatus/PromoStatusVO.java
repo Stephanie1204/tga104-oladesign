@@ -1,8 +1,8 @@
-package com.tibame.tga104.g2.oladesign.promotion.model.promoType;
+package com.tibame.tga104.g2.oladesign.promotion.model.promoStatus;
 
 import java.io.Serializable;
 
-public class PromoTypeVO implements Serializable{
+public class PromoStatusVO implements Serializable{
 	private String code;
 	private String name;
 	
@@ -18,8 +18,5 @@ public class PromoTypeVO implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
-
 	
 }

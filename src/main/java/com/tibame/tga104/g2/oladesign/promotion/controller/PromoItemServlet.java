@@ -189,7 +189,7 @@ public class PromoItemServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				PromoItemVO promoItemSvc = new PromoItemService().addPromoItem(promoId1, prodId1, code, discount1);
+//				PromoItemVO promoItemSvc = new PromoItemService().addPromoItem(promoId1, prodId1, code, discount1);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/promotionItems/listAllPromoItemsByPromoId.jsp";
