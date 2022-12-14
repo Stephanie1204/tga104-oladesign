@@ -9,27 +9,34 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+@Repository
 public class PromoTypeJNDIDAO implements PromoTypeDAOInterface {
 
-	private static DataSource ds = null;
-	static {
-		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
-		config.setUsername("root");
-		config.setPassword("password");
-
-		ds = new HikariDataSource(config);
-		
-//		try {
-//			Context ctx = new InitialContext();
-//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-	}
+	@Autowired
+	private DataSource ds = null;
+	
+//	private static DataSource ds = null;
+//	static {
+//		HikariConfig config = new HikariConfig();
+//		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+//		config.setUsername("root");
+//		config.setPassword("password");
+//
+//		ds = new HikariDataSource(config);
+//		
+////		try {
+////			Context ctx = new InitialContext();
+////			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
+////		} catch (NamingException e) {
+////			e.printStackTrace();
+////		}
+//	}
 
 	private static final String INSERT_STMT = "insert into PROMOTION_TYPE(CODE,NAME) values(?,?)";
 	private static final String GET_ALL_STMT = "select * from PROMOTION_TYPE";

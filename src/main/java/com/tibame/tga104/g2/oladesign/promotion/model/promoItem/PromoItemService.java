@@ -2,32 +2,25 @@ package com.tibame.tga104.g2.oladesign.promotion.model.promoItem;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class PromoItemService {
+	@Autowired
 	private PromoItemDAOInterface dao;
 	
-	public PromoItemService() {
-		dao = new PromoItemJNDIDAO();
-	}
+//	public PromoItemService() {
+//		dao = new PromoItemJNDIDAO();
+//	}
 	
-	public PromoItemVO addPromoItem(Integer promoId, Integer prodId, String code,Integer discount) {
-		PromoItemVO promoItemVO = new PromoItemVO();
-		promoItemVO.setPromoId(promoId);
-		promoItemVO.setProdId(prodId);
-		promoItemVO.setCode(code);
-		promoItemVO.setDiscount(discount);
+	public PromoItemVO addPromoItem(PromoItemVO promoItemVO) {
 		dao.insert(promoItemVO);
-		
 		return promoItemVO;
 	}
 	
-	public PromoItemVO updatePromoItem(Integer promoId, Integer prodId, String code,Integer discount) {
-		PromoItemVO promoItemVO = new PromoItemVO();
-		promoItemVO.setPromoId(promoId);
-		promoItemVO.setProdId(prodId);
-		promoItemVO.setCode(code);
-		promoItemVO.setDiscount(discount);
+	public PromoItemVO updatePromoItem(PromoItemVO promoItemVO) {
 		dao.update(promoItemVO);
-		
 		return promoItemVO;
 	}
 	
