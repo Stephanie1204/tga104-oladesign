@@ -35,8 +35,8 @@ public class PromoService {
 		return dao.findByPrimaryKey(promoId);
 	}
 
-	public List<PromoVO> getAll() {
-		return dao.getAll();
+	public List<PromoVO> getAll(String comTaxId) {
+		return dao.getAll(comTaxId);
 	}
 
 }

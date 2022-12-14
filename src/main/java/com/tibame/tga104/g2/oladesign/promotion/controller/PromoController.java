@@ -1,5 +1,7 @@
 package com.tibame.tga104.g2.oladesign.promotion.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +21,15 @@ public class PromoController {
 
 	@Autowired
 	PromoService service;
+	
+	@GetMapping("/promo:id") // get all promo by comTaxId
+	public List<PromoVO> getAllPromo(@RequestParam("comTaxId") String comTaxId) {
+		List<PromoVO> vo = service.getAll(comTaxId);
+		return vo;
+	}
+	
 
-	@GetMapping("/promo") // get all promo by comTaxId
+	@GetMapping("/promo") // get promo information
 	public PromoVO getVO(@RequestParam("promoId") Integer promoId) {
 		PromoVO vo = service.getOnePromo(promoId);
 		return vo;

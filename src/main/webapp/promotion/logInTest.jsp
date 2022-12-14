@@ -24,8 +24,9 @@
     
     <br>
     
-    <form METHOD="post" name="form1" action="<%=request.getContextPath()%>/promotion/promotion/select_page.jsp">
-      <input type="submit" value="進入首頁">
+    <form METHOD="get" action="http://localhost:8080/oladesign/promo?comTaxId=2">
+      <input type="submit" value="進入賣家促銷首頁">
+      <a href="http://localhost:8080/oladesign/promo?comTaxId=2">拉拉拉</a>
       <input type="hidden" name="comTaxId" value="${comTaxId}">
       
     </form>
