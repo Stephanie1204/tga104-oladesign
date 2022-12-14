@@ -139,12 +139,6 @@
 									</tr>
 								</thead>
 								<tbody>
-
-
-									<!-- 只顯示資料,不提供update的必須加上hidden標籤才能完整綁到資料 -->
-									<!--  <input type="hidden" name="com_taxid" value="${company_memVO.getComTaxid()}" /-->
-
-
 									<tr>
 										<td><input name="ids" type="checkbox"></td>
 											<td>${company_memVO.comTaxid}</td>

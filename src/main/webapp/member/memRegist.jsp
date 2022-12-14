@@ -82,7 +82,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 									</div>
 
 									<div class="form-group col-md-6">
-										<label for="gender">性別<span id="star">* </span><span class="error">${errorMsgs.sex}</span></label><br>
+										<label for="gender">生理性別<span id="star">* </span><span class="error">${errorMsgs.sex}</span></label><br>
 										<div class="gender form-check col-md-3">
 											<input type="radio" class="form-check-input gender" id="M"
 												name="sex" value="M" ${(memberVO.sex == "M")?'checked' : '' }/> 
@@ -106,7 +106,8 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 										<input class="final-check" type="checkbox" value="agreement" name="agreement"
 											id="flexCheckDefault"> <label
 											class="form-check-label" for="flexCheckDefault">
-											已確認以上資料無誤，並同意接受 <a href="#">會員條款</a>及<a href="#">隱私條款</a>
+											已確認以上資料無誤，並同意接受 <a href="<%=request.getContextPath()%>/member/membershipTerms.jsp" target="_blank" class="terms">會員條款</a>及
+											<a href="<%=request.getContextPath()%>/member/privacyTerms.jsp" target="_blank" class="terms">隱私條款</a>
 										</label>
 										<div><span class="error">${errorMsgs.agreement}</span></div>
 										

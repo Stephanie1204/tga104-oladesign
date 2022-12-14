@@ -44,7 +44,7 @@ public class Company_MemServlet extends HttpServlet {
 			Company_MemVO company_MemVO = new Company_MemVO();
 			Company_MemByCheckVO result = new Company_MemByCheckVO();
 
-//			// 判斷該會員是否有廠商設定
+			// 判斷該會員是否有廠商設定
 			Company_MemService company_memSvc = new Company_MemService();
 			company_MemVO = company_memSvc.doGetCompanyMemByMemId(memId);
 
@@ -223,35 +223,42 @@ public class Company_MemServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		if ("selectforshop".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			String com_taxid = req.getParameter("com_taxid");
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/listonecompany_forshop.jsp");
-				failureView.forward(req, res);
-				return; // 下面的程式不執行
-			}
-			/************************ Contoller第二步開始查詢資料 ****************/
+		
+		if ("doGetStoreInfo".equals(action)) {
+			String memId = req.getParameter("memId");
+
+			// init
+			Company_MemVO company_MemVO = new Company_MemVO();
+			Company_MemByCheckVO result = new Company_MemByCheckVO();
+
+			// 判斷該會員是否有廠商設定
 			Company_MemService company_memSvc = new Company_MemService();
-			Company_MemVO company_memVO = company_memSvc.getOneCompany_Mem(com_taxid);
-			// 如果在company_memVO找不到資料,回傳"查無資料"用forward跳回原本的頁面
-			if (company_memVO == null) {
-				errorMsgs.add("查無資料");
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/listonecompany_forshop.jsp");
-				failureView.forward(req, res);
-				return; // 下面的程式不執行
-			}
-			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
-			req.setAttribute("company_memVO", company_memVO); // 資料庫取出的company_memVO物件,存入req
-			String url = "/CompanyBackEnd/listonecompany_forshop.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+			company_MemVO = company_memSvc.doGetCompanyMemByMemId(memId);
 
-		}
+			// 如有廠商則設定VO
+			if (company_MemVO == null) {
+				result.setIsMemberHasCom(false);
+			} else {
+				result.setComTaxId(company_MemVO.getComTaxId());
+				result.setMemId(company_MemVO.getMemId());
+				result.setStoreName(company_MemVO.getStoreName());
+				result.setStoreLogo(company_MemVO.getStoreLogo());
+				result.setStoreBanner(company_MemVO.getStoreBanner());				
 
+				result.setIsMemberHasCom(true);
+			}
+
+			// 準備res
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(result);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			// 寫好RS給AJAX
+			pw.flush();
+		}	
+		
 		if ("updateshop_save".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);

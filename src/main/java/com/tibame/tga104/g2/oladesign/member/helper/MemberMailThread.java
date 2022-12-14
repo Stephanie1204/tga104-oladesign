@@ -1,4 +1,4 @@
-package com.tibame.tga104.g2.oladesign.member.service;
+package com.tibame.tga104.g2.oladesign.member.helper;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -28,7 +28,11 @@ import javax.mail.internet.MimeUtility;
 import redis.clients.jedis.Jedis;
 
 
-public class MemberMailService {
+public class MemberMailThread extends Thread{
+		private String recipients;
+		private String mailSubject;
+		private String mailBody;
+		
 		private final static String HOST = "smtp.gmail.com";
 		private final static String AUTH = "true";   //需要帳號驗證
 		private final static String PORT = "587";    //傳輸層安全性 (TLS)/STARTTLS 通訊埠
@@ -36,8 +40,14 @@ public class MemberMailService {
 		private final static String SENDER = "oladesign02@gmail.com";
 		private final static String PASSWORD = "jiuwmjbmdocppppo";
 
-	//  設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-		public void sendMail(String recipients, String mailSubject, String mailBody) {
+		public MemberMailThread(String recipients, String mailSubject, String mailBody) {
+		//  設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
+			this.recipients = recipients;
+			this.mailSubject = mailSubject;
+			this.mailBody = mailBody;
+		}
+		
+		public void run() {
 			Properties props = new Properties();
 			props.put("mail.smtp.host", HOST);
 			props.put("mail.smtp.auth", AUTH);
@@ -53,7 +63,7 @@ public class MemberMailService {
 				}
 			};
 
-//			Session是static物件，不用new
+
 			Session session = Session.getDefaultInstance(props, authenticator); //gmail會要求帳號驗證，建構子除了要放properties，也要放Authenticator
 			Message message = new MimeMessage(session); //Message是關於信件內容
 
@@ -96,24 +106,4 @@ public class MemberMailService {
 				e.printStackTrace();
 			}
 		}
-//		public static void main(String args[]) {
-//			
-////			驗證碼產生			
-//			String uId = UUID.randomUUID().toString();
-//			String memUID = uId.replace("-", "");
-//			
-////			寄送驗證信
-//			String recipient = "tga104g2@gmail.com";
-//			String subject = "請完成OLA Design帳號驗證";
-//			String reci_name = "tga104g2";
-//			String memId = "001";
-//			String active = "<a href='http://localhost:8081/TGA104G2/front-end/regist-login/registration/MemberMailServlet?method=active&activeCode=" + memUID + "&id=" + memId + "'>點此驗證</a>";
-//			String messageText = "Hello! " + reci_name + " 請點選以下連結啟用帳號: " + active;
-//
-//			MemberMailService mailService = new MemberMailService();
-//			mailService.sendMail(recipient, subject, messageText);
-//			System.out.println("驗證信已發送");
-//			
-//
-//		}
 }
