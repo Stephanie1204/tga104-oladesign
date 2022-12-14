@@ -179,10 +179,10 @@ public class PromoServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				//PromoService promoSvc = new PromoService();
-				PromoVO promoVO = promoSvc.update(promoId, comTaxId, promoName, startDate, endDate, coupon);
+//				PromoVO promoVO = promoSvc.update(promoId, comTaxId, promoName, startDate, endDate, coupon);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("promoVO", promoVO); // 資料庫update成功後,正確的的empVO物件,存入req
+//				req.setAttribute("promoVO", promoVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/promotion/listOnePromo.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
@@ -246,7 +246,7 @@ public class PromoServlet extends HttpServlet {
 				}
 				
 				/***************************2.開始新增資料***************************************/
-				promoVO = this.promoSvc.addPromo(promoName, comTaxId, startDate, endDate, coupon);
+//				promoVO = this.promoSvc.addPromo(promoName, comTaxId, startDate, endDate, coupon);
 
 //				boolean isSuccess = promoSvc.addPromo(promoName, comTaxId, startDate, endDate, coupon);
 				

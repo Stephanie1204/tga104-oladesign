@@ -10,8 +10,7 @@
     <title>Document</title>
   </head>
   <body>
-<%--   <jsp:useBean id="getComTaxIdJNDIDAO" scope="session" class="com.tibame.tga104.login_test.ToGetComTaxIdService" /> --%>
-  
+    
  	<form METHOD="post" ACTION="<%=request.getContextPath()%>/ToGetComTaxIdService" name="form1">
     會員帳號
     <input type="text" name="memId" value="${param.memId}" placeholder="請輸入會員帳號" />
@@ -22,9 +21,13 @@
     <input type="text" name="comTaxId" value="${sessionScope.comTaxId}" placeholder="自動帶入賣家統編" />
     <c:set var="comTaxId" value="${comTaxId}" scope="session"/>
     </form>
+    
     <br>
-    <form METHOD="post" ACTION="<%=request.getContextPath()%>/promotion/select_page.jsp" name="form1">
-    <button type="submit" href="<%=request.getContextPath()%>/promotion/select_page.jsp">進入首頁
+    
+    <form METHOD="post" name="form1" action="<%=request.getContextPath()%>/promotion/promotion/select_page.jsp">
+      <input type="submit" value="進入首頁">
+      <input type="hidden" name="comTaxId" value="${comTaxId}">
+      
     </form>
     
     <script src="jquery.js"></script>

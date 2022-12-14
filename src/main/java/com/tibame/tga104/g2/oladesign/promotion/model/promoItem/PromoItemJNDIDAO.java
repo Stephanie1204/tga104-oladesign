@@ -13,17 +13,21 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PromoItemJNDIDAO implements PromoItemDAOInterface{
-	
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+	@Autowired
+	private DataSource ds = null;
+//	static {
+//		try {
+//			Context ctx = new InitialContext();
+//			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
+//		} catch (NamingException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	private static final String TEST="select PMI.PROD_ID, P.NAME, PMI.CODE, PMT.NAME, PMI.DISCOUNT, P.PRICE, P.STOCK, PMI.CREATE_TIME, PMI.MODIFY_TIME from PROMOTION_ITEM PMI\r\n"
 			+ "	join PRODUCT P on P.PROD_ID=PMI.PROD_ID\r\n"
 			+ "    join PROMOTION_TYPE PMT on PMT.CODE = PMI.CODE\r\n"
@@ -51,7 +55,7 @@ public class PromoItemJNDIDAO implements PromoItemDAOInterface{
 			+ "where PMI.PROD_ID=?;"; //依商品編號查詢有做過的促銷方案
 //	private static final String GET_ONE_STMT ="select * from PROMOTION_ITEM where PROMO_ID=? and PROD_ID=?"; 應該沒這功能??????????????
 	private static final String DELETE ="delete from PROMOTION_ITEM where PROMO_ID = ? and PROD_ID=?";  //刪除促銷明細的單個商品
-	private static final String UPDATE ="update PROMOTION_ITEM set CODE=?, DISCOUNT=? ,MODIFY_TIME=NOW(),where PROMO_ID=? and PROD_ID=? "; //只能編輯折扣類型和程度
+	private static final String UPDATE ="update PROMOTION_ITEM set CODE=?, DISCOUNT=? ,MODIFY_TIME=NOW() where PROMO_ID=? and PROD_ID=? "; //只能編輯折扣類型和程度
 
 	
 	@Override
@@ -96,10 +100,11 @@ public class PromoItemJNDIDAO implements PromoItemDAOInterface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, promoItemVO.getCode());
-			pstmt.setInt(2, promoItemVO.getDiscount());
-			pstmt.setInt(3, promoItemVO.getPromoId());
-			pstmt.setInt(4, promoItemVO.getProdId());
+			int idx = 1;
+			pstmt.setString(idx++, promoItemVO.getCode());
+			pstmt.setInt(idx++, promoItemVO.getDiscount());
+			pstmt.setInt(idx++, promoItemVO.getPromoId());
+			pstmt.setInt(idx++, promoItemVO.getProdId());
 			
 			pstmt.executeUpdate();
 		}catch (SQLException se) {
