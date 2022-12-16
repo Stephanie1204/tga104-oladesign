@@ -303,20 +303,17 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 
 	@Override
 	public List<Company_MemVO> getAll() {
-		List<Company_MemVO> list = new ArrayList<Company_MemVO>();
 		Company_MemVO company_memVO;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		List<Company_MemVO> list = new ArrayList<Company_MemVO>();
 		ResultSet rs = null;
 
 		try {
 			Class.forName(DRIVER);
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
-
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				company_memVO = new Company_MemVO();
 				company_memVO.setComTaxId(rs.getString("COM_TAXID"));
@@ -326,8 +323,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 				company_memVO.setComPhone(rs.getString("COM_PHONE"));
 				company_memVO.setComOwner(rs.getString("COM_OWNER"));
 				company_memVO.setOwnerPhone(rs.getString("OWNER_PHONE"));
-				company_memVO
-						.setComBankaccount(rs.getString("COM_BANKACCOUNT"));
+				company_memVO.setComBankaccount(rs.getString("COM_BANKACCOUNT"));
 				company_memVO.setStoreName(rs.getString("STORE_NAME"));
 				company_memVO.setComRegdate(rs.getDate("COM_REGDATE"));
 				company_memVO.setStoreIntro(rs.getString("STORE_INTRO"));

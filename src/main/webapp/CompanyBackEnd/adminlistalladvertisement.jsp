@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.Advertisement.service.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.Advertisement.vo.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.Advertisement.dao.*"%>
+<% AdvertisementService advertisementSvc = new AdvertisementService();
+	List<AdvertisementVO> list = advertisementSvc.getAll();
+	pageContext.setAttribute("list",list);
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +22,8 @@
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <!-- Tell the browser to be responsive to screen width -->
-<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+<meta
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
 	name="viewport">
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -65,19 +74,26 @@
 
 			<!-- 内容头部 -->
 			<section class="content-header">
-				<h1>廠商資料</h1>
+				<h1>廣告審核</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i
-							class="fa fa-dashboard"></i> </a></li>
+					<li><a href="#"><i class="fa fa-dashboard"></i> </a></li>
 					<li><a href="#"></a></li>
-					
+
 				</ol>
 			</section>
 			<!-- 内容头部 /-->
 
 			<!-- 正文区域 -->
 			<section class="content">
-
+				<%--錯誤提示 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
 				<!-- .box-body -->
 				<div class="box box-primary">
 					<div class="box-header with-border"></div>
@@ -90,37 +106,65 @@
 							<!--工具栏-->
 							<div class="pull-left">
 								<div class="form-group form-inline">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default" title="删除"
+											onclick='confirm("你確定要刪除嗎？")'>
+											<i class="fa fa-trash-o"></i> 刪除
+										</button>
+										<button type="button" class="btn btn-default" title="刷新"
+											onclick="window.location.reload();">
+											<i class="fa fa-refresh"></i> 刷新
+										</button>
+									</div>
 								</div>
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-								<form method="post" action="company_member.do">
+								<form method="post" action="advertisement.do">
 								<input type="text" name="comtaxId" placeholder="請輸入廠商統一編號"> 
-								<input type="hidden" name="action" value="getOne_For_Display"> 
-								<input type="hidden" name="adminId" value="A001" />
+								<input type="hidden" name="action" value="getOneFromADID"> 
 								<input type="submit" value="送出" class="btn btn-default">	
 								</form>
 								</div>
 							</div>
 							<!--工具栏/-->
+
 							<!--数据列表-->
 							<table id="dataList"
 								class="table table-bordered table-striped table-hover dataTable">
 								<thead>
 									<tr>
-										<th class="sorting_asc">公司統編</th>
-										<th class="sorting">會員編號</th>
-										<th class="sorting">公司名稱</th>
-										<th class="sorting">公司電話</th>
-										<th class="sorting">負責人</th>
-										<th class="sorting">負責人手機號碼</th>
-										<th class="sorting">註冊日期</th>
-										<th class="sorting">賣場名稱</th>
+										<th class="" style="padding-right: 0px;"><input
+											id="selall" type="checkbox" class="icheckbox_square-blue">
+										</th>
+										<th class="sorting_asc">廣告編號</th>
+										<th class="sorting">公司統編</th>
+										<th class="sorting">廣告開始日期</th>
+										<th class="sorting">廣告結束日期</th>
+										<th class="sorting">廣告圖片</th>
+
+										<th class="text-center">廣告狀態</th>
 									</tr>
 								</thead>
-								<tbody id="row">
-								</tbody>
+								<tbody>
 								
+									<tr>
+									
+										<td><input name="ids" type="checkbox"></td>
+										<td>${advertisementVO.getAdId()}</td>
+										<td>${advertisementVO.getComTaxId()}</td>
+										<td>${advertisementVO.getStartDate()}</td>
+										<td>${advertisementVO.getEndDate()}</td>
+										<td><img id="adImage" src="${advertisementVO.getAdImagesString()}" width=30%/></td>
+										<td class="text-center">
+											<button type="button" class="btn bg-olive btn-xs"
+												onclick='location.href="all-order-manage-edit.html"'>審核</button>
+										</td>
+							
+									</tr>
+									
+								</tbody>
+
 							</table>
 						</div>
 					</div>
@@ -130,7 +174,7 @@
 					<div class="box-footer">
 						<div class="pull-left">
 							<div class="form-group form-inline">
-									
+
 								总共2 页，共14 条数据。 每页 <select class="form-control">
 									<option>10</option>
 									<option>15</option>
@@ -153,6 +197,7 @@
 								<li><a href="#">下一页</a></li>
 								<li><a href="#" aria-label="Next">尾页</a></li>
 							</ul>
+						
 						</div>
 
 					</div>
@@ -233,33 +278,6 @@
 			$(".textarea").wysihtml5({
 				locale : 'zh-CN'
 			});
-
-	        $.ajax({
-	            type : 'POST',
-	            url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetAllComInfo&adminId=A001',
-	            success : function (data, status, xhr) {
-	                var dataJson = JSON.parse(data);
-					total_len = dataJson.length;
-					for(i=0;i<total_len;i++){
-						$("#row").append(
-								"<tr>"+
-								"<td>"+dataJson[i].comTaxId+"</td>"+
-								"<td>"+dataJson[i].memId+"</td>"+
-								"<td>"+dataJson[i].comName+"</td>"+
-								"<td>"+dataJson[i].comPhone+"</td>"+
-								"<td>"+dataJson[i].comOwner+"</td>"+
-								"<td>"+dataJson[i].ownerPhone+"</td>"+
-								"<td>"+dataJson[i].comRegdate+"</td>"+
-								"<td>"+dataJson[i].storeName+"</td>"+
-								"</tr>"
-						)
-					}
-	               
-	            }
-	        });
-			
-			
-			
 		});
 
 		// 设置激活菜单

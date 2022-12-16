@@ -21,7 +21,17 @@ public class AdvertisementService {
     public Boolean getIsInsertAble(AdvertisementVO advertisementVO) {
 	return dao.getIsInsertAble(advertisementVO);
     }
+    
+	// 單一查詢:確認該廠商是否有廣告
+//	public AdvertisementVO doGetADByCom(String comtaxId) {
+//		return dao.findByComtaxId(comtaxId);
+//	}
 
+ // 單一查詢:確認該廠商是否有廣告
+    public List<AdvertisementVO> ADRecordByComtaxId(String comTaxId) {
+	return dao.ADRecordByComtaxId(comTaxId);
+    }
+    
     // 新增
     public String addAdvertisement(AdvertisementVO advertisementVO) {
 	String adId = seqDao.getOneSeq("AD");

@@ -72,7 +72,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			<section class="content">
 				<div class="row">
 					<!-- form start -->
-					<form method="post" action="company_memberdo" name="form" enctype="multipart/form-data">
+					<form method="post" action="company_member.do" name="form" enctype="multipart/form-data">
 					<!-- left column -->
 						<div class="col-md-6">
 							<!-- general form elements -->

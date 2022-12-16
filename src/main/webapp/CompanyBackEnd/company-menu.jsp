@@ -103,7 +103,7 @@
 							class="fa fa-circle-o"></i> 申請廣告投放
 					</a></li>
 
-					<li id="form-general"><a href="#"> <i
+					<li id="form-general"><a href="recordadvertisement.jsp"> <i
 							class="fa fa-circle-o"></i> 查詢廣告投放紀錄
 					</a></li>
 

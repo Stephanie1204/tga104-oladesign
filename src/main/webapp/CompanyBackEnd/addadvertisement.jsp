@@ -80,7 +80,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 				</ol>
 			</section>
 
-			<form method="post" action="advertisementdo" name="form1"
+			<form method="post" action="advertisement.do" name="form1"
 				enctype="multipart/form-data">
 				<jsp:useBean id="AdvertisementSvc" scope="page"
 					class="com.tibame.tga104.g2.oladesign.Advertisement.service.AdvertisementService" />
