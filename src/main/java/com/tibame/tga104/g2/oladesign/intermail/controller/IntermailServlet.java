@@ -53,7 +53,7 @@ public class IntermailServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-			System.out.println("pass1");
+
 			/*************************** 2.開始查詢資料 *****************************************/
 			IntermailService intermailSvc = new IntermailService();
 			IntermailVO intermailVO = intermailSvc.getOneIntermail(interMailId);
@@ -78,7 +78,7 @@ public class IntermailServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("pass2");
+//			System.out.println("pass2");
 
 			/*************************** 1.接收請求參數 ****************************************/
 			String interMailId = (req.getParameter("interMailId"));
@@ -92,7 +92,7 @@ public class IntermailServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
-		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
+if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -100,7 +100,7 @@ public class IntermailServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-			System.out.println("pass3");
+
 String interMailId = req.getParameter("interMailId");
 			String enameReg = "^[(a-zA-Z0-9_)]{1,10}$";
 			if (interMailId == null || interMailId.trim().length() == 0) {
@@ -108,14 +108,30 @@ String interMailId = req.getParameter("interMailId");
 			} else if (!interMailId.trim().matches(enameReg)) { // 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("站內信編號: 只能是數字 , 且長度必需為4之間");
 			}
-			System.out.println("pass4");
+			System.out.println("會員編號上");
 			//測試用
-			Integer tempMemId = 220001;
+//			Integer tempMemId = null;
+//			Integer  memId =  0;
+//			if(req.getParameter("memId") == null || req.getParameter("memId").trim().length() == 0) {
+//				errorMsgs.add("會員編號: 請勿空白");
+//				memId = tempMemId;
+			
+//			}
+		
+//			String memID1 = req.getParameter("memId");
+//			if( memID1 == null || memID1.trim().length() == 0) {
+//				errorMsgs.add("會員編號: 請勿空白");
+//			}else {
+//				 memId = Integer.parseInt(memID1);
+//			}
 			Integer  memId =  0;
-			if(req.getParameter("memId") == null || req.getParameter("memId").trim().length() == 0) {
+			String tempmemId = req.getParameter("memId");
+			if(tempmemId== null || tempmemId.trim().length() == 0) {
 				errorMsgs.add("會員編號: 請勿空白");
-				memId = tempMemId;
-			}
+				}else {
+					memId = Integer.parseInt(tempmemId);
+				}
+			
 			
 //Integer memId = req.getParameter(memId);
 //			String enameReg1 = "^[0-9)]{1,10}$";
@@ -178,20 +194,20 @@ String conTent = req.getParameter("conTent");
 			intermailVO.setNumQue(numQue);
 			intermailVO.setConTent(conTent);
 //			intermailVO.setIsSend(isSend);
-
-
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("intermailVO", intermailVO); //
 				RequestDispatcher failureView = req.getRequestDispatcher("/intermail/addIntermail.jsp");
 				failureView.forward(req, res);
+
 				return;
+				
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
 			IntermailService intermailSvc = new IntermailService();
+			System.out.println("開始新增資料");
 			intermailVO = intermailSvc.addIntermail(interMailId, memId, adminId,numQue,conTent);
-
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/intermail/listAllIntermail.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); //

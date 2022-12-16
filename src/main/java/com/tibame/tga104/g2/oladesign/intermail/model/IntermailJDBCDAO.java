@@ -8,11 +8,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 public class IntermailJDBCDAO implements IntermailDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "Aa82822232";
+//	String driver = "com.mysql.cj.jdbc.Driver";
+//	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
+//	String userid = "root";
+//	String passwd = "password";
+	private static DataSource dataSource = null;
+	static {
+		System.out.println("pass jdbc connect");
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("password");
+		dataSource = new HikariDataSource(config);
+
+	}
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO INTERMAIL (INTERMAIL_ID,MEM_ID,ADMIN_ID,NUM_QUE,CONTENT) VALUES (?,?,?,?,?)";
@@ -31,8 +46,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, intermailVO.getInterMailId());
@@ -45,11 +59,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -81,8 +91,9 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, intermailVO.getInterMailId());
@@ -93,11 +104,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 //			pstmt.setBoolean(6, intermailVO.getIsSend());
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -128,19 +135,16 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, interMailId);
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -172,8 +176,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, interMailId);
@@ -193,11 +196,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -238,8 +237,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -256,11 +254,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 				list.add(intermailVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

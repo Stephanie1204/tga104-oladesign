@@ -1,0 +1,46 @@
+@charset "UTF-8";
+body{
+	width: 80%;
+	height:80%;
+	padding: 0;
+	margin: 0;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center; 
+}
+.login{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background:rgba(13,11,12,0.5);
+	text-align:center;
+	color: #fff;
+	font-family:"·L³n¥¿¶ÂÅé", sans-serif;
+	border-radius: 10px;
+	padding: 30px;
+	width:25%;
+}
+
+input[type="text"], input[type="password"] {
+	font-size: 16px;
+	font-famil:"·L³n¥¿¶ÂÅé", sans-serif;
+	padding: 5px;
+	border-radius: 4px;
+	margin: 0 auto;
+	display: block;
+	width:100%;
+}
+button{
+	border: 0;
+	padding: 4px 8px;
+	margin: 20px auto;
+	font-size: 18x;
+	font-famil:"·L³n¥¿¶ÂÅé", sans-seri;
+	background:#fff;
+	color:#000;
+}
+@media(max-width: 450px) {
+	.login {
+	width:70%;}
+}

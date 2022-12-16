@@ -6,11 +6,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 public class Product_typeJDBCDAO implements Product_typeDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "Aa82822232";
+//	String driver = "com.mysql.cj.jdbc.Driver";
+//	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
+//	String userid = "root";
+//	String passwd = "password";
+	private static DataSource dataSource = null;
+	static {
+		System.out.println("pass jdbc connect");
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		config.setUsername("root");
+		config.setPassword("password");
+		dataSource = new HikariDataSource(config);
+
+	}
 	
 	
 	private static final String INSERT_STMT = 
@@ -30,8 +45,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, product_typeVO.getTypeCode());
@@ -40,11 +54,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -77,8 +87,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, product_typeVO.getTypeCode());
@@ -86,11 +95,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -122,19 +127,14 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, typeCode);
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -168,8 +168,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, typeCode);
@@ -183,11 +182,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
+
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -229,8 +224,7 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -242,11 +236,6 @@ public class Product_typeJDBCDAO implements Product_typeDAO_interface {
 				list.add(product_typeVO); // Store the row in the list
 			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

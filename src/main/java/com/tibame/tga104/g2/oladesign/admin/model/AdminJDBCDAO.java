@@ -1,4 +1,4 @@
-package com.tibame.tga104.g2.oladesign.prodeuct_style.model;
+package com.tibame.tga104.g2.oladesign.admin.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,11 +13,11 @@ import javax.sql.DataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-public class Product_styleJDBCDAO implements Product_styleDAO_interface {
+public class AdminJDBCDAO implements AdminDAO_interface {
 //	String driver = "com.mysql.cj.jdbc.Driver";
 //	String url = "jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei";
 //	String userid = "root";
-//	String passwd = "password";
+//	String passwd = "Aa82822232";
 	private static DataSource dataSource = null;
 	static {
 		System.out.println("pass jdbc connect");
@@ -30,32 +30,36 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO PRODUCT_STYLE (STYLE_CODE,STYLE_NAME) VALUES (?, ?)";
+			"INSERT INTO ADMIN (ADMIN_ID,ADMIN_NAME,ACCOUNT,PASSWORD,CREATDATE) VALUES (?, ?, ?, ?, NOW())";
 	private static final String GET_ALL_STMT = 
-			"SELECT * from PRODUCT_STYLE";
+			"SELECT * from ADMIN";
 	private static final String GET_ONE_STMT = 
-			"SELECT * FROM PRODUCT_STYLE where STYLE_CODE = ?";
+			"SELECT * FROM ADMIN where ADMIN_ID = ?";
 	private static final String DELETE = 
-			"DELETE FROM PRODUCT_STYLE where STYLE_CODE = ?";
+			"DELETE FROM ADMIN where ADMIN_ID = ?";
 	private static final String UPDATE = 
-			"UPDATE PRODUCT_STYLE SET TYPE = ? where STYLE_CODE = ?";
+			"UPDATE ADMIN SET ACCOUNT = ? , PASSWORD = ? , ADMIN_NAME =? where ADMIN_ID = ?";
+	
 	@Override
-	public void insert(Product_styleVO product_styleVO) {
+	public void insert(AdminVO adminVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
-
 			con = dataSource.getConnection();
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, product_styleVO.getStyleCode());
-			pstmt.setString(2, product_styleVO.getStyleName());
-		
+			pstmt.setString(1, adminVO.getAdminId());
+			pstmt.setString(2, adminVO.getAdminName());
+			pstmt.setString(3, adminVO.getAccount());
+			pstmt.setString(4, adminVO.getPassword());
 
 			pstmt.executeUpdate();
 
-
+			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -76,11 +80,13 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 				}
 			}
 		}
-		
+
 	}
+		
 
 	@Override
-	public void update(Product_styleVO product_styleVO) {
+	public void update(AdminVO adminVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -89,8 +95,10 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, product_styleVO.getStyleCode());
-			pstmt.setString(2, product_styleVO.getStyleName());
+			pstmt.setString(1, adminVO.getAdminId());
+			pstmt.setString(2, adminVO.getAdminName());
+			pstmt.setString(3, adminVO.getAccount());
+			pstmt.setString(4, adminVO.getPassword());
 
 			pstmt.executeUpdate();
 
@@ -119,7 +127,8 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 	}
 
 	@Override
-	public void delete(String styleCode) {
+	public void delete(String adminId) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -128,10 +137,11 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, styleCode);
+			pstmt.setString(1, adminId);
 
 			pstmt.executeUpdate();
 
+			// Handle any driver errors
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -153,12 +163,14 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 				}
 			}
 		}
+
 		
 	}
 
 	@Override
-	public Product_styleVO findByPrimaryKey(String styleCode) {
-		Product_styleVO product_styleVO = null;
+	public AdminVO findByPrimaryKey(String adminId) {
+
+		AdminVO adminVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -168,17 +180,21 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setString(1, styleCode);
+			pstmt.setString(1, adminId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				product_styleVO = new Product_styleVO();
-				product_styleVO.setStyleCode(rs.getString("STYLE_CODE"));
-				product_styleVO.setStyleName(rs.getString("STYLE_NAME"));
+				
+				adminVO = new AdminVO();
+				adminVO.setAdminId(rs.getString("ADMIN_ID"));
+				adminVO.setAdminName(rs.getString("ADMIN_NAME"));
+				adminVO.setAccount(rs.getString("ACCOUNT"));
+				adminVO.setPassword(rs.getString("PASSWORD"));
 
 			}
 
+			// Handle any driver errors
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -207,13 +223,13 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 				}
 			}
 		}
-		return product_styleVO;
+		return adminVO;
 	}
 
 	@Override
-	public List<Product_styleVO> getAll() {
-		List<Product_styleVO> list = new ArrayList<Product_styleVO>();
-		Product_styleVO product_styleVO = null;
+	public List<AdminVO> getAll() {
+		List<AdminVO> list = new ArrayList<AdminVO>();
+		AdminVO adminVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -227,12 +243,15 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 
 			while (rs.next()) {
 				
-				product_styleVO = new Product_styleVO();
-				product_styleVO.setStyleCode(rs.getString("STYLE_CODE"));
-				product_styleVO.setStyleName(rs.getString("STYLE_NAME"));
-				list.add(product_styleVO); // Store the row in the list
+				adminVO = new AdminVO();
+				adminVO.setAdminId(rs.getString("ADMIN_ID"));
+				adminVO.setAdminName(rs.getString("ADMIN_NAME"));
+				adminVO.setAccount(rs.getString("ACCOUNT"));
+				adminVO.setPassword(rs.getString("PASSWORD"));
+				list.add(adminVO); // Store the row in the list
 			}
 
+			// Handle any driver errors
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -263,5 +282,100 @@ public class Product_styleJDBCDAO implements Product_styleDAO_interface {
 		}
 		return list;
 	}
+	
+	public static void main(String[] args) {
 
+		AdminJDBCDAO dao = new AdminJDBCDAO();
+
+		
+		AdminVO adminVO1 = new AdminVO();
+		adminVO1.setAdminId("�޲z��2");
+		adminVO1.setAdminName("MANAGER");
+		adminVO1.setAccount("�b��");
+		adminVO1.setPassword("�K�X");
+		dao.insert(adminVO1);
+
+		
+		AdminVO adminVO2 = new AdminVO();
+		adminVO1.setAdminId("A003");
+		adminVO1.setAdminName("�d�ç�2");
+		adminVO1.setAccount("MANAGER2");
+		adminVO1.setPassword("�K�X1111");
+		dao.update(adminVO2);
+
+		
+		dao.delete("A004");
+
+		
+		AdminVO adminVO3 = dao.findByPrimaryKey("A001");
+		System.out.print(adminVO3.getAdminId() + ",");
+		System.out.print(adminVO3.getAdminName() + ",");
+		System.out.print(adminVO3.getAccount() + ",");
+		System.out.print(adminVO3.getPassword() + ",");
+		System.out.println("---------------------");
+
+		
+		List<AdminVO> list = dao.getAll();
+		for (AdminVO adin : list) {
+			System.out.print(adin.getAdminId() + ",");
+			System.out.print(adin.getAdminName() + ",");
+			System.out.print(adin.getAccount() + ",");
+			System.out.print(adin.getPassword() + ",");
+			System.out.println();
+		}
+	}
+
+
+	@Override
+	public AdminVO getAdmin(String account, String password) {
+		AdminVO adminVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = dataSource.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				adminVO = new AdminVO();
+				adminVO.setAccount(rs.getString("ACCOUNT"));
+				adminVO.setPassword(rs.getString("PASSWORD"));
+//				list.add(adminVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return adminVO;
+	}
 }
