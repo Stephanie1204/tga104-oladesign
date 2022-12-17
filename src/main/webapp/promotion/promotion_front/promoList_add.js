@@ -1,77 +1,194 @@
-var promoId = new URLSearchParams(location.search).get('promoId');
+var promoId = new URLSearchParams(location.search).get("promoId");
 console.log(promoId);
+const discountType = [
+  {
+    code: "P001",
+    codeName: "單品降價",
+  },
+  {
+    code: "P002",
+    codeName: "單品打折",
+  },
+];
 
 //專案資訊
-// $.ajax({
-//     url: "http://localhost:8080/oladesign/promo:promoId",           // 資料請求的網址
-//     type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-//     data:{promoId:promoId},          // 將物件資料(不用雙引號) 傳送到指定的 url
-//     dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
-//     success: function(data){      // request 成功取得回應後執行
-//       console.log(data);
+$.ajax({
+  url: "http://localhost:8080/oladesign/promo:promoId", // 資料請求的網址
+  type: "GET", // GET | POST | PUT | DELETE | PATCH
+  data: { promoId: promoId }, // 將物件資料(不用雙引號) 傳送到指定的 url
+  dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+  success: function (data) {
+    // request 成功取得回應後執行
+    console.log(data);
 
-//       let list_html_head="";
+    let list_html_head = "";
 
-//        list_html_head += '<tr>';
-//        list_html_head += '    <td>' +data.promoId+ '</td>';
-//        list_html_head += '    <td>' +data.promoName+ '</td>';
-//        list_html_head += '    <td>' +data.promoStartDate+ '</td>';
-//        list_html_head += '    <td>' +data.promoEndDate+ '</td>';
-//        list_html_head += '    <td>' +data.coupon+ '</td>';
-//        list_html_head += '    <td class="text-center"></td>';
-//        list_html_head += '         <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="all-order-manage-edit.html"\'> 新增促銷商品 </button>';
-//        list_html_head += '    </td>';
-//        list_html_head += '</tr>';
+    list_html_head += "<tr>";
+    list_html_head += "    <td>" + data.promoId + "</td>";
+    list_html_head += "    <td>" + data.promoName + "</td>";
+    list_html_head += "    <td>" + data.startDate + "</td>";
+    list_html_head += "    <td>" + data.endDate + "</td>";
+    list_html_head += "    <td>" + data.coupon + "</td>";
+    list_html_head += '    <td class="text-center"></td>';
+    list_html_head +=
+      '         <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="all-order-manage-edit.html"\'> 新增促銷商品 </button>';
+    list_html_head += "    </td>";
+    list_html_head += "</tr>";
 
-//        $("tbody.datalist_promo").html(list_html_head); //.html()會直接覆蓋原有內容
-//        console.log("enddd");
+    $("tbody.datalist_promo").html(list_html_head); //.html()會直接覆蓋原有內容
+    console.log("enddd");
+  },
+  error: function (xhr) {
+    // request 發生錯誤的話執行
+    console.log("error");
+    console.log(xhr);
+  },
+});
 
-//     },
-//     error: function(xhr){         // request 發生錯誤的話執行
-//       console.log("error");
-//       console.log(xhr);
-//     }
-//   });
+console.log(promoId);
 
+//明細資訊
+$.ajax({
+  url: "http://localhost:8080/oladesign/promoItem",
+  type: "GET",
+  data: { promoId: promoId },
+  dataType: "json",
+  success: function (data) {
+    console.log(data);
 
-  console.log(promoId);
+    let list_html = "";
+    $.each(data, function (index, item) {
+      list_html = `
+        <tr>
+        <td><input name="ids" type="checkbox" /></td>
+        <td>${item.prodId}</td>
+        <td>${item.prodName} </td>
+        <td><span class="code_text">${item.code}</span></td>
+        <td>
+          <span class="codeName_text">${item.codeName}</span>
+          <select class="codeName_input" value='${item.codeName}' />   
+            <option value="單品降價"  ${
+              item.codeName === "單品降價" ? 'selected="selected"' : ""
+            }>單品降價</option>
+            <option value="單品打折"  ${
+              item.codeName === "單品打折" ? 'selected="selected"' : ""
+            }>單品打折</option>
+          </select>
+        </td>
+        <td>
+          <span class="discount_text">${item.discount}</span>
+          <input type='text' class="discount_input" value='${item.discount}' />
+        </td>
+        <td>${item.price}</td>
+        <td>${item.stock}</td>
+        <td>折扣後金額</td>
+        <td>${formatDate(item.createTime)}</td>;
+        <td>${formatDate(item.modifyTime)}</td>;
+        <td class="text-center">
+        <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >編輯</button>
+        <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >刪除</button>
+        <button type="button" class="btn bg-olive btn-xs" onclick="save(this)" >保存</button>
+        <button type="button" class="btn bg-olive btn-xs" >取消</button>
+        </td>
+        </tr>
+      `;
+    });
+    $("tbody.datalist_item").html(list_html);
+  },
+  error: function (xhr) {
+    // request 發生錯誤的話執行
+    console.log("error");
+    console.log(xhr);
+  },
+});
 
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr);
+  if ("Invalid Date" === date.toString()) {
+    return dateStr;
+  }
 
-  //明細資訊
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  const timeformat = `${year}-${month}-${day} ${hour}:${minute}`;
+
+  return timeformat;
+};
+
+const save = (target) => {
+  const $thisTableRow = $(target).closest("tr");
+
+  const codeName = $thisTableRow.find(".codeName_input").val();
+  $thisTableRow.find(".codeName_text").html(codeName);
+  $thisTableRow.find(".code_text").html(codeName);
+
+  const discount = $thisTableRow.find(".discount_input").val();
+  $thisTableRow.find(".discount_text").html(discount);
+
+  let code;
+  if (codeName === "單品降價") {
+    code = "P001";
+  } else if (codeName === "單品打折") {
+    code = "P002";
+  }
+
   $.ajax({
-    url: "http://localhost:8080/oladesign/promoItem",    
-    type: "GET",                  
-    data:{promoId: '1'},      
-    dataType: "json",  
-    success: function(data){      
+    url: "http://localhost:8080/oladesign/promoItem",
+    type: "GET",
+    data: { promoId: promoId, prodId: prodId, code: code, discount: discount },
+    dataType: "json",
+    success: function (data) {
       console.log(data);
 
-      let list_html="";
-      $.each(data, function(index, item) {
-      
-        list_html +=  '<tr>';
-        list_html +=  '    <td><input name="ids" type="checkbox" /></td>';
-        list_html +=  '    <td>' +item.prodId+ '</td>';
-        list_html +=  '    <td>' +item.prodName+ '</td>';
-        list_html +=  '    <td>' +item.code+ '</td>';
-        list_html +=  '    <td>' +item.codeName+ '</td>';
-        list_html +=  '    <td>' +item.discount+ '</td>';
-        list_html +=  '    <td>' +item.price+ '</td>';
-        list_html +=  '    <td>' +item.stock+ '</td>';
-        list_html +=  '    <td>折扣後金額</td>';
-        list_html +=  '    <td>' +item.createTime+ '</td>';
-        list_html +=  '    <td>' +item.createTime+ '</td>';
-        list_html +=  '    <td class="text-center">';
-        list_html +=  '    <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="all-order-manage-edit.html"\' >  編輯  </button>';
-        list_html +=  '    <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="all-order-manage-edit.html"\' >  刪除  </button>';
-        list_html +=  '    </td>';
-        list_html +=  '</tr>';
-
-      });
-      $("tbody.datalist_item").html(list_html);   
+      // let list_html = "";
+      // $.each(data, function (index, item) {
+      //   list_html = `
+      //     <tr>
+      //     <td><input name="ids" type="checkbox" /></td>
+      //     <td>${item.prodId}</td>
+      //     <td>${item.prodName}</td>
+      //     </td>
+      //     <td>${item.code}</td>
+      //     <td>
+      //       <span class="codeName_text">${item.codeName}</span>
+      //       <select class="codeName_input" value='${item.codeName}' />
+      //         <option value="P001"  ${
+      //           item.codeName === "單品降價" ? 'selected="selected"' : ""
+      //         }>單品降價</option>
+      //         <option value="P002"  ${
+      //           item.codeName === "單品打折" ? 'selected="selected"' : ""
+      //         }>單品打折</option>
+      //       </select>
+      //     </td>
+      //     <td>
+      //       <span class="discount_text">${item.discount}</span>
+      //       <input type='text' class="discount_input" value='${
+      //         item.discount
+      //       }' />
+      //     </td>
+      //     <td>${item.price}</td>
+      //     <td>${item.stock}</td>
+      //     <td>折扣後金額</td>
+      //     <td>${formatDate(item.createTime)}</td>;
+      //     <td>${formatDate(item.modifyTime)}</td>;
+      //     <td class="text-center">
+      //     <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >編輯</button>
+      //     <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >刪除</button>
+      //     <button type="button" class="btn bg-olive btn-xs" onclick="save(this)" >保存</button>
+      //     <button type="button" class="btn bg-olive btn-xs" >取消</button>
+      //     </td>
+      //     </tr>
+      //   `;
+      // });
+      // $("tbody.datalist_item").html(list_html);
     },
-    error: function(xhr){         // request 發生錯誤的話執行
+    error: function (xhr) {
+      // request 發生錯誤的話執行
       console.log("error");
       console.log(xhr);
-    }
+    },
   });
+};
