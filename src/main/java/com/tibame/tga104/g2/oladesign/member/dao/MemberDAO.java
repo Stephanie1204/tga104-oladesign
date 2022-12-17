@@ -24,4 +24,6 @@ public interface MemberDAO {
 	public boolean isCheckMail();
 	
 	public void activeMember(Integer memId, Boolean isActive);
+	
+	public void resetPWD(String newPassword, Integer memId);
 }

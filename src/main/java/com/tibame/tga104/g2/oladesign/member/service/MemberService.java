@@ -90,4 +90,8 @@ public class MemberService {
 	public void activeMember(Integer memId, Boolean isActive) {
 		dao.activeMember(memId, isActive);
 	}
+	
+	public void resetMemberPWD(String newPassword,Integer memId) {
+		dao.resetPWD(newPassword, memId);
+	}
 }

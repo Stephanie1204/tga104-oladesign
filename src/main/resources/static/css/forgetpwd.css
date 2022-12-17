@@ -30,3 +30,11 @@ button.btn:hover{
 h1.reset{
     font-weight: bolder;
 }
+
+.login-box-msg{
+	text-align: left;
+}
+
+div.error li{
+	list-style: none;
+}

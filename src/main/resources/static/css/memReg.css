@@ -6,6 +6,13 @@
     font-size: 20px;
 }
 
+html,
+body {
+	font-family: "Cairo", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
 .header__logo a img{
     width: 60%;
     vertical-align: middle;
@@ -101,4 +108,16 @@ a.terms{
 
 a.terms:hover{
 	color: #92AFBF;
+}
+
+div.address{
+	display: flex;
+}
+
+input.address{
+	width: 70%;
+}
+
+select.select{
+	width: 15%;
 }

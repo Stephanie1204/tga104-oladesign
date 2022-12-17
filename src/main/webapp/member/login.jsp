@@ -6,9 +6,11 @@
 	
 <%
 MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
-System.out.println("login memberVO="+memberVO);
+System.out.println("login memberVO="+ memberVO);
 String message = (String)request.getAttribute("success");
-System.out.println("message="+message);
+System.out.println("message="+ message);
+String pwdMessage = (String)request.getAttribute("pwdrecover");
+System.out.println("pwdMessage="+ pwdMessage);
 %>	
 <html lang="en">
 <head>
@@ -150,6 +152,10 @@ System.out.println("message="+message);
 	    <script>
 	    	if(<%=message%> == true){
 	    		alert("email驗證成功，現在可以登入使用OLA Design購物了!");
+	    	}
+	    	
+	    	if(<%=pwdMessage%> == true){
+	    		alert("已成功重設密碼，現在可以登入使用OLA Design購物了!");
 	    	}
 	    </script>
 </body>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,9 +34,20 @@
           <p class="login-box-msg">
             忘記密碼了嗎? 請輸入註冊的電子郵件來重設密碼。
           </p>
-          <form action="recover-password.html" method="post">
+          <div class="error text-center">
+          	<%--錯誤表列 --%>
+          		<c:if test="${not empty errorMsgs}">
+          			<ul>
+          				<c:forEach var="message" items="${errorMsgs}">
+          					<li style="color: #E86F62">${message}</li>
+          				</c:forEach>
+          			</ul>
+          		</c:if>
+          </div>
+          <div class="havesend" style="color: #57cc99; text-align: center;">${haveSend}</div>
+          <form action="<%=request.getContextPath()%>/member/MemberPWD" method="post">
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" />
+              <input type="email" class="form-control" placeholder="Email" name="account" value="${memberVO.account}"/>
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
@@ -44,6 +56,7 @@
             </div>
             <div class="row">
               <div class="col-12">
+              	<input type="hidden" name="action" value="forgetpwd">
                 <button type="submit" class="btn btn-primary btn-block">
                   重新設定密碼
                 </button>

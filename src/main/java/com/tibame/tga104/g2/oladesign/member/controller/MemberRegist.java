@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
+import com.google.gson.Gson;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.helper.SendMail;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
@@ -82,6 +83,11 @@ public class MemberRegist extends HttpServlet {
 				errorMsgs.put("sex", "請選擇性別");
 			}
 			
+//			Gson gson = new Gson();
+			
+//			String areaValue = areaValue;
+//			System.out.println("memCity=" + memCity);
+			
 			String memAddress = request.getParameter("memAddress");
 			if(memAddress == null || memAddress.trim().length() == 0) {
 				errorMsgs.put("memAddress", "地址請勿空白");
@@ -90,9 +96,25 @@ public class MemberRegist extends HttpServlet {
 			String agreement = request.getParameter("agreement");
 			if(agreement == null) {
 				errorMsgs.put("agreement", "請確認同意會員條款與隱私條款");
+			}			
+							
+			MemberVO memberVO = new MemberVO();
+			
+			memberVO.setAccount(account);
+			memberVO.setMemName(memName);
+			memberVO.setPassword(password);
+			memberVO.setMemPhone(memPhone);
+			memberVO.setSex(sex);
+			memberVO.setMemAddress(memAddress);
+			
+			if(!errorMsgs.isEmpty()) {
+				request.setAttribute("memberVO", memberVO); //紀錄已輸入的資料
+				RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
+				errView.forward(request, response);
+				return;
 			}
 			
-			//將密碼經SHA256運算
+			//無錯誤時將密碼經SHA256運算
 			MessageDigest md;
 			HexBinaryAdapter hba;
 			String passwordKey = null;
@@ -106,24 +128,6 @@ public class MemberRegist extends HttpServlet {
 				}
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
-			}
-					
-			
-							
-			MemberVO memberVO = new MemberVO();
-			
-			memberVO.setAccount(account);
-			memberVO.setMemName(memName);
-			memberVO.setPassword(passwordKey);
-			memberVO.setMemPhone(memPhone);
-			memberVO.setSex(sex);
-			memberVO.setMemAddress(memAddress);
-			
-			if(!errorMsgs.isEmpty()) {
-				request.setAttribute("memberVO", memberVO);
-				RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
-				errView.forward(request, response);
-				return;
 			}
 			
 //			註冊成功新增會員(待驗證)
@@ -206,6 +210,7 @@ public class MemberRegist extends HttpServlet {
 			System.out.println("驗證信已重新發送");
 			
 //			轉交sendMail.jsp
+			request.setAttribute("haveSend", "驗證信已重新發送");
 			String url = "/member/sendMail.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);

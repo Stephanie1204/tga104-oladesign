@@ -36,7 +36,7 @@
           <p class="login-box-msg">
             我們已發送驗證信至您的信箱，請點選信件中的連結完成驗證。
           </p>
-          <div class="error text-center">
+          	<div class="error text-center">
 					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">
 						<ul>
@@ -46,6 +46,7 @@
 						</ul>
 					</c:if>
 				</div>
+				<div class="havesend" style="color: #57cc99">${haveSend}</div>
           <form method="post" action="<%=request.getContextPath()%>/member/MemberRegist">
             <div class="input-group mb-3">
               <input type="email" class="form-control" placeholder="Email" name="account" />

@@ -4,7 +4,6 @@
 
 html,
 body {
-	/* height: 100%; */
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
@@ -49,6 +48,7 @@ h6 {
 
 p {
 	font-size: 16px;
+	font-family: "Cairo", sans-serif;
 	color: #6f6f6f;
 	font-weight: 400;
 	line-height: 26px;
@@ -97,13 +97,19 @@ div.row{
 }
 
 .header__logo a img{
-	width: 70%;
+	width: 100%;
 	padding: 20px;
-	margin-left: 30px;
 }
 
-.header__menu {
-	padding: 24px 0;
+div.nav{
+	display: flex;
+	justify-content: center;
+}
+
+ul.nav{
+	display: flex;
+	justify-content: space-between;
+	
 }
 
 .header__menu ul li {
@@ -128,6 +134,9 @@ div.row{
 	transition: all, 0.3s;
 	opacity: 0;
 	visibility: hidden;
+	/* 陰影 */
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	
 }
 
 .header__menu ul li .header__menu__dropdown li {
@@ -228,6 +237,152 @@ div.row{
 	position: absolute;
 	top: 0;
 	right: -12px;
+}
+
+/* 註冊登入、成為賣家按鈕 */
+
+.header__cart ul li button{
+	background-color: #4F4E4D;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+}
+
+.header__cart ul li button:hover{
+	background-color: #E86F62;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	transition: all, 0.5s;
+}
+
+.header__cart ul li button a{
+	font-size: 10px;
+	color: #ffffff;
+}
+
+
+/* 搜尋列 */
+.hero__search__form {
+	width: 600px;
+	height: 50px;
+	border: 1px solid #ebebeb;
+	position: relative;
+	float: left;
+}
+
+.hero__search__form form input {
+	width: 80%;
+	border: none;
+	height: 50px;
+	font-size: 16px;
+	color: #b2b2b2;
+	padding-left: 20px;
+	padding-right: 0;
+}
+
+.hero__search__form form input::placeholder {
+	color: #b2b2b2;
+}
+
+.hero__search__form form button {
+	position: absolute;
+	right: 63px;
+	width: 100px;
+	height: 50px;
+	border: none;
+	background-color: #92AFBF;
+	color: white;
+	text-align: center;
+	padding: 0 !important;
+	z-index: 10;
+}
+
+/* 會員 */
+
+div.header__cart ul li{
+	position: relative;
+}
+
+img#memPhoto{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.none{
+	display: none;
+}
+
+button#logout{
+	border: none;
+	background-color: #F3F1F2;
+	width: 100%;
+	text-transform: capitalize;
+	color: #4F4E4D;
+	font-weight: 400;
+}
+
+button#logout:hover{
+	color: #92AFBF;
+}
+
+.header__cart ul li .member__menu__dropdown {
+	position: absolute;
+	left: -50px;
+	background: #F3F1F2;
+	width: 180px;
+	z-index: 9;
+	padding: 5px 0;
+	margin-top: 20px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+	opacity: 0;
+	visibility: hidden;
+	/* 陰影 */
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	
+}
+
+.header__cart ul li .member__menu__dropdown li {
+	text-align: center;
+	margin-right: 0;
+	display: block;
+}
+
+.header__cart ul li .member__menu__dropdown li:hover>a {
+	color: #92AFBF;
+}
+
+.header__cart ul li .member__menu__dropdown li a {
+	text-transform: capitalize;
+	color: #4F4E4D;
+	font-weight: 400;
+	padding: 5px 15px;
+}
+
+.header__cart ul li:hover .member__menu__dropdown {
+	top: 30px;
+	opacity: 1;
+	visibility: visible;
+}
+
+.header__cart ul li a {
+	font-size: 1rem;
+	color: #262220;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 2px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+	padding: 5px 0;
+	display: block;
 }
 
 

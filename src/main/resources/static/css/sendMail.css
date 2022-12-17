@@ -34,3 +34,7 @@ h1.reset{
 div.error li{
 	list-style: none;
 }
+
+div.havesend{
+	text-align: center;
+}
