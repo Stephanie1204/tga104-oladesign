@@ -35,9 +35,9 @@ public class ChatRoomServlet extends HttpServlet {
 			String chatRoomId = chat_roomSvc.chatRoomfindByMemId(mem_0, mem_1);
 
 			if ("".equals(chatRoomId)) {
-				chat_roomVO.setChatRoomId(chat_roomSvc.addchatroom(mem_0, mem_1));
+				chat_roomVO.setChatRoomId(chat_roomSvc.addchatroom(mem_0, mem_1)); //沒有聊天室的話新增聊天室ID設定聊天室
 			} else {
-				chat_roomVO.setChatRoomId(chatRoomId); // 新增聊天室ID
+				chat_roomVO.setChatRoomId(chatRoomId); // 有聊天室設定聊天室ID
 			}
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
