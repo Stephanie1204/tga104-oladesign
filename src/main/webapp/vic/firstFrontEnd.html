@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>hello3</h1>
+    <script>
+      $.ajax({
+        method: "POST",
+        url: "http://localhost:8080/person",
+        data: {},
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        success: function (res) {
+          alert("success");
+        },
+        error: function (res) {
+          alert("errror");
+        },
+      });
+    </script>
+  </body>
+</html>

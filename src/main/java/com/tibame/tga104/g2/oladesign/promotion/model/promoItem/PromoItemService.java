@@ -23,9 +23,8 @@ public class PromoItemService {
 		dao.update(promoItemVO);
 		return promoItemVO;
 	}
-	
-	public void deletePromoItem(Integer promoId, Integer prodId) {
-		dao.delete(promoId ,prodId);
+	public Boolean deletePromoItem(Integer promoId, Integer prodId) {
+		return dao.delete(promoId,prodId) > 0;
 	}
 	public List<PromoItemVO> getAllByPromoId(Integer promoId) {
 		return  dao.findAllByPromoId(promoId);

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class PromoItemVO implements Serializable{
+	private String comTaxId;
 	private Integer promoId;
 	private Integer prodId;
 	private String code;
@@ -112,6 +113,14 @@ public class PromoItemVO implements Serializable{
 	public void setPromoEndDate(Date promoEndDate) {
 		this.promoEndDate = promoEndDate;
 	}
+	public String getComTaxId() {
+		return comTaxId;
+	}
+	public void setComTaxId(String comTaxId) {
+		this.comTaxId = comTaxId;
+	}
+	
+	
 			
 
 

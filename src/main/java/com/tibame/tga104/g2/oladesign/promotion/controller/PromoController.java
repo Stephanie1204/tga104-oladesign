@@ -2,6 +2,8 @@ package com.tibame.tga104.g2.oladesign.promotion.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,24 +23,25 @@ public class PromoController {
 
 	@Autowired
 	PromoService service;
-	
-	@GetMapping("/promo:id") // get all promo by comTaxId
-	public List<PromoVO> getAllPromo(@RequestParam("comTaxId") String comTaxId) {
+	@GetMapping("/promo") // get all promo by comTaxId
+	public List<PromoVO> getAllPromo(HttpSession session) {
+		String comTaxId  = (String) session.getAttribute("comTaxId");
 		List<PromoVO> vo = service.getAll(comTaxId);
 		return vo;
 	}
 	
 
-	@GetMapping("/promo") // get promo information
+	@GetMapping("/promo:promoId") // get promo information
 	public PromoVO getVO(@RequestParam("promoId") Integer promoId) {
 		PromoVO vo = service.getOnePromo(promoId);
 		return vo;
 	}
 
 	@PostMapping("/promo") // create new promo (should auto set comTaxId)
-	public PromoVO postVO(@RequestBody PromoVO promoVO) {
-		PromoVO vo = service.addPromo(promoVO);
-		return vo;
+	public PromoVO postVO(@RequestBody PromoVO promoVO, HttpSession session) {
+		String comTaxId  = (String) session.getAttribute("comTaxId");
+		promoVO.setComTaxId(comTaxId);
+		return service.addPromo(promoVO);
 	}
 
 	@PutMapping("/promo") // update
@@ -48,9 +51,8 @@ public class PromoController {
 	}
 
 	@DeleteMapping("/promo")
-	public PromoVO deleteVO(@RequestBody PromoVO promoVO) {
-		PromoVO vo = service.update(promoVO);
-		return vo;
+	public Boolean deleteVO(@RequestParam Integer promoId) {
+		return service.deletePromo(promoId);
 	}
 
 }
