@@ -1,33 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<%@ page import="java.util.*"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
-<%
-ProductService prodSvc = new ProductService();
-String userId = "220001";
-if (userId != null) {
-
-	List<String> cartProductSaler = prodSvc.selectSaler(userId);
-
-	pageContext.setAttribute("saler", cartProductSaler);
-	pageContext.setAttribute("userId", userId);
-
-}
-//
-%>
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="UTF-8" />
+<meta name="description" content="Ogani Template" />
+<meta name="keywords" content="Ogani, unica, creative, html" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>Ogani | Template</title>
 
 <!-- Google Font -->
@@ -60,9 +41,6 @@ if (userId != null) {
 	type="text/css" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/conditionBar.css"
-	type="text/css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/checkOut.css"
 	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -189,115 +167,9 @@ if (userId != null) {
 	</header>
 	<!-- Header Section End -->
 
-	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg"
-		data-setbg="img/breadcrumb.jpg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="breadcrumb__text">
-						<h2>Checkout</h2>
-						<div class="breadcrumb__option">
-							<a href="<%=request.getContextPath()%>/homePage/index.jsp">Home</a>
-							<span>Checkout</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Breadcrumb Section End -->
-
-	<!-- Checkout Section Begin -->
-	<section class="checkout spad">
-		<div class="container">
-			<div class="checkout__form">
-				<h4>Billing Details</h4>
-				<form action="<c:url value="/pages/order.controller"/>"
-					method="post">
-					<div class="row">
-						<div class="col-lg-8 col-md-6">
-							<div class="col-lg-6">
-								<div class="checkout__input">
-									<p>
-										收件人<span>*</span>
-									</p>
-									<input type="text" name="receiver" value="${param.receiver }">
-									<span class="error">${errors.receiver}</span>
-								</div>
-							</div>
-
-							<div class="checkout__input">
-								<p>
-									收件地址<span>*</span>
-								</p>
-								<input type="text" class="checkout__input__add" name="address"
-									value="${param.address }"> <span class="error">${errors.address}</span>
-							</div>
-							<div class="checkout__input">
-								<p>
-									郵遞區號<span>*</span>
-								</p>
-								<input type="text" name="address_zone"> <span
-									class="error">${errors.address_zone}</span>
-							</div>
-							<div class="shoping__discount">
-								<h5>折扣碼</h5>
-								<form action="#">
-									<input type="text" placeholder="Enter your coupon code"
-										name="coupon" value="${param.coupon }">
-									<button type="submit" class="site-btn">APPLY</button>
-								</form>
-							</div>
-							<div class="shoping__discount">
-								<jsp:useBean id="orderSvc" scope="page"
-									class="com.tibame.tga104.g2.oladesign.order.model.OrderService" />
-								<div>
-									<span><h5>所持紅利: ${orderSvc.getPoint(userId)}</h5></span>
-								</div>
-								<input type="text" placeholder="use your points"
-									name="point_use" value="${param.point_use }">
-								<button type="button" class="site-btn" id="btn-pointApply">APPLY</button>
-								<span class="error">${errors.point_use}</span> <span
-									class="error">${errors.pointError}</span>
-							</div>
-
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="checkout__order">
-								<h4>Your Order</h4>
-								<div class="checkout__order__products">
-									Products <span>Total</span>
-								</div>
-								<ul>
-									<jsp:useBean id="proSvc" scope="page"
-										class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
-									<c:forEach var="row_product"
-										items="${proSvc.selectCart(userId, param.comTaxId)}">
-										<li id="productName">${ row_product.name }</li>
-										<li>數量${row_product.cartQuantity }<span>$${
-												row_product.price * row_product.cartQuantity}</span>
-										</li>
-									</c:forEach>
-								</ul>
-
-								<div class="checkout__order__subtotal">
-									Subtotal <span>${orderSvc.getTotalPrice(userId, param.comTaxId)}</span>
-								</div>
-								<div class="checkout__order__total">
-									Total <span>$750.99</span>
-								</div>
-								<input type="hidden" name="comTaxId" value="${param.comTaxId }">
-								<button type="submit" name="prodaction" value="PlaceOrder"
-									class="site-btn">結帳</button>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</section>
-	<!-- Checkout Section End -->
+	<div>
+	<h3>Opps Something Went Wrong</h3>
+	</div>
 
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
@@ -306,7 +178,7 @@ if (userId != null) {
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="footer__about">
 						<div class="footer__about__logo">
-							<a href="./index.html"><img src="img/logo.png" alt=""></a>
+							<a href="./index.html"><img src="img/logo.png" alt="" /></a>
 						</div>
 						<ul>
 							<li>Address: 60-49 Road 11378 New York</li>
@@ -342,7 +214,7 @@ if (userId != null) {
 						<p>Get E-mail updates about our latest shop and special
 							offers.</p>
 						<form action="#">
-							<input type="text" placeholder="Enter your mail">
+							<input type="text" placeholder="Enter your mail" />
 							<button type="submit" class="site-btn">Subscribe</button>
 						</form>
 						<div class="footer__widget__social">
@@ -371,7 +243,7 @@ if (userId != null) {
 							</p>
 						</div>
 						<div class="footer__copyright__payment">
-							<img src="img/payment-item.png" alt="">
+							<img src="img/payment-item.png" alt="" />
 						</div>
 					</div>
 				</div>
@@ -394,14 +266,9 @@ if (userId != null) {
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/homePage/js/main.js"></script>
-	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-
-
-
 </body>
-
 </html>

@@ -59,7 +59,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				bean.setStatus(rset.getBoolean("STATUS"));
 //
 				byte[] buffer = rset.getBytes("IMG");
-				if (buffer.length != 0 && buffer != null) {
+				if (buffer != null) {
 					bean.setProductImgBase64(buffer);
 				}
 				bean.setTypeName(rset.getString("TYPE_NAME"));
@@ -130,7 +130,7 @@ public class ProductDAOJdbc implements ProductDAO {
 
 //
 					byte[] buffer = rset.getBytes("IMG");
-					if (buffer.length != 0 && buffer != null) {
+					if (buffer != null) {
 						bean.setProductImgBase64(buffer);
 					}
 
@@ -215,7 +215,7 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setStatus(rset.getBoolean("STATUS"));
 //
 					byte[] buffer = rset.getBytes("IMG");
-					if (buffer.length != 0 && buffer != null) {
+					if (buffer != null) {
 						bean.setProductImgBase64(buffer);
 					}
 
@@ -289,7 +289,7 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setStatus(rset.getBoolean("STATUS"));
 
 					byte[] buffer = rset.getBytes("IMG");
-					if (buffer.length != 0 && buffer != null) {
+					if (buffer != null) {
 						bean.setProductImgBase64(buffer);
 					}
 //
@@ -360,7 +360,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				result.setStatus(rset.getBoolean("STATUS"));
 
 				byte[] buffer = rset.getBytes("IMG");
-				if (buffer.length != 0 && buffer != null) {
+				if (buffer != null) {
 					result.setProductImgBase64(buffer);
 				}
 				//
@@ -428,8 +428,15 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(8, bean.getSafeStock());
 				stmt.setBoolean(9, bean.isStatus());
 
-				InputStream is = bean.getProductImg();
-				stmt.setBlob(10, is);
+				InputStream is = null;
+
+				if (bean.getProductImgBase64() != null) {
+					is = bean.getProductImg();
+					stmt.setBlob(10, is);
+					System.out.println(bean.getProductImg());
+				} else {
+					stmt.setBlob(10, is);
+				}
 
 				//
 				int i = stmt.executeUpdate();
@@ -438,13 +445,6 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt_style.setString(1, bean.getStyleCode());
 				ResultSet styleName = stmt_style.executeQuery();
 
-				//
-//				ResultSet rset_insert = stmt_maxId.executeQuery();
-//				int currentProdId;
-//				while (rset_insert.next()) {
-//					currentProdId = rset_insert.getInt("MAX(PROD_ID)");
-//					System.out.println(currentProdId);
-//				}
 				if (i == 1) {
 					result = bean;
 				}
@@ -455,9 +455,6 @@ public class ProductDAOJdbc implements ProductDAO {
 					result.setStyleName(styleName.getString("STYLE_NAME"));
 				}
 
-				if (conn != null) {
-					conn.close();
-				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -617,5 +614,45 @@ public class ProductDAOJdbc implements ProductDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	//
+
+	private static final String GET_PRODUCTPRICE = "SELECT PRICE FROM PRODUCT WHERE PROD_ID=?";
+
+	@Override
+	public int getPrice(int productId) {
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int productPrice = 0;
+		ResultSet rset = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_PRODUCTPRICE);
+			stmt.setInt(1, productId);
+			rset = stmt.executeQuery();
+
+			while (rset.next()) {
+				productPrice = rset.getInt("PRICE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return productPrice;
 	}
 }

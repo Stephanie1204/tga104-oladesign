@@ -247,15 +247,19 @@ public class ProductServlet extends HttpServlet {
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("AddCart")) {
-			if (quantity > 0) {
+			if (quantity <= 0) {
+				quantity = 1;
 				productService.insertCart(comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
-			} else {
-				quantity = 1;
-
+			} else if(quantity > 9){
+				quantity = 9;
 				productService.insertCart(comTaxId, productId, quantity);
 
+				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
+			}else {
+				productService.insertCart(comTaxId, productId, quantity);
+				
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			}
 		} else if (prodaction != null && prodaction.equals("DeleteFromCart")) {
