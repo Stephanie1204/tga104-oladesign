@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet" href="../css-chatroom/friendchat.css" type="text/css" />
+<link rel="stylesheet" href="../chatroom-css/friendchat.css" type="text/css" />
 <style type="text/css">
 </style>
 <title>最大私人聊天室</title>
@@ -21,8 +21,8 @@
 	<div class="panel input-area">
 		<input id="message" class="text-field" type="text"
 			placeholder="Message"
-			onkeydown="if (event.keyCode == 13) sendMessage();" /> <input
-			type="submit" id="sendMessage" class="button" value="Send"
+			onkeydown="if (event.keyCode == 13) sendMessage();" /> 
+			<input type="submit" id="sendMessage" class="button" value="Send"
 			onclick="sendMessage();" />
 	</div>
 </body>

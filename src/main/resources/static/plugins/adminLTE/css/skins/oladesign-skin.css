@@ -166,7 +166,6 @@
 
 .wrapper{
     height: 100%;
-    position: fixed;
     width: 100%;
     top: 40px;
 }
@@ -195,4 +194,10 @@
 .btn.focus, .btn:focus, .btn:hover {
      background-color: #E4CD8D;
     text-decoration: fff;
+}
+.main-header {
+    position: fixed;
+    max-height: 100px;
+    z-index: 1030;
+    width: 100%;
 }
