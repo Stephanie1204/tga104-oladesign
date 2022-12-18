@@ -27,8 +27,9 @@ public class PromoService {
 		return promoVO;
 	}
 
-	public void deletePromo(Integer promoId) {
-		dao.delete(promoId);
+	public Boolean deletePromo(Integer promoId) {
+		return dao.delete("PS003",promoId)>0;
+		
 	}
 
 	public PromoVO getOnePromo(Integer promoId) {

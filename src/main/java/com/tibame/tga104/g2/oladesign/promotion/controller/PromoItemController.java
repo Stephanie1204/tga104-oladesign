@@ -3,6 +3,7 @@ package com.tibame.tga104.g2.oladesign.promotion.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,13 +17,14 @@ import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoVO;
 import com.tibame.tga104.g2.oladesign.promotion.model.promoItem.PromoItemService;
 import com.tibame.tga104.g2.oladesign.promotion.model.promoItem.PromoItemVO;
 
+//@CrossOrigin
 @RestController
 public class PromoItemController {
 	
 	@Autowired
 	PromoItemService service;
 
-	@GetMapping("/promoItem:promoId")
+	@GetMapping("/promoItem")
 	public List<PromoItemVO> getVO(@RequestParam("promoId")Integer promoId){
 			List<PromoItemVO> vo = service.getAllByPromoId(promoId);
 		return vo;
@@ -41,8 +43,9 @@ public class PromoItemController {
 	}
 	
 	@DeleteMapping("/promoItem")
-	public void deleteVO(
+	public Boolean deleteVO(
 			@RequestParam("promoId")Integer promoId,@RequestParam("prodId")Integer prodId) {
-		service.deletePromoItem(promoId, prodId);
+		return service.deletePromoItem(promoId, prodId) ;
+		
 	}
 }

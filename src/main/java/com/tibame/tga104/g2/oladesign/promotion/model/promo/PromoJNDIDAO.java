@@ -31,7 +31,7 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 	private static final String INSERT_STMT = " insert into PROMOTION(COM_TAXID, PROMO_NAME, START_DATE, END_DATE, COUPON) values(?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "select * from PROMOTION where COM_TAXID=? order by PROMO_ID desc"; // 反序排
 	private static final String GET_ONE_STMT = "select * from PROMOTION where PROMO_ID = ? "; 
-	private static final String DELETE = "delete from PROMOTION where PROMO_ID = ?";
+	private static final String DELETE = "update PROMOTION set PROMO_STATUS=? where PROMO_ID = ?";
 	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=?, PROMO_STATUS=? where PROMO_ID = ?";
 	
 //	public static void main(String[] args) {
@@ -113,20 +113,23 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 			}
 		}
 	}
-
+	
 	@Override
-	public void delete(Integer promoId) {
+	public int delete(String promoStatus, Integer promoId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
+		int count=0;
 		try {
-
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, promoId);
+			int idx = 1;
+			pstmt.setString(idx++, promoStatus);
+			pstmt.setInt(idx++, promoId);		
 
-			pstmt.executeUpdate();
+			count = pstmt.executeUpdate();
+			
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -145,8 +148,7 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 					e.printStackTrace();
 				}
 			}
-		}
-
+		}return count;
 	}
 
 	@Override 

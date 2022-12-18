@@ -118,39 +118,40 @@ public class PromoItemJDBCDAO implements PromoItemDAOInterface {
 	}
 
 	@Override
-	public void delete(Integer promoId, Integer prodId) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(DELETE);
-
-			pstmt.setInt(1, promoId);
-			pstmt.setInt(2, prodId);
-
-			pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	public int delete(Integer promoId, Integer prodId) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		try {
+//			Class.forName(driver);
+//			con = DriverManager.getConnection(url, userid, passwd);
+//			pstmt = con.prepareStatement(DELETE);
+//
+//			pstmt.setInt(1, promoId);
+//			pstmt.setInt(2, prodId);
+//
+//			pstmt.executeUpdate();
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+//
+//		} catch (SQLException se) {
+//			throw new RuntimeException("A database error occured. " + se.getMessage());
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+		return 0;
 
 	}
 

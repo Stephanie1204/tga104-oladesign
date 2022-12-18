@@ -139,6 +139,13 @@
       rel="stylesheet"
       href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css"
     />
+
+    <!-- Phanie Custom -->
+    <!-- <style>
+      .modify {
+        display: none;
+      }
+    </style> -->
   </head>
 
   <body class="hold-transition skin-purple sidebar-mini">
@@ -701,9 +708,9 @@
                         type="button"
                         class="btn btn-default"
                         title="删除"
-                        onclick='confirm("確認將整筆促銷專案設為無效?")'
+                        onclick="setInvalid()"
                       >
-                        <i class="fa fa-trash-o"></i> 删除
+                        <i class="fa fa-trash-o"></i> 删除整筆專案
                       </button>
                     </div>
                   </div>
@@ -762,13 +769,13 @@
                 >
                   <thead>
                     <tr>
-                      <th class="" style="padding-right: 0px">
+                      <!-- <th class="" style="padding-right: 0px">
                         <input
                           id="selall"
                           type="checkbox"
                           class="icheckbox_square-blue"
                         />
-                      </th>
+                      </th> -->
                       <th class="prodId">商品ID</th>
                       <th class="prodName">商品名稱</th>
                       <th class="code">促銷種類代碼</th>
@@ -784,7 +791,7 @@
                   </thead>
                   <tbody class="datalist_item">
                     <tr>
-                      <td><input name="ids" type="checkbox" /></td>
+                      <!-- <td><input name="ids" type="checkbox" /></td> -->
                       <td>1號商品ID</td>
                       <td>1號商品名稱</td>
                       <td>1號促銷種類代碼</td>

@@ -1,6 +1,6 @@
 var promoId = new URLSearchParams(location.search).get("promoId");
 console.log(promoId);
-const discountType = [
+const discountTypeTable = [
   {
     code: "P001",
     codeName: "單品降價",
@@ -24,7 +24,8 @@ $.ajax({
     let list_html_head = "";
 
     list_html_head += "<tr>";
-    list_html_head += "    <td>" + data.promoId + "</td>";
+    list_html_head +=
+      "    <td><span class='promoId_text'>" + data.promoId + "</span></td>";
     list_html_head += "    <td>" + data.promoName + "</td>";
     list_html_head += "    <td>" + data.startDate + "</td>";
     list_html_head += "    <td>" + data.endDate + "</td>";
@@ -58,26 +59,27 @@ $.ajax({
 
     let list_html = "";
     $.each(data, function (index, item) {
-      list_html = `
+      list_html += `
         <tr>
-        <td><input name="ids" type="checkbox" /></td>
-        <td>${item.prodId}</td>
-        <td>${item.prodName} </td>
+        <td><span class="prodId_text">${item.prodId}</span> </td>
+        <td><span class="prodName_text">${item.prodName}</span> </td>
         <td><span class="code_text">${item.code}</span></td>
         <td>
           <span class="codeName_text">${item.codeName}</span>
-          <select class="codeName_input" value='${item.codeName}' />   
-            <option value="單品降價"  ${
+          <select class="codeName_input modify" value='${item.codeName}' />   
+            <option value="P001"  ${
               item.codeName === "單品降價" ? 'selected="selected"' : ""
             }>單品降價</option>
-            <option value="單品打折"  ${
+            <option value="P002"  ${
               item.codeName === "單品打折" ? 'selected="selected"' : ""
             }>單品打折</option>
           </select>
         </td>
         <td>
           <span class="discount_text">${item.discount}</span>
-          <input type='text' class="discount_input" value='${item.discount}' />
+          <input type='text' class="discount_input modify" value='${
+            item.discount
+          }' />
         </td>
         <td>${item.price}</td>
         <td>${item.stock}</td>
@@ -85,15 +87,17 @@ $.ajax({
         <td>${formatDate(item.createTime)}</td>;
         <td>${formatDate(item.modifyTime)}</td>;
         <td class="text-center">
-        <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >編輯</button>
-        <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >刪除</button>
-        <button type="button" class="btn bg-olive btn-xs" onclick="save(this)" >保存</button>
-        <button type="button" class="btn bg-olive btn-xs" >取消</button>
+        <button type="button" class="btn bg-olive btn-xs" onclick='showBtn(this)' >編輯</button>
+        <button type="button" class="btn bg-olive btn-xs" onclick='deleteData(this)' >刪除</button>
+
+        <button type="button" class="btn bg-olive btn-xs modify" onclick="save(this)" >保存</button>
+        <button type="button" class="btn bg-olive btn-xs modify" onclick="cancel(this)">取消</button>
         </td>
         </tr>
       `;
     });
     $("tbody.datalist_item").html(list_html);
+    $(".modify").hide();
   },
   error: function (xhr) {
     // request 發生錯誤的話執行
@@ -101,6 +105,41 @@ $.ajax({
     console.log(xhr);
   },
 });
+
+const cancel = (target) => {
+  const $thisTableRow = $(target).closest("tr");
+  $thisTableRow.find(".modify").hide();
+};
+
+const deleteData = (target) => {
+  const $thisTableRow = $(target).closest("tr");
+
+  $.ajax({
+    url: "http://localhost:8080/oladesign/promoItem",
+    type: "DELETE",
+    data: {
+      promoId: $("span.promoId_text").text(),
+      prodId: $thisTableRow.find($("span.prodId_text")).text(),
+    },
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+      alert("刪除成功");
+
+      $thisTableRow.remove();
+    },
+    error: function (xhr) {
+      // request 發生錯誤的話執行
+      console.log("error");
+      console.log(xhr);
+    },
+  });
+};
+
+const showBtn = (target) => {
+  const $thisTableRow = $(target).closest("tr");
+  $($thisTableRow).find(".modify").show();
+};
 
 const formatDate = (dateStr) => {
   const date = new Date(dateStr);
@@ -122,68 +161,52 @@ const save = (target) => {
   const $thisTableRow = $(target).closest("tr");
 
   const codeName = $thisTableRow.find(".codeName_input").val();
-  $thisTableRow.find(".codeName_text").html(codeName);
-  $thisTableRow.find(".code_text").html(codeName);
+  const discountType = discountTypeTable.find((type) => type.code === codeName);
+  $thisTableRow.find(".code_text").html(discountType.code);
+  $thisTableRow.find(".codeName_text").html(discountType.codeName);
 
   const discount = $thisTableRow.find(".discount_input").val();
   $thisTableRow.find(".discount_text").html(discount);
 
-  let code;
-  if (codeName === "單品降價") {
-    code = "P001";
-  } else if (codeName === "單品打折") {
-    code = "P002";
-  }
+  $($thisTableRow).find(".modify").hide();
 
   $.ajax({
     url: "http://localhost:8080/oladesign/promoItem",
-    type: "GET",
-    data: { promoId: promoId, prodId: prodId, code: code, discount: discount },
+    type: "PUT",
+    data: JSON.stringify({
+      promoId: $("span.promoId_text").text(),
+      prodId: $("span.prodId_text").text(),
+      code: discountType.code,
+      discount: discount,
+    }),
+    contentType: "application/json; charset=UTF-8",
     dataType: "json",
     success: function (data) {
       console.log(data);
+    },
+    error: function (xhr) {
+      // request 發生錯誤的話執行
+      console.log("error");
+      console.log(xhr);
+    },
+  });
+};
 
-      // let list_html = "";
-      // $.each(data, function (index, item) {
-      //   list_html = `
-      //     <tr>
-      //     <td><input name="ids" type="checkbox" /></td>
-      //     <td>${item.prodId}</td>
-      //     <td>${item.prodName}</td>
-      //     </td>
-      //     <td>${item.code}</td>
-      //     <td>
-      //       <span class="codeName_text">${item.codeName}</span>
-      //       <select class="codeName_input" value='${item.codeName}' />
-      //         <option value="P001"  ${
-      //           item.codeName === "單品降價" ? 'selected="selected"' : ""
-      //         }>單品降價</option>
-      //         <option value="P002"  ${
-      //           item.codeName === "單品打折" ? 'selected="selected"' : ""
-      //         }>單品打折</option>
-      //       </select>
-      //     </td>
-      //     <td>
-      //       <span class="discount_text">${item.discount}</span>
-      //       <input type='text' class="discount_input" value='${
-      //         item.discount
-      //       }' />
-      //     </td>
-      //     <td>${item.price}</td>
-      //     <td>${item.stock}</td>
-      //     <td>折扣後金額</td>
-      //     <td>${formatDate(item.createTime)}</td>;
-      //     <td>${formatDate(item.modifyTime)}</td>;
-      //     <td class="text-center">
-      //     <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >編輯</button>
-      //     <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-order-manage-edit.html"' >刪除</button>
-      //     <button type="button" class="btn bg-olive btn-xs" onclick="save(this)" >保存</button>
-      //     <button type="button" class="btn bg-olive btn-xs" >取消</button>
-      //     </td>
-      //     </tr>
-      //   `;
-      // });
-      // $("tbody.datalist_item").html(list_html);
+const setInvalid = () => {
+  const check = confirm("確認將整筆促銷專案設為無效?");
+
+  if (!check) {
+    return;
+  }
+
+  $.ajax({
+    url: "http://localhost:8080/oladesign/promo",
+    type: "DELETE",
+    data: { promoId: promoId },
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+      alert("已將此筆專案設為無效");
     },
     error: function (xhr) {
       // request 發生錯誤的話執行
