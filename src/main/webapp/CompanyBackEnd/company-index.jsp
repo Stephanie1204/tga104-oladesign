@@ -8,7 +8,7 @@
 <!-- 页面meta -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>OLA Design 管理員後台</title>
+<title>OLA Design 賣家中心</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -45,27 +45,18 @@
 <link rel="stylesheet"
 	href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 <link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/oladesign-skin.css">	
+	href="../plugins/adminLTE/css/skins/oladesign-skin.css">
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
+	<!-- Ola Design Header -->
+	<%@ include file="header.jsp"%>
 	<div class="wrapper">
-
-		<!-- Ola Design Header -->
-		<%@ include file="header.jsp"%>
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-		
-
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
 
-			<!-- 内容头部 -->
-			<section class="content-header">
-				<h1>賣家首頁</h1>
-			</section>
-			<!-- 内容头部 /-->
 			<!-- 正文区域 -->
 			<section class="content">
 				<!-- 统计数值 -->
@@ -81,8 +72,8 @@
 							<div class="icon">
 								<i class="ion ion-bag"></i>
 							</div>
-							<a href="這裡導去訂單page" class="small-box-footer">詳細
-								<i class="fa fa-arrow-circle-right"></i>
+							<a href="這裡導去訂單page" class="small-box-footer">詳細 <i
+								class="fa fa-arrow-circle-right"></i>
 							</a>
 						</div>
 					</div>
@@ -260,7 +251,7 @@
 
 		</div>
 		<!-- 内容区域 /-->
-	<%@ include file="footer.jsp" %>
+		<%@ include file="footer.jsp"%>
 	</div>
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>

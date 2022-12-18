@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- 导航侧栏 -->
+<link rel="stylesheet"
+	href="../plugins/adminLTE/css/skins/oladesign-skin.css">
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
@@ -20,7 +21,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">選單</li>
 
-			<li id="admin-index"><a href="company-index.jsp"><i
+			<li id="admin-index"><a href="../CompanyBackEnd/company-index.jsp"><i
 					class="fa fa-dashboard"></i> <span>首頁</span></a></li>
 
 			<!-- 菜单 -->
@@ -33,11 +34,11 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="form-general"><a href="setcompany_member.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd/setcompany_member.jsp"> <i
 							class="fa fa-circle-o"></i> 賣家基本資料
 					</a></li>
 
-					<li id="form-general"><a href="listonecompany_forshop.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd/listonecompany_forshop.jsp"> <i
 							class="fa fa-circle-o"></i> 賣場管理
 					</a></li>
 
@@ -65,10 +66,10 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="form-general"><a href="addcompany_member.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd-product/company-addproduct.jsp"> <i
 							class="fa fa-circle-o"></i> 新增商品
 					</a></li>
-					<li id="form-general"><a href="addcompany_member.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd-product/company-productlist.jsp"> <i
 							class="fa fa-circle-o"></i> 商品列表
 					</a></li>
 
@@ -99,11 +100,11 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="form-general"><a href="addadvertisement.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd/addadvertisement.jsp"> <i
 							class="fa fa-circle-o"></i> 申請廣告投放
 					</a></li>
 
-					<li id="form-general"><a href="recordadvertisement.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd/recordadvertisement.jsp"> <i
 							class="fa fa-circle-o"></i> 查詢廣告投放紀錄
 					</a></li>
 

@@ -164,3 +164,35 @@
     border-color: #EFDFBB;
 }
 
+.wrapper{
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    top: 40px;
+}
+
+.main-sidebar{
+    position: fixed;
+    top: 20px;
+}
+
+.main-sidebar, .left-side {
+    padding-top: 30px;
+}
+
+.bg-maroon {
+    background-color: #E4CD8D !important;
+}
+
+.data-type .title.rowHeight2x, .data-type .data.rowHeight2x.text {
+    line-height: 320px;
+}
+
+.data-type .title.rowHeight2x, .data-type .data.rowHeight2x {
+    height: 320px;
+}
+
+.btn.focus, .btn:focus, .btn:hover {
+     background-color: #E4CD8D;
+    text-decoration: fff;
+}

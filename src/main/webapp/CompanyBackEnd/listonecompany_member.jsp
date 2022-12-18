@@ -42,11 +42,9 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
+	<!-- Ola Design Header -->
+	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
-
-		<!-- Ola Design Header -->
-		<%@ include file="header.jsp"%>
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
 
@@ -55,18 +53,13 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>賣家基本資料表</h1>
-				<ol class="breadcrumb">
-					<li><a href="company-index.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">基本資料</li>
-				</ol>
 			</section>
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
 					<!-- form start -->
 					<form method="post" action="company_member.do" name="form1"
-						enctype="multipart/form-data">
+						enctype="multipart/form-data" style=width:100%>
 						<!-- left column -->
 						<div class="col-md-6">
 							<!-- general form elements -->

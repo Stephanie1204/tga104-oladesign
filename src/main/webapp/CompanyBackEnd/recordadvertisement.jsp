@@ -52,25 +52,16 @@
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
+	<!-- Ola Design Header -->
+	<%@ include file="../include/header.jsp"%>
 	<div class="wrapper">
-		<!-- Ola Design Header -->
-		<%@ include file="header.jsp"%>
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-		
-
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
 
 			<!-- 内容头部 -->
 			<section class="content-header">
-				<h1>廣告申請紀錄</h1>
-				<ol class="breadcrumb">
-					<li><a href="all-admin-index.html"><i
-							class="fa fa-dashboard"></i> 首頁</a></li>
-					<li class="active">查詢廣告投放紀錄</li>
-				</ol>
 			</section>
 			<!-- 内容头部 /-->
 
@@ -143,15 +134,7 @@
 					<!-- .box-footer-->
 					<div class="box-footer">
 						<div class="pull-left">
-							<div class="form-group form-inline">
-								总共2 页，共14 条数据。 每页 <select class="form-control">
-									<option>10</option>
-									<option>15</option>
-									<option>20</option>
-									<option>50</option>
-									<option>80</option>
-								</select> 條
-							</div>
+
 						</div>
 
 						<div class="box-tools pull-right">

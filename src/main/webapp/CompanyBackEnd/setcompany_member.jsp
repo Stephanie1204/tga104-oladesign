@@ -6,7 +6,6 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 %>
 <!DOCTYPE html>
 <html>
-
 <head>
 <!-- 頁面Meta -->
 <meta charset="UTF-8">
@@ -43,24 +42,17 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
+	<!-- Ola Design Header -->
+	<%@ include file="header.jsp"%>
 	<div class="wrapper">
-
-		<!-- Ola Design Header -->
-		<%@ include file="header.jsp"%>
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-
 		<!-- 内容區域 -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>賣家基本資料表</h1>
-				<ol class="breadcrumb">
-					<li><a href="company-index.jsp"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">賣家基本資料</li>
-				</ol>
+
 			</section>
 			<c:if test="${not empty errorMsgs}">
 				<ul>
@@ -165,16 +157,11 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			</section>
 			<!-- /.content -->
 		</div>
-
-
-
 		<!-- /.content-wrapper -->
 		<!-- 内容区域 /-->
 		<!-- Ola Design Footer -->
 		<%@ include file="footer.jsp"%>
-
 	</div>
-
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>

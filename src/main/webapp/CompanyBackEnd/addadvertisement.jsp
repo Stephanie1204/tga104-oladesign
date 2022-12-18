@@ -16,7 +16,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <!-- 页面meta -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>OLA Design 賣家中心</title>
+<title>OLA Design 賣家中心 | 申請廣告</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 
@@ -60,24 +60,16 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
-	<div class="wrapper">
 		<!-- Ola Design Header -->
 		<%@ include file="header.jsp"%>
+	<div class="wrapper">
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-
 		<!-- 内容区域 -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>申請廣告資料</h1>
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="#">Forms</a></li>
-					<li class="active">Advanced Elements</li>
-				</ol>
 			</section>
 
 			<form method="post" action="advertisement.do" name="form1"
@@ -94,9 +86,6 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 						<!-- /.col (left) -->
 						<div class="col-md-6">
 							<div class="box box-primary">
-								<div class="box-header">
-									<h3 class="box-title">填寫廣告資料唷~~~</h3>
-								</div>
 								<c:if test="${not empty errorMsgs}">
 									<ul>
 										<c:forEach var="message" items="${errorMsgs}">
@@ -135,7 +124,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 									</div>
 
 									<div class="form-group">
-										<label for="store_logo">圖片上傳<font color=red><b>*</b></font>***要限制圖片大小嗎????****
+										<label for="store_logo">圖片上傳<font color=red><b>*</b></font>
 										</label> <input type="file" id="store_logo" name="adimages">
 										<p class="help-block"></p>
 									</div>
@@ -248,11 +237,11 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			//Date range picker
 			$('#reservation').daterangepicker({
 				locale : {
-					applyLabel : '确认',
+					applyLabel : '確認',
 					cancelLabel : '取消',
-					fromLabel : '起始时间',
-					toLabel : '结束时间',
-					customRangeLabel : '自定义',
+					fromLabel : '起始時間',
+					toLabel : '結束時間',
+					customRangeLabel : '自定義',
 					firstDay : 1
 				},
 				opens : 'left', // 日期选择框的弹出位置
@@ -265,11 +254,11 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 				timePickerIncrement : 30,
 				format : 'MM/DD/YYYY h:mm A',
 				locale : {
-					applyLabel : '确认',
+					applyLabel : '確認',
 					cancelLabel : '取消',
-					fromLabel : '起始时间',
-					toLabel : '结束时间',
-					customRangeLabel : '自定义',
+					fromLabel : '起始時間',
+					toLabel : '結束時間',
+					customRangeLabel : '自定義',
 					firstDay : 1
 				},
 				opens : 'right', // 日期选择框的弹出位置
