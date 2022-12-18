@@ -1,8 +1,8 @@
-package com.tibame.tga104.tga104g2.ChatRoom.dao;
+package com.tibame.tga104.g2.oladesign.ChatRoom.dao;
 
 import java.util.List;
 
-import com.tibame.tga104.tga104g2.ChatRoom.model.ChatMessage;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.ChatMessage;
 
 
 

@@ -1,10 +1,7 @@
-package com.tibame.tga104.tga104g2.ChatRoom.controller;
+package com.tibame.tga104.g2.oladesign.ChatRoom.controller;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.websocket.CloseReason;
@@ -17,11 +14,9 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
-import com.tibame.tga104.tga104g2.ChatRoom.jedis.JedisHandleMessage;
-import com.tibame.tga104.tga104g2.ChatRoom.model.ChatMessage;
-import com.tibame.tga104.tga104g2.ChatRoom.model.State;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.ChatMessage;
 
-@ServerEndpoint("/FriendWS/{userName}")
+@ServerEndpoint("/controller/FriendWS/{userName}")
 public class FriendWS {
 	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
 	// 記得對方的session 如何找到對方

@@ -1,4 +1,4 @@
-package com.tibame.tga104.tga104g2.ChatRoom.vo;
+package com.tibame.tga104.g2.oladesign.ChatRoom.vo;
 
 public class Chat_RoomVO implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;

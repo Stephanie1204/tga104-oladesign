@@ -1,4 +1,4 @@
-package com.tibame.tga104.tga104g2.ChatRoom.dao;
+package com.tibame.tga104.g2.oladesign.ChatRoom.dao;
 
 public interface Chat_RoomDAO_interface {
 

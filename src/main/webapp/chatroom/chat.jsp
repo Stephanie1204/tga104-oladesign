@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet" href="css2/friendchat.css" type="text/css" />
+<link rel="stylesheet" href="../css-chatroom/friendchat.css" type="text/css" />
 <style type="text/css">
 </style>
 <title>最大私人聊天室</title>
@@ -28,7 +28,7 @@
 </body>
 <script src="jquery-3.4.1.min.js"></script>
 <script>
-	var MyPoint = "/FriendWS/${mem_0}";
+	var MyPoint = "/controller/FriendWS/${mem_0}";
 	var host = window.location.host;
 	var path = window.location.pathname;
 	var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -50,7 +50,7 @@
 		$
 				.ajax({
 					type : "POST",
-					url : "http://localhost:8080/tga104-g2/CompanyBackEnd/chatstart.do?action=doSetChatRoom&mem_0=${mem_0}&mem_1=${mem_1}",
+					url : "http://localhost:8080/oladesign/chatroom/chatstart.do?action=doSetChatRoom&mem_0=${mem_0}&mem_1=${mem_1}",
 					success : function(data, status, xhr) {
 						var dataJson = JSON.parse(data);
 						chatRoomId = dataJson.chatRoomId;
@@ -60,7 +60,7 @@
 						$
 								.ajax({
 									type : "POST",
-									url : 'http://localhost:8080/tga104-g2/CompanyBackEnd/chatstart.do?action=doGetChatLogs&chatRoomId='
+									url : 'http://localhost:8080/oladesign/chatroom/chatstart.do?action=doGetChatLogs&chatRoomId='
 											+ chatRoomId,
 									success : function(data, status, xhr) {
 										var dataJson = JSON.parse(data);
@@ -111,7 +111,7 @@
 			$
 					.ajax({
 						type : 'POST',
-						url : 'http://localhost:8080/tga104-g2/CompanyBackEnd/chatstart.do?action=doSetChatMessage&chatRoomId='
+						url : 'http://localhost:8080/oladesign/chatroom/chatstart.do?action=doSetChatMessage&chatRoomId='
 								+ chatRoomId
 								+ '&message='
 								+ message

@@ -1,9 +1,9 @@
-package com.tibame.tga104.tga104g2.ChatRoom.service;
+package com.tibame.tga104.g2.oladesign.ChatRoom.service;
 
-import com.tibame.tga104.tga104g2.ChatRoom.dao.Chat_RoomDAO_interface;
-import com.tibame.tga104.tga104g2.ChatRoom.dao.Chat_RoomJDBCDAO;
-import com.tibame.tga104.tga104g2.CompanyCommon.SeqDAO_interface;
-import com.tibame.tga104.tga104g2.CompanyCommon.SeqJDBCDAO;
+import com.tibame.tga104.g2.oladesign.ChatRoom.dao.Chat_RoomDAO_interface;
+import com.tibame.tga104.g2.oladesign.ChatRoom.dao.Chat_RoomJDBCDAO;
+import com.tibame.tga104.g2.oladesign.CompanyCommon.SeqDAO_interface;
+import com.tibame.tga104.g2.oladesign.CompanyCommon.SeqJDBCDAO;
 
 public class ChatRoomService {
 	private Chat_RoomDAO_interface dao;

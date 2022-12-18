@@ -1,4 +1,4 @@
-package com.tibame.tga104.tga104g2.ChatRoom.dao;
+package com.tibame.tga104.g2.oladesign.ChatRoom.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tibame.tga104.tga104g2.ChatRoom.model.ChatMessage;
-import com.tibame.tga104.tga104g2.ChatRoom.vo.Chat_MessageVO;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.ChatMessage;
 
 public class Chat_MessageJDBCDAO implements Chat_MessageDAO_interface {
 	String DRIVER = "com.mysql.cj.jdbc.Driver";

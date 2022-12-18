@@ -1,4 +1,4 @@
-package com.tibame.tga104.tga104g2.ChatRoom.controller;
+package com.tibame.tga104.g2.oladesign.ChatRoom.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tibame.tga104.tga104g2.ChatRoom.model.ChatMessage;
-import com.tibame.tga104.tga104g2.ChatRoom.service.ChatMessageService;
-import com.tibame.tga104.tga104g2.ChatRoom.service.ChatRoomService;
-import com.tibame.tga104.tga104g2.ChatRoom.vo.Chat_RoomVO;
+import com.tibame.tga104.g2.oladesign.ChatRoom.service.ChatMessageService;
+import com.tibame.tga104.g2.oladesign.ChatRoom.service.ChatRoomService;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.ChatMessage;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.Chat_RoomVO;
 
-@WebServlet("/CompanyBackEnd/chatstart.do")
+@WebServlet("/chatroom/chatstart.do")
 public class ChatRoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

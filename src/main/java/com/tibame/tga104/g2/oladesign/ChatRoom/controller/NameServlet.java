@@ -1,4 +1,4 @@
-package com.tibame.tga104.tga104g2.ChatRoom.controller;
+package com.tibame.tga104.g2.oladesign.ChatRoom.controller;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet("/chat.do")
+@WebServlet("/chatroom/chat.do")
 public class NameServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -21,7 +21,7 @@ public class NameServlet extends HttpServlet {
 		
 		req.setAttribute("mem_0", mem_0);
 		req.setAttribute("mem_1", mem_1);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/chat.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/chatroom/chat.jsp");
 		dispatcher.forward(req, res);
 	}
 }

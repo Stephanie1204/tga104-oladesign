@@ -1,4 +1,4 @@
-package com.tibame.tga104.tga104g2.ChatRoom.model;
+package com.tibame.tga104.g2.oladesign.ChatRoom.vo;
 
 public class ChatMessage {
 	private String type;
