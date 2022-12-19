@@ -174,7 +174,7 @@ public class ProductServlet extends HttpServlet {
 			return;
 		}
 		if (prodaction.equals("Insert") && errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/pages/productAdd.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request, response);
 			return;
 		}
 
@@ -214,7 +214,7 @@ public class ProductServlet extends HttpServlet {
 			} else {
 				request.setAttribute("insert", result);
 			}
-			request.getRequestDispatcher("/pages/productAdd.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("SelectById")) {
 			List<ProductBean> result = productService.selectByComTaxId(bean.getComTaxId());

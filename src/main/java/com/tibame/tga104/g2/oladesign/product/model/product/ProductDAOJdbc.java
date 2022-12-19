@@ -427,16 +427,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(7, bean.getStock());
 				stmt.setInt(8, bean.getSafeStock());
 				stmt.setBoolean(9, bean.isStatus());
-
-				InputStream is = null;
-
-				if (bean.getProductImgBase64() != null) {
-					is = bean.getProductImg();
-					stmt.setBlob(10, is);
-					System.out.println(bean.getProductImg());
-				} else {
-					stmt.setBlob(10, is);
-				}
+				stmt.setBytes(10, bean.getProductImgByteArray());
 
 				//
 				int i = stmt.executeUpdate();
@@ -505,7 +496,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		return result;
 	}
 
-	private static final String UPDATE = "UPDATE PRODUCT SET TYPE_CODE =?, STYLE_CODE=?, NAME=?, PRICE=?, INTRO=?, STOCK=?, SAFE_STOCK=?, STATUS=?, IMG=? where PROD_ID=?";
+	private static final String UPDATE = "UPDATE PRODUCT SET TYPE_CODE =?, STYLE_CODE=?, NAME=?, PRICE=?, INTRO=?, STOCK=?, SAFE_STOCK=?, STATUS=?, IMG=ifnull(?,IMG) where PROD_ID=?";
 
 	@Override
 	public ProductBean update(ProductBean bean) {
@@ -529,13 +520,11 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(6, bean.getStock());
 				stmt.setInt(7, bean.getSafeStock());
 				stmt.setBoolean(8, bean.isStatus());
-
 				stmt.setBytes(9, bean.getProductImgByteArray());
-
 				stmt.setInt(10, bean.getProductId());
 
 				int i = stmt.executeUpdate();
-				System.out.println(i);
+				System.out.println(bean.getProductImgByteArray());
 				//
 				stmt_type.setString(1, bean.getTypeCode());
 				ResultSet typeName = stmt_type.executeQuery();
