@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
+<%
+ProductService prodSvc = new ProductService();
+String productId = request.getParameter("productId");
+if (productId != null) {
+	ProductBean product = prodSvc.selectByProdId(Integer.parseInt(productId));
+	pageContext.setAttribute("prod", product);
+}
+System.out.println("test");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +57,17 @@
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css" />
 <link rel="stylesheet"
 	href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+
+<script type="text/javascript">
+	function clearForm() {
+		var inputs = document.getElementsByTagName("input");
+		for (var i = 0; i < inputs.length; i++) {
+			if (inputs[i].type == "text") {
+				inputs[i].value = "";
+			}
+		}
+	}
+</script>
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -61,89 +83,135 @@
 				<!--订单信息-->
 				<div class="panel panel-default">
 					<div class="row data-type">
-						<div class="col-md-2 title">公司統編</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="公司統編"
-								value="" />
-						</div>
-
-						<div class="col-md-2 title">商品名稱</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="商品名稱"
-								value="" />
-						</div>
-
-						<div class="col-md-2 title">商品類別</div>
-						<div class="col-md-4 data">
-							<select class="form-control" style="width: 100%">
-								<option value="" selected="selected">無</option>
-								<option value="">餐具</option>
-								<option value="">床包被套</option>
-								<option value="">燈具</option>
-							</select>
-						</div>
-
-						<div class="col-md-2 title">商品風格</div>
-						<div class="col-md-4 data">
-							<select class="form-control" style="width: 100%">
-								<option value="" selected="selected">無</option>
-								<option value="">日式風格</option>
-								<option value="">美式風格</option>
-								<option value="">歐式風格</option>
-								<option value="">韓式風格</option>
-							</select>
-						</div>
-
-						<div class="col-md-2 title">商品價格</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="商品價格"
-								value="" />
-						</div>
-
-						<div class="col-md-2 title">商品庫存</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="商品庫存"
-								value="" />
-						</div>
-
-						<div class="col-md-2 title">安全存量</div>
-						<div class="col-md-4 data">
-							<input type="text" class="form-control" placeholder="安全存量"
-								value="" />
-						</div>
-
-						<div class="col-md-2 title">商品狀態</div>
-						<div class="col-md-4 data">
-							<select class="form-control" style="width: 100%">
-								<option value="">上架</option>
-								<option value="">下架</option>
-							</select>
-						</div>
-						<div class="col-md-2 title rowHeight2x">圖片上傳</div>
-						<div class="col-md-10 data" style="height: 320px">
-							<input type="file" multiple name="" id="uploadimage" class="upl" />
-							<div class="img-box"></div>
-						</div>
-						
-						<div class="col-md-2 title rowHeight2x">商品介紹</div>
-
-						<!--编辑器-->
-						<div class="tab-pane" id="tab-editer">
-							<div class="col-md-10 data editer">
-								<textarea class="textarea" placeholder="請輸入商品介紹"
-									style="width: 100%; height: 265px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+						<form action='<c:url value="/pages/saler.controller"/>'
+							method="post" enctype="multipart/form-data">
+							<div class="col-md-2 title">商品編號</div>
+							<div class="col-md-4 data">
+								<input type="hidden" name="productId" value="${prod.productId}">${prod.productId}
 							</div>
-						</div>
-						<!--编辑器/-->
-						<!--工具栏-->
-						<div class="box-tools text-center">
-							<hr />
-							<button type="button" class="btn bg-maroon">保存</button>
-							<button type="button" class="btn bg-default"
-								onclick="history.back(-1);">返回</button>
-							<hr />
-						</div>
-						<!--工具栏/-->
+
+							<div class="col-md-2 title">商品名稱</div>
+							<div class="col-md-4 data">
+								<input type="text" class="form-control" placeholder="商品名稱"
+									name="name" value="${prod.name}" />
+							</div>
+
+							<div class="col-md-2 title">商品類別</div>
+							<div class="col-md-4 data">
+								<jsp:useBean id="typeSvc" scope="page"
+									class="com.tibame.tga104.g2.oladesign.product.model.type.TypeService" />
+								<select class="form-control" name="typeCode" style="width: 100%"
+									size="1">
+									<option value="">無
+										<c:forEach var="typeBean" items="${typeSvc.getAll()}">
+											<option value="${typeBean.typeCode}"
+												${prod.typeCode == typeBean.typeCode ? 'selected' : ''}>${typeBean.typeName}
+										</c:forEach>
+								</select>
+							</div>
+
+							<div class="col-md-2 title">商品風格</div>
+							<div class="col-md-4 data">
+								<jsp:useBean id="styleSvc" scope="page"
+									class="com.tibame.tga104.g2.oladesign.product.model.style.StyleService" />
+								<select class="form-control" name="styleCode"
+									style="width: 100%" size="1">
+									<option value="">無
+										<c:forEach var="styleBean" items="${styleSvc.getAll()}">
+											<option value="${styleBean.styleCode}"
+												${prod.styleCode == styleBean.styleCode ? 'selected' : ''}>${styleBean.styleName}
+										</c:forEach>
+								</select>
+							</div>
+
+							<div class="col-md-2 title">商品價格</div>
+							<div class="col-md-4 data">
+								<input type="text" class="form-control" placeholder="商品價格"
+									name="price" value="${prod.price}" />
+							</div>
+
+							<div class="col-md-2 title">商品庫存</div>
+							<div class="col-md-4 data">
+								<input type="text" class="form-control" placeholder="商品庫存"
+									name=stock value="${prod.stock}" />
+							</div>
+
+							<div class="col-md-2 title">安全存量</div>
+							<div class="col-md-4 data">
+								<input type="text" class="form-control" placeholder="安全存量"
+									name="safeStock" value="${prod.safeStock}" />
+							</div>
+
+							<div class="col-md-2 title">商品狀態</div>
+							<div class="col-md-4 data">
+								<select size="1" name="status" class="form-control"
+									style="width: 100%">
+									<option value="true" ${prod.status == true ? 'selected' : ''}>上架
+									
+									<option value="false" ${prod.status == false ? 'selected' : ''}>下架
+
+								</select>
+							</div>
+							<div class="col-md-2 title rowHeight2x">圖片上傳</div>
+							<div class="col-md-10 data" style="height: 320px">
+								<input type="file" name="img_file" accept="image/*"
+									id="uploadimage" class="upl" /> <img class="preview"
+									src="${prod.productImgBase64}"
+									style="max-width: 150px; max-height: 150px;">
+									<input type="hidden" name="tempImg" value="${prod.productImgBase64}">
+								<div class="img-box"></div>
+							</div>
+
+							<div class="col-md-2 title rowHeight2x">商品介紹</div>
+
+							<!--编辑器-->
+							<div class="tab-pane" id="tab-editer">
+								<div class="col-md-10 data editer">
+									<textarea class="textarea" name="intro" placeholder="請輸入商品介紹"
+										style="width: 100%; height: 265px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${prod.intro}</textarea>
+								</div>
+							</div>
+							<!--编辑器/-->
+							<!--工具栏-->
+							<div class="box-tools text-center">
+								<hr />
+								<input type="submit" name="prodaction" value="Update"
+									class="btn bg-maroon"><input type="submit"
+									name="prodaction" value="Delete" class="btn bg-maroon">
+								<input type="button" value="Clear" onclick="clearForm()">
+								<hr />
+							</div>
+							<!--工具栏/-->
+						</form>
+						<h3>
+							<div>
+								<span class="error">${errors.action}</span>
+							</div>
+							<div>
+								<span class="error">${errors.typeCode}</span>
+							</div>
+							<div>
+								<span class="error">${errors.styleCode}</span>
+							</div>
+							<div>
+								<span class="error">${errors.name}</span>
+							</div>
+							<div>
+								<span class="error">${errors.price}</span>
+							</div>
+							<div>
+								<span class="error">${errors.intro}</span>
+							</div>
+							<div>
+								<span class="error">${errors.stock}</span>
+							</div>
+							<div>
+								<span class="error">${errors.safeStock}</span>
+							</div>
+						</h3>
+						<c:if test="${not empty update}">
+							<h3>更新成功</h3>
+						</c:if>
 					</div>
 				</div>
 				<!--订单信息/-->
@@ -216,6 +284,33 @@
 	<script
 		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
+		$(function() {
+
+			function format_float(num, pos) {
+				var size = Math.pow(10, pos);
+				return Math.round(num * size) / size;
+			}
+
+			function preview(input) {
+
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('.preview').attr('src', e.target.result);
+						var KB = format_float(e.total / 1024, 2);
+						$('.size').text("檔案大小：" + KB + " KB");
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+
+			$("body").on("change", ".upl", function() {
+				preview(this);
+			})
+
+		})
 		$(document).ready(function() {
 			// 选择框
 			$(".select2").select2();
@@ -254,26 +349,6 @@
 			// 激活导航位置
 			setSidebarActive("order-manage");
 		});
-
-		$('#uploadimage')
-				.on(
-						'change',
-						function(e) {
-							
-							var files = e.target.files;
-							if (files.length > 0) {
-								for (var i = 0; i < files.length; i++) {
-									var reader = new FileReader();
-									reader.onload = function() {
-										var text = "<div id='upload'><img src='" + this.result + "' style='max-height: 100px' alt=''>"
-										$('.img-box').append(text);
-									};
-									reader.readAsDataURL(files[i]);
-								}
-								;
-							}
-							;
-						})
 	</script>
 </body>
 </html>

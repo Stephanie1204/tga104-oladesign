@@ -246,22 +246,103 @@ if (userId != null) {
 														onchange="submit();">
 														<option value="1"
 															${ row_product.cartQuantity == 1 ? 'selected': ""}>1
+
+
+
+
+
+
+
+
+														
 														<option value="2"
 															${ row_product.cartQuantity == 2 ? 'selected': ""}>2
+
+
+
+
+
+
+
+
+														
 														<option value="3"
 															${ row_product.cartQuantity == 3 ? 'selected': ""}>3
+
+
+
+
+
+
+
+
+														
 														<option value="4"
 															${ row_product.cartQuantity == 4 ? 'selected': ""}>4
+
+
+
+
+
+
+
+
+														
 														<option value="5"
 															${ row_product.cartQuantity == 5 ? 'selected': ""}>5
+
+
+
+
+
+
+
+
+														
 														<option value="6"
 															${ row_product.cartQuantity == 6 ? 'selected': ""}>6
+
+
+
+
+
+
+
+
+														
 														<option value="7"
 															${ row_product.cartQuantity == 7 ? 'selected': ""}>7
+
+
+
+
+
+
+
+
+														
 														<option value="8"
 															${ row_product.cartQuantity == 8 ? 'selected': ""}>8
+
+
+
+
+
+
+
+
+														
 														<option value="9"
 															${ row_product.cartQuantity == 9 ? 'selected': ""}>9
+
+
+
+
+
+
+
+
+														
 													</select>
 												</form>
 
@@ -283,32 +364,11 @@ if (userId != null) {
 									</c:forEach>
 								</tbody>
 							</table>
+							<a
+								href="<c:url value="../homePage/checkOut.jsp"><c:param name="comTaxId" value="${row_saler}" /></c:url>"
+								class="primary-btn">結帳</a>
 						</c:forEach>
 					</c:if>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="shoping__continue">
-					<div class="shoping__discount">
-						<h5>Discount Codes</h5>
-						<form action="#">
-							<input type="text" placeholder="Enter your coupon code">
-							<button type="submit" class="site-btn">APPLY COUPON</button>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="shoping__checkout">
-					<h5>Cart Total</h5>
-					<ul>
-						<li>Subtotal <span>$454.98</span></li>
-						<li>Total <span>$454.98</span></li>
-					</ul>
-					<a href="<%=request.getContextPath()%>/homePage/checkOut.jsp"
-						class="primary-btn">結帳</a>
 				</div>
 			</div>
 		</div>

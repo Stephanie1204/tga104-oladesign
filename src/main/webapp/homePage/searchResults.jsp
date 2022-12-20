@@ -254,7 +254,7 @@
 						<div class="col">
 							<a
 								href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
-								class="results">
+								class="results" target="_blank">
 
 
 								<div class="img_contents">

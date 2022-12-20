@@ -18,10 +18,9 @@ import com.tibame.tga104.g2.oladesign.product.model.product.ProductBean;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductService;
 
 @WebServlet(urlPatterns = { "/pages/saler.controller" })
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 10,  // 10 KB
-        maxFileSize = 1024 * 300,       // 300 KB
-        maxRequestSize = 1024 * 1024    // 1 MB 
+@MultipartConfig(fileSizeThreshold = 1024 * 10, // 10 KB
+		maxFileSize = 1024 * 300, // 300 KB
+		maxRequestSize = 1024 * 1024 // 1 MB
 )
 //Servlet 必須繼承 javax.servlet.http.HttpServlet
 public class SalerServlet extends HttpServlet {
@@ -56,9 +55,7 @@ public class SalerServlet extends HttpServlet {
 		String tempStatus = request.getParameter("status");// not null
 		String prodaction = request.getParameter("prodaction");
 		Part filePart = request.getPart("img_file");
-		
-		System.out.println(filePart + tempTypeCode);
-
+		System.out.println(intro);
 //驗證資料 select不會經過此流程
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
@@ -99,12 +96,11 @@ public class SalerServlet extends HttpServlet {
 				errors.put("productId", "productId must be a number");
 			}
 		}
-		
+
 		String typeCode = "";
 		if (tempTypeCode != null && tempTypeCode.length() != 0) {
 			try {
 				typeCode = tempTypeCode;
-				System.out.println(typeCode);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
@@ -162,18 +158,9 @@ public class SalerServlet extends HttpServlet {
 			return;
 		}
 		if (prodaction.equals("Insert") && errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/pages/productAdd.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-addproduct.jsp").forward(request, response);
 			return;
 		}
-		
-		//part file is null?
-		InputStream inputStream = null;
-		byte[] buffer = null;
-		if (filePart != null) {
-            // Obtains input stream of the upload file
-            inputStream = filePart.getInputStream();
-            buffer = inputStream.readAllBytes();
-        }
 
 //呼叫Model
 		// 測試用廠商統編
@@ -189,8 +176,14 @@ public class SalerServlet extends HttpServlet {
 		bean.setStock(stock);
 		bean.setSafeStock(safeStock);
 		bean.setStatus(status);
-        bean.setProductImg(inputStream);
-        bean.setProductImgByteArray(buffer);
+		// part file is null?
+		InputStream inputStream = null;
+		byte[] buffer = null;
+		buffer = filePart.getInputStream().readAllBytes();
+		buffer = buffer.length == 0 ? null : buffer;
+		bean.setProductImgByteArray(buffer);
+		bean.setProductImg(inputStream);
+
 		System.out.println("pass3");
 		System.out.println(bean);
 
@@ -212,14 +205,14 @@ public class SalerServlet extends HttpServlet {
 			} else {
 				request.setAttribute("insert", result);
 			}
-			request.getRequestDispatcher("/pages/productAdd.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-addproduct.jsp").forward(request, response);
+
 		} else if (prodaction != null && prodaction.equals("SelectById")) {
 			List<ProductBean> result = productService.selectByComTaxId(bean.getComTaxId());
 			request.setAttribute("selectById", result);
 			// 傳遞result list到下面指定的jsp檔
-			request.getRequestDispatcher("/pages/salerProducts.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);
+
 		} else if (prodaction != null && prodaction.equals("Update")) {
 			ProductBean result = productService.update(bean);
 			if (result == null) {
@@ -227,8 +220,9 @@ public class SalerServlet extends HttpServlet {
 			} else {
 				request.setAttribute("update", result);
 			}
-			request.getRequestDispatcher("/pages/salerProducts.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+					response);
+
 		} else if (prodaction != null && prodaction.equals("Delete")) {
 			boolean result = productService.delete(bean);
 			if (!result) {
@@ -236,11 +230,11 @@ public class SalerServlet extends HttpServlet {
 			} else {
 				request.setAttribute("delete", 1);
 			}
-			request.getRequestDispatcher("/pages/salerProducts.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);
+
 		} else {
 			errors.put("action", "Unknown Action:" + prodaction);
-			request.getRequestDispatcher("/pages/product.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);
 		}
 		System.out.println("pass4");
 	}
@@ -249,5 +243,5 @@ public class SalerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doGet(req, resp);
 	}
-	
+
 }

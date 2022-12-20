@@ -210,7 +210,7 @@ System.out.println("test");
 						<!-- <img class="product__details__pic__item--large"
 							src="img/product/details/product-details-1.jpg" alt=""> -->
 						<img class="product__details__pic__item--large"
-							src="${ prod.productImgBase64 }" alt="">
+							src="${ prod.productImgBase64 }" alt="No Image">
 					</div>
 					<div class="product__details__pic__slider owl-carousel">
 						<img data-imgbigurl="img/product/details/product-details-2.jpg"

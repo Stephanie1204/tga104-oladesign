@@ -16,7 +16,9 @@ public class OrderBean {
 	private int pointUse;
 	private int pointGet;
 	private String receiver;
-
+//
+	private String orderTime_toSec;
+	
 	public String getOrderId() {
 		return orderId;
 	}
@@ -112,4 +114,13 @@ public class OrderBean {
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
+
+	public String getOrderTime_toSec() {
+		return orderTime_toSec;
+	}
+
+	public void setOrderTime_toSec(String orderTime_toSec) {
+		this.orderTime_toSec = orderTime_toSec;
+	}
+	
 }
