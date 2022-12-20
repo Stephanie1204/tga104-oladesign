@@ -92,6 +92,10 @@ div.row{
 	align-items: center;
 }
 
+div.header__logo{
+	padding-bottom: 0;
+}
+
 .header__logo a {
 	display: inline-block;
 }
@@ -186,6 +190,11 @@ ul.nav{
 	transition: all, 0.3s;
 	padding: 5px 0;
 	display: block;
+}
+
+nav.header__menu{
+	padding-top: 0;
+	padding-bottom: 5px;
 }
 
 .header__cart {
