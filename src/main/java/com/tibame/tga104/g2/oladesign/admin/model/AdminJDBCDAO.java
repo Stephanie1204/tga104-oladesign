@@ -94,11 +94,11 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 
 			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setString(1, adminVO.getAdminId());
-			pstmt.setString(2, adminVO.getAdminName());
-			pstmt.setString(3, adminVO.getAccount());
-			pstmt.setString(4, adminVO.getPassword());
+			pstmt.setString(1, adminVO.getAccount());
+			pstmt.setString(2, adminVO.getPassword());
+			pstmt.setString(3, adminVO.getAdminName());
+			pstmt.setString(4, adminVO.getAdminId());
+			
 
 			pstmt.executeUpdate();
 

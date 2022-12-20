@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class AdminVO implements java.io.Serializable {
 
-	private static final long serialVersionUID = -8971401992354576671L;
 	private String adminId  ;
 	private String adminName ;
 	private String account;

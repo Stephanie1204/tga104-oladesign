@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tibame.tga104.g2.oladesign.intermail.model.IntermailService;
 import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 
-
+@WebServlet("/intermail/intermail.do")
 public class IntermailServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -152,21 +153,21 @@ String adminId = req.getParameter("adminId");
 			String enameReg2 = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{4}$";
 			if (adminId == null || adminId.trim().length() == 0) {
 				errorMsgs.add("管理員編號: 請勿空白");
-			} else if (!adminId.trim().matches(enameReg2)) { // 以下練習正則(規)表示式(regular-expression)
+			} else if (!adminId.trim().matches(enameReg2)) { 
 				errorMsgs.add("管理員編號: 只能為A001字 , 且長度必需為4");
 			}
 String numQue = req.getParameter("numQue");
-			String enameReg4 = "^[0-9)]{1}$";
+			String enameReg4 = "^[1-2)]{1}$";
 			if (numQue == null || numQue.trim().length() == 0) {
 				errorMsgs.add("問題類型編號: 請勿空白");
-			} else if (!numQue.trim().matches(enameReg4)) { // 以下練習正則(規)表示式(regular-expression)
+			} else if (!numQue.trim().matches(enameReg4)) { 
 				errorMsgs.add("問題類型編號: 只能是數字 , 且長度必須為1");
 			}
 String conTent = req.getParameter("conTent");
 			String enameReg3 = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{0,1000}$";
 			if (conTent == null || conTent.trim().length() == 0) {
 				errorMsgs.add("內容: 請勿空白");
-			} else if (!conTent.trim().matches(enameReg3)) { // 以下練習正則(規)表示式(regular-expression)
+			} else if (!conTent.trim().matches(enameReg3)) { 
 				errorMsgs.add("內容: 長度必需在1到1000之間");
 			}
 			

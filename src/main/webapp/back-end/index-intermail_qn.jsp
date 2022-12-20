@@ -19,7 +19,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
 
-<title>管理員管理</title>
+<title>站內信問題類別管理</title>
 <style>
 .back-end-btn {
 	color: #7f70f5;
@@ -42,52 +42,71 @@
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-            <div class="container-fluid d-flex p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>oladesign</span></div>
-                </a>
-                <hr class="sidebar-divider my-0">
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i class="fas fa-table"></i>管理員管理</a></li>
-                    
-                     <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
-                    	<ul class="back-end-li-child" style="display:none;">
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i class="fas fa-table"></i>店家會員管理</a></li>
-                    	</ul>
-                    </li>
-                    
-                    <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i>訂單管理</a>
-                    	<ul class="back-end-li-child" style="display:none;">
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/listAllType.jsp"><i class="fas fa-table"></i><span>商品類型管理</span></a></li> --%>
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
-                    	</ul>
-                    </li>
-                    <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>商品分類</span></a>
-                    	<ul class="back-end-li-child" style="display:none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
-                    	</ul>
-                    </li>
+	<div id="wrapper">
+		<nav
+			class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+			<div class="container-fluid d-flex p-0">
+				<a
+					class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+					href="#">
+					<div class="sidebar-brand-icon rotate-n-15">
+						<i class="fas fa-laugh-wink"></i>
+					</div>
+					<div class="sidebar-brand-text mx-3">
+						<span>oladesign</span>
+					</div>
+				</a>
+				<hr class="sidebar-divider my-0">
+				<ul class="nav navbar-nav text-light" id="accordionSidebar">
+					<li class="nav-item"><a class="nav-link active"
+						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
+							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
+							class="fas fa-table"></i>管理員管理</a></li>
 
-                    <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>站內信管理</span></a>
-                    	<ul class="back-end-li-child" style="display:none;">
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>前台會員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+									class="fas fa-table"></i>一般會員管理</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
+									class="fas fa-table"></i>店家會員管理</a></li>
+						</ul></li>
+
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i>訂單管理</a>
+						<ul class="back-end-li-child" style="display: none;">
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/listAllType.jsp"><i class="fas fa-table"></i><span>商品類型管理</span></a></li> --%>
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
+						</ul></li>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>商品分類</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i
+									class="fas fa-table"></i><span>商品地區類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i
+									class="fas fa-table"></i><span>商品類別</span></a></li>
+						</ul></li>
+
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>站內信管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
-                    	</ul>
-                    </li>
-					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>廣告管理</span></a>
-                    	<ul class="back-end-li-child" style="display:none;">
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/announcement/select_page.jsp"><i class="fas fa-table"></i><span>查看活動公告</span></a></li> --%>
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
-                    	</ul>
-                    </li>
-                </ul>
+						</ul></li>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>廣告管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/announcement/select_page.jsp"><i class="fas fa-table"></i><span>查看活動公告</span></a></li> --%>
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
+						</ul></li>
+				</ul>
 				<div class="text-center d-none d-md-inline" style="margin: 0 auto;">
 					<button class="btn rounded-circle border-0" id="sidebarToggle"
 						type="button"></button>
@@ -132,7 +151,7 @@
 								<div class="nav-item dropdown no-arrow">
 									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
 										aria-expanded="false"
-										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${adminVO.adminId}"
+										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${administratorVO.adminid}"
 										onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span
 										class="badge badge-danger badge-counter"></span><i
 										class="fa fa-comment"></i></a>
@@ -144,7 +163,7 @@
 								<div class="nav-item dropdown no-arrow">
 									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
 										aria-expanded="false" href="#"><span
-										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminName}</span><img
+										class="d-none d-lg-inline mr-2 text-gray-600 small">${administratorVO.adminName}</span><img
 										class="border rounded-circle img-profile"
 										src="<%=request.getContextPath()%>/image/logo1.png"></a>
 									<div
@@ -161,7 +180,7 @@
 				</nav>
 
 				<div style="padding: 20px 15px;">
-					<h2>管理員管理</h2>
+					<h2>站內信問題類別管理</h2>
 
 					<c:if test="${not empty errorMsgs}">
 						<b>請修正以下錯誤：</b>
@@ -174,10 +193,10 @@
 
 					<ul>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp">檢視所有管理員</a>
+							href="<%=request.getContextPath()%>/intermail_qn/listAllIntermail_qn.jsp">檢視所有商品地區類別</a>
 						</li>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/addAdmin.jsp">新增管理員</a>
+							href="<%=request.getContextPath()%>/intermail_qn/addIntermail_qn.jsp">新增商品地區類別</a>
 						</li>
 
 						<%-- <li>
@@ -195,31 +214,33 @@
 
 						<%-- 					<jsp:useBean id="funcSvc" scope="page" --%>
 						<%-- 						class="com.function.model.FunctionService" /> --%>
-						<jsp:useBean id="adminSvc" scope="page"
-							class="com.tibame.tga104.g2.oladesign.admin.model.AdminService" />
+						<jsp:useBean id="intermail_qnSvc" scope="page"
+							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />
 						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員編號:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminId}
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do">
+								<b>選擇問題類型編號:</b> <select size="1" name="numQue">
+									<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
+										<option value="${intermail_qnVO.numQue}">${intermail_qnVO.numQue}
 									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
-<!-- 								<input type="hidden" name="action" value="getOne_For_Display"> -->
-<!-- 								<input type="submit" value="送出"> -->
+								</select>
+								<button type="submit" name="action" value="getOne_For_Display"
+									class="btn back-end-btn">送出</button>
+								<!-- 								<input type="hidden" name="action" value="getOne_For_Display"> -->
+								<!-- 								<input type="submit" value="送出"> -->
 							</FORM>
 						</li>
 
 						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員名稱:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminName}
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do">
+								<b>選擇地區類別名稱:</b> <select size="1" name="numQue">
+									<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
+										<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type}
 									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
+								</select>
+								<button type="submit" name="action" value="getOne_For_Display"
+									class="btn back-end-btn">送出</button>
 							</FORM>
 						</li>
 

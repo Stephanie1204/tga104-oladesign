@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.tibame.tga104.g2.oladesign.product_type.model.Product_typeService;
 import com.tibame.tga104.g2.oladesign.product_type.model.Product_typeVO;
 
-
+@WebServlet("/product_type/product_type.do")
 public class Product_typeServlet extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -24,7 +30,7 @@ public class Product_typeServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
-
+System.out.println("STYLE");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.

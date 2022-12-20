@@ -6,13 +6,14 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService;
 import com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnVO;
-
+@WebServlet("/intermail_qn/intermail_qn.do")
 public class Intermail_qnServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

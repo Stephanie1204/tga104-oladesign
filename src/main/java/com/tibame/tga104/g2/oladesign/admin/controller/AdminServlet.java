@@ -20,7 +20,7 @@ public class AdminServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8083917795712024771L;
+	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -30,14 +30,12 @@ public class AdminServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-			System.out.println("1");
 		if ("getOne_For_Display".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			String str = req.getParameter("adminId");
 			if (str == null || (str.trim()).length() == 0) {
@@ -78,30 +76,28 @@ public class AdminServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("adminVO", adminVO); //資料庫取出的empVO物件,存入req
+			req.setAttribute("adminVO", adminVO); //
 			String url = "/admin/listOneAdmin.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 
 			successView.forward(req, res);
 		}
 		if ("getOne_For_Update".equals(action)) { // 來自listAllAdmin.jsp的請求
-
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			
 			/*************************** 1.接收請求參數 ****************************************/
 			String adminId = (req.getParameter("adminId"));
-
 			/*************************** 2.開始查詢資料 ****************************************/
 			AdminService adminSvc = new AdminService();
 			AdminVO adminVO = adminSvc.getOneAdmin(adminId);
-
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("adminVO", adminVO); // 資料庫取出的empVO物件,存入req
+			req.setAttribute("adminVO", adminVO); 
 			String url = "/admin/update_admin_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
+			
 		}
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 
@@ -111,12 +107,12 @@ public class AdminServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 			String adminId = req.getParameter("adminId");
-			String enameReg = "^[(a-zA-Z0-9_)]{4,10}$";
-			if (adminId == null || adminId.trim().length() == 0) {
-				errorMsgs.add("管理員編號: 請勿空白");
-			} else if (!adminId.trim().matches(enameReg)) {// 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("管理員編號: 只能是英文字母、數字和_ , 且長度必需在4到10之間");
-			}
+//			String enameReg = "^[(a-zA-Z0-9_)]{4,10}$";
+//			if (adminId == null || adminId.trim().length() == 0) {
+//				errorMsgs.add("管理員編號: 請勿空白");
+//			} else if (!adminId.trim().matches(enameReg)) {// 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("管理員編號: 只能是英文字母、數字和_ , 且長度必需在4到10之間");
+//			}
 
 			String adminName = req.getParameter("adminName");
 			String enameReg2 = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,10}$";
@@ -146,25 +142,23 @@ public class AdminServlet extends HttpServlet {
 			adminVO.setAdminName(adminName);
 			adminVO.setAccount(account);
 			adminVO.setPassword(password);
-
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("adminVO", adminVO); // �t����J�榡���~��empVO����,�]�s�Jreq
+				req.setAttribute("adminVO", adminVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/admin/update_admin_input.jsp");
 				failureView.forward(req, res);
-				return; // �{�����_
+				return; 
 			}
 			/*************************** 2.開始修改資料 *****************************************/
 			AdminService adminSvc = new AdminService();
 			adminVO = adminSvc.updateAdmin(adminId, adminName, account, password);
-
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("adminVO", adminVO); // 資料庫update成功後,正確的的empVO物件,存入req
+			req.setAttribute("adminVO", adminVO); 
 			String url = "/admin/listOneAdmin.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // �Ӧ�addEmp.jsp���ШD
+		if ("insert".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -180,7 +174,7 @@ public class AdminServlet extends HttpServlet {
 			} else if (!adminId.trim().matches(enameReg)) {
 				errorMsgs.add("管理員編號: 只能是英文字母、數字和_ , 且長度必需在4到10之間");
 			}
-
+			
 			String adminName = req.getParameter("adminName");
 			String enameReg2 = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (adminName == null || adminName.trim().length() == 0) {
@@ -218,11 +212,9 @@ public class AdminServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;
 			}
-
 			/*************************** 2.開始新增資料 ***************************************/
 			AdminService adminSvc = new AdminService();
 			adminVO = adminSvc.addAdmin(adminId, adminName, account, password);
-
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/admin/listAllAdmin.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); //

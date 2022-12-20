@@ -1,168 +1,197 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.admin.model.*"%>
 
 <%
-  AdminVO adminVO = (AdminVO) request.getAttribute("adminVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºempVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºempVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºempVOª«¥ó)
+AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 %>
-
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>­û¤u¸ê®Æ­×§ï - update_emp_input.jsp</title>
+<meta charset="UTF-8">
+<title>ä¿®æ”¹ç®¡ç†å“¡è³‡æ–™</title>
+
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+#addAdmin {
+	width: 40%;
+	margin: auto auto;
+}
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+.title {
+	text-align: center;
+}
 
+.hint {
+	color: red;
+}
+
+#addAdmin .adminLabel {
+	width: 100px;
+}
+
+.back-end-li:hover>.back-end-li-child {
+	display: block !important;
+}
+
+.nav-item {
+	list-style-type: none;
+}
+
+.back-end-btn {
+	color: #7f70f5;
+	border-color: #7f70f5;
+}
+
+.back-end-btn:hover {
+	background-color: #7f70f5;
+	color: #ffffff !important;
+}
+</style>
 </head>
-<body bgcolor='white'>
+<body id="page-top">
+	<div id="wrapper">
+		<nav
+			class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+			<div class="container-fluid d-flex p-0">
+				<a
+					class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+					href="#">
+					<div class="sidebar-brand-icon rotate-n-15">
+						<i class="fas fa-laugh-wink"></i>
+					</div>
+					<div class="sidebar-brand-text mx-3">
+						<span>oladesign</span>
+					</div>
+				</a>
+				<hr class="sidebar-divider my-0">
+				<ul class="nav navbar-nav text-light" id="accordionSidebar">
+					<li class="nav-item"><a class="nav-link active"
+						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
+							class="fas fa-tachometer-alt"></i><span>é¦–é </span></a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
+							class="fas fa-table"></i>ç®¡ç†å“¡ç®¡ç†</a></li>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>ºŞ²z­û¸ê®Æ­×§ï - update_emp_input.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back-end/back-end-index.jsp">¦^­º­¶</a></h4>
-	</td></tr>
-</table>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>å‰å°æœƒå“¡ç®¡ç†</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+									class="fas fa-table"></i>ä¸€èˆ¬æœƒå“¡ç®¡ç†</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
+									class="fas fa-table"></i>åº—å®¶æœƒå“¡ç®¡ç†</a></li>
+						</ul></li>
 
-<h3>¸ê®Æ­×§ï:</h3>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i>è¨‚å–®ç®¡ç†</a>
+						<ul class="back-end-li-child" style="display: none;">
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/listAllType.jsp"><i class="fas fa-table"></i><span>å•†å“é¡å‹ç®¡ç†</span></a></li> --%>
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>å•†å“ç®¡ç†å¯©æ ¸</span></a></li> --%>
+						</ul></li>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>å•†å“åˆ†é¡</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>å•†å“åœ°å€é¡åˆ¥</span></a></li>
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>å•†å“é¡åˆ¥</span></a></li>
+						</ul></li>
 
-<%-- ¿ù»~ªí¦C --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>ç«™å…§ä¿¡ç®¡ç†</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>ç«™å…§ä¿¡</span></a></li>
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>ç«™å…§ä¿¡å•é¡Œé¡åˆ¥</span></a></li>
+						</ul></li>
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>å»£å‘Šç®¡ç†</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/announcement/select_page.jsp"><i class="fas fa-table"></i><span>æŸ¥çœ‹æ´»å‹•å…¬å‘Š</span></a></li> --%>
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>æŸ¥çœ‹æœ€æ–°æ¶ˆæ¯</span></a></li> --%>
+							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>æŸ¥çœ‹å•†åŸæ´»å‹•</span></a></li> --%>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
 
-<FORM METHOD="post" ACTION="admin.do" name="form1">
-<table>
-	<tr>
-		<td>ºŞ²z­û½s¸¹:<font color=red><b>*</b></font></td>
-		<td><%=adminVO.getAdminId()%></td>
-	</tr>
-	<tr>
-		<td>ºŞ²z­û¦WºÙ:</td>
-		<td><input type="TEXT" name="adminName" size="45" value="<%=adminVO.getAdminName()%>" /></td>
-	</tr>
-	<tr>
-		<td>±b¸¹:</td>
-		<td><input type="TEXT" name="account" size="45"	value="<%=adminVO.getAccount()%>" /></td>
-	</tr>
-	<tr>
-	<tr>
-		<td>±K½X:</td>
-		<td><input type="TEXT" name="password" size="45"	value="<%=adminVO.getPassword()%>" /></td>
-	</tr>
+		<div style="margin: 20px 15px;">
+			<div style="display: flex;">
+				<h2>ç®¡ç†å“¡è³‡æ–™ä¿®æ”¹</h2>
+				<div style="position: absolute; right: 15px;">
 
+				</div>
+			</div>
+			<h3>è«‹æ–¼ä¸‹æ–¹ä¿®æ”¹è³‡æ–™ï¼š</h3>
+			<div>
+				<form method="post" action="admin.do" name="formUpdate">
+					<table class="table table-striped table-sm table-hover">
+						<tr>
+							<td>ç®¡ç†å“¡ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
+							<td><%=adminVO.getAdminId()%></td>
+						</tr>
+						<tr>
+							<td>ç®¡ç†å“¡åç¨±ï¼š</td>
+							<td><input type="text" name="adminName"
+								value="<%=adminVO.getAdminName()%>"></td>
+						</tr>
+						<tr>
+							<td>ç®¡ç†å“¡å¸³è™Ÿï¼š</td>
+							<td><input type="email" name="account"
+								value="<%=adminVO.getAccount()%>"></td>
+						</tr>
+						<tr>
+							<td>ç®¡ç†å“¡å¯†ç¢¼ï¼š</td>
+							<td><input type="text" name="password"
+								value="<%=adminVO.getPassword()%>"></td>
+						</tr>
 
+					</table>
+					<input type="hidden" name="action" value="update"> <input
+						type="hidden" name="adminId" value="<%=adminVO.getAdminId()%>">
+					<input type="submit" class="btn back-end-btn" value="é€å‡ºä¿®æ”¹">
+					
+					<a href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp">
+					<input type="button" class="btn back-end-btn" value="å–æ¶ˆä¿®æ”¹">
+					</a>
+				</FORM>
+				</form>
+			</div>
 
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="adminId" value="<%=adminVO.getAdminId()%>">
-<input type="submit" value="°e¥X­×§ï"></FORM>
+			<div>
+				<c:if test="${not empty errorMsgs}">
+					<font>è«‹ä¿®æ­£éŒ¯èª¤ï¼š</font>
+					<ul>
+						<c:forEach var="msg" items="${errorMsgs}">
+							<li><b>${msg}</b></li>
+						</c:forEach>
+					</ul>
+				</c:if>
+			</div>
+		</div>
+
+	</div>
+<footer class="bg-white sticky-footer">
+		<div class="container my-auto">
+			<div class="text-center my-auto copyright">
+				<span>oladesign</span>
+			</div>
+		</div>
+	</footer>
+	</div>
+	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i
+		class="fas fa-angle-up"></i></a>
+	</div>
+	<script
+		src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
 </body>
-
-
-
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
-
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
-
-<script>
-
-        
-        
-   
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
-
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
-</script>
 </html>
