@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 
 public class Company_MemJDBCDAO implements Company_MemDAO_interface {
+	
 	String DRIVER = "com.mysql.cj.jdbc.Driver";
 	String URL = "jdbc:mysql://localhost:3306/tga104g2?serverTimezone=Asia/Taipei";
 	String USERID = "root";
@@ -33,7 +35,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 	// get到的值,會以第一個參數去判斷是否為null,如果非null則回傳第一個參數,如果是null則回傳第二參數的值(維持現有欄位的值不做更動)
 
 	@Override
-	public Company_MemVO findByMemId(String memId) {
+	public Company_MemVO findByMemId(Integer memId) {
 
 		Company_MemVO company_memVO = null;
 		Connection con = null;
@@ -45,7 +47,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_MEM_ID);
 
-			pstmt.setString(1, memId);
+			pstmt.setInt(1, memId);
 
 			rs = pstmt.executeQuery();
 
@@ -109,7 +111,6 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 			// pstmt.setDate(10, company_memVO.getComRegdate());
 
 			pstmt.executeUpdate();
-
 		} catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
 		} catch (SQLException se) {

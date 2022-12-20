@@ -83,19 +83,29 @@ public class MemberRegist extends HttpServlet {
 				errorMsgs.put("sex", "請選擇性別");
 			}
 			
-//			Gson gson = new Gson();
-			
-//			String areaValue = areaValue;
-//			System.out.println("memCity=" + memCity);
+			String city = request.getParameter("city");
+			String town = request.getParameter("town");
+			String zipcode = request.getParameter("zipcode");
 			
 			String memAddress = request.getParameter("memAddress");
 			if(memAddress == null || memAddress.trim().length() == 0) {
 				errorMsgs.put("memAddress", "地址請勿空白");
+			}else if(city == null || city.trim().length() == 0) {
+				errorMsgs.put("memAddress", "請選擇地址縣市與鄉鎮市區");
+			}
+			
+			if(city != null || city.trim().length() > 0) {
+				request.setAttribute("city", city);
+				request.setAttribute("town", town);
 			}
 			
 			String agreement = request.getParameter("agreement");
+			System.out.println("agreement:" + agreement);
 			if(agreement == null) {
 				errorMsgs.put("agreement", "請確認同意會員條款與隱私條款");
+			}else {
+				System.out.println("已同意會員調款及隱私條款");
+				request.setAttribute("agreement", "checked"); //紀錄已勾選
 			}			
 							
 			MemberVO memberVO = new MemberVO();
@@ -130,13 +140,16 @@ public class MemberRegist extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+//			存完整地址
+			String finalAddress = zipcode + city + town + memAddress;
+			
 //			註冊成功新增會員(待驗證)
 			MemberService memSvc = new MemberService();
-			memberVO = memSvc.addMember(memName, account, passwordKey, memPhone, memAddress, sex, null);
+			memberVO = memSvc.addMember(memName, account, passwordKey, memPhone, finalAddress, sex, null);
 			Integer memId = memberVO.getMemId();
 			System.out.println("memId=" + memId);
 			
-			if(!memSvc.isCheckMail()) {
+			if(!memSvc.isCheckMail()) { //false從dao -> service -> controller
 				errorMsgs.put("account", "帳號已經存在，請勿重複註冊");
 			}
 			

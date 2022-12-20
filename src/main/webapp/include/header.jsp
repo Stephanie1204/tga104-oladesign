@@ -58,7 +58,12 @@
             <ul>
               <li>
                 <button type="button" class="regist_com" aria-expanded="false">
-                  <a href="#">成為賣家</a>
+                  <a href="<%=request.getContextPath()%>/CompanyBackEnd/regisToCom.jsp">成為賣家</a>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="mystore none" aria-expanded="false">
+                  <a href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a>
                 </button>
               </li>
               <li class="logout">
@@ -77,7 +82,8 @@
                   /> ${memName}</span
                 >
                 <ul class="member__menu__dropdown">
-                  <li><a href="#">會員中心</a></li>
+                  <li><a href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html">會員中心</a></li>
+                  <li><a href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a></li>
                   <li><a href="#">我的訂單</a></li>
                   <li><a href="#">我的紅利</a></li>
                   <li><a href="#">聯絡客服</a></li>
@@ -86,11 +92,6 @@
                   		<input type="hidden" name="action" value="logout"> 
                   </form></li>
                 </ul>
-              </li>
-              <li>
-                <a href="#"
-                  ><i class="fas fa-comment-dots"></i> <span>1</span></a
-                >
               </li>
               <li>
                 <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
@@ -147,6 +148,16 @@
 			}else{ //未登入
 				console.log("未登入");
 				$("li.login *").addClass("none");
+			}
+			
+			let isCom = "${memberVO.isCom}";
+			console.log("isCom=" + isCom);
+			if(isCom == true){
+				$("button.mystore").removeClass("none");
+				$("button.regist_com").addClass("none");
+			}else{
+				$("button.regist_com").removeClass("none");
+				$("button.mystore").addClass("none");
 			}
 		});
 </script>

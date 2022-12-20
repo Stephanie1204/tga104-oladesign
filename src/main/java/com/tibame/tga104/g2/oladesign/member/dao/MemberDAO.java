@@ -21,7 +21,7 @@ public interface MemberDAO {
 	
 	public MemberVO login(String inputAccount, String inputPassword);
 	
-	public boolean isCheckMail();
+	public Boolean isCheckMail();
 	
 	public void activeMember(Integer memId, Boolean isActive);
 	

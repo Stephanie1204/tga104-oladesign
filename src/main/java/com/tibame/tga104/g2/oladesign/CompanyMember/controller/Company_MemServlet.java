@@ -38,7 +38,7 @@ public class Company_MemServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		// 點選菜單攔中的"賣家基本資料"按鈕時判斷該會員是否已開通賣家功能,已開通=>帶入基本資料,未開通=>空白表單
 		if ("doGetCompantMembetInfo".equals(action)) {
-			String memId = req.getParameter("memId");
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 
 			// init
 			Company_MemVO company_MemVO = new Company_MemVO();
@@ -225,7 +225,7 @@ public class Company_MemServlet extends HttpServlet {
 		}
 
 		if ("doGetStoreInfo".equals(action)) {
-			String memId = req.getParameter("memId");
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 
 			// init
 			Company_MemVO company_MemVO = new Company_MemVO();

@@ -13,7 +13,7 @@ public class MemberService {
 	private MemberDAO dao;
 	private boolean checkMail = true;
 	
-	public boolean isCheckMail() { //註冊時不能輸入已存在的mail
+	public Boolean isCheckMail() { //註冊時不能輸入已存在的mail
 		return checkMail;
 	}
 	
@@ -36,8 +36,8 @@ public class MemberService {
 		memberVO.setMemPhotoBase64(memPhoto); //不作為參數存進memberVO
 		Integer memId = dao.insert(memberVO);
 		memberVO.setMemId(memId);
-		if(!dao.isCheckMail()) {
-			this.checkMail = false;
+		if(!dao.isCheckMail()) { //若dao的isCheckMail為false，表示email已經存在
+			this.checkMail = false; //使MemberService的checkMail也為false，controller呼叫service時也可由isCheckMail()判斷錯誤
 			System.out.println("mail已經存在");
 		}
 

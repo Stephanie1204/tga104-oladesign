@@ -75,7 +75,13 @@ public class MemberPWD extends HttpServlet {
 			
 //			發送密碼重設驗證信
 			SendMail sendResetMail = new SendMail();
-			sendResetMail.sendPWDAuthMail(memId, account, memName);
+			try {
+				sendResetMail.sendPWDAuthMail(memId, account, memName);
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("請開啟redis");
+			}
+			
 			
 //			轉交forgetpwd.jsp
 			request.setAttribute("haveSend", "重設密碼驗證信已發送");

@@ -24,7 +24,7 @@ public class MemberDAOImpl implements MemberDAO {
 	private boolean checkMail = true;
 	private static DataSource ds = null;
 
-	public boolean isCheckMail() {
+	public Boolean isCheckMail() {
 		return checkMail;
 	}
 
@@ -65,7 +65,7 @@ public class MemberDAOImpl implements MemberDAO {
 			memId = rs.getInt(1);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Duplicate mail entry");
-			this.checkMail = false;  //帳號已經存在時
+			this.checkMail = false;  //帳號已經存在，false傳到MemberService
 			e.printStackTrace();
 		}catch(SQLException e){
 			e.printStackTrace();

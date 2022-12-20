@@ -103,10 +103,11 @@ public class MemberLogin extends HttpServlet {
 //			帳號密碼有效時
 			HttpSession session = request.getSession();
 			session.setAttribute("memName", memberVO.getMemName()); //在session內設定已經登入過的標識
+			session.setAttribute("memId", memberVO.getMemId());
 			session.setAttribute("memberVO", memberVO);
 			
 			try{
-				String location = (String)session.getAttribute("location");
+				String location = (String)session.getAttribute("location");//問問題
 				if(location != null) { //查看有無來源網頁
 					session.removeAttribute("location");
 					response.sendRedirect(location);
@@ -122,6 +123,7 @@ public class MemberLogin extends HttpServlet {
 		if("logout".equals(action)) {
 			HttpSession session = request.getSession();
 			session.removeAttribute("memName");
+			session.removeAttribute("memId");
 			session.removeAttribute("memberVO");
 			session.invalidate(); //讓session失效，並解除已連結的物件
 			System.out.println("session清空，將成為登出狀態");

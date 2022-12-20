@@ -1,20 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>	
-<%
-MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
-System.out.println("RegistmemberVO=" + memberVO);
-String city = (String)request.getAttribute("city");
-String town = (String)request.getAttribute("town");
-String agreement = (String)request.getAttribute("agreement");
-%>	
-	
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>OLA Design | 會員註冊</title>
+<title>OLA Design | 賣家註冊</title>
 
 <!-- Google Font -->
 <link
@@ -23,13 +12,13 @@ String agreement = (String)request.getAttribute("agreement");
 
 <!-- Theme style -->
 <link rel="stylesheet" href="../css/adminlte.min.css" />
-<link rel="stylesheet" href="../css/memReg.css" />
+<link rel="stylesheet" href="../css/registToCom.css" />
 </head>
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 		<!--     header -->
 		
-		<%@ include file="../include/header.jsp"%>
+		<!-- <%@ include file="../include/header.jsp"%> -->
 		
 
 		<!-- Content Wrapper. Contains page content -->
@@ -39,7 +28,7 @@ String agreement = (String)request.getAttribute("agreement");
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="mem-reg">會員註冊</h1>
+							<h1 class="mem-reg">賣家註冊</h1>
 						</div>
 					</div>
 				</div>
@@ -57,10 +46,9 @@ String agreement = (String)request.getAttribute("agreement");
 							<form class="reg" method="post" action="<%=request.getContextPath()%>/member/MemberRegist">
 								<div class="card-body">
 									<div class="form-group col-md-6">
-										<label for="account">帳號(Email)<span id="star">* </span><span class="error">${errorMsgs.account}</span>
-											</label> 
+										<label for="account">會員姓名</label> 
 											<input type="email" class="form-control"
-											id="account" name="account" value="${(memberVO == null)? '' : memberVO.account}" placeholder="請填寫Email" />
+											id="memName" name="memName" value="${memberVO.memName}" readonly />
 									</div>
 
 									<div class="form-group col-md-6">
@@ -148,7 +136,6 @@ String agreement = (String)request.getAttribute("agreement");
 		</div>
 		<!-- ./wrapper -->
 <script src="../plugins/jQuery-TWzipcode-master/jquery.twzipcode.js"></script>
-<!-- 連動式地址下拉選單來源  https://github.com/essoduke/jQuery-TWzipcode -->
 <script>
 	$("#twzipcode").twzipcode({
 		countySel: "${(city == "" ? null : city)}", // 城市預設值, 字串一定要用繁體的 "臺", 否則抓不到資料

@@ -6,7 +6,7 @@ import redis.clients.jedis.Jedis;
 
 public class SendMail {
 	
-	public boolean sendAuthMail(Integer memId, String account, String memName) {
+	public void sendAuthMail(Integer memId, String account, String memName) {
 		Jedis jedis = null;
 		try {
 //			驗證碼產生
@@ -94,19 +94,15 @@ public class SendMail {
 			MemberMailThread mailService = new MemberMailThread(recipient, subject, messageText);
 			mailService.start();
 			System.out.println("驗證信已發送");
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
 		}finally {
 			if(jedis != null) {
 				jedis.close();
 			}
 			
 		}		
-		return true;
 	}
 	
-	public boolean sendPWDAuthMail(Integer memId, String account, String memName) {
+	public void sendPWDAuthMail(Integer memId, String account, String memName) {
 		Jedis jedis = null;
 		try {
 //			驗證碼產生
@@ -200,15 +196,11 @@ public class SendMail {
 			MemberMailThread mailService = new MemberMailThread(recipient, subject, messageText);
 			mailService.start();
 			System.out.println("重設密碼驗證信已發送");
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
 		}finally {
 			if(jedis != null) {
 				jedis.close();
 			}
 			
 		}		
-		return true;
 	}
 }
