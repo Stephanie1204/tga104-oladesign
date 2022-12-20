@@ -251,12 +251,12 @@ class="com.tibame.tga104.g2.oladesign.prodeuct_style.model.Product_styleService"
 <!-- 			class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>
+		src="<%=request.getContextPath()%>/back-end/js/jquery.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
+		src="<%=request.getContextPath()%>/back-end/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-	<script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
 </body>
 
 </html>

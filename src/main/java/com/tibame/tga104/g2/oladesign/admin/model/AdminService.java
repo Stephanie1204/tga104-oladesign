@@ -2,6 +2,8 @@ package com.tibame.tga104.g2.oladesign.admin.model;
 
 import java.util.List;
 
+import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+
 public class AdminService {
 
 	private AdminDAO_interface dao;
@@ -53,7 +55,11 @@ public class AdminService {
 //	public AdminVO getAdmin (String account , String password) {
 //		return dao.getAdmin(account,password);
 //	}
-	public AdminVO getAdmin (String admin_acc , String admin_pwd) {
-		return dao.getAdmin(admin_acc,admin_pwd);
+//	public AdminVO getAdmin (String admin_acc , String admin_pwd) {
+//		return dao.getAdmin(admin_acc,admin_pwd);
+//	}
+	
+	public AdminVO adminLogin(String account, String password) {		
+		return dao.login(account, password);
 	}
 }

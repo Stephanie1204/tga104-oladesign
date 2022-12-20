@@ -129,22 +129,23 @@
 									</form>
 								</div></li>
 							<li class="nav-item dropdown no-arrow mx-1">
-								<div class="nav-item dropdown no-arrow">
-									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
-										aria-expanded="false"
-										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${administratorVO.adminid}"
-										onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span
-										class="badge badge-danger badge-counter"></span><i
-										class="fa fa-comment"></i></a>
+<!-- 								<div class="nav-item dropdown no-arrow"> -->
+<!-- 									<a class="dropdown-toggle nav-link" data-toggle="dropdown" -->
+<!-- 										aria-expanded="false" -->
+<%-- 										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${adminVO.adminId}" --%>
+<%-- 										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminId}</span><img --%>
+<!-- 										onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span -->
+<!-- 										class="badge badge-danger badge-counter"></span><i -->
+<!-- 										class="fa fa-comment"></i></a> -->
 
-								</div>
-							</li>
+<!-- 								</div> -->
+<!-- 							</li> -->
 							<div class="d-none d-sm-block topbar-divider"></div>
 							<li class="nav-item dropdown no-arrow">
 								<div class="nav-item dropdown no-arrow">
 									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
 										aria-expanded="false" href="#"><span
-										class="d-none d-lg-inline mr-2 text-gray-600 small">${administratorVO.adminName}</span><img
+										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminName}</span><img
 										class="border rounded-circle img-profile"
 										src="<%=request.getContextPath()%>/image/logo1.png"></a>
 									<div
@@ -251,12 +252,12 @@ class="com.tibame.tga104.g2.oladesign.product_type.model.Product_typeService" />
 <!-- 			class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>
+		src="<%=request.getContextPath()%>/back-end/js/jquery.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
+		src="<%=request.getContextPath()%>/back-end/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-	<script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
 </body>
 
 </html>

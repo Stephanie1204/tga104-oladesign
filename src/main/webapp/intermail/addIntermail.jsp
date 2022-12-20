@@ -200,18 +200,29 @@ textarea {
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="adminId"
 							id="adminId" maxlength="4" size="4"
-							value="<%= (intermailVO==null)? "A001" : intermailVO.getAdminId()%>"
+							value="<%= (intermailVO==null)? adminVO.getAdminId() : intermailVO.getAdminId()%>"
 							 /></td>
 					</div>
 				</div>
 				
 								<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label>
+<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label> 
 					<div class="col-sm-10">
-						<td><input type="text" class="form-control" name="numQue" placeholder=" 請輸入1或2, 1為檢舉 2為疑難雜症 "
-							id="numQue" maxlength="4" size="4"
-							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>"
-							 /></td>
+<!-- 						<td><input type="text" class="form-control" name="numQue" placeholder=" 請輸入1或2, 1為檢舉 2為疑難雜症 " -->
+<!-- 							id="numQue" maxlength="4" size="4" -->
+<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>" --%>
+<!-- 							 /></td> -->
+						<jsp:useBean id="intermail_qnSvc" scope="page"
+							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />
+							
+							<td>
+								<select size="1" name="numQue">
+								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
+								<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type}
+									</c:forEach>
+								</select>
+							</td>
 					</div>
 				</div>
 				

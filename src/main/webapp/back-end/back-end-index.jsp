@@ -56,7 +56,6 @@
                     	<ul class="back-end-li-child" style="display:none;">
                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
-                    		
                     	</ul>
                     </li>
 
@@ -74,45 +73,78 @@
                     	</ul>
                     </li>
                 </ul>
-                <div class="text-center d-none d-md-inline" style="margin:0 auto;"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
-            </div>
-        </nav>
-        <div class="d-flex flex-column" id="content-wrapper">
-            <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <div class="input-group-append"></div>
-                            </div>
-                        </form>
-                        <ul class="nav navbar-nav flex-nowrap ml-auto">
-                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto navbar-search w-100">
-                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-<!--                             <li class="nav-item dropdown no-arrow mx-1"> -->
-<%--                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="<%=request.getContextPath()%>/customerservice/NameServlet?backaction=admin&userID=${adminVO.adminId}" onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span class="badge badge-danger badge-counter"></span><i class="fa fa-comment"></i></a> --%>
+				<div class="text-center d-none d-md-inline" style="margin: 0 auto;">
+					<button class="btn rounded-circle border-0" id="sidebarToggle"
+						type="button"></button>
+				</div>
+			</div>
+		</nav>
+		<div class="d-flex flex-column" id="content-wrapper">
+			<div id="content">
+				<nav
+					class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+					<div class="container-fluid">
+						<button class="btn btn-link d-md-none rounded-circle mr-3"
+							id="sidebarToggleTop" type="button">
+							<i class="fas fa-bars"></i>
+						</button>
+						<form
+							class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group">
+								<div class="input-group-append"></div>
+							</div>
+						</form>
+						<ul class="nav navbar-nav flex-nowrap ml-auto">
+							<li class="nav-item dropdown d-sm-none no-arrow"><a
+								class="dropdown-toggle nav-link" data-toggle="dropdown"
+								aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+								<div
+									class="dropdown-menu dropdown-menu-right p-3 animated--grow-in"
+									aria-labelledby="searchDropdown">
+									<form class="form-inline mr-auto navbar-search w-100">
+										<div class="input-group">
+											<input class="bg-light form-control border-0 small"
+												type="text" placeholder="Search for ...">
+											<div class="input-group-append">
+												<button class="btn btn-primary py-0" type="button">
+													<i class="fas fa-search"></i>
+												</button>
+											</div>
+										</div>
+									</form>
+								</div></li>
+							<li class="nav-item dropdown no-arrow mx-1">
+<!-- 								<div class="nav-item dropdown no-arrow"> -->
+<!-- 									<a class="dropdown-toggle nav-link" data-toggle="dropdown" -->
+<!-- 										aria-expanded="false" -->
+<%-- 										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${adminVO.adminId}" --%>
+<%-- 										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminId}</span><img --%>
+<!-- 										onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span -->
+<!-- 										class="badge badge-danger badge-counter"></span><i -->
+<!-- 										class="fa fa-comment"></i></a> -->
 
-<!--                                 </div> -->
-<!--                             </li> -->
-                            <div class="d-none d-sm-block topbar-divider"></div>
-                            <li class="nav-item dropdown no-arrow">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminName}</span><img class="border rounded-circle img-profile" ></a>
-                                    <div
-                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
-                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="<%=request.getContextPath()%>/login/logOutServlet?action=admin"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div>
-                    </div>
-<%-- 					 <div class="dropdown-divider"></div><a class="dropdown-item" href="<%=request.getContextPath()%>/login/logOutServlet?action=admin"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a></div> --%>
-                    </li>
-                    </ul>
-            </div>
-            </nav>
+<!-- 								</div> -->
+<!-- 							</li> -->
+							<div class="d-none d-sm-block topbar-divider"></div>
+							<li class="nav-item dropdown no-arrow">
+								<div class="nav-item dropdown no-arrow">
+									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
+										aria-expanded="false" href="#"><span
+										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminName}</span><img
+										class="border rounded-circle img-profile"
+										src="<%=request.getContextPath()%>/image/logo1.png"></a>
+									<div
+										class="dropdown-menu shadow dropdown-menu-right animated--grow-in">
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item"
+											href="<%=request.getContextPath()%>/login/logOutServlet?action=admin"><i
+											class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</nav>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col">
@@ -189,10 +221,13 @@
             </div>
         </footer>
 <!--     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div> -->
-    <script src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back-end/js/jquery.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back-end/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
 </body>
 
 </html>

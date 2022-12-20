@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.admin.model.*"%>
 
-	
+<%
+AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
+%>	
 	
 <html lang="en">
 <head>
@@ -96,12 +98,12 @@
 
 				<div class="form-floating">
 					<input type="email" class="form-control" id="floatingInput"
-						placeholder="請輸入帳號" name="account" value="admin001@tibame.com.tw"/> <label
+						placeholder="請輸入帳號" name="account" value="${adminVO.account}"/> <label
 						for="floatingInput">Email</label>
 				</div>
 				<div class="form-floating">
 					<input type="password" class="form-control" id="floatingPassword"
-						placeholder="請輸入密碼" name="password" value=""/> <label
+						placeholder="請輸入密碼" name="password" value="${adminVO.password}"/> <label
 						for="floatingPassword">密碼</label>
 				</div>
 				<div class="error">

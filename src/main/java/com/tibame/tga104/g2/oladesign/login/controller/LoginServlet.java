@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			
+//			String account = req.getParameter("account");
 			String account = req.getParameter("account");
 			System.out.println(account);
 
@@ -45,9 +46,13 @@ public class LoginServlet extends HttpServlet {
 //			String id = "A001";
 			
 			
+//			AdminService svc = new AdminService();
+//			AdminVO adminVO = svc.getAdmin(account, password);
+			
+			
 			AdminService svc = new AdminService();
-			AdminVO adminVO = svc.getAdmin(account, password);
-			System.out.println(adminVO);
+			AdminVO adminVO = svc.adminLogin(account, password);
+//			System.out.println(adminVO);
 			
 			
 			
@@ -55,16 +60,11 @@ public class LoginServlet extends HttpServlet {
 //			if(null != adminVO && admin_acc.equals(adminVO.getAccount()) && admin_pwd.equals(adminVO.getPassword())) {
 			if(null != adminVO && account.equals(adminVO.getAccount()) && password.equals(adminVO.getPassword())) {
 				session.setAttribute("adminVO", adminVO);
+				session.setAttribute("adminName", adminVO.getAdminName());
+				session.setAttribute("adminId", adminVO.getAdminId());
 				System.out.println("session="+ session);
-				System.out.println("admin 登入成功");
-//				Enumeration<String> Enumeration = session.getAttributeNames();
-//				while(Enumeration.hasMoreElements()) {
-//					String name = (String)Enumeration.nextElement();
-//					System.out.println(name + ":" + session.getAttribute(name));
-//				}
-//				System.out.println(adminVO.getAdminId());
-
-				
+				System.out.println("adminId");
+				System.out.println("adminName");				
 				//登入成功跳轉到管理員首頁
 //				String url = "/admin/select_page";
 				String url = "/back-end/back-end-index.jsp";
