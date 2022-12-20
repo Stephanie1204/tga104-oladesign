@@ -150,9 +150,6 @@ System.out.println("test");
 									
 									<option value="false" ${prod.status == false ? 'selected' : ''}>下架
 
-
-
-									
 								</select>
 							</div>
 							<div class="col-md-2 title rowHeight2x">圖片上傳</div>

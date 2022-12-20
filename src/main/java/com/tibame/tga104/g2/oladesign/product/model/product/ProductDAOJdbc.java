@@ -417,7 +417,6 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt_maxId = conn.prepareStatement(GET_MAX_PRODID);
 				stmt_type = conn.prepareStatement(GET_TYPENAME);
 				stmt_style = conn.prepareStatement(GET_STYLENAME);
-				stmt_img = conn.prepareStatement(INSERT_IMG);
 				stmt.setString(1, bean.getComTaxId());
 				stmt.setString(2, bean.getTypeCode());
 				stmt.setString(3, bean.getStyleCode());
