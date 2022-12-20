@@ -100,7 +100,6 @@ $.ajax({
     $(".modify").hide();
   },
   error: function (xhr) {
-    // request 發生錯誤的話執行
     console.log("error");
     console.log(xhr);
   },
@@ -129,7 +128,6 @@ const deleteData = (target) => {
       $thisTableRow.remove();
     },
     error: function (xhr) {
-      // request 發生錯誤的話執行
       console.log("error");
       console.log(xhr);
     },

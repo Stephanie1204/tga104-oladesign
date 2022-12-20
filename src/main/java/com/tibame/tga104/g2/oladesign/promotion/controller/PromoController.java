@@ -2,6 +2,7 @@ package com.tibame.tga104.g2.oladesign.promotion.controller;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,15 @@ public class PromoController {
 		return vo;
 	}
 	
-
 	@GetMapping("/promo:promoId") // get promo information
 	public PromoVO getVO(@RequestParam("promoId") Integer promoId) {
 		PromoVO vo = service.getOnePromo(promoId);
 		return vo;
+	}
+	
+	@GetMapping("/promo:coupon")  //check coupon is duplicated or not
+	public Boolean checkCoupon(@RequestParam("coupon") String coupon) {
+		return service.checkCoupon(coupon);
 	}
 
 	@PostMapping("/promo") // create new promo (should auto set comTaxId)
