@@ -829,8 +829,17 @@
         <div class="col-md-6">
           <div class="box box-primary">
             <div class="box-body">
-              <label>專案名稱 ：</label> <input  class="promoName" type="text"> <br>
-              <label> 折 扣 碼 ： </label> <input class="coupon" type="text"><br>
+              <label>專案名稱 ： 
+                <input  class="promoName" type="text" maxlength="30">
+                <span id="promoName_alert" style="color:red" hidden>字數超過限制</span> 
+              </label><br>
+              <label> 折 扣 碼 ：  
+                <input id="coupon_input" type="text" maxlength="20"> 
+                <button type="button" id="checkCoupon"> 檢查</button>
+                <span id="check_false" style="color:red" hidden> 此折扣碼已使用過，請重新輸入</span>
+                <span id="check_pass" style="color:blue" hidden> 可使用的折扣碼</span>
+                <span id="coupon_alert" style="color:red" hidden>字數超過限制</span>
+              </label><br>
             
               <!-- Date range -->
               <!-- <div class="form-group">
