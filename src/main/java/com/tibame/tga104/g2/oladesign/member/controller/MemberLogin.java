@@ -104,7 +104,9 @@ public class MemberLogin extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("memName", memberVO.getMemName()); //在session內設定已經登入過的標識
 			session.setAttribute("memId", memberVO.getMemId());
+			session.setAttribute("isCom", memberVO.isCom());
 			session.setAttribute("memberVO", memberVO);
+			System.out.println("memberVO.isCom():" + memberVO.isCom());
 			
 			try{
 				String location = (String)session.getAttribute("location");//問問題
@@ -124,6 +126,7 @@ public class MemberLogin extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.removeAttribute("memName");
 			session.removeAttribute("memId");
+			session.removeAttribute("isCom");
 			session.removeAttribute("memberVO");
 			session.invalidate(); //讓session失效，並解除已連結的物件
 			System.out.println("session清空，將成為登出狀態");

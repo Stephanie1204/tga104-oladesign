@@ -150,7 +150,7 @@
 				$("li.login *").addClass("none");
 			}
 			
-			let isCom = "${memberVO.isCom}";
+			let isCom = "${isCom}";
 			console.log("isCom=" + isCom);
 			if(isCom == true){
 				$("button.mystore").removeClass("none");
