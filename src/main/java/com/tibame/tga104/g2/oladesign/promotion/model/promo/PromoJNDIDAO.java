@@ -32,11 +32,59 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 	private static final String GET_ALL_STMT = "select * from PROMOTION where COM_TAXID=? order by PROMO_ID desc"; // 反序排
 	private static final String GET_ONE_STMT = "select * from PROMOTION where PROMO_ID = ? "; 
 	private static final String DELETE = "update PROMOTION set PROMO_STATUS=? where PROMO_ID = ?";
-	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=?, PROMO_STATUS=? where PROMO_ID = ?";
+	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=? where PROMO_ID = ?";
+	private static final String CHECK_COUPON = "select promo_ID from promotion where coupon=?";
 	
 //	public static void main(String[] args) {
 //		new PromoJNDIDAO().getAll();	}
 
+	
+	@Override
+	public Boolean checkCoupon(String coupon) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(CHECK_COUPON);
+
+			pstmt.setString(1, coupon);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return false;
+			}else {
+				return true;
+			}			
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs!= null) {
+				try {
+					rs.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void insert(PromoVO promoVO) {
 		Connection con = null;
@@ -74,6 +122,7 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 		}
 	}
 
+	
 	@Override
 	public void update(PromoVO promoVO) {
 		Connection con = null;
@@ -89,7 +138,6 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 			pstmt.setObject(idx++, promoVO.getStartDate());
 			pstmt.setObject(idx++, promoVO.getEndDate());
 			pstmt.setString(idx++, promoVO.getCoupon());
-			pstmt.setString(idx++, promoVO.getPromoStatus());
 			pstmt.setInt(idx++, promoVO.getPromoId());
 
 			pstmt.executeUpdate();

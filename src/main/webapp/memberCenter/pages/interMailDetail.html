@@ -6,14 +6,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>OLA Design|會員中心-基本資料</title>
+    <title>OLA Design|會員中心-站內信</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-    
-    <!-- 页面meta /-->
+
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
@@ -307,9 +306,6 @@
                     </ul>
                 </div>
             </nav>
-
-
-           
         </header>
         <!-- 页面头部 /-->
 
@@ -342,11 +338,17 @@
 
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
+                    <li class="header">菜单</li>
+
+                    <li id="admin-index"><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
+
                     <!-- 菜单 -->
+
+
 
                     <li class="treeview">
                         <a href="#">
-                    <i class="fa fa-folder"></i> <span>帳號管理</span>
+                    <i class="fa fa-folder"></i> <span>后台通用页面</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -354,20 +356,62 @@
                         <ul class="treeview-menu">
 
                             <li id="admin-login">
-                                <a href="#">
-                            <i class="fa fa-circle-o"></i> 個人檔案
+                                <a href="all-admin-login.html">
+                            <i class="fa fa-circle-o"></i> 登录
                         </a>
                             </li>
 
                             <li id="admin-register">
-                                <a href="#">
-                            <i class="fa fa-circle-o"></i> 信用卡資料
+                                <a href="all-admin-register.html">
+                            <i class="fa fa-circle-o"></i> 注册
                         </a>
                             </li>
 
                             <li id="admin-404">
-                                <a href="#">
-                            <i class="fa fa-circle-o"></i> 密碼更改
+                                <a href="all-admin-404.html">
+                            <i class="fa fa-circle-o"></i> 404页
+                        </a>
+                            </li>
+
+                            <li id="admin-500">
+                                <a href="all-admin-500.html">
+                            <i class="fa fa-circle-o"></i> 500页
+                        </a>
+                            </li>
+
+                            <li id="admin-blank">
+                                <a href="all-admin-blank.html">
+                            <i class="fa fa-circle-o"></i> 空白页
+                        </a>
+                            </li>
+
+                            <li id="admin-datalist">
+                                <a href="all-admin-datalist.html">
+                            <i class="fa fa-circle-o"></i> 数据列表页
+                        </a>
+                            </li>
+
+                            <li id="admin-dataform">
+                                <a href="all-admin-dataform.html">
+                            <i class="fa fa-circle-o"></i> 表单页
+                        </a>
+                            </li>
+
+                            <li id="admin-profile">
+                                <a href="all-admin-profile.html">
+                            <i class="fa fa-circle-o"></i> 个人中心
+                        </a>
+                            </li>
+
+                            <li id="admin-invoice">
+                                <a href="all-admin-invoice.html">
+                            <i class="fa fa-circle-o"></i> 发票
+                        </a>
+                            </li>
+
+                            <li id="admin-invoice-print">
+                                <a href="all-admin-invoice-print.html">
+                            <i class="fa fa-circle-o"></i> 发票打印
                         </a>
                             </li>
 
@@ -375,32 +419,162 @@
                     </li>
 
 
+
                     <li class="treeview">
                         <a href="#">
-                    <i class="fa fa-book"></i> <span>訂單管理</span>
+                    <i class="fa fa-pie-chart"></i> <span>图表Charts</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                         <ul class="treeview-menu">
 
-                            <li id="travellog-manage">
-                                <a href="#">
-                            <i class="fa fa-circle-o"></i> AAA
+                            <li id="charts-chartjs">
+                                <a href="all-charts-chartjs.html">
+                            <i class="fa fa-circle-o"></i> ChartJS
                         </a>
                             </li>
 
-                            <li id="travellog-review">
-                                <a href="#">
-                            <i class="fa fa-circle-o"></i> BBB
+                            <li id="charts-morris">
+                                <a href="all-charts-morris.html">
+                            <i class="fa fa-circle-o"></i> Morris Charts
                         </a>
+                            </li>
+
+                            <li id="charts-flot">
+                                <a href="all-charts-flot.html">
+                            <i class="fa fa-circle-o"></i> Flot Charts
+                        </a>
+                            </li>
+
+                            <li id="charts-inline">
+                                <a href="all-charts-inline.html">
+                            <i class="fa fa-circle-o"></i> Inline Charts
+                        </a>
+                            </li>
 
                         </ul>
                     </li>
 
+
+
                     <li class="treeview">
                         <a href="#">
-                    <i class="fa fa-cube"></i> <span>紅利管理</span>
+                    <i class="fa fa-laptop"></i> <span>UI界面元素</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                        <ul class="treeview-menu">
+
+                            <li id="elements-general">
+                                <a href="all-elements-general.html">
+                            <i class="fa fa-circle-o"></i> 标准 General
+                        </a>
+                            </li>
+
+                            <li id="elements-icons">
+                                <a href="all-elements-icons.html">
+                            <i class="fa fa-circle-o"></i> 图标 Icons
+                        </a>
+                            </li>
+
+                            <li id="elements-buttons">
+                                <a href="all-elements-buttons.html">
+                            <i class="fa fa-circle-o"></i> 按钮 Buttons
+                        </a>
+                            </li>
+
+                            <li id="elements-sliders">
+                                <a href="all-elements-sliders.html">
+                            <i class="fa fa-circle-o"></i> 滑块 Sliders
+                        </a>
+                            </li>
+
+                            <li id="elements-timeline">
+                                <a href="all-elements-timeline.html">
+                            <i class="fa fa-circle-o"></i> 时间线 Timeline
+                        </a>
+                            </li>
+
+                            <li id="elements-modals">
+                                <a href="all-elements-modals.html">
+                            <i class="fa fa-circle-o"></i> 对话框样式 Modals
+                        </a>
+                            </li>
+
+                            <li id="elements-widgets">
+                                <a href="all-elements-widgets.html">
+                            <i class="fa fa-circle-o"></i> 窗体小部件 widgets
+                        </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="treeview">
+                        <a href="#">
+                    <i class="fa fa-edit"></i> <span>表单 Forms</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                        <ul class="treeview-menu">
+
+                            <li id="form-general">
+                                <a href="all-form-general.html">
+                            <i class="fa fa-circle-o"></i> 基础表单元素
+                        </a>
+                            </li>
+
+                            <li id="form-advanced">
+                                <a href="all-form-advanced.html">
+                            <i class="fa fa-circle-o"></i> 高级表单元素
+                        </a>
+                            </li>
+
+                            <li id="form-editors">
+                                <a href="all-form-editors.html">
+                            <i class="fa fa-circle-o"></i> 编辑器
+                        </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="treeview">
+                        <a href="#">
+                    <i class="fa fa-table"></i> <span>表格 tables</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                        <ul class="treeview-menu">
+
+                            <li id="tables-simple">
+                                <a href="all-tables-simple.html">
+                            <i class="fa fa-circle-o"></i> 简单表格
+                        </a>
+                            </li>
+
+                            <li id="tables-data">
+                                <a href="all-tables-data.html">
+                            <i class="fa fa-circle-o"></i> 数据表格
+                        </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+                    <li class="treeview">
+                        <a href="#">
+                    <i class="fa fa-cube"></i> <span>样例-订单管理</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -409,35 +583,77 @@
 
                             <li id="order-manage">
                                 <a href="all-order-manage-list.html">
-                            <i class="fa fa-circle-o"></i> AAA
+                            <i class="fa fa-circle-o"></i> 全部订单
                         </a>
                             </li>
 
                             <li id="order-cancel">
                                 <a href="all-order-cancel-list.html">
-                            <i class="fa fa-circle-o"></i> BBB
+                            <i class="fa fa-circle-o"></i> 退款
                         </a>
                             </li>
 
                         </ul>
                     </li>
+
+
 
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-laptop"></i> <span>站內信</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
+                    <i class="fa fa-book"></i> <span>样例-游记管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
                         <ul class="treeview-menu">
-                            <li id="elements-widgets">
-                                <a href="#">
-                                    <i class="fa fa-circle-o"></i> ???
-                                </a>
+
+                            <li id="travellog-manage">
+                                <a href="all-travellog-manage-list.html">
+                            <i class="fa fa-circle-o"></i> 游记列表
+                        </a>
                             </li>
+
+                            <li id="travellog-review">
+                                <a href="all-travellog-review-list.html">
+                            <i class="fa fa-circle-o"></i> 游记点评
+                        </a>
+                            </li>
+
+                            <li id="travellog-setting">
+                                <a href="all-travellog-setting-edit.html">
+                            <i class="fa fa-circle-o"></i> 游记设置
+                        </a>
+                            </li>
+
                         </ul>
                     </li>
+
+
+
+                    <li class="treeview">
+                        <a href="#">
+                    <i class="fa fa-cogs"></i> <span>样例-系统管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                        <ul class="treeview-menu">
+
+                            <li id="system-setting">
+                                <a href="all-system-setting-edit.html">
+                            <i class="fa fa-circle-o"></i> 系统设置
+                        </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
                     <!-- 菜单 /-->
+
+                    <li id="admin-documentation"><a href="documentation.html" target="_blank"><i class="fa fa-book"></i> <span>AdminLTE汉化文档</span></a></li>
+
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -449,9 +665,7 @@
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>
-                    帳號管理
-                </h1>
+                <h1>站內信</h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li><a href="#">Forms</a></li>
@@ -462,57 +676,41 @@
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <!-- left column -->
+                    <!-- right column -->
                     <div class="col-md-8">
-                        <!-- general form elements -->
-                        <div class="box box-primary">
+                        <!-- general form elements disabled -->
+                        <div class="box box-warning">
                             <div class="box-header with-border">
-                                <h3 class="box-title">個人檔案</h3>
+                                <h3 class="box-title">信件資料</h3>
                             </div>
                             <!-- /.box-header -->
-                            <!-- form start -->
-                            <form role="form">
-                                <div class="box-body">
+                            <div class="box-body">
+                                <form role="form">
+                                    <!-- text input -->
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">帳號</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="請輸入信箱資料">
+                                        <label>日期</label>
+                                        <input type="text" class="form-control" placeholder="Enter ...">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">姓名</label>
-                                        <input type="text" class="form-control" id="#" >
+                                        <label>信件編號</label>
+                                        <input type="text" class="form-control" placeholder="Enter ...">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">手機</label>
-                                        <input type="text" class="form-control" id="#" >
+                                        <label>問題種類</label>
+                                        <input type="text" class="form-control" placeholder="Enter ...">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">地址</label>
-                                        <input type="text" class="form-control" id="#" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">生日</label>
-                                        <input type="date" class="form-control" id="#">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">性別 </label>
-                                        <input type="radio" name="gender" value="女"> 女
-                                        <input type="radio" name="gender" value="男"> 男
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">個人圖像上傳</label>
-                                        <input type="file" id="exampleInputFile">
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                </div>
-                                <!-- /.box-body -->
 
-                                <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary">確認修改</button>
-                                </div>
-                            </form>
+                                    <!-- textarea -->
+                                    <div class="form-group">
+                                        <label>信件內容</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter ..." disabled="disabled"></textarea>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
-                        <!-- Form Element sizes -->
                     </div>
                     <!--/.col (right) -->
                 </div>
@@ -605,14 +803,6 @@
         // 激活导航位置
         setSidebarActive("form-general");
     </script>
-    <div header-include-html="./header.html"></div>
-    <iframe src="./header.html" ></iframe>
-    <script>  
-        $(function(){ 
-          $("#header").load("header.html");  
-        //   $("#footer").load("footer.html");  
-        }); 
-    </script> 
 </body>
 
 </html>

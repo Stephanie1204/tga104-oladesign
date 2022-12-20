@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>数据 - AdminLTE2定制版</title>
+    <title>OLA Design|賣家中心-編輯促銷專案</title>
     <meta name="description" content="AdminLTE2定制版" />
     <meta name="keywords" content="AdminLTE2定制版" />
 
@@ -55,7 +55,6 @@
       href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css"
     />
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css" />
-    header.less
     <link
       rel="stylesheet"
       href="../plugins/adminLTE/css/skins/_all-skins.min.css"
@@ -97,7 +96,7 @@
             <span class="sr-only">Toggle navigation</span>
           </a>
 
-          <div class="navbar-custom-menu" >
+          <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
               <li class="dropdown messages-menu">
@@ -364,7 +363,7 @@
                     class="user-image"
                     alt="User Image"
                   />
-                  <span class="hidden-xs">张猿猿</span>
+                  <span class="hidden-xs">賣家帳號</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
@@ -425,7 +424,7 @@
               />
             </div>
             <div class="pull-left info">
-              <p>张猿猿</p>
+              <p>賣家帳號</p>
               <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
           </div>
@@ -739,123 +738,77 @@
       <!-- 导航侧栏 /-->
 
       <!-- 内容区域 -->
+      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- 内容头部 -->
+        <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>紅利管理</h1>
+          <h1>
+            編輯促銷專案
+          </h1>
           <ol class="breadcrumb">
             <li>
-              <a href="all-admin-index.html"
-                ><i class="fa fa-dashboard"></i> 首页</a
-              >
+              <a href="#"><i class="fa fa-dashboard"></i> 賣家中心</a>
             </li>
-            <li><a href="all-order-manage-list.html">订单管理</a></li>
-            <li class="active">全部订单</li>
+            <li><a href="#">促銷專案</a></li>
+            <li class="active">編輯促銷專案</li>
           </ol>
         </section>
-        <!-- 内容头部 /-->
 
-        <!-- 正文区域 -->
-        <section class="content">
-          <!-- .box-body -->
+      <section class="content-body">
+        <!-- Main content -->
+        <br>
+        <div class="col-md-6">
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">紅利明細紀錄</h3>
-            </div>
-
             <div class="box-body">
-              <!-- 数据表格 -->
-              <div class="table-box">
-                <!--工具栏-->
-                <div class="box-tools pull-right">
-                  <div class="has-feedback">
-                    <input
-                      type="text"
-                      class="form-control input-sm"
-                      placeholder="搜索"
-                    />
-                    <span
-                      class="glyphicon glyphicon-search form-control-feedback"
-                    ></span>
-                  </div>
-                </div>
-                <!--工具栏/-->
-
-                <!--数据列表-->
-                <table
-                  id="dataList"
-                  class="table table-bordered table-striped table-hover dataTable"
-                >
+               <!-- form group -->
+               <div class="edit_form">
+                <label>專案名稱 ： <input  class="promoName" type="text"> </label><br>
+                <label> 折 扣 碼 ：  
+                  <input id="coupon_input" type="text"> 
+                  <button type="button" id="checkCoupon"> 檢查</button>
+                  <span id="check_false" style="color:red" hidden> 此折扣碼已使用過，請重新輸入</span>
+                  <span id="check_pass" style="color:blue" hidden> 可使用的折扣碼</span>
+                </label><br>
+                <label>開始日期 ：</label> <input class="start_date" type="date"><br>
+                <label>結束日期 ：</label> <input class="end_date" type="date">
+                <br>
+                <label>限定可使用會員ID : </label> <input class="limitMemberId" type="text">
+                <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
                   <thead>
                     <tr>
-                      <th class="sorting_asc">日期</th>
-                      <th class="sorting">訂單編號</th>
-                      <th class="sorting">紅利異動</th>
-                      <th class="sorting">紅利剩餘</th>
+                      <th class="sorting">可使用會員明細</th> 
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>2022/xx/xx</td>
-                      <td>2022orderID</td>
-                      <td>+50</td>
-                      <td>50</td>
+                      <td>xxx</td> <td><input type="submit" value="移除"></input></td>
                     </tr>
                   </tbody>
-                </table>
-                <!--数据列表/-->
+                </table>     
               </div>
-              <!-- 数据表格 /-->
-            </div>
-            <!-- /.box-body -->
-
-            <!-- .box-footer-->
-            <div class="box-footer">
-              <div class="pull-left">
-                <div class="form-group form-inline">
-                  总共2 页，共14 条数据。 每页
-                  <select class="form-control">
-                    <option>10</option>
-                    <option>15</option>
-                    <option>20</option>
-                    <option>50</option>
-                    <option>80</option>
-                  </select>
-                  条
+              <!-- /.form group -->
+              <div class="form-group form-inline">
+                <div class="btn-group">
+                  <button type="button" id = "submit_btn" class="btn btn-default" title="送出修改" ><i class="fa fa-file-o"></i> 送出修改</button>
+                  <button type="button" class="btn btn-default" title="删除" onclick='confirm("確認取消修改?"); location.href="promoHome.html"'><i class="fa fa-trash-o"></i> 取消修改</button>
                 </div>
               </div>
-
-              <div class="box-tools pull-right">
-                <ul class="pagination">
-                  <li>
-                    <a href="#" aria-label="Previous">首页</a>
-                  </li>
-                  <li><a href="#">上一页</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">下一页</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">尾页</a>
-                  </li>
-                </ul>
-              </div>
             </div>
-            <!-- /.box-footer-->
           </div>
-        </section>
-        <!-- 正文区域 /-->
+        </div>  
+      </section>
+        <!-- /.content -->
       </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Page script -->
       <!-- 内容区域 /-->
 
       <!-- 底部导航 -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs"><b>Version</b> 1.0.8</div>
-        <strong
-          >Copyright &copy; 2014-2017
-          <a href="http://www.itcast.cn">研究院研发部</a>.</strong
+      <footer class="main-footer" style="width:100%">
+        <div class="pull-right hidden-xs "><b>Version</b> 1.0.8</div>
+        <strong>Copyright &copy; 2014-2017
+          <a href="http://www.itcast.cn">OLA Design！(要放網站首頁連結)</a>.</strong
         >
         All rights reserved.
       </footer>
@@ -927,26 +880,136 @@
         }
       }
 
-      $(document).ready(function () {
-        // 激活导航位置
-        setSidebarActive("order-manage");
+      $(function () {
+        //Initialize Select2 Elements
+        //$(".select2").select2();
 
-        // 列表按钮
-        $("#dataList td input[type='checkbox']").iCheck({
-          checkboxClass: "icheckbox_square-blue",
-          increaseArea: "20%",
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {
+          placeholder: "dd/mm/yyyy",
         });
-        // 全选操作
-        $("#selall").click(function () {
-          var clicks = $(this).is(":checked");
-          if (!clicks) {
-            $("#dataList td input[type='checkbox']").iCheck("uncheck");
-          } else {
-            $("#dataList td input[type='checkbox']").iCheck("check");
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("mm/dd/yyyy", {
+          placeholder: "mm/dd/yyyy",
+        });
+        //Money Euro
+        $("[data-mask]").inputmask();
+
+        //Date range picker
+        $("#reservation").daterangepicker({
+          locale: {
+            applyLabel: "确认",
+            cancelLabel: "取消",
+            fromLabel: "起始时间",
+            toLabel: "结束时间",
+            customRangeLabel: "自定义",
+            firstDay: 1,
+          },
+          opens: "left", // 日期选择框的弹出位置
+          separator: " 至 ",
+          //showWeekNumbers : true,     // 是否显示第几周
+        });
+        //Date range picker with time picker
+        $("#reservationtime").daterangepicker({
+          timePicker: true,
+          timePickerIncrement: 30,
+          format: "MM/DD/YYYY h:mm A",
+          locale: {
+            applyLabel: "确认",
+            cancelLabel: "取消",
+            fromLabel: "起始时间",
+            toLabel: "结束时间",
+            customRangeLabel: "自定义",
+            firstDay: 1,
+          },
+          opens: "right", // 日期选择框的弹出位置
+          separator: " 至 ",
+        });
+        //Date range as a button
+        $("#daterange-btn").daterangepicker(
+          {
+            locale: {
+              applyLabel: "确认",
+              cancelLabel: "取消",
+              fromLabel: "起始时间",
+              toLabel: "结束时间",
+              customRangeLabel: "自定义",
+              firstDay: 1,
+            },
+            opens: "right", // 日期选择框的弹出位置
+            separator: " 至 ",
+            ranges: {
+              今日: [moment(), moment()],
+              昨日: [
+                moment().subtract(1, "days"),
+                moment().subtract(1, "days"),
+              ],
+              最近7日: [moment().subtract(6, "days"), moment()],
+              最近30日: [moment().subtract(29, "days"), moment()],
+              本月: [moment().startOf("month"), moment().endOf("month")],
+              上个月: [
+                moment().subtract(1, "month").startOf("month"),
+                moment().subtract(1, "month").endOf("month"),
+              ],
+            },
+            startDate: moment().subtract(29, "days"),
+            endDate: moment(),
+          },
+          function (start, end) {
+            $("#daterange-btn span").html(
+              start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY")
+            );
           }
-          $(this).data("clicks", !clicks);
+        );
+
+        //Date picker
+        $("#datepicker").datepicker({
+          autoclose: true,
+          format: "mm/dd/yyyy",
+        });
+
+        // datetime picker
+        $("#dateTimePicker").datetimepicker({
+          format: "MM/DD/YYYY hh:mm A",
+        });
+
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck(
+          {
+            checkboxClass: "icheckbox_minimal-blue",
+            radioClass: "iradio_minimal-blue",
+          }
+        );
+        //Red color scheme for iCheck
+        $(
+          'input[type="checkbox"].minimal-red, input[type="radio"].minimal-red'
+        ).iCheck({
+          checkboxClass: "icheckbox_minimal-red",
+          radioClass: "iradio_minimal-red",
+        });
+        //Flat red color scheme for iCheck
+        $(
+          'input[type="checkbox"].flat-red, input[type="radio"].flat-red'
+        ).iCheck({
+          checkboxClass: "icheckbox_flat-green",
+          radioClass: "iradio_flat-green",
+        });
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false,
         });
       });
+
+      // 激活导航位置
+      setSidebarActive("form-advanced");
     </script>
+    <script src="../jquery.js"></script>
+    <script src="./editPromo.js"></script>
   </body>
 </html>

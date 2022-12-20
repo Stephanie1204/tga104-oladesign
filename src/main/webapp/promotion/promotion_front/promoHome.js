@@ -1,9 +1,7 @@
-// const queryString = location.search;
-// const urlParams = new URLSearchParams(queryString);
-// const comTaxId = urlParams.get('comTaxId');
 var comTaxId = new URLSearchParams(location.search).get("comTaxId");
 console.log(comTaxId);
 
+//get promo
 $.ajax({
   url: "http://localhost:8080/oladesign/promo", // 資料請求的網址
   type: "GET", // GET | POST | PUT | DELETE | PATCH
@@ -25,9 +23,11 @@ $.ajax({
       list_html += '  <td class="limit">是/否</td>';
       list_html += '  <td class="text-center">';
       list_html +=
-        '    <button type="button" class="btn bg-olive btn-xs"  onclick=\'location.href="all-order-manage-edit.html"\'> 編輯 </button>';
+        '  <button type="button" class="btn bg-olive btn-xs edit_btn" onclick=\'location.href="editPromo.html?&promoId=' +
+        item.promoId +
+        "\"'> 編輯 </button>";
       list_html +=
-        '    <button type="button" class="btn bg-olive btn-xs"  onclick=\'location.href="promoList_add.html?&promoId=' +
+        '  <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="promoList_add.html?&promoId=' +
         item.promoId +
         "\"'> 查看明細</button>";
       list_html += "  </td>";
@@ -43,6 +43,7 @@ $.ajax({
   },
 });
 
+//for test
 $.ajax({
   method: "POST",
   url: "http://localhost:8080/oladesign/person",
