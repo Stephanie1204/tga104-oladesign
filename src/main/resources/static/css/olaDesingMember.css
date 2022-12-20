@@ -1,0 +1,204 @@
+.skin-purple .main-header .navbar {
+	background-color: #92AFBF;
+}
+
+.skin-purple .main-header .navbar .sidebar-toggle:hover {
+	background-color: #F3F1F2;
+}
+
+.skin-purple .main-header .navbar .sidebar-toggle {
+	color: #4F4E4D;
+}
+
+.skin-purple .main-header .logo {
+	background-color: #7aa1b4;
+	color: #4F4E4D;
+	border-bottom: 0 solid transparent;
+}
+
+.skin-purple .main-header .logo:hover {
+	background-color: #F3F1F2;
+}
+
+.skin-purple .wrapper, .skin-purple .main-sidebar, .skin-purple .left-side
+	{
+	background-color: #FFFFFF;
+}
+
+.skin-purple .sidebar-menu>li:hover>a, .skin-purple .sidebar-menu>li.active>a
+	{
+	color: #4F4E4D;
+	background: #ffffff;
+	border-left-color: #4F4E4D;
+}
+
+.skin-purple .sidebar a {
+	color: #4F4E4D;
+}
+
+.skin-purple .treeview-menu>li>a {
+	color: #92AFBF;
+}
+
+.skin-purple .treeview-menu>li.active>a, .skin-purple .treeview-menu>li>a:hover
+	{
+	color: #fff;
+}
+
+.skin-purple .sidebar-menu>li.header {
+	color: #ffffff;
+	background: #92AFBF;
+}
+
+.skin-purple .main-header .navbar .nav>li>a {
+	color: #4F4E4D;
+}
+
+.btn-primary {
+	background-color: #E4CD8D;
+	border-color: #EFDFBB;
+}
+
+
+
+.btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary
+	{
+	color: #fff;
+	background-color: #E4CD8D;
+	border-color: #EFDFBB;
+}
+
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover,
+	.btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover,
+	.open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus,
+	.open>.dropdown-toggle.btn-primary:hover {
+	color: #fff;
+	background-color: #E4CD8D;
+	border-color: #EFDFBB;
+}
+
+.image {
+	width: 45px;
+	height: 45px;
+	width: 45px;
+	height: 45px;
+}
+
+.user-panel>.image>img {
+	width: 100%;
+	height: 100%;
+}
+
+.skin-purple .treeview-menu>li>a {
+	color: #fff;
+	background-color: #92AFBF;
+}
+
+.skin-purple .user-panel>.info, .skin-purple .user-panel>.info>a {
+    color: #4F4E4D;
+}
+
+.btn-success {
+	background-color: #E4CD8D;
+	border-color: #EFDFBB;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success.hover {
+    background-color: #E4CD8D;
+}
+
+.btn-success.active.focus, .btn-success.active:focus, .btn-success.active:hover, .btn-success:active.focus, .btn-success:active:focus, .btn-success:active:hover, .open>.dropdown-toggle.btn-success.focus, .open>.dropdown-toggle.btn-success:focus, .open>.dropdown-toggle.btn-success:hover {
+    color: #fff;
+	background-color: #E4CD8D;
+	border-color: #EFDFBB;
+}
+
+.btn-success.active, .btn-success:active, .open>.dropdown-toggle.btn-success {
+    color: #fff;
+	background-color: #E4CD8D;
+	border-color: #EFDFBB;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary.hover {
+	background-color: #E4CD8D;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #E4CD8D;
+    border-color: #EFDFBB;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: #E4CD8D;
+    border-color: #EFDFBB;
+}
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #E4CD8D;
+    border-color: transparent;
+    color: #fff;
+}
+
+.btn-default {
+    background-color: #E4CD8D;
+    color: #fff;
+    border-color: #EFDFBB;
+}
+
+.btn-default:hover, .btn-default:active, .btn-default.hover {
+    background-color: #E4CD8D;
+}
+
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+    color: #fff;
+}
+
+.btn-default:hover {
+    color: #fff;
+    background-color: #E4CD8D;
+    border-color: #EFDFBB;
+}
+
+.btn-primary.disabled.focus, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled].focus, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover {
+    background-color: #E4CD8D;
+    border-color: #EFDFBB;
+}
+
+.wrapper{
+    height: 100%;
+    width: 100%;
+    top: 40px;
+}
+
+.main-sidebar{
+    position: fixed;
+    top: 20px;
+}
+
+.main-sidebar, .left-side {
+    padding-top: 30px;
+}
+
+.bg-maroon {
+    background-color: #E4CD8D !important;
+}
+
+.data-type .title.rowHeight2x, .data-type .data.rowHeight2x.text {
+    line-height: 320px;
+}
+
+.data-type .title.rowHeight2x, .data-type .data.rowHeight2x {
+    height: 320px;
+}
+
+.btn.focus, .btn:focus, .btn:hover {
+     background-color: #E4CD8D;
+    text-decoration: fff;
+}
+.main-header {
+    position: fixed;
+    top:0;
+    max-height: 100px;
+    z-index: 1030;
+    width: 100%;
+}
