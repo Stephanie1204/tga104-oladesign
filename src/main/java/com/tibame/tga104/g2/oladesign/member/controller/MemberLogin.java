@@ -106,10 +106,9 @@ public class MemberLogin extends HttpServlet {
 			session.setAttribute("memId", memberVO.getMemId());
 			session.setAttribute("isCom", memberVO.isCom());
 			session.setAttribute("memberVO", memberVO);
-			System.out.println("memberVO.isCom():" + memberVO.isCom());
 			
 			try{
-				String location = (String)session.getAttribute("location");//問問題
+				String location = (String)session.getAttribute("location");
 				if(location != null) { //查看有無來源網頁
 					session.removeAttribute("location");
 					response.sendRedirect(location);
