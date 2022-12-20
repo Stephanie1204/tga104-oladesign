@@ -24,7 +24,7 @@ public class MemberDAOImpl implements MemberDAO {
 	private boolean checkMail = true;
 	private static DataSource ds = null;
 
-	public boolean isCheckMail() {
+	public Boolean isCheckMail() {
 		return checkMail;
 	}
 
@@ -65,7 +65,7 @@ public class MemberDAOImpl implements MemberDAO {
 			memId = rs.getInt(1);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Duplicate mail entry");
-			this.checkMail = false;  //帳號已經存在時
+			this.checkMail = false;  //帳號已經存在，false傳到MemberService
 			e.printStackTrace();
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -464,6 +464,39 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 		}
 		
+	}
+	
+	private static final String resetPWDMemberSQL = "UPDATE MEMBER SET PASSWORD = ? WHERE MEM_ID = ?;";
+			
+	@Override
+	public void resetPWD(String newPassword, Integer memId) {
+		Connection connection = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			connection = ds.getConnection();
+			psmt = connection.prepareStatement(resetPWDMemberSQL);
+			psmt.setString(1, newPassword);
+			psmt.setInt(2, memId);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(psmt != null) {
+				try {
+					psmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 

@@ -76,7 +76,6 @@ public class MemberLogin extends HttpServlet {
 			MemberVO memberVO = memSvc.memberLogin(inputAccount, passwordKey);
 			
 			if(!errorMsgs.isEmpty()) {
-				request.setAttribute("memberVO", memberVO);
 				String url = "/member/login.jsp";
 				RequestDispatcher errView = request.getRequestDispatcher(url);
 				errView.forward(request, response);
@@ -94,7 +93,6 @@ public class MemberLogin extends HttpServlet {
 			}
 			
 			if(!errorMsgs.isEmpty()) {
-				request.setAttribute("memberVO", memberVO);
 				String url = "/member/login.jsp";
 				RequestDispatcher errView = request.getRequestDispatcher(url);
 				errView.forward(request, response);
@@ -104,8 +102,9 @@ public class MemberLogin extends HttpServlet {
 			
 //			帳號密碼有效時
 			HttpSession session = request.getSession();
-			session.setAttribute("account", memberVO.getAccount()); //在session內設定已經登入過的標識
-			session.setAttribute("memName", memberVO.getMemName()); //在header顯示登入者姓名
+			session.setAttribute("memName", memberVO.getMemName()); //在session內設定已經登入過的標識
+			session.setAttribute("memId", memberVO.getMemId());
+			session.setAttribute("isCom", memberVO.isCom());
 			session.setAttribute("memberVO", memberVO);
 			
 			try{
@@ -119,6 +118,17 @@ public class MemberLogin extends HttpServlet {
 				e.printStackTrace();
 			}
 			//無來源網頁重導至首頁
+			response.sendRedirect(request.getContextPath() + "/homePage/index.jsp");
+		}
+		
+		if("logout".equals(action)) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("memName");
+			session.removeAttribute("memId");
+			session.removeAttribute("isCom");
+			session.removeAttribute("memberVO");
+			session.invalidate(); //讓session失效，並解除已連結的物件
+			System.out.println("session清空，將成為登出狀態");
 			response.sendRedirect(request.getContextPath() + "/homePage/index.jsp");
 		}
 	}

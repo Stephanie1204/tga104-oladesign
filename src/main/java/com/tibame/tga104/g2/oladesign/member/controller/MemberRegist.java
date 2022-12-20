@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
+import com.google.gson.Gson;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.helper.SendMail;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
@@ -82,17 +83,48 @@ public class MemberRegist extends HttpServlet {
 				errorMsgs.put("sex", "請選擇性別");
 			}
 			
+			String city = request.getParameter("city");
+			String town = request.getParameter("town");
+			String zipcode = request.getParameter("zipcode");
+			
 			String memAddress = request.getParameter("memAddress");
 			if(memAddress == null || memAddress.trim().length() == 0) {
 				errorMsgs.put("memAddress", "地址請勿空白");
+			}else if(city == null || city.trim().length() == 0) {
+				errorMsgs.put("memAddress", "請選擇地址縣市與鄉鎮市區");
+			}
+			
+			if(city != null || city.trim().length() > 0) {
+				request.setAttribute("city", city);
+				request.setAttribute("town", town);
 			}
 			
 			String agreement = request.getParameter("agreement");
+			System.out.println("agreement:" + agreement);
 			if(agreement == null) {
 				errorMsgs.put("agreement", "請確認同意會員條款與隱私條款");
+			}else {
+				System.out.println("已同意會員調款及隱私條款");
+				request.setAttribute("agreement", "checked"); //紀錄已勾選
+			}			
+							
+			MemberVO memberVO = new MemberVO();
+			
+			memberVO.setAccount(account);
+			memberVO.setMemName(memName);
+			memberVO.setPassword(password);
+			memberVO.setMemPhone(memPhone);
+			memberVO.setSex(sex);
+			memberVO.setMemAddress(memAddress);
+			
+			if(!errorMsgs.isEmpty()) {
+				request.setAttribute("memberVO", memberVO); //紀錄已輸入的資料
+				RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
+				errView.forward(request, response);
+				return;
 			}
 			
-			//將密碼經SHA256運算
+			//無錯誤時將密碼經SHA256運算
 			MessageDigest md;
 			HexBinaryAdapter hba;
 			String passwordKey = null;
@@ -107,32 +139,17 @@ public class MemberRegist extends HttpServlet {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
-					
 			
-							
-			MemberVO memberVO = new MemberVO();
-			
-			memberVO.setAccount(account);
-			memberVO.setMemName(memName);
-			memberVO.setPassword(passwordKey);
-			memberVO.setMemPhone(memPhone);
-			memberVO.setSex(sex);
-			memberVO.setMemAddress(memAddress);
-			
-			if(!errorMsgs.isEmpty()) {
-				request.setAttribute("memberVO", memberVO);
-				RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
-				errView.forward(request, response);
-				return;
-			}
+//			存完整地址
+			String finalAddress = zipcode + city + town + memAddress;
 			
 //			註冊成功新增會員(待驗證)
 			MemberService memSvc = new MemberService();
-			memberVO = memSvc.addMember(memName, account, passwordKey, memPhone, memAddress, sex, null);
+			memberVO = memSvc.addMember(memName, account, passwordKey, memPhone, finalAddress, sex, null);
 			Integer memId = memberVO.getMemId();
 			System.out.println("memId=" + memId);
 			
-			if(!memSvc.isCheckMail()) {
+			if(!memSvc.isCheckMail()) { //false從dao -> service -> controller
 				errorMsgs.put("account", "帳號已經存在，請勿重複註冊");
 			}
 			
@@ -206,6 +223,7 @@ public class MemberRegist extends HttpServlet {
 			System.out.println("驗證信已重新發送");
 			
 //			轉交sendMail.jsp
+			request.setAttribute("haveSend", "驗證信已重新發送");
 			String url = "/member/sendMail.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+Integer memId = (Integer)request.getAttribute("memId");
+System.out.println("recoverpwd.jsp memId=" + memId);
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,11 +39,22 @@
           <p class="login-box-msg">
             只剩一個步驟，就可以重設完成新密碼。
           </p>
-          <form action="login.html" method="post">
+          <div class="error text-center">
+          	<%--錯誤表列 --%>
+          		<c:if test="${not empty errorMsgs}">
+          			<ul>
+          				<c:forEach var="message" items="${errorMsgs}">
+          					<li style="color: #E86F62">${message}</li>
+          				</c:forEach>
+          			</ul>
+          		</c:if>
+          </div>
+          <form action="<%=request.getContextPath()%>/member/MemberPWD" method="post">
             <div class="input-group mb-3">
               <input
                 type="password"
                 class="form-control"
+                name="newpassword"
                 placeholder="設定新密碼"
               />
               <div class="input-group-append">
@@ -50,6 +67,7 @@
               <input
                 type="password"
                 class="form-control"
+                name="newcpassword"
                 placeholder="確認新密碼"
               />
               <div class="input-group-append">
@@ -60,6 +78,8 @@
             </div>
             <div class="row">
               <div class="col-12">
+              	<input type="hidden" name="memId" value="${memId}">
+              	<input type="hidden" name="action" value="recoverpwd">
                 <button type="submit" class="btn btn-primary btn-block">
                   變更密碼
                 </button>

@@ -59,7 +59,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				bean.setStatus(rset.getBoolean("STATUS"));
 //
 				byte[] buffer = rset.getBytes("IMG");
-				if (buffer.length != 0 && buffer != null) {
+				if (buffer != null) {
 					bean.setProductImgBase64(buffer);
 				}
 				bean.setTypeName(rset.getString("TYPE_NAME"));
@@ -130,7 +130,7 @@ public class ProductDAOJdbc implements ProductDAO {
 
 //
 					byte[] buffer = rset.getBytes("IMG");
-					if (buffer.length != 0 && buffer != null) {
+					if (buffer != null) {
 						bean.setProductImgBase64(buffer);
 					}
 
@@ -215,7 +215,7 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setStatus(rset.getBoolean("STATUS"));
 //
 					byte[] buffer = rset.getBytes("IMG");
-					if (buffer.length != 0 && buffer != null) {
+					if (buffer != null) {
 						bean.setProductImgBase64(buffer);
 					}
 
@@ -289,7 +289,7 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setStatus(rset.getBoolean("STATUS"));
 
 					byte[] buffer = rset.getBytes("IMG");
-					if (buffer.length != 0 && buffer != null) {
+					if (buffer != null) {
 						bean.setProductImgBase64(buffer);
 					}
 //
@@ -360,7 +360,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				result.setStatus(rset.getBoolean("STATUS"));
 
 				byte[] buffer = rset.getBytes("IMG");
-				if (buffer.length != 0 && buffer != null) {
+				if (buffer != null) {
 					result.setProductImgBase64(buffer);
 				}
 				//
@@ -417,7 +417,6 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt_maxId = conn.prepareStatement(GET_MAX_PRODID);
 				stmt_type = conn.prepareStatement(GET_TYPENAME);
 				stmt_style = conn.prepareStatement(GET_STYLENAME);
-				stmt_img = conn.prepareStatement(INSERT_IMG);
 				stmt.setString(1, bean.getComTaxId());
 				stmt.setString(2, bean.getTypeCode());
 				stmt.setString(3, bean.getStyleCode());
@@ -427,9 +426,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(7, bean.getStock());
 				stmt.setInt(8, bean.getSafeStock());
 				stmt.setBoolean(9, bean.isStatus());
-
-				InputStream is = bean.getProductImg();
-				stmt.setBlob(10, is);
+				stmt.setBytes(10, bean.getProductImgByteArray());
 
 				//
 				int i = stmt.executeUpdate();
@@ -438,13 +435,6 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt_style.setString(1, bean.getStyleCode());
 				ResultSet styleName = stmt_style.executeQuery();
 
-				//
-//				ResultSet rset_insert = stmt_maxId.executeQuery();
-//				int currentProdId;
-//				while (rset_insert.next()) {
-//					currentProdId = rset_insert.getInt("MAX(PROD_ID)");
-//					System.out.println(currentProdId);
-//				}
 				if (i == 1) {
 					result = bean;
 				}
@@ -455,9 +445,6 @@ public class ProductDAOJdbc implements ProductDAO {
 					result.setStyleName(styleName.getString("STYLE_NAME"));
 				}
 
-				if (conn != null) {
-					conn.close();
-				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -508,7 +495,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		return result;
 	}
 
-	private static final String UPDATE = "UPDATE PRODUCT SET TYPE_CODE =?, STYLE_CODE=?, NAME=?, PRICE=?, INTRO=?, STOCK=?, SAFE_STOCK=?, STATUS=?, IMG=? where PROD_ID=?";
+	private static final String UPDATE = "UPDATE PRODUCT SET TYPE_CODE =?, STYLE_CODE=?, NAME=?, PRICE=?, INTRO=?, STOCK=?, SAFE_STOCK=?, STATUS=?, IMG=ifnull(?,IMG) where PROD_ID=?";
 
 	@Override
 	public ProductBean update(ProductBean bean) {
@@ -532,13 +519,11 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(6, bean.getStock());
 				stmt.setInt(7, bean.getSafeStock());
 				stmt.setBoolean(8, bean.isStatus());
-
 				stmt.setBytes(9, bean.getProductImgByteArray());
-
 				stmt.setInt(10, bean.getProductId());
 
 				int i = stmt.executeUpdate();
-				System.out.println(i);
+				System.out.println(bean.getProductImgByteArray());
 				//
 				stmt_type.setString(1, bean.getTypeCode());
 				ResultSet typeName = stmt_type.executeQuery();
@@ -617,5 +602,45 @@ public class ProductDAOJdbc implements ProductDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	//
+
+	private static final String GET_PRODUCTPRICE = "SELECT PRICE FROM PRODUCT WHERE PROD_ID=?";
+
+	@Override
+	public int getPrice(int productId) {
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		int productPrice = 0;
+		ResultSet rset = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_PRODUCTPRICE);
+			stmt.setInt(1, productId);
+			rset = stmt.executeQuery();
+
+			while (rset.next()) {
+				productPrice = rset.getInt("PRICE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return productPrice;
 	}
 }

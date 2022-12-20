@@ -16,20 +16,22 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
     String USERID = "root";
     String PASSWORD = "password";
 
+    private static final String INSERT_STMT = "insert into ADVERTISEMENT(AD_ID,COM_TAXID,START_DATE,END_DATE,AD_IMAGES,STORE_LINK) values(?,?,STR_TO_DATE(?,'%m/%d/%Y'),STR_TO_DATE(?,'%m/%d/%Y'),?,?);";
+
+    private static final String FIND_BY_COM = "select AD_ID,COM_TAXID,DATE_FORMAT(START_DATE,'%m/%d/%Y') AS START_DATE ,DATE_FORMAT(END_DATE,'%m/%d/%Y') AS END_DATE ,AD_STATUS from ADVERTISEMENT where COM_TAXID =?";
+   
     private static final String GET_ALL_STMT = "select AD_ID,COM_TAXID,DATE_FORMAT(START_DATE,'%m/%d/%Y') AS START_DATE ,DATE_FORMAT(END_DATE,'%m/%d/%Y') AS END_DATE,AD_IMAGES,STORE_LINK,AD_STATUS from ADVERTISEMENT order by AD_ID";
 
     private static final String GET_ONE_STMT = "select AD_ID,COM_TAXID,DATE_FORMAT(START_DATE,'%m/%d/%Y') AS START_DATE ,DATE_FORMAT(END_DATE,'%m/%d/%Y') AS END_DATE ,AD_IMAGES,STORE_LINK,AD_STATUS from ADVERTISEMENT where AD_ID =?";
-
-//    private static final String DELETE = "delete from ADVERTISEMENT where AD_ID =?";
-//
-//    private static final String UPDATE = "update ADVERTISEMENT set COM_TAXID=?,START_DATE=?, END_DATE=?,AD_IMAGES=?,STORE_LINK=? ,AD_STATUS=? where AD_ID=?";
 
     private static final String GET_IS_INSERT_ABLE = "SELECT CASE WHEN COUNT(1) >=3 THEN FALSE ELSE TRUE END AS IS_INSERT_ABLE FROM TGA104G2.ADVERTISEMENT WHERE ( START_DATE >= STR_TO_DATE(?,'%m/%d/%Y') AND START_DATE <= STR_TO_DATE(?,'%m/%d/%Y')) OR (END_DATE >= STR_TO_DATE(?,'%m/%d/%Y') AND END_DATE <= STR_TO_DATE(?,'%m/%d/%Y'));";
     /*
      * //因VO中的日期型態為Date故傳進DB時必須轉型為Date,STR_TO_DATE(第一個是傳入參數,第二個是轉換格式'%Y-%m-%d')
      * 當where條件count總數>=3回傳false,若無>=3則回傳true
      */
-    private static final String INSERT_STMT = "insert into ADVERTISEMENT(AD_ID,COM_TAXID,START_DATE,END_DATE,AD_IMAGES,STORE_LINK) values(?,?,STR_TO_DATE(?,'%m/%d/%Y'),STR_TO_DATE(?,'%m/%d/%Y'),?,?);";
+//  private static final String DELETE = "delete from ADVERTISEMENT where AD_ID =?";
+//  private static final String UPDATE = "update ADVERTISEMENT set COM_TAXID=?,START_DATE=?, END_DATE=?,AD_IMAGES=?,STORE_LINK=? ,AD_STATUS=? where AD_ID=?";
+
 
     @Override
     public Boolean getIsInsertAble(AdvertisementVO advertisementVO) {
@@ -115,8 +117,59 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 	}
 
     }
+    
+    @Override
+    public List<AdvertisementVO> ADRecordByComtaxId(String comTaxId) {
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	List<AdvertisementVO> list = new ArrayList<AdvertisementVO>();
+	AdvertisementVO advertisementVO;
+	ResultSet rs = null;
+	try {
+	    Class.forName(DRIVER);
+	    con = DriverManager.getConnection(URL, USERID, PASSWORD);
+	    pstmt = con.prepareStatement(FIND_BY_COM);
+	    pstmt.setString(1, comTaxId);
+	    rs = pstmt.executeQuery();
 
-//
+	    while (rs.next()) {
+		advertisementVO = new AdvertisementVO();
+		advertisementVO.setAdId(rs.getString("AD_ID"));
+		advertisementVO.setComTaxId(rs.getString("COM_TAXID"));
+		advertisementVO.setStartDate(rs.getString("START_DATE"));
+		advertisementVO.setEndDate(rs.getString("END_DATE"));
+		advertisementVO.setAdStatus(rs.getBoolean("AD_STATUS"));
+
+		list.add(advertisementVO);
+	    }
+	    ;
+
+	} catch (ClassNotFoundException ce) {
+	    ce.printStackTrace();
+	} catch (SQLException se) {
+	    se.printStackTrace();
+	}
+	if (pstmt != null) {
+	    try {
+		pstmt.close();
+	    } catch (SQLException se) {
+		se.printStackTrace();
+	    }
+	}
+	if (con != null) {
+	    try {
+		con.close();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	}
+
+	return list;
+
+    } 
+
+//   
+
 //    @Override
 //    public void update(AdvertisementVO advertisementVO) {
 //	Connection con = null;
@@ -195,6 +248,10 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 //
 //    }
 //
+    
+ 
+
+    
     @Override
     public AdvertisementVO findByPrimaryKey(String advertisementno) {
 	Connection con = null;

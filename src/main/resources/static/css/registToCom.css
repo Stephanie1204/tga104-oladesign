@@ -1,0 +1,143 @@
+@charset "UTF-8";
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #4F4E4D;
+    font-size: 20px;
+}
+
+html,
+body {
+	font-family: "Cairo", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	margin-top: 130px;
+}
+
+.header__logo a img{
+    width: 60%;
+    vertical-align: middle;
+    padding: 15px;
+}
+
+h1.mem-reg{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+div.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: static;
+    
+}
+
+nav.main-header{
+    margin-left: 0;
+    background-color: #F3F1F2;
+}
+
+div.row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    position: static;
+    width: 80%;
+}
+
+div.card-body{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+span#star{
+    color: #E86F62;
+}
+
+div.gender{
+    display: inline-block;
+}
+
+input.gender{
+    width: 18px;
+    height: 18px;
+}
+
+div.card-footer{
+    text-align: center;
+}
+
+div.final-check{
+    vertical-align: middle;
+}
+
+input.final-check{
+    width: 18px;
+    height: 18px;
+}
+
+button.reg{
+    width: 200px;
+    background-color: #E4CD8D;
+    border: none;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+button.reg:hover{    
+    background-color: #f0d383;
+    color: #4F4E4D;
+}
+
+div.agreement{
+	text-align: center;
+}
+
+span.error{
+	color: #E86F62;
+}
+
+a.terms{
+	text-decoration: none;
+	color: #007bff;;
+}
+
+a.terms:hover{
+	color: #92AFBF;
+}
+
+div.address{
+	display: flex;
+	align-items: center;
+}
+
+div#twzipcode{
+	display: flex;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+select.city, select.town, input.zipcode{
+	display: inline-block;
+	text-align: center;
+}
+
+select.city, input.zipcode{
+	width: 30%;
+}
+
+select.town{
+	width: 40%;
+}
+
+

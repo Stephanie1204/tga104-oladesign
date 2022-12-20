@@ -17,6 +17,7 @@ if (userId != null) {
 	pageContext.setAttribute("userId", userId);
 
 }
+//
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -59,6 +60,9 @@ if (userId != null) {
 	type="text/css" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/conditionBar.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/homePage/css/checkOut.css"
 	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -209,81 +213,55 @@ if (userId != null) {
 		<div class="container">
 			<div class="checkout__form">
 				<h4>Billing Details</h4>
-				<form action="#">
+				<form action="<c:url value="/pages/order.controller"/>"
+					method="post" target="_blank">
 					<div class="row">
 						<div class="col-lg-8 col-md-6">
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="checkout__input">
-										<p>
-											Fist Name<span>*</span>
-										</p>
-										<input type="text">
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="checkout__input">
-										<p>
-											Last Name<span>*</span>
-										</p>
-										<input type="text">
-									</div>
+							<div class="col-lg-6">
+								<div class="checkout__input">
+									<p>
+										收件人<span>*</span>
+									</p>
+									<input type="text" name="receiver" value="${param.receiver }">
+									<span class="error">${errors.receiver}</span>
 								</div>
 							</div>
+
 							<div class="checkout__input">
 								<p>
-									Country<span>*</span>
+									收件地址<span>*</span>
 								</p>
-								<input type="text">
+								<input type="text" class="checkout__input__add" name="address"
+									value="${param.address }"> <span class="error">${errors.address}</span>
 							</div>
 							<div class="checkout__input">
 								<p>
-									Address<span>*</span>
+									郵遞區號<span>*</span>
 								</p>
-								<input type="text" placeholder="Street Address"
-									class="checkout__input__add"> <input type="text"
-									placeholder="Apartment, suite, unite ect (optinal)">
+								<input type="text" name="address_zone"> <span
+									class="error">${errors.address_zone}</span>
 							</div>
-							<div class="checkout__input">
-								<p>
-									Town/City<span>*</span>
-								</p>
-								<input type="text">
+							<div class="shoping__discount">
+								<h5>折扣碼</h5>
+								<form action="#">
+									<input type="text" placeholder="Enter your coupon code"
+										name="coupon" value="${param.coupon }">
+									<button type="submit" class="site-btn">APPLY</button>
+								</form>
 							</div>
-							<div class="checkout__input">
-								<p>
-									Country/State<span>*</span>
-								</p>
-								<input type="text">
-							</div>
-							<div class="checkout__input">
-								<p>
-									Postcode / ZIP<span>*</span>
-								</p>
-								<input type="text">
-							</div>
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="checkout__input">
-										<p>
-											Phone<span>*</span>
-										</p>
-										<input type="text">
-									</div>
+							<div class="shoping__discount">
+								<jsp:useBean id="orderSvc" scope="page"
+									class="com.tibame.tga104.g2.oladesign.order.model.OrderService" />
+								<div>
+									<span><h5>所持紅利: ${orderSvc.getPoint(userId)}</h5></span>
 								</div>
-								<div class="col-lg-6">
-									<div class="checkout__input">
-										<p>
-											Email<span>*</span>
-										</p>
-										<input type="text">
-									</div>
-								</div>
+								<input type="text" placeholder="use your points"
+									name="point_use" value="${param.point_use }">
+								<button type="button" class="site-btn" id="btn-pointApply">APPLY</button>
+								<span class="error">${errors.point_use}</span> <span
+									class="error">${errors.pointError}</span>
 							</div>
-							<div class="btn-submit">
-								<!-- 傳送select參數給action指向的servlet -->
-								<input type="button" id="btn-clear" value="Clear">
-							</div>
+
 						</div>
 						<div class="col-lg-4 col-md-6">
 							<div class="checkout__order">
@@ -292,45 +270,26 @@ if (userId != null) {
 									Products <span>Total</span>
 								</div>
 								<ul>
-									<c:if test="${not empty saler}">
-										<c:forEach var="row_saler" items="${saler}">
-											<jsp:useBean id="proSvc" scope="page"
-												class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
-											<c:forEach var="row_product"
-												items="${proSvc.selectCart(userId, row_saler)}">
-												<li id="productName">${ row_product.name }</li>
-												<li>數量${row_product.cartQuantity }<span>$${
-														row_product.price * row_product.cartQuantity}</span>
-												</li>
-											</c:forEach>
-											<span>--------------------------</span>
-										</c:forEach>
-									</c:if>
+									<jsp:useBean id="proSvc" scope="page"
+										class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
+									<c:forEach var="row_product"
+										items="${proSvc.selectCart(userId, param.comTaxId)}">
+										<li id="productName">${ row_product.name }</li>
+										<li>數量${row_product.cartQuantity }<span>$${
+												row_product.price * row_product.cartQuantity}</span>
+										</li>
+									</c:forEach>
 								</ul>
+
 								<div class="checkout__order__subtotal">
-									Subtotal <span>$750.99</span>
+									Subtotal <span>${orderSvc.getTotalPrice(userId, param.comTaxId)}</span>
 								</div>
 								<div class="checkout__order__total">
 									Total <span>$750.99</span>
 								</div>
-								<div class="checkout__input__checkbox">
-									<label for="acc-or"> Create an account? <input
-										type="checkbox" id="acc-or"> <span class="checkmark"></span>
-									</label>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do
-									eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								<div class="checkout__input__checkbox">
-									<label for="payment"> Check Payment <input
-										type="checkbox" id="payment"> <span class="checkmark"></span>
-									</label>
-								</div>
-								<div class="checkout__input__checkbox">
-									<label for="paypal"> Paypal <input type="checkbox"
-										id="paypal"> <span class="checkmark"></span>
-									</label>
-								</div>
-								<button type="submit" class="site-btn">PLACE ORDER</button>
+								<input type="hidden" name="comTaxId" value="${param.comTaxId }">
+								<button type="submit" name="prodaction" value="PlaceOrder"
+									class="site-btn">結帳</button>
 							</div>
 						</div>
 					</div>
@@ -435,7 +394,7 @@ if (userId != null) {
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/homePage/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/homePage/js/clearInput.js"></script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

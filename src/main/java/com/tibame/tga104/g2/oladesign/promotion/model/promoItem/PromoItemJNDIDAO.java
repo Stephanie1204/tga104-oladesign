@@ -127,9 +127,12 @@ public class PromoItemJNDIDAO implements PromoItemDAOInterface{
 		}
 	}
 	@Override
-	public void delete(Integer promoId, Integer prodId) {
+	public int delete(Integer promoId, Integer prodId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
+		int count = 0;
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
@@ -137,7 +140,8 @@ public class PromoItemJNDIDAO implements PromoItemDAOInterface{
 			pstmt.setInt(1, promoId);
 			pstmt.setInt(2, prodId);
 			
-			pstmt.executeUpdate();
+			count = pstmt.executeUpdate();
+			
 		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -156,24 +160,20 @@ public class PromoItemJNDIDAO implements PromoItemDAOInterface{
 				}
 			}
 		}
-	
 		
+		return count;
 	}
 	@Override
 	public List<PromoItemVO> findAllByPromoId(Integer promoId) {
 		List<PromoItemVO> list = new ArrayList<PromoItemVO>();
 		PromoItemVO promoItemVO = null;
-		PromoItemVO promoItemVO1 = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt1 = null;
 		ResultSet rs = null;
-		ResultSet rs1 = null;
 		
 		try {
 			con = ds.getConnection();
-
 			pstmt = con.prepareStatement(GET_ALL_BY_PROMOID_STMT);
 			pstmt.setInt(1, promoId);
 			rs = pstmt.executeQuery();
@@ -216,7 +216,7 @@ public class PromoItemJNDIDAO implements PromoItemDAOInterface{
 				}
 			}
 		}
-		Arrays.asList(list);
+//		Arrays.asList(list);
 		return list;
 	}
 	

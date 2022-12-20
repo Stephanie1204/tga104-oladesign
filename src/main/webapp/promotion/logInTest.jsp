@@ -24,14 +24,16 @@
     
     <br>
     
-    <form METHOD="get" action="http://localhost:8080/oladesign/promo?comTaxId=2">
-      <input type="submit" value="進入賣家促銷首頁">
-      <a href="http://localhost:8080/oladesign/promo?comTaxId=2">拉拉拉</a>
-      <input type="hidden" name="comTaxId" value="${comTaxId}">
-      
-    </form>
+<!--     <form METHOD="get" action="http://localhost:8080/oladesign/promo?comTaxId=2"> -->
+<!--       <input type="submit" value="進入賣家促銷首頁"> -->
+<%--       <input type="hidden" name="comTaxId" value="${comTaxId}"> --%>
+<!--     </form> -->
     
-    <script src="jquery.js"></script>
+<%--      <button><a href="<%=request.getContextPath()%>/promo?comTaxId=${comTaxId}">進入賣家促銷首頁</a></button> --%>
+<%--      <button><a href="<%=request.getContextPath()%>/promotion/promoHome.html">進入賣家促銷首頁</a></button> --%>
+
+		<button><a href="<%=request.getContextPath()%>/promotion/promotion_front/promoHome.html?comTaxId=${comTaxId}">進入賣家促銷首頁</a></button>
+    
 
   </body>
 </html>

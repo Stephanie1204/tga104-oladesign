@@ -60,7 +60,7 @@ public class ProductService {
 	public ProductBean insert(ProductBean bean) {
 		ProductBean result = null;
 		//insert測試用廠商
-		bean.setComTaxId("23045921");
+		bean.setComTaxId("32425565");
 		//
 		if(bean!=null && bean.getComTaxId()!=null) {
 			result = productDao.insert(bean);

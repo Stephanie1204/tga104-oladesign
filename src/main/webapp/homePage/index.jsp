@@ -18,9 +18,9 @@
 
 <!-- Css Styles -->
 <!-- <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"> -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/font-awesome.min.css"
-	type="text/css" />
+<!-- <link rel="stylesheet" -->
+<%-- 	href="<%=request.getContextPath()%>/homePage/css/font-awesome.min.css" --%>
+<!-- 	type="text/css" /> -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/elegant-icons.css"
 	type="text/css" />
@@ -54,117 +54,123 @@
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+	
+	<!--     header -->
+		
+	<%@ include file="../include/header.jsp"%>
 
 	<!-- Humberger Begin -->
 	<!-- Home/shop/pages/blog/contact bar while mobile -->
-	<div class="humberger__menu__overlay"></div>
-	<div class="humberger__menu__wrapper">
-		<!-- organi logo -->
-		<div class="humberger__menu__logo">
-			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a>
-		</div>
+<!-- 	<div class="humberger__menu__overlay"></div> -->
+<!-- 	<div class="humberger__menu__wrapper"> -->
+<!-- 		<!-- organi logo --> 
+<!-- 		<div class="humberger__menu__logo"> -->
+<%-- 			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img --%>
+<%-- 				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a> --%>
+<!-- 		</div> -->
 
-		<!-- shopping cart and heart on the right -->
+<!-- 		<!-- shopping cart and heart on the right --> 
 
-		<div class="humberger__menu__widget">
-			<!-- login button on the top-->
-			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i>登入</a>
-			</div>
-		</div>
+<!-- 		<div class="humberger__menu__widget"> -->
+<!-- 			<!-- login button on the top--> 
+<!-- 			<div class="header__top__right__auth"> -->
+<%-- 				<a href="<%=request.getContextPath()%>/member/login.jsp"><i class="fa fa-user"></i>登入/註冊</a> --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
 
-		<nav class="humberger__menu__nav mobile-menu">
-			<ul>
-				<li class="active"><a
-					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-				<li><a href="./shop-grid.html">Shop</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-				<li><a href="./blog.html">Blog</a></li>
-				<li><a href="./contact.html">Contact</a></li>
-			</ul>
-		</nav>
-		<div id="mobile-menu-wrap"></div>
+<!-- 		<nav class="humberger__menu__nav mobile-menu"> -->
+<!-- 			<ul> -->
+<!-- 				<li class="active"><a -->
+<%-- 					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li> --%>
+<!-- 				<li><a href="./shop-grid.html">Shop</a></li> -->
+<!-- 				<li><a -->
+<%-- 					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li> --%>
+<!-- 				<li><a href="./blog.html">Blog</a></li> -->
+<!-- 				<li><a href="./contact.html">Contact</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</nav> -->
+<!-- 		<div id="mobile-menu-wrap"></div> -->
 
-		<!-- info on left-top -->
+<!-- 		<!-- info on left-top --> 
 
-		<div class="humberger__menu__contact">
-			<ul>
-				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-			</ul>
-		</div>
-	</div>
+<!-- 		<div class="humberger__menu__contact"> -->
+<!-- 			<ul> -->
+<!-- 				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<!-- Humberger End -->
 
 	<!-- Header Section Begin -->
 	<!-- header while on PC -->
-	<header class="header">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-2">
-					<div class="header__logo">
-						<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-							src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-							alt="" /></a>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="hero__search__form">
-						<form action="<c:url value="/pages/product.controller" />"
-							method="get">
-							<input type="text" id="name" placeholder="What do yo u need?"
-								name="name" value="${param.name}" />
-							<button type="submit" name="prodaction" value="Select"
-								class="site-btn">SEARCH</button>
-						</form>
-					</div>
-					<nav class="header__menu">
-						<ul>
-							<li class="active"><a
-								href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-							<li><a href="./shop-grid.html">Shop</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-							<li><a href="./blog.html">Blog</a></li>
-							<li><a href="./contact.html">Contact</a></li>
-						</ul>
-					</nav>
-				</div>
+<!-- 	<header class="header"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-lg-2"> -->
+<!-- 					<div class="header__logo"> -->
+<%-- 						<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img --%>
+<%-- 							src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" --%>
+<!-- 							alt="" /></a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-lg-6"> -->
+<!-- 					<div class="hero__search__form"> -->
+<%-- 						<form action="<c:url value="/pages/product.controller" />" --%>
+<!-- 							method="get"> -->
+<!-- 							<input type="text" id="name" placeholder="What do yo u need?" -->
+<%-- 								name="name" value="${param.name}" /> --%>
+<!-- 							<button type="submit" name="prodaction" value="Select" -->
+<!-- 								class="site-btn">SEARCH</button> -->
+<!-- 						</form> -->
+<!-- 					</div> -->
+<!-- 					<nav class="header__menu"> -->
+<!-- 						<ul> -->
+<!-- 							<li class="active"><a -->
+<%-- 								href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li> --%>
+<!-- 							<li><a href="./shop-grid.html">Shop</a></li> -->
+<!-- 							<li><a -->
+<%-- 								href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li> --%>
+<!-- 							<li><a href="./blog.html">Blog</a></li> -->
+<!-- 							<li><a href="./contact.html">Contact</a></li> -->
+<!-- 						</ul> -->
+<!-- 					</nav> -->
+<!-- 				</div> -->
 
-				<div class="col-lg-4">
-					<div class="header__cart">
-						<ul class="shopping-cart">
-							<li class="shopping-cart-li">
-								<button type="button" class="btn btn-secondary dropdown-toggle"
-									data-bs-toggle="dropdown" aria-expanded="false">會員功能</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item" href="#">Separated link</a></li>
-								</ul>
-								<button type="button" class="btn btn-secondary"
-									aria-expanded="false">
-									<i class="fa fa-shopping-bag"> <a
-										href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">購物車</a></i>
-								</button>
-								<button type="button" class="btn btn-secondary"
-									aria-expanded="false">
-									<i class="fa fa-user"><a href="#">登入</a></i>
-								</button>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="humberger__open">
-				<i class="fa fa-bars"></i>
-			</div>
-		</div>
-	</header>
+<!-- 				<div class="col-lg-4"> -->
+<!-- 					<div class="header__cart"> -->
+<!-- 						<ul class="shopping-cart"> -->
+<!-- 							<li class="shopping-cart-li"> -->
+<!-- 								<button type="button" class="btn btn-secondary dropdown-toggle" -->
+<!-- 									data-bs-toggle="dropdown" aria-expanded="false">會員功能</button> -->
+<!-- 								<ul class="dropdown-menu"> -->
+<!-- 									<li><a class="dropdown-item" href="#">Action</a></li> -->
+<!-- 									<li><a class="dropdown-item" href="#">Another action</a></li> -->
+<!-- 									<li><a class="dropdown-item" href="#">Something else -->
+<!-- 											here</a></li> -->
+<!-- 									<li><hr class="dropdown-divider"></li> -->
+<!-- 									<li><a class="dropdown-item" href="#">Separated link</a></li> -->
+<!-- 								</ul> -->
+<!-- 								<button type="button" class="btn btn-secondary" -->
+<!-- 									aria-expanded="false"> -->
+<!-- 									<i class="fa fa-shopping-bag"> <a -->
+<%-- 										href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">購物車</a></i> --%>
+<!-- 								</button> -->
+<!-- 					 1214<button type="button" class="btn btn-secondary login"  -->
+<!-- 									aria-expanded="false"> -->
+<%-- 									<i class="fa fa-user"><a href="<%=request.getContextPath()%>/member/login.jsp">註冊/登入</a></i>  <!-- 1214 --> --%>
+<!-- 								</button> -->
+<%-- 								<img id="memPhoto" alt="會員照片" src="${(memberVO.memPhoto == null)? '../img/default_photo.jpg' : memberVO.memPhotoBase64}"> --%>
+<%-- 								<h3> <font color=red> ${memName} </font></h3> <!-- 1214 --> --%>
+<!-- 							</li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="humberger__open"> -->
+<!-- 				<i class="fa fa-bars"></i> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</header> -->
 	<!-- Header Section End -->
 
 	<!-- Hero Section Begin -->
@@ -822,6 +828,8 @@
 	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
+	<!-- 		jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/jquery-3.3.1.min.js"></script>
 	<!-- <script src="js/bootstrap.min.js"></script> -->
@@ -840,5 +848,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -3,6 +3,10 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>	
 <%
 MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+System.out.println("RegistmemberVO=" + memberVO);
+String city = (String)request.getAttribute("city");
+String town = (String)request.getAttribute("town");
+String agreement = (String)request.getAttribute("agreement");
 %>	
 	
 <!DOCTYPE html>
@@ -12,9 +16,10 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>OLA Design | 會員註冊</title>
 
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	rel="stylesheet" />
 
 <!-- Theme style -->
 <link rel="stylesheet" href="../css/adminlte.min.css" />
@@ -67,7 +72,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 									<div class="form-group col-md-6">
 										<label for="password">密碼<span id="star">* </span><span class="error">${errorMsgs.password}</span></label>
 										<input type="password" class="form-control"
-											id="password" name="password" placeholder="請設定6~15位英文數字混合密碼" value="${(memberVO == null)? '' : memberVO.password}"/>
+											id="password" name="password" placeholder="請設定6~15位英文數字混合密碼" value="${memberVO.password}"/>
 									</div>
 									<div class="form-group col-md-6">
 										<label for="cpassword">確認密碼<span id="star">* </span><span class="error">${errorMsgs.cpassword}</span></label>
@@ -96,20 +101,23 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 									</div>
 
 									<div class="form-group col-md-12">
-										<label for="memAddress">地址<span id="star">* </span><span class="error">${errorMsgs.memAddress}</span></label> 
-										<input type="text" class="form-control" id="memAddress" name="memAddress" value="${(memberVO == null)? '' : memberVO.memAddress}"/>
+										<label for="memAddress">收貨地址<span id="star">* </span><span class="error">${errorMsgs.memAddress}</span></label> 
+										<div class="address">
+											<div id="twzipcode" class="col-md-5"></div>																		
+											<input type="text" class="form-control address col-md-7" id="memAddress" name="memAddress" value="${(memberVO == null)? '' : memberVO.memAddress}"/>
+										</div>
 									</div>
 
 									<jsp:useBean id="memSvc" scope="page" class="com.tibame.tga104.g2.oladesign.member.service.MemberService" />
 
-									<div class="final-check form-check ">
-										<input class="final-check" type="checkbox" value="agreement" name="agreement"
-											id="flexCheckDefault"> <label
+									<div class="final-check form-check">
+										<input class="final-check" type="checkbox" name="agreement"
+											id="flexCheckDefault" ${agreement}> <label
 											class="form-check-label" for="flexCheckDefault">
 											已確認以上資料無誤，並同意接受 <a href="<%=request.getContextPath()%>/member/membershipTerms.jsp" target="_blank" class="terms">會員條款</a>及
 											<a href="<%=request.getContextPath()%>/member/privacyTerms.jsp" target="_blank" class="terms">隱私條款</a>
 										</label>
-										<div><span class="error">${errorMsgs.agreement}</span></div>
+										<div class="agreement"><span class="error">${errorMsgs.agreement}</span></div>
 										
 									</div>
 								</div>
@@ -139,6 +147,17 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 
 		</div>
 		<!-- ./wrapper -->
-		
+<script src="../plugins/jQuery-TWzipcode-master/jquery.twzipcode.js"></script>
+<!-- 連動式地址下拉選單來源  https://github.com/essoduke/jQuery-TWzipcode -->
+<script>
+	$("#twzipcode").twzipcode({
+		countySel: "${(city == "" ? null : city)}", // 城市預設值, 字串一定要用繁體的 "臺", 否則抓不到資料
+		districtSel: "${(town == "" ? null : town)}", // 地區預設值
+		zipcodeIntoDistrict: false, // 郵遞區號自動顯示在地區
+		css: ["city form-control", "town form-control", "zipcode form-control"], // 自訂 "城市"、"地區" class 名稱
+		countyName: "city", // 自訂城市 select 標籤的 name 值
+		districtName: "town" // 自訂地區 select 標籤的 name 值
+	});	
+</script>		
 </body>
 </html>

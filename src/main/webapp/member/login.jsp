@@ -6,9 +6,14 @@
 	
 <%
 MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
-System.out.println("login memberVO="+memberVO);
+System.out.println("login memberVO="+ memberVO);
 String message = (String)request.getAttribute("success");
-System.out.println("message="+message);
+System.out.println("message="+ message);
+String pwdMessage = (String)request.getAttribute("pwdrecover");
+String vericodeDel = (String)request.getAttribute("vericodeDel");
+System.out.println("vericodeDel="+ vericodeDel);
+String vericodeDelReset = (String)request.getAttribute("vericodeDelReset");
+System.out.println("vericodeDelReset="+ vericodeDelReset);
 %>	
 <html lang="en">
 <head>
@@ -106,7 +111,7 @@ System.out.println("message="+message);
 				</div>
 				<div class="form-floating">
 					<input type="password" class="form-control" id="floatingPassword"
-						placeholder="Password" name="password" value="${memberVO.password}"/> <label
+						placeholder="Password" name="password"/> <label
 						for="floatingPassword">密碼</label>
 				</div>
 				<div class="error">
@@ -148,9 +153,27 @@ System.out.println("message="+message);
 
 <!-- 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
 	    <script>
-	    	if(<%=message%> == true){
-	    		alert("email驗證成功，現在可以登入使用OLA Design購物了!");
-	    	}
+	    	setTimeout(function(){
+	    		if(<%=message%> == true){
+		    		alert("email驗證成功，現在可以登入使用OLA Design購物了!");
+		    	}else if(<%=vericodeDel%> == true){
+		    		alert("驗證碼已刪除，可能情形為:\r\n"
+			    			+ "1. 已成功註冊，現在可以登入使用OLA Design購物了!\r\n"
+			    			+ "2. 驗證碼失效，請重新註冊或聯絡客服。");
+			    }else if(<%=vericodeDelReset%> == true){
+			    		alert("驗證碼已刪除，可能情形為:\r\n"
+				    			+ "1. 已成功修改密碼，現在可以登入使用OLA Design購物了!\r\n"
+				    			+ "2. 驗證碼失效，請重新點選忘記密碼或聯絡客服。");
+			    }
+		    	
+		    	if(<%=pwdMessage%> == true){
+		    		alert("已成功重設密碼，現在可以登入使用OLA Design購物了!");
+		    	}	
+		
+	    	}, 500);
+	    		
+	    	
+	    	
 	    </script>
 </body>
 </html>

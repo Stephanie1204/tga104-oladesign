@@ -20,7 +20,7 @@ import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemByCheckVO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 
-@WebServlet("/CompanyBackEnd/company_memberdo")
+@WebServlet("/CompanyBackEnd/company_member.do")
 @MultipartConfig
 public class Company_MemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class Company_MemServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		// 點選菜單攔中的"賣家基本資料"按鈕時判斷該會員是否已開通賣家功能,已開通=>帶入基本資料,未開通=>空白表單
 		if ("doGetCompantMembetInfo".equals(action)) {
-			String memId = req.getParameter("memId");
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 
 			// init
 			Company_MemVO company_MemVO = new Company_MemVO();
@@ -223,9 +223,9 @@ public class Company_MemServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		
+
 		if ("doGetStoreInfo".equals(action)) {
-			String memId = req.getParameter("memId");
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 
 			// init
 			Company_MemVO company_MemVO = new Company_MemVO();
@@ -243,7 +243,7 @@ public class Company_MemServlet extends HttpServlet {
 				result.setMemId(company_MemVO.getMemId());
 				result.setStoreName(company_MemVO.getStoreName());
 				result.setStoreLogo(company_MemVO.getStoreLogo());
-				result.setStoreBanner(company_MemVO.getStoreBanner());				
+				result.setStoreBanner(company_MemVO.getStoreBanner());
 
 				result.setIsMemberHasCom(true);
 			}
@@ -257,8 +257,8 @@ public class Company_MemServlet extends HttpServlet {
 
 			// 寫好RS給AJAX
 			pw.flush();
-		}	
-		
+		}
+
 		if ("updateshop_save".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -315,54 +315,68 @@ public class Company_MemServlet extends HttpServlet {
 		}
 
 		/************************* 處理select.page的需求 **************************/
-//		if ("getOne_For_Display".equals(action)) {
-//			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			/******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
-//			// 後端擋type輸入的空字串
-//			String str = req.getParameter("com_taxid");
-//			if (str == null || (str.trim()).length() == 0) {
-//				errorMsgs.add("請輸入廠商統一編號");
-//			}
-//			// type確定有輸入文字執行下一段,如沒有輸入文字直接點送出用forward跳回原本的頁面
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher(
-//						"/back-end/company_member/selectcompany_member.jsp");
-//				failureView.forward(req, res);
-//				return; // 下面的程式不執行
-//			}
-//			// 判斷輸入格式是否正確,如不正確用forward跳回原本的頁面
-//			String comTaxid = str;
-//			if (str.length() != 8) {
-//				errorMsgs.add("統一編號格式不正確");
-//			}
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher successView = req.getRequestDispatcher(
-//						"/back-end/company_member/selectcompany_member.jsp");
-//				successView.forward(req, res);
-//				return; // 下面的程式不執行
-//			}
-//			/************************ Contoller第二步開始查詢資料 ****************/
-//			Company_MemService company_memSvc = new Company_MemService();
-//			Company_MemVO company_memVO = company_memSvc
-//					.getOneCompany_Mem(comTaxid);
-//			// 如果在company_memVO找不到資料,回傳"查無資料"用forward跳回原本的頁面
-//			if (company_memVO == null) {
-//				errorMsgs.add("查無資料");
-//			}
-//			if (!errorMsgs.isEmpty()) {
-//				RequestDispatcher failureView = req.getRequestDispatcher(
-//						"/back-end/company_member/selectcompany_member.jsp");
-//				failureView.forward(req, res);
-//				return; // 下面的程式不執行
-//			}
-//			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
-//			req.setAttribute("company_memVO", company_memVO); // 資料庫取出的company_memVO物件,存入req
-//			String url = "/back-end/company_member/pages/listonecompany_member.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);
-//			successView.forward(req, res);
-//
-//		}
+		if ("getOne_For_Display".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			/******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
+			// 後端擋type輸入的空字串
+			String str = req.getParameter("comtaxId");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.add("請輸入廠商統一編號");
+			}
+			// type確定有輸入文字執行下一段,如沒有輸入文字直接點送出用forward跳回原本的頁面
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/adminselect.jsp");
+				failureView.forward(req, res);
+				return; // 下面的程式不執行
+			}
+			// 判斷輸入格式是否正確,如不正確用forward跳回原本的頁面
+			String comtaxId = str;
+			if (str.length() != 8) {
+				errorMsgs.add("統一編號格式不正確");
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher successView = req.getRequestDispatcher("/CompanyBackEnd/adminselect.jsp");
+				successView.forward(req, res);
+				return; // 下面的程式不執行
+			}
+			/************************ Contoller第二步開始查詢資料 ****************/
+			Company_MemService company_memSvc = new Company_MemService();
+			Company_MemVO company_memVO = company_memSvc.getOneCompany_Mem(comtaxId);
+			// 如果在company_memVO找不到資料,回傳"查無資料"用forward跳回原本的頁面
+			if (company_memVO == null) {
+				errorMsgs.add("查無資料");
+			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/adminselect.jsp");
+				failureView.forward(req, res);
+				return; // 下面的程式不執行
+			}
+			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
+			req.setAttribute("company_memVO", company_memVO); // 資料庫取出的company_memVO物件,存入req
+			String url = "/CompanyBackEnd/listonecompany_member.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+
+		}
+
+		if ("doGetAllComInfo".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String adminId = req.getParameter("adminId");
+
+			Company_MemService company_memSvc = new Company_MemService();
+			List<Company_MemVO> company_memVO = company_memSvc.getAll();
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(company_memVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+
 //		/************************* 處理listAll.page的需求 *************************/
 //		if ("getOne_For_Update".equals(action)) {
 //			List<String> errorMsgs = new LinkedList<String>();

@@ -1,5 +1,6 @@
 package com.tibame.tga104.g2.oladesign.promotion.model.promo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,29 @@ public class PromoService {
 //	public PromoService() { 
 //		dao = new PromoJNDIDAO();
 //	}
-
+	
+	public Boolean checkCoupon (String coupon){
+		return dao.checkCoupon(coupon);
+	}
+	
 	public PromoVO addPromo(PromoVO promoVO) {
+		long startDate = promoVO.getStartDate().getTime();
+		long now = new Date().getTime();
+		if(startDate-now <= 0) {
+			return promoVO;
+		}
+
 		dao.insert(promoVO);
 		return promoVO;
 	}
 
-	// 修改的時候要加進促銷編號，因為是要傳回整筆資料，只是鎖起來不能讓他修改而已
 	public PromoVO update(PromoVO promoVO) {
 		dao.update(promoVO);
 		return promoVO;
 	}
 
-	public void deletePromo(Integer promoId) {
-		dao.delete(promoId);
+	public Boolean deletePromo(Integer promoId) {
+		return dao.delete("PS003",promoId)>0;
 	}
 
 	public PromoVO getOnePromo(Integer promoId) {

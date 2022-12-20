@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 
 public class Company_MemJDBCDAO implements Company_MemDAO_interface {
+	
 	String DRIVER = "com.mysql.cj.jdbc.Driver";
 	String URL = "jdbc:mysql://localhost:3306/tga104g2?serverTimezone=Asia/Taipei";
 	String USERID = "root";
@@ -33,7 +35,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 	// get到的值,會以第一個參數去判斷是否為null,如果非null則回傳第一個參數,如果是null則回傳第二參數的值(維持現有欄位的值不做更動)
 
 	@Override
-	public Company_MemVO findByMemId(String memId) {
+	public Company_MemVO findByMemId(Integer memId) {
 
 		Company_MemVO company_memVO = null;
 		Connection con = null;
@@ -45,7 +47,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(FIND_BY_MEM_ID);
 
-			pstmt.setString(1, memId);
+			pstmt.setInt(1, memId);
 
 			rs = pstmt.executeQuery();
 
@@ -109,7 +111,6 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 			// pstmt.setDate(10, company_memVO.getComRegdate());
 
 			pstmt.executeUpdate();
-
 		} catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
 		} catch (SQLException se) {
@@ -303,20 +304,17 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 
 	@Override
 	public List<Company_MemVO> getAll() {
-		List<Company_MemVO> list = new ArrayList<Company_MemVO>();
 		Company_MemVO company_memVO;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		List<Company_MemVO> list = new ArrayList<Company_MemVO>();
 		ResultSet rs = null;
 
 		try {
 			Class.forName(DRIVER);
 			con = DriverManager.getConnection(URL, USERID, PASSWORD);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
-
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				company_memVO = new Company_MemVO();
 				company_memVO.setComTaxId(rs.getString("COM_TAXID"));
@@ -326,8 +324,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 				company_memVO.setComPhone(rs.getString("COM_PHONE"));
 				company_memVO.setComOwner(rs.getString("COM_OWNER"));
 				company_memVO.setOwnerPhone(rs.getString("OWNER_PHONE"));
-				company_memVO
-						.setComBankaccount(rs.getString("COM_BANKACCOUNT"));
+				company_memVO.setComBankaccount(rs.getString("COM_BANKACCOUNT"));
 				company_memVO.setStoreName(rs.getString("STORE_NAME"));
 				company_memVO.setComRegdate(rs.getDate("COM_REGDATE"));
 				company_memVO.setStoreIntro(rs.getString("STORE_INTRO"));

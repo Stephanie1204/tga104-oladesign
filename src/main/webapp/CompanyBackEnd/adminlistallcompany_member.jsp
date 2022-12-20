@@ -2,14 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*" %>
-<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.service.*" %>
-<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %>
-<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.dao.*" %>
-<% Company_MemService company_memSvc = new Company_MemService();
-	List<Company_MemVO> list = company_memSvc.getAll();
-	pageContext.setAttribute("list",list);
 
-%>
 <!DOCTYPE html>
 <html>
 
@@ -97,68 +90,35 @@
 							<!--工具栏-->
 							<div class="pull-left">
 								<div class="form-group form-inline">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="删除"
-											onclick='confirm("你確定要刪除嗎？")'>
-											<i class="fa fa-trash-o"></i> 刪除
-										</button>
-										<button type="button" class="btn btn-default" title="刷新"
-											onclick="window.location.reload();">
-											<i class="fa fa-refresh"></i> 刷新
-										</button>
-									</div>
 								</div>
 							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜尋"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
+								<form method="post" action="company_member.do">
+								<input type="text" name="comtaxId" placeholder="請輸入廠商統一編號"> 
+								<input type="hidden" name="action" value="getOne_For_Display"> 
+								<input type="hidden" name="adminId" value="A001" />
+								<input type="submit" value="送出" class="btn btn-default">	
+								</form>
 								</div>
 							</div>
 							<!--工具栏/-->
-
 							<!--数据列表-->
 							<table id="dataList"
 								class="table table-bordered table-striped table-hover dataTable">
 								<thead>
 									<tr>
-										<th class="" style="padding-right: 0px;"><input
-											id="selall" type="checkbox" class="icheckbox_square-blue">
-										</th>
 										<th class="sorting_asc">公司統編</th>
 										<th class="sorting">會員編號</th>
 										<th class="sorting">公司名稱</th>
-										<th class="sorting">公司地址</th>
 										<th class="sorting">公司電話</th>
 										<th class="sorting">負責人</th>
 										<th class="sorting">負責人手機號碼</th>
-										<th class="sorting">銀行帳戶</th>
+										<th class="sorting">註冊日期</th>
 										<th class="sorting">賣場名稱</th>
-										<th class="text-center">審核</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td><input name="ids" type="checkbox"></td>
-											<td>${company_memVO.comTaxid}</td>
-											<td>${company_memVO.memId}</td>
-											<td>${company_memVO.comName}</td>
-											<td>${company_memVO.comAddress}</td>
-											<td>${company_memVO.comPhone}</td>
-											<td>${company_memVO.comOwner}</td> 
-											<td>${company_memVO.ownerPhone}</td> 
-											<td>${company_memVO.comBankaccount}</td>
-											<td>${company_memVO.storeName}</td>
-											<td>${company_memVO.comRegdate}</td>
-											<td>${company_memVO.storeIntro}</td>    
-
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-order-manage-edit.html"'>编辑</button>
-										</td>
-									</tr>
-
+								<tbody id="row">
 								</tbody>
 								
 							</table>
@@ -273,6 +233,33 @@
 			$(".textarea").wysihtml5({
 				locale : 'zh-CN'
 			});
+
+	        $.ajax({
+	            type : 'POST',
+	            url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetAllComInfo&adminId=A001',
+	            success : function (data, status, xhr) {
+	                var dataJson = JSON.parse(data);
+					total_len = dataJson.length;
+					for(i=0;i<total_len;i++){
+						$("#row").append(
+								"<tr>"+
+								"<td>"+dataJson[i].comTaxId+"</td>"+
+								"<td>"+dataJson[i].memId+"</td>"+
+								"<td>"+dataJson[i].comName+"</td>"+
+								"<td>"+dataJson[i].comPhone+"</td>"+
+								"<td>"+dataJson[i].comOwner+"</td>"+
+								"<td>"+dataJson[i].ownerPhone+"</td>"+
+								"<td>"+dataJson[i].comRegdate+"</td>"+
+								"<td>"+dataJson[i].storeName+"</td>"+
+								"</tr>"
+						)
+					}
+	               
+	            }
+	        });
+			
+			
+			
 		});
 
 		// 设置激活菜单

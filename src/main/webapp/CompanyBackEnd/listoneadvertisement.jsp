@@ -53,10 +53,9 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
+	<!-- Ola Design Header -->
+	<%@ include file="header.jsp"%>
 	<div class="wrapper">
-		<!-- Ola Design Header -->
-		<%@ include file="header.jsp"%>
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
 
@@ -66,12 +65,8 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 
 			<!-- 内容头部 -->
 			<section class="content-header">
-				<h1>新增成功!</h1>
+				<h1></h1>
 				<ol class="breadcrumb">
-					<li><a href="all-admin-index.html"><i
-							class="fa fa-dashboard"></i> 首页</a></li>
-					<li><a href="all-order-manage-list.html">订单管理</a></li>
-					<li class="active">全部订单</li>
 				</ol>
 			</section>
 			<!-- 内容头部 /-->
@@ -144,7 +139,7 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 										<td>${advertisementVO.getStoreLink()}</td>
 										<td>${advertisementVO.getStartDate()}</td>
 										<td>${advertisementVO.getEndDate()}</td>
-										<td><img src="${advertisementVO.getAdImagesString()}" width="40%"></td>
+										<td><img src="${advertisementVO.getAdImagesString()}" width="10%"></td>
 										<td>${advertisementVO.getAdStatus()}</td>
 
 										<td class="text-center">

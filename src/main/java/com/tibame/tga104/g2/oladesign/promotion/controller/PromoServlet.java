@@ -277,7 +277,7 @@ public class PromoServlet extends HttpServlet {
 				
 				/***************************2.開始刪除資料***************************************/
 				//PromoService promoSvc = new PromoService();
-				promoSvc.deletePromo(promoId);
+//				promoSvc.deletePromo(promoId);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
 				String url = "/promotion/listAllPromo.jsp";

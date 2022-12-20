@@ -5,11 +5,11 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.promotion.model.promo.*"%>
 
-<%
-PromoService promo_svc = new PromoService();
-List<PromoVO> list = promo_svc.getAll();
-pageContext.setAttribute("listtt", list);
-%>
+<%-- <% --%>
+// PromoService promo_svc = new PromoService();
+// List<PromoVO> list = promo_svc.getAll();
+// pageContext.setAttribute("listtt", list);
+<%-- %> --%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,0 +1,22 @@
+td>p {
+	overflow: hidden;
+	display: -webkit-box;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2; /*行數*/
+	-webkit-box-orient: vertical;
+	white-space: normal;
+}
+
+
+td>select {
+	width: 100%;
+}
+
+td>input {
+	width: 100%;
+}
+
+td>img {
+	width: 80%;
+	height: 80%;
+}

@@ -33,7 +33,7 @@ public class Company_MemService {
 	}
 
 	// 單一查詢:確認該會員是否已開通廠商
-	public Company_MemVO doGetCompanyMemByMemId(String memId) {
+	public Company_MemVO doGetCompanyMemByMemId(Integer memId) {
 		return dao.findByMemId(memId);
 	}
 
