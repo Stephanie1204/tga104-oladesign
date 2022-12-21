@@ -24,4 +24,10 @@ public class NameServlet extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/chatroom/chat.jsp");
 		dispatcher.forward(req, res);
 	}
+	
+	
+	
+	
+	
+	
 }

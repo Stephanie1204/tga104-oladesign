@@ -51,6 +51,7 @@ public class Company_MemServlet extends HttpServlet {
 			// 如有廠商則設定VO
 			if (company_MemVO == null) {
 				result.setIsMemberHasCom(false);
+				
 			} else {
 				result.setComTaxId(company_MemVO.getComTaxId());
 				result.setMemId(company_MemVO.getMemId());
@@ -87,7 +88,7 @@ public class Company_MemServlet extends HttpServlet {
 				errorMsgs.add("公司統編：需為數字,且長度為8碼");
 			}
 			// 會員編號
-			Integer mem_id = Integer.valueOf(req.getParameter("mem_id"));
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
 
 			// 公司名稱
 			String com_name = req.getParameter("com_name");
@@ -146,7 +147,7 @@ public class Company_MemServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.addCompany_Mem(com_taxid, mem_id, com_name, iscom_address, com_phone, com_owner, owner_phone,
+			company_memSvc.addCompany_Mem(com_taxid, memId, com_name, iscom_address, com_phone, com_owner, owner_phone,
 					com_bankaccount);
 			req.setAttribute("company_memVO", company_memVO);
 			String url = "/CompanyBackEnd/listonecompany_member.jsp";

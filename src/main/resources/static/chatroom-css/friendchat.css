@@ -1,58 +1,45 @@
-* {
-	margin: auto;
-	padding: 0px;
-}
-
-html, body {
-	font: 15px verdana, Times New Roman, arial, helvetica, sans-serif,
-		Microsoft JhengHei;
-	width: 90%;
-	height: 90%;
-	background: #eeeeda;
-}
-
-.panel {
+.chat-box .panel {
 	float: right;
-	border: 2px solid #0078ae;
+	border: 6px solid #709d2c;
 	border-radius: 5px;
-	width: 50%;
+	width: 100%;
 }
 
-.message-area {
-	height: 70%;
+.chat-box .message-area {
+	height: 100%;
 	resize: none;
 	box-sizing: border-box;
 	overflow: auto;
 	background-color: #ffffff;
 }
 
-.input-area {
+.chat-box .input-area {
 	background: #0078ae;
 	box-shadow: inset 0 0 10px #00568c;
 }
 
-.input-area input {
+.chat-box .input-area input {
 	margin: 0.5em 0em 0.5em 0.5em;
 }
 
-.text-field {
+.chat-box .text-field {
 	border: 1px solid grey;
 	padding: 0.2em;
 	box-shadow: 0 0 5px #000000;
 }
 
-h1 {
+.chat-box h1 {
 	font-size: 1.5em;
 	padding: 5px;
 	margin: 5px;
 }
 
-#message {
+.chat-box #message {
 	min-width: 50%;
 	max-width: 60%;
 }
 
-.statusOutput {
+.chat-box .statusOutput {
 	background: #0078ae;
 	text-align: center;
 	color: #ffffff;
@@ -64,54 +51,54 @@ h1 {
 	margin-left: 60%;
 }
 
-#row {
+.chat-box #row {
 	float: left;
 	width: 50%;
 }
 
-.column {
-  float: left;
-  width: 50%;
-  padding: 5%;
-  margin-bottom: 5px;
-  background-color: #ffffff;
+.chat-box .column {
+	float: left;
+	width: 50%;
+	padding: 5%;
+	margin-bottom: 5px;
+	background-color: #ffffff;
 }
 
-ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.chat-box ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-ul li{
-  display:inline-block;
-  clear: both;
-  padding: 20px;
-  border-radius: 30px;
-  margin-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
+.chat-box ul li {
+	display: inline-block;
+	clear: both;
+	padding: 20px;
+	border-radius: 30px;
+	margin-bottom: 2px;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
-.friend{
-  background: #eee;
-  float: left;
+.chat-box .friend {
+	background: #eee;
+	float: left;
 }
 
-.me{
-  float: right;
-  background: #0084ff;
-  color: #fff;
+.chat-box .me {
+	float: right;
+	background: #0084ff;
+	color: #fff;
 }
 
-.friend + .me{
-  border-bottom-right-radius: 5px;
+.chat-box .friend+.me {
+	border-bottom-right-radius: 5px;
 }
 
-.me + .me{
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+.chat-box .me+.me {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
-.me:last-of-type {
-  border-bottom-right-radius: 30px;
+.chat-box .me:last-of-type {
+	border-bottom-right-radius: 30px;
 }

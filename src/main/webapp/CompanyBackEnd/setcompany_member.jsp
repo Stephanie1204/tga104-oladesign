@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %>
-<%
-Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");
-%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*" %>
+<%Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
+<%MemberVO memberVO = (MemberVO) request.getAttribute("MemberVO");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,6 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
 <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
 <link rel="stylesheet" href="../plugins/morris/morris.css">
 <link rel="stylesheet" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
@@ -38,7 +37,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
-
+<link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -80,7 +79,8 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 											value="${(company_memVO == null) ? '' : company_memVO.getComTaxId()}" />
 									</div>
 									<div class="form-group">
-										<label for="mem_id">會員編號<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="mem_id" id="mem_id" />
+										<label for="memId">會員編號<font color=red><b>*</b></font></label> 
+										<input type="text" class="form-control" name="memId" id=memId value="${memId}"/>
 									</div>
 
 									<div class="form-group">
@@ -209,6 +209,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script src="../plugins/adminLTE/js/oladesign-address.js"></script>
+	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
         $(document).ready(
                 function () {
@@ -324,19 +325,18 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
                     $(".textarea").wysihtml5({
                         locale : 'zh-TW'
                     });
-         	       //會員資料先寫死,合在一起之後要改
-                    $("#mem_id").val("220017").attr('readonly', true);
-
+                    
                     // ajax call api to get CompantMembetInfo
                     $.ajax({
                         type : 'POST',
-                        url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_memberdo?action=doGetCompantMembetInfo&memId=220017',
+                        url : "http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetCompantMembetInfo&memId=${memId}",
                         success : function (data, status, xhr) {
                             var dataJson = JSON.parse(data);
 
                             if (dataJson.isMemberHasCom) {
                                 // 開始set 資料
                                 $("#com_taxid").val(dataJson.comTaxId).attr('readonly', true);
+                                $("#memId").val(dataJson.memId).attr('readonly', true);
                                 $("#com_name").val(dataJson.comName).attr('readonly', true);
                                 $("#com_address").val(dataJson.comAddress).attr('readonly', true);
                                 $("#com_phone").val(dataJson.comPhone).attr('readonly', true);
@@ -344,11 +344,26 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
                                 $("#owner_phone").val(dataJson.ownerPhone).attr('readonly', true);
                                 $("#com_bankaccount").val(dataJson.comBankaccount).attr('readonly', true);
                                 $("#update_save").attr('disabled', 'disabled');
+                            }else{
+                            	swal({ 
+                            	      title: '賣家功能未啟用',
+                            	       text: '來去註冊吧',
+                            	       type: "error",
+                            	       showConfirmButton: true,
+                            	       allowEscapeKey : false,
+                            	       allowOutsideClick: false
+                                  })
+                            		$('button, .confirm').click(function () {
+								        location.href = 'http://localhost:8080/oladesign/CompanyBackEnd/regisToCom.jsp'
+								})
                             }
                         }
                     });
                 });
-
+                    
+        
+        
+        
 			        $("#update").on("click", ()=>{
 			            doSetForm(false);
 			        });
@@ -380,7 +395,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
         
         // 设置激活菜单
         function setSidebarActive(tagUri) {
-            var liObj = $("#" + tagUri);
+            var liObj = $("#" + tagUri);	
             if (liObj.length > 0) {
                 liObj.parent().parent().addClass("active");
                 liObj.addClass("active");

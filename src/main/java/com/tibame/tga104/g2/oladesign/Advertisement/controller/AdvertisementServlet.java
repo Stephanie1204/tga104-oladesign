@@ -20,6 +20,8 @@ import com.google.gson.GsonBuilder;
 import com.tibame.tga104.g2.oladesign.Advertisement.service.AdvertisementService;
 import com.tibame.tga104.g2.oladesign.Advertisement.vo.AdvertisementByCheckVO;
 import com.tibame.tga104.g2.oladesign.Advertisement.vo.AdvertisementVO;
+import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
+import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 
 @WebServlet("/CompanyBackEnd/advertisement.do")
 @MultipartConfig
@@ -90,14 +92,13 @@ public class AdvertisementServlet extends HttpServlet {
 			// 如有廠商則設定VO
 			if (adlist.isEmpty()) {
 				result.setIsComHasAD(false);
-			} 
-				result.setIsComHasAD(true);
-			
+			}
+			result.setIsComHasAD(true);
 
 			// 準備res
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String jsonString = gson.toJson(adlist);
-			
+
 			PrintWriter pw = res.getWriter();
 			pw.write(jsonString);
 
@@ -105,5 +106,47 @@ public class AdvertisementServlet extends HttpServlet {
 			pw.flush();
 		}
 
+		// 管理員-顯示全部廣告紀錄
+		if ("doGetAllADInfo".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String adminId = req.getParameter("adminId");
+
+			AdvertisementService advertisementSvc = new AdvertisementService();
+			List<AdvertisementVO> advertisementVO = advertisementSvc.getAll();
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(advertisementVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+
+		// 管理員-審核廣告
+		if ("doReviewAD".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			String adminId = req.getParameter("adminId");
+			String adId = req.getParameter("adId");
+
+			AdvertisementService advertisementSvc = new AdvertisementService();
+			advertisementSvc.updateAdStatus(adId);
+			
+			AdvertisementVO advertisementVO = new AdvertisementVO();
+			advertisementVO = advertisementSvc.getOneAdvertisement(adId);
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(advertisementVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+
 	}
+
 }

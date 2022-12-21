@@ -52,10 +52,10 @@
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
-
-	<div class="wrapper">
 		<!-- Ola Design Header -->
 		<%@ include file="header.jsp"%>
+	<div class="wrapper">
+
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
 
@@ -65,13 +65,7 @@
 
 			<!-- 内容头部 -->
 			<section class="content-header">
-				<h1>廠商資料</h1>
-				<ol class="breadcrumb">
-					<li><a href="#"><i
-							class="fa fa-dashboard"></i> </a></li>
-					<li><a href="#"></a></li>
-					
-				</ol>
+
 			</section>
 			<!-- 内容头部 /-->
 
@@ -108,14 +102,15 @@
 								class="table table-bordered table-striped table-hover dataTable">
 								<thead>
 									<tr>
-										<th class="sorting_asc">公司統編</th>
-										<th class="sorting">會員編號</th>
-										<th class="sorting">公司名稱</th>
-										<th class="sorting">公司電話</th>
-										<th class="sorting">負責人</th>
-										<th class="sorting">負責人手機號碼</th>
-										<th class="sorting">註冊日期</th>
-										<th class="sorting">賣場名稱</th>
+										<th class="text-center">公司統編</th>
+										<th class="text-center">會員編號</th>
+										<th class="text-center">公司名稱</th>
+										<th class="text-center">公司電話</th>
+										<th class="text-center">負責人</th>
+										<th class="text-center">負責人手機號碼</th>
+										<th class="text-center">註冊日期</th>
+										<th class="text-center">賣場名稱</th>
+										<th class="text-center">操作</th>
 									</tr>
 								</thead>
 								<tbody id="row">
@@ -241,6 +236,7 @@
 	                var dataJson = JSON.parse(data);
 					total_len = dataJson.length;
 					for(i=0;i<total_len;i++){
+						var isDisabled = dataJson[i].adStatus? "disabled":"";
 						$("#row").append(
 								"<tr>"+
 								"<td>"+dataJson[i].comTaxId+"</td>"+
@@ -251,6 +247,7 @@
 								"<td>"+dataJson[i].ownerPhone+"</td>"+
 								"<td>"+dataJson[i].comRegdate+"</td>"+
 								"<td>"+dataJson[i].storeName+"</td>"+
+								"<td><button " + isDisabled + " type='button' class='btn btn-default reviewcom' memId=" + dataJson[i].memId + ">審核</button></td>"+
 								"</tr>"
 						)
 					}
