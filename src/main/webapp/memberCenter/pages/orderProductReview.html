@@ -13,7 +13,6 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <!-- 页面meta /-->
-
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
@@ -36,6 +35,7 @@
     <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
     <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="../../../resources/static/css/olaDesingMember.css">
     <script src="https://www.w3schools.com/lib/w3.js"></script> <!--頂端列/側邊欄 匯入使用-->
 </head>
 
@@ -69,7 +69,7 @@
             <!-- 内容头部 /-->
 
             <!-- 正文区域 -->
-            <section class="content">
+            <section class="content" >
 
                 <!-- .box-body -->
                 <div class="box box-primary">
@@ -77,20 +77,11 @@
                         <h3 class="box-title">列表</h3>
                     </div>
 
-                    <div class="box-body">
+                    <div class="box-body" >
 
                         <!-- 数据表格 -->
                         <div class="table-box">
-
                             <!--工具栏-->
-                            <div class="pull-left">
-                                <div class="form-group form-inline">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" onclick='location.href="all-travellog-manage-edit.html"'><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" onclick='confirm("你确认要删除吗？")'><i class="fa fa-trash-o"></i> 删除</button>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
                                     <input type="text" class="form-control input-sm" placeholder="搜索">
@@ -100,264 +91,39 @@
                             <!--工具栏/-->
 
                             <!--数据列表-->
-                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+                            <table id="dataList" class="table table-bordered table-striped table-hover dataTable" style="width:75%">
                                 <thead>
                                     <tr>
-                                        <th class="" style="padding-right:0px;">
-                                            <input id="selall" type="checkbox" class="icheckbox_square-blue">
-                                        </th>
-                                        <th class="sorting_asc">ID</th>
-                                        <th class="sorting">标题</th>
-                                        <th class="sorting">作者</th>
 
-                                        <th class="">优质</th>
-                                        <th class="">精华</th>
-                                        <th class="">实用</th>
-                                        <th class="">审核</th>
-                                        <th class="">推荐</th>
-                                        <th class="">固顶</th>
-
-                                        <th class="sorting">收藏数</th>
-                                        <th class="sorting">点赞数</th>
-
-                                        <th class="sorting">排序</th>
-                                        <th class="text-center sorting">屏蔽</th>
-                                        <th class="text-center">操作</th>
+                                        <th class="">商品編號</th>
+                                        <th class="">商品名稱</th>
+                                        <th class="">評價</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
-
                                     <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
+                                        <td>1234567</td>
+                                        <td>XXX美式地毯</td>
+                                        <td class=""><textarea rows="3" cols="50">這是內容</textarea></td>
                                     </tr>
 
-
                                     <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
+                                        <td>1234567</td>
+                                        <td>XXX美式地毯</td>
+                                        <td class=""><textarea rows="3" cols="50">這是內容</textarea></td>
                                     </tr>
 
-
                                     <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
+                                        <td>1234567</td>
+                                        <td>XXX美式地毯</td>
+                                        <td class=""><textarea rows="3" cols="50">這是內容</textarea></td>
                                     </tr>
 
+                                    
 
-                                    <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            7
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td><input name="ids" type="checkbox"></td>
-                                        <td>
-                                            8
-                                        </td>
-                                        <td>西安一日游（内含攻略）</td>
-                                        <td>bipeng0405</td>
-
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>Y</td>
-                                        <td>N</td>
-                                        <td>N</td>
-
-                                        <td>1231</td>
-                                        <td>342</td>
-
-                                        <td class=""><input type="text" size="5" value="0"></td>
-                                        <td class="text-center">开启</td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-manage-edit.html"'>编辑</button>
-                                            <button type="button" class="btn bg-olive btn-xs" onclick='location.href="all-travellog-review-list.html"'>查看评论</button>
-                                        </td>
-                                    </tr>
-
-
-
+                                    
 
                                 </tbody>
-                                <!--
-                            <tfoot>
-                            <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
-                            </tr>
-                            </tfoot>-->
                             </table>
                             <!--数据列表/-->
 
@@ -365,11 +131,9 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" onclick='location.href="all-travellog-manage-edit.html"'><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" onclick='confirm("你确认要删除吗？")'><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="开启" onclick='confirm("你确认要开启吗？")'><i class="fa fa-check"></i> 开启</button>
-                                        <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i class="fa fa-ban"></i> 屏蔽</button>
-                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                       
+                                        <button type="button" class="btn btn-default" title="送出" onclick='confirm("確認送出?")'><i class="fa fa-check"></i> 送出 </button>
+                                    
                                     </div>
                                 </div>
                             </div>
