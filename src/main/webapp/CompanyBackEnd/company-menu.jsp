@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/oladesign-skin.css">
+	href="/oladesign/plugins/adminLTE/css/skins/oladesign-skin.css">
+	
+<!-- <link rel="stylesheet" -->
+<!-- 	href="../plugins/adminLTE/css/skins/oladesign-skin.css"> -->
 <aside class="main-sidebar">
 	<!-- sidebar: style can be found in sidebar.less -->
 	<section class="sidebar">
 		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="../img/kapibarakun.jpg" class="img-circle"
+				<img src="/oladesign/img/kapibarakun.jpg" class="img-circle"
 					alt="User Image">
 			</div>
 			<div class="pull-left info">
@@ -21,7 +24,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">選單</li>
 
-			<li id="admin-index"><a href="../CompanyBackEnd/company-index.jsp"><i
+			<li id="admin-index"><a href="/oladesign/CompanyBackEnd/company-index.jsp"><i
 					class="fa fa-dashboard"></i> <span>首頁</span></a></li>
 
 			<!-- 菜单 -->

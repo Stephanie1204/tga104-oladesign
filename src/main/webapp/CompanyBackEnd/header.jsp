@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
 <link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/oladesign-skin.css">
+	href="/oladesign/plugins/adminLTE/css/skins/oladesign-skin.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="../plugins/adminLTE/css/skins/oladesign-skin.css"> -->
     <!-- 页面头部 -->
 		<header class="main-header">
 
@@ -9,7 +13,7 @@
 			<!-- Logo -->
 			<a href="company-index.jsp" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>賣家後台首頁</b></span> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><img src="../img/OLA_Logo.svg" width=70%></span>
+				<span class="logo-lg"><img src="/oladesign/img/OLA_Logo.svg" width=70%></span>
 			</a>
 
 
@@ -35,7 +39,7 @@
 										<li>
 											<!-- start message --> <a href="#">
 												<div class="pull-left">
-													<img src="../img/kapibarakun.jpg" class="img-circle"
+													<img src="/oladesign/img/kapibarakun.jpg" class="img-circle"
 														alt="User Image">
 												</div>
 												<h4>
@@ -47,7 +51,7 @@
 										<!-- end message -->
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="../img/user3-128x128.jpg" class="img-circle"
+													<img src="/oladesign/img/user3-128x128.jpg" class="img-circle"
 														alt="User Image">
 												</div>
 												<h4>
@@ -57,7 +61,7 @@
 										</a></li>
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="../img/user4-128x128.jpg" class="img-circle"
+													<img src="/oladesign/img/user4-128x128.jpg" class="img-circle"
 														alt="User Image">
 												</div>
 												<h4>
@@ -68,7 +72,7 @@
 										</a></li>
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="../img/user3-128x128.jpg" class="img-circle"
+													<img src="/oladesign/img/user3-128x128.jpg" class="img-circle"
 														alt="User Image">
 												</div>
 												<h4>
@@ -79,7 +83,7 @@
 										</a></li>
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="../img/user4-128x128.jpg" class="img-circle"
+													<img src="/oladesign/img/user4-128x128.jpg" class="img-circle"
 														alt="User Image">
 												</div>
 												<h4>
@@ -199,12 +203,12 @@
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu"><a href="#"
 							class="dropdown-toggle" data-toggle="dropdown"> <img
-								src="../img/kapibarakun.jpg" class="user-image" alt="User Image">
+								src="/oladesign/img/kapibarakun.jpg" class="user-image" alt="User Image">
 								<span class="hidden-xs">水豚君</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
-								<li class="user-header"><img src="../img/kapibarakun.jpg"
+								<li class="user-header"><img src="/oladesign/img/kapibarakun.jpg"
 									class="img-circle" alt="User Image">
 
 									<p>
