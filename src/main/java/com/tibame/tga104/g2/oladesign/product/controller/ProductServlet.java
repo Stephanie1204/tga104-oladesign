@@ -49,6 +49,7 @@ public class ProductServlet extends HttpServlet {
 		String tempSafeStock = request.getParameter("safeStock");// not null
 		String tempStatus = request.getParameter("status");// not null
 		String prodaction = request.getParameter("prodaction");
+		String tempMemId = request.getParameter("memberId");
 //For Cart
 		String tempQuantity = request.getParameter("quantity");
 
@@ -222,6 +223,7 @@ public class ProductServlet extends HttpServlet {
 			request.getRequestDispatcher("/pages/salerProducts.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("Update")) {
+//要驗證商品屬於該統編			
 			ProductBean result = productService.update(bean);
 			if (result == null) {
 				errors.put("action", "Update fail");
@@ -241,28 +243,28 @@ public class ProductServlet extends HttpServlet {
 
 		} // Cart
 		else if (prodaction != null && prodaction.equals("UpdateCart")) {
-			productService.updateFromCart(comTaxId, productId, quantity);
+			productService.updateFromCart(tempMemId, comTaxId, productId, quantity);
 
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("AddCart")) {
 			if (quantity <= 0) {
 				quantity = 1;
-				productService.insertCart(comTaxId, productId, quantity);
+				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			} else if(quantity > 9){
 				quantity = 9;
-				productService.insertCart(comTaxId, productId, quantity);
+				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			}else {
-				productService.insertCart(comTaxId, productId, quantity);
+				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 				
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			}
 		} else if (prodaction != null && prodaction.equals("DeleteFromCart")) {
-			productService.deleteFromCart(comTaxId, productId);
+			productService.deleteFromCart(tempMemId, comTaxId, productId);
 
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 

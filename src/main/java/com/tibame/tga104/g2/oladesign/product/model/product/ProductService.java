@@ -2,6 +2,8 @@ package com.tibame.tga104.g2.oladesign.product.model.product;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 public class ProductService {
 	//create DAO object
 	private ProductDAO productDao = new ProductDAOJdbc();
@@ -110,20 +112,21 @@ public class ProductService {
 		return result;
 	}
 //================================================================================================需要變更處	
-	public void updateFromCart(String comTaxId, int productId, int quantity){
-		String userId = "220001";		
+	public void updateFromCart(String userId, String comTaxId, int productId, int quantity){
+		//String userId = "220001";		
  
 		productDao_Cart.updateFromCart(userId, comTaxId, productId, quantity); 
 	}
 	
-	public void insertCart(String comTaxId, int productId, int quantity){
-		String userId = "220001";		
+	public void insertCart(String userId, String comTaxId, int productId, int quantity){
+		//String userId = "220001";		
  
 		productDao_Cart.insert(userId, comTaxId, productId, quantity); 
 	}
 	
-	public void deleteFromCart(String comTaxId, int productId){
-		String userId = "220001";	
+	public void deleteFromCart(String userId, String comTaxId, int productId){
+		//String userId = "220001";	
 		productDao_Cart.deleteFromCart(userId, comTaxId, productId); 
 	}
+	
 }
