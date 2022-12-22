@@ -27,16 +27,15 @@ public class ComMemRegistService {
 			errorMsgs.put("memName", "會員已具有賣家資格，請勿重複註冊");
 		}
 		
+		System.out.println("memId=" + memId);
+		System.out.println("memberVO.isCom():" + memberVO.isCom());
+		
 		String comTaxid = comMemVO.getComTaxId();
 		String comTaxidReg = "^[0-9]{8}$";
 		if (comTaxid == null || comTaxid.trim().length() == 0) {
 			errorMsgs.put("comTaxid", "公司統編請勿空白");
 		} else if (!comTaxid.trim().matches(comTaxidReg)) {
 			errorMsgs.put("comTaxid", "需為數字,且長度為8碼");
-		}
-		
-		if(!memberVO.isCom() && comTaxid != null) {
-			errorMsgs.put("comTaxid", "已經註冊賣家，請耐心等待審核結果");
 		}
 		
 		String comName = comMemVO.getComName();
