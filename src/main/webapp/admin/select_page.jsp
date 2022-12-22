@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -35,11 +35,11 @@
 
 <p>This is the Home page for IBM Admin: Home</p>
 
-<h3>¸ê®Æ¬d¸ß:</h3>
+<h3>è³‡æ–™æŸ¥è©¢:</h3>
 	
-<%-- ¿ù»~ªí¦C --%>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -53,10 +53,10 @@
   
   <li>
     <FORM METHOD="post" ACTION="admin.do" >
-        <b>¿é¤JºŞ²z­û½s¸¹ (¦pA001):</b>
+        <b>è¼¸å…¥ç®¡ç†å“¡ç·¨è™Ÿ (å¦‚A001):</b>
         <input type="text" name="adminId">
         <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
   
@@ -64,33 +64,33 @@
    
   <li>
      <FORM METHOD="post" ACTION="admin.do" >
-       <b>¿ï¾ÜºŞ²z­û½s¸¹:</b>
+       <b>é¸æ“‡ç®¡ç†å“¡ç·¨è™Ÿ:</b>
        <select size="1" name="adminId">
          <c:forEach var="adminVO" items="${adminSvc.all}" > 
           <option value="${adminVO.adminId}">${adminVO.adminId}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="°e¥X">
+       <input type="submit" value="é€å‡º">
     </FORM>
   </li>
   
   <li>
      <FORM METHOD="post" ACTION="admin.do" >
-       <b>¿ï¾ÜºŞ²z­û¦WºÙ:</b>
+       <b>é¸æ“‡ç®¡ç†å“¡åç¨±:</b>
        <select size="1" name="adminId">
          <c:forEach var="adminVO" items="${adminSvc.all}" > 
           <option value="${adminVO.adminId}">${adminVO.adminName}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="°e¥X">
+       <input type="submit" value="é€å‡º">
      </FORM>
   </li>
 </ul>
 
 
-<h3>ºŞ²z­ûºŞ²z</h3>
+<h3>ç®¡ç†å“¡ç®¡ç†</h3>
 
 <ul>
   <li><a href='addAdmin.jsp'>Add</a> a new Admin.</li>

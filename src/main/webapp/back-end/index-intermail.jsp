@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.admin.model.*"%>
+
+<%
+AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
+%>	
 <!DOCTYPE html>
 <html>
 
@@ -19,7 +24,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
 
-<title>管理員管理</title>
+<title>站內信管理</title>
 <style>
 .back-end-btn {
 	color: #7f70f5;
@@ -162,7 +167,7 @@
 				</nav>
 
 				<div style="padding: 20px 15px;">
-					<h2>管理員管理</h2>
+					<h2>站內信管理</h2>
 
 					<c:if test="${not empty errorMsgs}">
 						<b>請修正以下錯誤：</b>
@@ -175,67 +180,32 @@
 
 					<ul>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp">檢視所有管理員</a>
+							href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp">檢視所有站內信</a>
 						</li>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/addAdmin.jsp">新增管理員</a>
+							href="<%=request.getContextPath()%>/intermail/addIntermail.jsp">新增站內信</a>
+						</li>
+						<li><a
+							href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp">檢視尚未回覆站內信</a>
 						</li>
 
-						<%-- <li>
-						<form method="post"
-							action="<%=request.getContextPath()%>/admin/GetOneAdminServlet">
-							<h5>請輸入管理員編號：</h5>
-							<input type="text" name="adminid">
-							<button type="submit" name="action" value="getOneAdmin" class="btn back-end-btn">送出</button>
-						</form>
-					</li> --%>
-						<%-- 					<jsp:useBean id="adminSvc" scope="page" --%>
-						<%-- 						class="com.admin.model.AdministratorService" /> --%>
-
-
-
-						<%-- 					<jsp:useBean id="funcSvc" scope="page" --%>
-						<%-- 						class="com.function.model.FunctionService" /> --%>
-						<jsp:useBean id="adminSvc" scope="page"
-							class="com.tibame.tga104.g2.oladesign.admin.model.AdminService" />
+  <jsp:useBean id="intermailSvc" scope="page" class="com.tibame.tga104.g2.oladesign.intermail.model.IntermailService" />
 						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員編號:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminId}
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/intermail/intermail.do">
+								<b>選擇站內信編號:</b> <select size="1" name="interMailId">
+									<c:forEach var="intermailVO" items="${intermailSvc.all}">
+										<option value="${intermailVO.interMailId}">${intermailVO.interMailId}
 									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
-<!-- 								<input type="hidden" name="action" value="getOne_For_Display"> -->
-<!-- 								<input type="submit" value="送出"> -->
+								</select>
+								<button type="submit" name="action" value="getOne_For_Display"
+									class="btn back-end-btn">送出</button>
 							</FORM>
 						</li>
-
-						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員名稱:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminName}
-									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
-							</FORM>
-						</li>
-
 
 					</ul>
 					<div>
-						<%-- 					<%if (request.getAttribute("adminVO") != null) {%> --%>
-						<%-- 					<jsp:include page="/back-end/admin/listOneAdmin.jsp" /> --%>
-						<%-- 					<% --%>
-						<%-- 					} else if (request.getAttribute("listAdminsByFuncid") != null) {
-<%-- 					%> --%>
-						<%-- 					<jsp:include page="/back-end/function/listAdminsByFuncid.jsp" /> --%>
-						<%-- 					<% --%>
-						<%-- 						}
-<%-- 					%> --%>
+
 					</div>
 				</div>
 

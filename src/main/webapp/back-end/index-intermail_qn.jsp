@@ -19,7 +19,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
 
-<title>管理員管理</title>
+<title>站內信問題類別管理</title>
 <style>
 .back-end-btn {
 	color: #7f70f5;
@@ -162,7 +162,7 @@
 				</nav>
 
 				<div style="padding: 20px 15px;">
-					<h2>管理員管理</h2>
+					<h2>站內信問題類別管理</h2>
 
 					<c:if test="${not empty errorMsgs}">
 						<b>請修正以下錯誤：</b>
@@ -175,10 +175,10 @@
 
 					<ul>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp">檢視所有管理員</a>
+							href="<%=request.getContextPath()%>/intermail_qn/listAllIntermail_qn.jsp">檢視所有商品地區類別</a>
 						</li>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/addAdmin.jsp">新增管理員</a>
+							href="<%=request.getContextPath()%>/intermail_qn/addIntermail_qn.jsp">新增商品地區類別</a>
 						</li>
 
 						<%-- <li>
@@ -196,31 +196,33 @@
 
 						<%-- 					<jsp:useBean id="funcSvc" scope="page" --%>
 						<%-- 						class="com.function.model.FunctionService" /> --%>
-						<jsp:useBean id="adminSvc" scope="page"
-							class="com.tibame.tga104.g2.oladesign.admin.model.AdminService" />
+						<jsp:useBean id="intermail_qnSvc" scope="page"
+							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />
 						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員編號:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminId}
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do">
+								<b>選擇問題類型編號:</b> <select size="1" name="numQue">
+									<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
+										<option value="${intermail_qnVO.numQue}">${intermail_qnVO.numQue}
 									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
-<!-- 								<input type="hidden" name="action" value="getOne_For_Display"> -->
-<!-- 								<input type="submit" value="送出"> -->
+								</select>
+								<button type="submit" name="action" value="getOne_For_Display"
+									class="btn back-end-btn">送出</button>
+								<!-- 								<input type="hidden" name="action" value="getOne_For_Display"> -->
+								<!-- 								<input type="submit" value="送出"> -->
 							</FORM>
 						</li>
 
 						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員名稱:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminName}
+							<FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do">
+								<b>選擇問題類別名稱:</b> <select size="1" name="numQue">
+									<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
+										<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type}
 									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
+								</select>
+								<button type="submit" name="action" value="getOne_For_Display"
+									class="btn back-end-btn">送出</button>
 							</FORM>
 						</li>
 

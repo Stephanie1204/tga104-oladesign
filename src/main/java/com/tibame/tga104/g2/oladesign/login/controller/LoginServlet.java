@@ -1,6 +1,7 @@
 package com.tibame.tga104.g2.oladesign.login.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,25 +34,37 @@ public class LoginServlet extends HttpServlet {
 			}
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			
+			
+//			String account = req.getParameter("account");
 			String account = req.getParameter("account");
 			System.out.println(account);
-//			String admin_acc = req.getParameter("acc");
-//			System.out.println("admin_acc");
+
 			String password = req.getParameter("password");
-//			String admin_pwd= req.getParameter("pwd");
 			System.out.println(password);
-//			System.out.println("admin_pwd");
+			
+//			String id = "A001";
+			
+			
+//			AdminService svc = new AdminService();
+//			AdminVO adminVO = svc.getAdmin(account, password);
+			
 			
 			AdminService svc = new AdminService();
-//			AdminVO adminVO = svc.getAdmin(admin_acc, admin_pwd);
-			AdminVO adminVO = svc.getAdmin(account, password);
-			System.out.println(adminVO);
+			AdminVO adminVO = svc.adminLogin(account, password);
+//			System.out.println(adminVO);
+			
 			
 			
 
 //			if(null != adminVO && admin_acc.equals(adminVO.getAccount()) && admin_pwd.equals(adminVO.getPassword())) {
 			if(null != adminVO && account.equals(adminVO.getAccount()) && password.equals(adminVO.getPassword())) {
-				System.out.println("admin 登入成功");
+				session.setAttribute("adminVO", adminVO);
+				session.setAttribute("adminName", adminVO.getAdminName());
+				session.setAttribute("adminId", adminVO.getAdminId());
+				System.out.println("session="+ session);
+				System.out.println("adminId");
+				System.out.println("adminName");				
 				//登入成功跳轉到管理員首頁
 //				String url = "/admin/select_page";
 				String url = "/back-end/back-end-index.jsp";

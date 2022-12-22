@@ -1,15 +1,30 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.admin.model.*"%>
-
+<%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>
 <%
-AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
+AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
 %>
+<%
+IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
+%>
+<%
+MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+System.out.println("login memberVO="+ memberVO);
+String message = (String)request.getAttribute("success");
+System.out.println("message="+ message);
+String pwdMessage = (String)request.getAttribute("pwdrecover");
+String vericodeDel = (String)request.getAttribute("vericodeDel");
+System.out.println("vericodeDel="+ vericodeDel);
+String vericodeDelReset = (String)request.getAttribute("vericodeDelReset");
+System.out.println("vericodeDelReset="+ vericodeDelReset);
+%>	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>修改管理員資料</title>
+<title>站內信資料新增</title>
 
 
 <meta name="viewport"
@@ -21,8 +36,23 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
 
+<!-- BootStrap 5.0.2 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+<!-- jQuery 1.12.4 -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	crossorigin="anonymous"></script>
+
 <style>
-#addAdmin {
+#addAdmin{
 	width: 40%;
 	margin: auto auto;
 }
@@ -36,8 +66,9 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 }
 
 #addAdmin .adminLabel {
-	width: 100px;
+width: 200px; 
 }
+
 
 .back-end-li:hover>.back-end-li-child {
 	display: block !important;
@@ -56,6 +87,25 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 	background-color: #7f70f5;
 	color: #ffffff !important;
 }
+
+textarea {
+	display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 </style>
 </head>
 <body id="page-top">
@@ -123,67 +173,88 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 			</div>
 		</nav>
 
-		<div style="margin: 20px 15px;">
-			<div style="display: flex;">
-				<h2>管理員資料修改</h2>
-				<div style="position: absolute; right: 15px;">
 
+		<div id="addAdmin">
+			<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
+			<form METHOD="post" ACTION="intermail.do" class="addAdmin" name="addAdmin">
+				<div class="col title">
+					<h4>站內信</h4>
 				</div>
-			</div>
-			<h3>請於下方修改資料：</h3>
-			<div>
-				<form method="post" action="admin.do" name="formUpdate">
-					<table class="table table-striped table-sm table-hover">
-						<tr>
-							<td>管理員編號:<font color=red><b>*</b></font></td>
-							<td><%=adminVO.getAdminId()%></td>
-						</tr>
-						<tr>
-							<td>管理員名稱：</td>
-							<td><input type="text" name="adminName"
-								value="<%=adminVO.getAdminName()%>"></td>
-						</tr>
-						<tr>
-							<td>管理員帳號：</td>
-							<td><input type="email" name="account"
-								value="<%=adminVO.getAccount()%>"></td>
-						</tr>
-						<tr>
-							<td>管理員密碼：</td>
-							<td><input type="text" name="password"
-								value="<%=adminVO.getPassword()%>"></td>
-						</tr>
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="interMailId"
+							id="interMailId" maxlength="4" size="4"
+							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminName" class="col-sm-2 col-form-label adminLabel">會員編號:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="memId"
+							id="memId" maxlength="6" size="6"
+							value="<%= (intermailVO==null)? "" : intermailVO.getMemId()%>"
+							 /></td>
+					</div>
+				</div>
+				
+					<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">管理員編號:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" maxlength="4" size="4"
+							value="<%= (intermailVO==null)? adminVO.getAdminId() : intermailVO.getAdminId()%>"
+							 /></td>
+					</div>
+				</div>
+				
+					<div class="mb-3 row">
+<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label> 
+					<div class="col-sm-10">
+<!-- 						<td><input type="text" class="form-control" name="numQue" placeholder=" 請輸入1或2, 1為檢舉 2為疑難雜症 " -->
+<!-- 							id="numQue" maxlength="4" size="4" -->
+<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>" --%>
+<!-- 							 /></td> -->
+						<jsp:useBean id="intermail_qnSvc" scope="page"
+							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />
+							
+							<td>
+								<select size="1" name="numQue">
+								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
+								<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type}
+									</c:forEach>
+								</select>
+							</td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容:</label>
+					<div class="col-sm-10">
+<!-- 						<input type="textarea" class="form-control" name="conTent" -->
+<!-- 							id="conTent" maxlength="1000" size="1000"/> -->
+						<td><textarea style="width: 420px;height: 300px" name="conTent" id="conTent" maxlength="1000" placeholder="請輸入內容 (1-1000個字) "
+							value="<%= (intermailVO==null)? "" : intermailVO.getConTent()%>"></textarea></td>
+					</div>
+				</div>
 
-					</table>
-					<input type="hidden" name="action" value="update"> <input
-						type="hidden" name="adminId" value="<%=adminVO.getAdminId()%>">
-					<input type="submit" class="btn back-end-btn" value="送出修改">
-					
-					<a href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp">
-					<input type="button" class="btn back-end-btn" value="取消修改">
-					</a>
-				</FORM>
-				</form>
-			</div>
 
-			<div>
-				<c:if test="${not empty errorMsgs}">
-					<font>請修正錯誤：</font>
-					<ul>
-						<c:forEach var="msg" items="${errorMsgs}">
-							<li><b>${msg}</b></li>
-						</c:forEach>
-					</ul>
-				</c:if>
-			</div>
+				<input type="hidden" id="adminStatus" name="adminStatus" value="1">
+				<br>
+				<button class="btn back-end-btn" type="submit" id="adminStatus"
+					name="action" value="meminsert">送出</button>
+			</form>
 		</div>
-
-	</div>
-<footer class="bg-white sticky-footer">
-		<div class="container my-auto">
-			<div class="text-center my-auto copyright">
-				<span>oladesign</span>
-			</div>
 		</div>
 	</footer>
 	</div>
@@ -191,7 +262,9 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 		class="fas fa-angle-up"></i></a>
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
+		src="<%=request.getContextPath()%>/back-end/css/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
 </body>
+
+
 </html>

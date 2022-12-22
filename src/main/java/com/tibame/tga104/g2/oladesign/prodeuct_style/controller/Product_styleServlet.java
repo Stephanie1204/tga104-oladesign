@@ -6,13 +6,14 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tibame.tga104.g2.oladesign.prodeuct_style.model.Product_styleService;
 import com.tibame.tga104.g2.oladesign.prodeuct_style.model.Product_styleVO;
-
+@WebServlet("/product_style/product_style.do")
 public class Product_styleServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

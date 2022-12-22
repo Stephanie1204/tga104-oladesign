@@ -1,15 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
 <%
-Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail_qnVO");
+IntermailService intermailSvc = new IntermailService();
+List<IntermailVO> list = intermailSvc.getAll();
+pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有站內信問題類別</title>
+<title>所有站內信</title>
 
 
 <meta name="viewport"
@@ -20,7 +23,7 @@ Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
-<title>所有站內信問題類別資料</title>
+<title>管理員資料</title>
 <style>
 .back-end-btn {
 	color: #7f70f5;
@@ -86,15 +89,20 @@ Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>商品分類</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i
+									class="fas fa-table"></i><span>商品地區類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i
+									class="fas fa-table"></i><span>商品類別</span></a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>						</ul></li>
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
@@ -110,7 +118,7 @@ Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail
 
 		<div style="padding: 20px 15px;">
 			<div style="display: flex;">
-				<h2>商品類別資料</h2>
+				<h2>所有站內信</h2>
 				<div style="display: flex; position: absolute; right: 15px;">
 					<!-- 							<h4> -->
 					<%-- 								<a href="<%=request.getContextPath()%>/back-end/index-admin.jsp">回管理員管理</a> --%>
@@ -122,21 +130,52 @@ Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail
 			<div>
 				<table class="table table-striped table-sm table-hover">
 					<tr>
-		<th>問題類型編號</th>
-		<th>問題類型選項</th>
-
+						<th>站內信編號</th>
+						<th>會員編號</th>
+						<th>管理員編號</th>
+						<th>問題類型選項</th>
+						<th>內容</th>
+						<th>發送時間</th>
+						<th></th>
+						<th>刪除</th>
 					</tr>
 
-					<%-- 	<%@ include file="page1.file" %>  --%>
-					<%-- 	<c:forEach var="adminVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+					<%@ include file="page1.file"%>
+					<c:forEach var="intermailVO" items="${list}" begin="<%=pageIndex%>"
+						end="<%=pageIndex+rowsPerPage-1%>">
 
-					<%-- 					<c:forEach var="adminVO" items="${list}"> --%>
-					<tr>
-		<td><%=intermail_qnVO.getNumQue()%></td>
-		<td><%=intermail_qnVO.getType()%></td>
-					</tr>
-					<%-- 					</c:forEach> --%>
+						<%-- 					<c:forEach var="intermail_qnVO" items="${list}"> --%>
+						<tr>
+							<td>${intermailVO.interMailId}</td>
+							<td>${intermailVO.memId}</td>
+							<td>${intermailVO.adminId}</td>
+							<td>${intermailVO.numQue}</td>
+							<td>${intermailVO.conTent}</td>
+							<td><fmt:formatDate value="${intermailVO.sentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+<%-- 							<td>${intermailVO.isSend}</td> --%>
+							<td>
+								<!-- 			  <FORM METHOD="post"  --> <%-- 			 ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do" style="margin-bottom: 0px;"> --%>
+								<!-- 			     <input type="submit" class="btn back-end-btn" value="修改"> -->
+								<%-- 			      <input type="hidden" name="numQue"  value="${intermail_qnVO.numQue}"> --%>
+								<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"> -->
+								<!-- 			  </FORM> -->
+							</td>
+							<td>
+
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/intermail/intermail.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="刪除">
+									<input type="hidden" name="interMailId"
+										value="${intermailVO.interMailId}"> <input
+										type="hidden" name="action" value="delete">
+								</FORM>
+							</td>
+							<!-- 								</td>  -->
+						</tr>
+					</c:forEach>
 				</table>
+				<%@ include file="page2.file" %>
 			</div>
 		</div>
 

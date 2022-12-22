@@ -19,7 +19,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
 
-<title>管理員管理</title>
+<title>商品地區類別管理</title>
 <style>
 .back-end-btn {
 	color: #7f70f5;
@@ -162,7 +162,7 @@
 				</nav>
 
 				<div style="padding: 20px 15px;">
-					<h2>管理員管理</h2>
+					<h2>商品類別管理</h2>
 
 					<c:if test="${not empty errorMsgs}">
 						<b>請修正以下錯誤：</b>
@@ -175,10 +175,10 @@
 
 					<ul>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp">檢視所有管理員</a>
+							href="<%=request.getContextPath()%>/product_type/listAllProduct_type.jsp">檢視所有商品類別</a>
 						</li>
 						<li><a
-							href="<%=request.getContextPath()%>/admin/addAdmin.jsp">新增管理員</a>
+							href="<%=request.getContextPath()%>/product_type/addProduct_type.jsp">新增商品類別</a>
 						</li>
 
 						<%-- <li>
@@ -196,14 +196,14 @@
 
 						<%-- 					<jsp:useBean id="funcSvc" scope="page" --%>
 						<%-- 						class="com.function.model.FunctionService" /> --%>
-						<jsp:useBean id="adminSvc" scope="page"
-							class="com.tibame.tga104.g2.oladesign.admin.model.AdminService" />
+<jsp:useBean id="product_typeSvc" scope="page" 
+class="com.tibame.tga104.g2.oladesign.product_type.model.Product_typeService" />
 						<li>
 							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員編號:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminId}
+							ACTION="<%=request.getContextPath()%>/product_type/product_type.do">
+								<b>選擇商品類別編號:</b> <select size="1" name="typeCode">
+									 <c:forEach var="product_typeVO" items="${product_typeSvc.all}" > 
+										 <option value="${product_typeVO.typeCode}">${product_typeVO.typeCode}
 									</c:forEach>
 								</select> 
 								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
@@ -214,11 +214,11 @@
 
 						<li>
 							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/admin/admin.do">
-								<b>選擇管理員名稱:</b> <select size="1" name="adminId">
-									<c:forEach var="adminVO" items="${adminSvc.all}">
-										<option value="${adminVO.adminId}">${adminVO.adminName}
-									</c:forEach>
+							ACTION="<%=request.getContextPath()%>/product_type/product_type.do">
+								<b>選擇商品類別名稱:</b> <select size="1" name="typeCode">
+         <c:forEach var="product_typeVO" items="${product_typeSvc.all}" > 
+          <option value="${product_typeVO.typeCode}">${product_typeVO.typeName}
+         </c:forEach> 
 								</select> 
 								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
 							</FORM>
