@@ -3,7 +3,7 @@ package com.tibame.tga104.g2.oladesign.product.model.product;
 import java.util.List;
 
 public class ProductService {
-	//create productDAO object
+	//create DAO object
 	private ProductDAO productDao = new ProductDAOJdbc();
 	private ProductDAO_Cart productDao_Cart = new ProductDAORedis();
 	
@@ -60,6 +60,7 @@ public class ProductService {
 	public ProductBean insert(ProductBean bean) {
 		ProductBean result = null;
 		//insert測試用廠商
+//================================================================================================需要變更處
 		bean.setComTaxId("32425565");
 		//
 		if(bean!=null && bean.getComTaxId()!=null) {
@@ -108,7 +109,7 @@ public class ProductService {
 		}
 		return result;
 	}
-	
+//================================================================================================需要變更處	
 	public void updateFromCart(String comTaxId, int productId, int quantity){
 		String userId = "220001";		
  

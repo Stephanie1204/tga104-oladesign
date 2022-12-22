@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tibame.tga104.g2.oladesign.order.model.DiscountCode.DiscountStatus;
+import com.tibame.tga104.g2.oladesign.order.model.DiscountItem;
+import com.tibame.tga104.g2.oladesign.order.model.OrderDAO;
+import com.tibame.tga104.g2.oladesign.order.model.OrderDAOJdbc;
+
 import redis.clients.jedis.Jedis;
 
 public class ProductDAORedis implements ProductDAO_Cart {
 
 	private ProductDAO productDao = new ProductDAOJdbc();
+	private OrderDAO orderDao = new OrderDAOJdbc();
 
 	@Override
 	public List<ProductBean> selectCart(String userId, String comTaxId) {
@@ -134,4 +140,33 @@ public class ProductDAORedis implements ProductDAO_Cart {
 		return totalPrice;
 	}
 
+	@Override
+	public int getTotal(String userId, String comTaxId, String coupon) {
+
+		Jedis jedis = new Jedis("localhost", 6379);
+
+		int totalPrice = 0;
+
+		for (String prodId : jedis.zrange(userId + ":" + comTaxId, 0, -1)) {
+			int quantity = jedis.zscore(userId + ":" + comTaxId, prodId).intValue();
+
+			for (DiscountItem item : orderDao.getDiscountItem(coupon)) {
+				if (prodId.equals(Integer.toString(item.getProductId()))
+						&& item.getDiscountCode().equals(DiscountStatus.PRICEDOWN.getCode())) {
+					totalPrice += productDao.getPrice(Integer.parseInt(prodId)) * quantity - item.getDiscount();
+					break;
+				} else if (prodId.equals(Integer.toString(item.getProductId()))
+						&& item.getDiscountCode().equals(DiscountStatus.PERCENTOFF.getCode())) {
+					totalPrice += (int) (productDao.getPrice(Integer.parseInt(prodId)) * quantity * item.getDiscount()
+							/ 100);
+					break;
+				} else {
+					totalPrice += productDao.getPrice(Integer.parseInt(prodId)) * quantity;
+				}
+			}
+		}
+		jedis.close();
+
+		return totalPrice;
+	}
 }

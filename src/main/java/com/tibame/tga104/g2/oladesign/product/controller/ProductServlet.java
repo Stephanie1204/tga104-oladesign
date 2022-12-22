@@ -180,7 +180,6 @@ public class ProductServlet extends HttpServlet {
 
 //呼叫Model
 		// 測試用廠商統編
-//		String tempComTaxId = "23045921";
 		ProductBean bean = new ProductBean();
 		bean.setProductId(productId);
 		bean.setComTaxId(comTaxId);
