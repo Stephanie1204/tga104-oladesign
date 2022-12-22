@@ -6,6 +6,8 @@ import java.util.Map;
 import com.tibame.tga104.g2.oladesign.CompanyMember.dao.Company_MemDAO_interface;
 import com.tibame.tga104.g2.oladesign.CompanyMember.dao.Company_MemJDBCDAO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
+import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
 public class ComMemRegistService {
 	private Company_MemDAO_interface comMemDAO;
@@ -19,9 +21,10 @@ public class ComMemRegistService {
 		
 //		接收請求參數		
 		Integer	memId = Integer.valueOf(comMemVO.getMemId());
-		comMemVO = comMemDAO.findByMemId(memId);
-		if(comMemVO.getComTaxId() != null) {
-			errorMsgs.put("comTaxid", "會員已具有賣家資格，請勿重複註冊");
+		MemberService memSvc = new MemberService();
+		MemberVO memberVO = memSvc.getOneMember(memId);		
+		if(memberVO.isCom()) {
+			errorMsgs.put("memName", "會員已具有賣家資格，請勿重複註冊");
 		}
 		
 		String comTaxid = comMemVO.getComTaxId();
@@ -30,6 +33,10 @@ public class ComMemRegistService {
 			errorMsgs.put("comTaxid", "公司統編請勿空白");
 		} else if (!comTaxid.trim().matches(comTaxidReg)) {
 			errorMsgs.put("comTaxid", "需為數字,且長度為8碼");
+		}
+		
+		if(!memberVO.isCom() && comTaxid != null) {
+			errorMsgs.put("comTaxid", "已經註冊賣家，請耐心等待審核結果");
 		}
 		
 		String comName = comMemVO.getComName();
