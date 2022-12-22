@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface OrderDAO {
 	
-	public abstract List<OrderBean> select_Mem(int memberId);
+	public abstract List<OrderBean> select_Mem(String memberId);
 	
 	public abstract List<OrderBean> select_Com(String comTaxId);
 	
@@ -16,4 +16,10 @@ public interface OrderDAO {
 	public abstract OrderBean updateShippingStatus(OrderBean orderBean);
 
 	public abstract int getPoint(String memberId);
+	
+	public abstract List<DiscountItem> getDiscountItem(String coupon);
+	
+	public abstract String getCoupon(String comTaxId);
+	
+	public abstract void upDatePoint(String memberId, int point);
 }

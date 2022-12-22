@@ -21,5 +21,5 @@ public interface ProductDAO {
 	public abstract boolean delete(int productId);
 	
 	public abstract int getPrice(int productId);
-	
+
 }

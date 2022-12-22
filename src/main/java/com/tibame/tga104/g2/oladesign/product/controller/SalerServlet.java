@@ -44,7 +44,7 @@ public class SalerServlet extends HttpServlet {
 //if XX.jsp has a "form action = this servelet url"
 //getParameter gets the value from name="XXX"
 		String tempProductId = request.getParameter("productId");// gets from name=id...etc
-		String comTaxId = request.getParameter("comTaxId");// gets from name=id...etc
+		String comTaxId = request.getParameter("comTaxId");
 		String tempTypeCode = request.getParameter("typeCode");// not null
 		String tempStyleCode = request.getParameter("styleCode");// not null
 		String name = request.getParameter("name");// not null
@@ -164,7 +164,6 @@ public class SalerServlet extends HttpServlet {
 
 //呼叫Model
 		// 測試用廠商統編
-//		String tempComTaxId = "23045921";
 		ProductBean bean = new ProductBean();
 		bean.setProductId(productId);
 		bean.setComTaxId(comTaxId);
