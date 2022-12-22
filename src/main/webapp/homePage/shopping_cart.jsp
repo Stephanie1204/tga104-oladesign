@@ -170,6 +170,7 @@ pageContext.setAttribute("saler", prodSvc.selectSaler(userId));
 											<td class="shoping__cart__quantity">
 												<form action="<c:url value="/pages/product.controller" />"
 													method="post">
+													<input type="hidden" name="memberId" value="${userId }">
 													<input type="hidden" name="productId"
 														value="${ row_product.productId }"> <input
 														type="hidden" name="comTaxId"
@@ -210,6 +211,7 @@ pageContext.setAttribute("saler", prodSvc.selectSaler(userId));
 											<td class="shoping__cart__item__close">
 												<form action="<c:url value="/pages/product.controller" />"
 													method="post">
+													<input type="hidden" name="memberId" value="${userId }">
 													<input type="hidden" name="productId"
 														value="${row_product.productId }"> <input
 														type="hidden" name="comTaxId"
