@@ -43,4 +43,7 @@ public class Intermail_qnService {
 	public List<Intermail_qnVO> getAll() {
 		return dao.getAll();
 	}
+	public List<Intermail_qnVO> getType() {
+		return dao.getType();
+	}
 }

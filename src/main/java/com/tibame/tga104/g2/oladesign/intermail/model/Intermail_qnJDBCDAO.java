@@ -267,6 +267,63 @@ public class Intermail_qnJDBCDAO implements Intermail_qnDAO_interface {
 		}
 		return list;
 	}
+	private static final String GET_TYPE = 
+			"SELECT TYPE FROM INTERMAIL_QN WHERE NUM_QUE = ? ";
+	@Override
+	public List<Intermail_qnVO> getType() {
+		List<Intermail_qnVO> list = new ArrayList<Intermail_qnVO>();
+		Intermail_qnVO intermail_qnVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = dataSource.getConnection();
+			pstmt = con.prepareStatement(GET_TYPE);
+			pstmt.setString(1, intermail_qnVO.getNumQue());
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				intermail_qnVO = new Intermail_qnVO();
+				intermail_qnVO.setNumQue(rs.getString("NUM_QUE"));
+				intermail_qnVO.setType(rs.getString("TYPE"));
+				list.add(intermail_qnVO); // Store the row in the list
+			}
+
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
 	
 }

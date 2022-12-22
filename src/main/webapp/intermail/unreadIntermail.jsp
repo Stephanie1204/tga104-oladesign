@@ -5,7 +5,7 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
 <%
 IntermailService intermailSvc = new IntermailService();
-List<IntermailVO> list = intermailSvc.getAll();
+List<IntermailVO> list = intermailSvc.getReceive();
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
@@ -137,7 +137,7 @@ pageContext.setAttribute("list", list);
 						<th>內容</th>
 						<th>發送時間</th>
 						<th></th>
-						<th>刪除</th>
+						<th>查看</th>
 					</tr>
 
 					<%@ include file="page1.file"%>
@@ -165,10 +165,10 @@ pageContext.setAttribute("list", list);
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/intermail/intermail.do"
 									style="margin-bottom: 0px;">
-									<input type="submit" class="btn back-end-btn" value="刪除">
+									<input type="submit" class="btn back-end-btn" value="查看">
 									<input type="hidden" name="interMailId"
 										value="${intermailVO.interMailId}"> <input
-										type="hidden" name="action" value="delete">
+										type="hidden" name="action" value="Check">
 								</FORM>
 							</td>
 							<!-- 								</td>  -->

@@ -185,6 +185,9 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 						<li><a
 							href="<%=request.getContextPath()%>/intermail/addIntermail.jsp">新增站內信</a>
 						</li>
+						<li><a
+							href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp">檢視尚未回覆站內信</a>
+						</li>
 
   <jsp:useBean id="intermailSvc" scope="page" class="com.tibame.tga104.g2.oladesign.intermail.model.IntermailService" />
 						<li>

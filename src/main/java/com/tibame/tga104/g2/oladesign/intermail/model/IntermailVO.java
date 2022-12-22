@@ -10,6 +10,17 @@ public class IntermailVO implements java.io.Serializable{
 	private String conTent;
 	private Timestamp sentTime;
 	private Boolean isSend;
+	private Boolean isReply;
+	
+	
+	
+
+	public Boolean getIsReply() {
+		return isReply;
+	}
+	public void setIsReply(Boolean isReply) {
+		this.isReply = isReply;
+	}
 	public String getInterMailId() {
 		return interMailId;
 	}
