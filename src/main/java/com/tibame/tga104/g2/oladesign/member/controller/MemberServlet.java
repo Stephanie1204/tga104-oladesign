@@ -22,7 +22,7 @@ import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
 
 @WebServlet("/member/MemberServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
 maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -208,7 +208,8 @@ public class MemberServlet extends HttpServlet {
 			
 //			開始修改
 			MemberService memSvc = new MemberService();
-			memberVO = memSvc.updateMember(memId, memName, account, password, memPhone, memAddress, memRegdate, sex, point, isBan, isCom, memPhoto);
+//			memberVO = memSvc.updateMember(memId, memName, account, password, memPhone, memAddress, memRegdate, sex, point, isBan, isCom, memPhoto);
+			memberVO = memSvc.updateMember(memberVO);
 			
 //			轉交getOneMem.jsp
 			request.setAttribute("memberVO", memberVO);

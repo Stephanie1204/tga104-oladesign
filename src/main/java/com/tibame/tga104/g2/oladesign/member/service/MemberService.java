@@ -44,24 +44,46 @@ public class MemberService {
 		return memberVO;
 	}
 	
-	public MemberVO updateMember(Integer memId, String memName, String account, String password, String memPhone, 
-			String memAddress, Date memRegdate, String sex, Integer point, boolean isBan, boolean isCom, byte[] memPhoto) {
+//	public MemberVO updateMember(Integer memId, String memName, String account, String password, String memPhone, 
+//			String memAddress, Date memRegdate, String sex, Integer point, boolean isBan, boolean isCom, byte[] memPhoto) {
+//		
+//		MemberVO memberVO = new MemberVO();
+//		
+//		memberVO.setMemId(memId);
+//		memberVO.setMemName(memName);
+//		memberVO.setAccount(account);
+//		memberVO.setPassword(password);
+//		memberVO.setMemPhone(memPhone);
+//		memberVO.setMemAddress(memAddress);
+//		memberVO.setMemRegdate(memRegdate);
+//		memberVO.setSex(sex);
+//		memberVO.setPoint(point);
+//		memberVO.setBan(isBan);
+//		memberVO.setCom(isCom);
+//		memberVO.setMemPhoto(memPhoto);
+//		memberVO.setMemPhotoBase64(memPhoto); //不作為參數存進memberVO
+//		dao.update(memberVO);
+//		
+//		return memberVO;
+//	}
+	
+	public MemberVO updateMember(MemberVO vo) {
 		
 		MemberVO memberVO = new MemberVO();
 		
-		memberVO.setMemId(memId);
-		memberVO.setMemName(memName);
-		memberVO.setAccount(account);
-		memberVO.setPassword(password);
-		memberVO.setMemPhone(memPhone);
-		memberVO.setMemAddress(memAddress);
-		memberVO.setMemRegdate(memRegdate);
-		memberVO.setSex(sex);
-		memberVO.setPoint(point);
-		memberVO.setBan(isBan);
-		memberVO.setCom(isCom);
-		memberVO.setMemPhoto(memPhoto);
-		memberVO.setMemPhotoBase64(memPhoto); //不作為參數存進memberVO
+		memberVO.setMemId(vo.getMemId());
+		memberVO.setMemName(vo.getMemName());
+		memberVO.setAccount(vo.getAccount());
+		memberVO.setPassword(vo.getPassword());
+		memberVO.setMemPhone(vo.getMemPhone());
+		memberVO.setMemAddress(vo.getMemAddress());
+		memberVO.setMemRegdate(vo.getMemRegdate());
+		memberVO.setSex(vo.getSex());
+		memberVO.setPoint(vo.getPoint());
+		memberVO.setBan(vo.isBan());
+		memberVO.setCom(vo.isCom());
+		memberVO.setMemPhoto(vo.getMemPhoto());
+		memberVO.setMemPhotoBase64(vo.getMemPhoto()); //不作為參數存進memberVO
 		dao.update(memberVO);
 		
 		return memberVO;
