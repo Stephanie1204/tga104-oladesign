@@ -7,16 +7,15 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
 <%
-ProductService prodSvc = new ProductService();
-String userId = "220001";
-if (userId != null) {
-
-	List<String> cartProductSaler = prodSvc.selectSaler(userId);
-
-	pageContext.setAttribute("saler", cartProductSaler);
-	pageContext.setAttribute("userId", userId);
-
+Object objname = session.getAttribute("memId");
+String userId = "";
+if (objname != null) {
+	userId = objname.toString();
 }
+ProductService prodSvc = new ProductService();
+System.out.println(session.getAttribute("memId"));
+pageContext.setAttribute("userId", userId);
+pageContext.setAttribute("saler", prodSvc.selectSaler(userId));
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -147,7 +146,7 @@ if (userId != null) {
 			<div class="col-lg-12">
 				<div class="shoping__cart__table">
 					<c:if test="${not empty saler}">
-						<c:forEach var="row_saler" items="${saler}">
+						<c:forEach var="row_saler" items="${saler }">
 							<table>
 								<thead>
 									<tr>
@@ -180,31 +179,31 @@ if (userId != null) {
 														onchange="submit();">
 														<option value="1"
 															${ row_product.cartQuantity == 1 ? 'selected': ""}>1
-
+														
 														<option value="2"
 															${ row_product.cartQuantity == 2 ? 'selected': ""}>2
-
+														
 														<option value="3"
 															${ row_product.cartQuantity == 3 ? 'selected': ""}>3
-
+														
 														<option value="4"
 															${ row_product.cartQuantity == 4 ? 'selected': ""}>4
-
+							
 														<option value="5"
 															${ row_product.cartQuantity == 5 ? 'selected': ""}>5
-
+													
 														<option value="6"
 															${ row_product.cartQuantity == 6 ? 'selected': ""}>6
-
+														
 														<option value="7"
 															${ row_product.cartQuantity == 7 ? 'selected': ""}>7
-
+														
 														<option value="8"
 															${ row_product.cartQuantity == 8 ? 'selected': ""}>8
-
+														
 														<option value="9"
 															${ row_product.cartQuantity == 9 ? 'selected': ""}>9
-
+														
 													</select>
 												</form>
 											</td>

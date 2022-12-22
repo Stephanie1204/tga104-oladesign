@@ -7,8 +7,13 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
 <%
+Object objname = session.getAttribute("memId");
+String userId = "";
+if (objname != null) {
+	userId = objname.toString();
+}
 ProductService prodSvc = new ProductService();
-String userId = "220001";
+
 if (userId != null) {
 
 	List<String> cartProductSaler = prodSvc.selectSaler(userId);
@@ -103,7 +108,7 @@ if (userId != null) {
 			<div class="checkout__form">
 				<h4>Billing Details</h4>
 				<form action="<c:url value="/pages/order.controller"/>"
-					method="post" target="_blank">
+					method="post">
 					<div class="row">
 						<div class="col-lg-8 col-md-6">
 							<div class="col-lg-6">
@@ -114,22 +119,23 @@ if (userId != null) {
 									<input type="text" name="receiver" value="${param.receiver }">
 									<span class="error">${errors.receiver}</span>
 								</div>
+								<div class="checkout__input">
+									<p>
+										收件地址<span>*</span>
+									</p>
+									<input type="text" class="checkout__input__add" name="address"
+										value="${param.address }"> <span class="error">${errors.address}</span>
+								</div>
+								<div class="checkout__input">
+									<p>
+										郵遞區號<span>*</span>
+									</p>
+									<input type="text" name="address_zone"> <span
+										class="error">${errors.address_zone}</span>
+								</div>
 							</div>
 
-							<div class="checkout__input">
-								<p>
-									收件地址<span>*</span>
-								</p>
-								<input type="text" class="checkout__input__add" name="address"
-									value="${param.address }"> <span class="error">${errors.address}</span>
-							</div>
-							<div class="checkout__input">
-								<p>
-									郵遞區號<span>*</span>
-								</p>
-								<input type="text" name="address_zone"> <span
-									class="error">${errors.address_zone}</span>
-							</div>
+
 							<input type="hidden" name="coupon" value="${param.coupon }">
 							<div class="shoping__discount">
 								<jsp:useBean id="orderSvc" scope="page"
@@ -168,6 +174,7 @@ if (userId != null) {
 									折扣後 <span>${AfterDiscount }</span>
 								</div>
 								<input type="hidden" name="comTaxId" value="${param.comTaxId }">
+								<input type="hidden" name="memberId" value="${userId }">
 								<button type="submit" name="prodaction" value="PlaceOrder"
 									class="site-btn">結帳</button>
 							</div>
@@ -181,7 +188,9 @@ if (userId != null) {
 						<input type="text" placeholder="Enter your coupon code"
 							name="coupon" value="${param.coupon }"> <input
 							type="hidden" name="comTaxId" value="${param.comTaxId }">
-						<button type="submit" class="site-btn" name="prodaction" value="Coupon">APPLY</button>
+						<input type="hidden" name="memberId" value="${userId }">
+						<button type="submit" class="site-btn" name="prodaction"
+							value="Coupon">APPLY</button>
 					</form>
 					<span class="error">${errors.couponError}</span>
 				</div>

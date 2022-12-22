@@ -182,6 +182,7 @@ System.out.println("test");
 						<input type="hidden" name="name" value="${prod.name}"> <input
 							type="hidden" name="price" value="${prod.price}"> <input
 							type="hidden" name="comTaxId" value="${prod.comTaxId}">
+							<input type="hidden" name="memberId" value="${memId }">
 						<button type="submit" name="prodaction" value="AddCart"
 							class="primary-btn">加入購物車</button>
 					</form>
