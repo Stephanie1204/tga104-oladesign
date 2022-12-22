@@ -2,6 +2,7 @@ package com.tibame.tga104.g2.oladesign.order.model;
 
 import java.util.List;
 
+import com.tibame.tga104.g2.oladesign.product.model.product.ProductBean;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductDAORedis;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductDAO_Cart;
 
@@ -11,6 +12,7 @@ import ecpay.payment.integration.domain.AioCheckOutOneTime;
 public class OrderService {
 
 	private OrderDAO orderDao = new OrderDAOJdbc();
+	private OrderItemDAO orderItemDao = new OrderItemDAOJdbc();
 	private ProductDAO_Cart productDao_Cart = new ProductDAORedis();
 	public static AllInOne all = new AllInOne("");
 
@@ -21,14 +23,18 @@ public class OrderService {
 		System.out.println("selects=" + selects);
 	}
 
-	public List<OrderBean> select_Mem(OrderBean bean) {
+	public List<OrderBean> select_Mem(String memberId) {
 		List<OrderBean> result = null;
+
+		result = orderDao.select_Mem(memberId);
 
 		return result;
 	}
 
-	public List<OrderBean> select_Com(OrderBean bean) {
+	public List<OrderBean> select_Com(String comTaxId) {
 		List<OrderBean> result = null;
+
+		result = orderDao.select_Com(comTaxId);
 
 		return result;
 	}
@@ -45,7 +51,7 @@ public class OrderService {
 	}
 
 	//
-	public static String genAioCheckOutOneTime(OrderBean bean){
+	public static String genAioCheckOutOneTime(OrderBean bean) {
 		AioCheckOutOneTime obj = new AioCheckOutOneTime();
 		obj.setMerchantTradeNo(bean.getOrderId());
 		obj.setMerchantTradeDate(bean.getOrderTime_toSec());
@@ -62,31 +68,47 @@ public class OrderService {
 	}
 
 	public static String htmlform;
-	
+
 	public String getForm() {
 		return htmlform;
 	}
-	
+
 	// 到這裡bean只會有receiver, address, pointUse, coupon
 	public boolean insert(OrderBean bean) {
 		if (productDao_Cart.salerExist(bean.getMemId(), bean.getComTaxId())) {
 			// 產生訂單編號
 //			bean.setOrderId(bean.getComTaxId().trim() + bean.getMemId().trim() + bean.getOrderTime_toSec());
 			bean.setOrderId("svoijsobisop12fvdv");
+			//
+			int amountPrice = 0;
+			if (bean.getCoupon() != null && bean.getCoupon().length() != 0
+					&& bean.getCoupon().equals(getCoupon(bean.getComTaxId()))) {
+				amountPrice = getDiscountTotalPrice(bean.getMemId(), bean.getComTaxId(), bean.getCoupon());
+			} else {
+				amountPrice = productDao_Cart.getTotal(bean.getMemId(), bean.getComTaxId());
+			}
 			// 總金額 - 使用紅利
-			int amountPrice = productDao_Cart.getTotal(bean.getMemId(), bean.getComTaxId());
 			bean.setAmount(amountPrice - bean.getPointUse());
-			/*point use jdbc*/
 			// 紅利取得
 			bean.setPointGet((int) (amountPrice / 100));
-			/*point get jdbc*/
 			//
-			
-			//
+			int point = getPoint(bean.getMemId()) + bean.getPointGet() - bean.getPointUse();
+			orderDao.upDatePoint(bean.getMemId(), point);
+			// 存取訂單
 			orderDao.insert(bean);
+			// 訂單項目存取
+			for (ProductBean item : productDao_Cart.selectCart(bean.getMemId(), bean.getComTaxId())) {
+				OrderItemBean orderItem = new OrderItemBean();
+				orderItem.setOrderId(bean.getOrderId());
+				orderItem.setProductId(item.getProductId());
+				orderItem.setProductName(item.getName());
+				orderItem.setPrice(item.getPrice());
+				orderItem.setQuantity(item.getCartQuantity());
+				orderItemDao.insert(orderItem);
+			}
+			// 刪除購物車內容物
 			productDao_Cart.deleteFromCartByComTaxId(bean.getMemId(), bean.getComTaxId());
-			//付款
-			//
+			// 付款
 			genAioCheckOutOneTime(bean);
 //			System.out.println(genAioCheckOutOneTime(bean));
 			return true;
@@ -107,9 +129,16 @@ public class OrderService {
 		OrderBean result = null;
 		return result;
 	}
-	
+
 	public int getPoint(String memberId) {
 		return orderDao.getPoint(memberId);
 	}
-	
+
+	public String getCoupon(String comTaxId) {
+		return orderDao.getCoupon(comTaxId);
+	}
+
+	public int getDiscountTotalPrice(String userId, String comTaxId, String coupon) {
+		return productDao_Cart.getTotal(userId, comTaxId, coupon);
+	}
 }

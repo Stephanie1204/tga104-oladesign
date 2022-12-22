@@ -2,6 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+Object objname = session.getAttribute("memId");
+String userId = "";
+if (objname != null) {
+	userId = objname.toString();
+}
+
+pageContext.setAttribute("userId", userId);
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -44,7 +53,7 @@
 	href="<%=request.getContextPath()%>/homePage/css/conditionBar.css"
 	type="text/css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/results.css"
+	href="<%=request.getContextPath()%>/homePage/css/searchResults.css"
 	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -102,73 +111,7 @@
 	<!-- Humberger End -->
 
 	<!-- Header Section Begin -->
-	<!-- header while on PC -->
-	<header class="header">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-2">
-					<div class="header__logo">
-						<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-							src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-							alt="" /></a>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="hero__search__form">
-						<form action="<c:url value="/pages/product.controller" />"
-							method="get">
-							<input type="text" id="name" placeholder="What do yo u need?"
-								name="name" value="${param.name}" />
-							<button type="submit" name="prodaction" value="Select"
-								class="site-btn">SEARCH</button>
-						</form>
-					</div>
-					<nav class="header__menu">
-						<ul>
-							<li class="active"><a
-								href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-							<li><a href="./shop-grid.html">Shop</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-							<li><a href="./blog.html">Blog</a></li>
-							<li><a href="./contact.html">Contact</a></li>
-						</ul>
-					</nav>
-				</div>
-
-				<div class="col-lg-4">
-					<div class="header__cart">
-						<ul class="shopping-cart">
-							<li class="shopping-cart-li">
-								<button type="button" class="btn btn-secondary dropdown-toggle"
-									data-bs-toggle="dropdown" aria-expanded="false">會員功能</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item" href="#">Separated link</a></li>
-								</ul>
-								<button type="button" class="btn btn-secondary"
-									aria-expanded="false">
-									<i class="fa fa-shopping-bag"> <a
-										href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">購物車</a></i>
-								</button>
-								<button type="button" class="btn btn-secondary"
-									aria-expanded="false">
-									<i class="fa fa-user"><a href="#">登入</a></i>
-								</button>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="humberger__open">
-				<i class="fa fa-bars"></i>
-			</div>
-		</div>
-	</header>
+	<%@ include file="../include/header.jsp"%>
 	<!-- Header Section End -->
 
 	<!-- Hero Section Begin -->
@@ -249,20 +192,37 @@
 
 			<c:if test="${not empty select}">
 				<div
-					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mix">
 					<c:forEach var="row" items="${select}">
-						<div class="col">
-							<a
-								href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
-								class="results" target="_blank">
-
-
-								<div class="img_contents">
-									<img src="${row.productImgBase64}">
-								</div>
-
-								<div class="product_name">${row.getName()}</div>
-							</a>
+						<div class="featured__item">
+							<div class="featured__item__pic set-bg"
+								data-setbg="${row.productImgBase64}">
+								<ul class="featured__item__pic__hover">
+									<li><a href="#"><i class="fa fa-heart"></i></a></li>
+									<li>
+										<form action="<c:url value="/pages/product.controller" />"
+											method="post">
+											<input type="hidden" name="prodaction" value="AddCartByPage">
+											<input type="hidden" name="memberId" value="${userId }">
+											<input type="hidden" name="comTaxId" value="${row.comTaxId }">
+											<input type="hidden" name="productId" value="${row.productId }">
+											<input type="hidden" name="quantity" value="1">
+											<input type="hidden" name="typeCode" value="${param.typeCode }">
+											<input type="hidden" name="styleCode" value="${param.styleCode }">
+											<input type="hidden" name="price" value="${param.price }">
+											<button type="submit" class="fa fa-shopping-cart"></button>
+										</form>
+									</li>
+								</ul>
+							</div>
+							<div class="featured__item__text">
+								<h6>
+									<a
+										href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
+										class="results" target="_blank">${row.getName()}</a>
+								</h6>
+								<h5>${row.getPrice()}</h5>
+							</div>
 						</div>
 					</c:forEach>
 				</div>

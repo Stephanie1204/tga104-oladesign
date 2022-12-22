@@ -49,4 +49,8 @@ public class PromoService {
 		return dao.getAll(comTaxId);
 	}
 
+	// for checking the date to update promo status
+	public List<PromoVO> getAllPromo(){
+		return dao.getAllPromo();
+	}
 }

@@ -1,5 +1,7 @@
 var comTaxId = new URLSearchParams(location.search).get("comTaxId");
-console.log(comTaxId);
+// console.log(comTaxId);
+sessionStorage.setItem("comTaxId",comTaxId);
+console.log(sessionStorage.getItem("comTaxId"));
 
 //get promo
 $.ajax({
@@ -60,3 +62,8 @@ $.ajax({
     alert("errror");
   },
 });
+
+
+$("button#addPromo_btn").on("click",function(){
+  window.location.href="./addPromo.html?comTaxId="+comTaxId;
+})

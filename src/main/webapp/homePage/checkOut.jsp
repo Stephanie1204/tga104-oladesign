@@ -7,8 +7,13 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
 <%
+Object objname = session.getAttribute("memId");
+String userId = "";
+if (objname != null) {
+	userId = objname.toString();
+}
 ProductService prodSvc = new ProductService();
-String userId = "220001";
+
 if (userId != null) {
 
 	List<String> cartProductSaler = prodSvc.selectSaler(userId);
@@ -76,118 +81,7 @@ if (userId != null) {
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-
-	<!-- Humberger Begin -->
-	<!-- Home/shop/pages/blog/contact bar while mobile -->
-	<div class="humberger__menu__overlay"></div>
-	<div class="humberger__menu__wrapper">
-		<!-- organi logo -->
-		<div class="humberger__menu__logo">
-			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a>
-		</div>
-
-		<!-- shopping cart and heart on the right -->
-
-		<div class="humberger__menu__widget">
-			<!-- login button on the top-->
-			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i>登入</a>
-			</div>
-		</div>
-
-		<nav class="humberger__menu__nav mobile-menu">
-			<ul>
-				<li class="active"><a
-					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-				<li><a href="./shop-grid.html">Shop</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-				<li><a href="./blog.html">Blog</a></li>
-				<li><a href="./contact.html">Contact</a></li>
-			</ul>
-		</nav>
-		<div id="mobile-menu-wrap"></div>
-
-		<!-- info on left-top -->
-
-		<div class="humberger__menu__contact">
-			<ul>
-				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-			</ul>
-		</div>
-	</div>
-	<!-- Humberger End -->
-
-	<!-- Header Section Begin -->
-	<!-- header while on PC -->
-	<header class="header">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-2">
-					<div class="header__logo">
-						<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-							src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-							alt="" /></a>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="hero__search__form">
-						<form action="<c:url value="/pages/product.controller" />"
-							method="get">
-							<input type="text" id="name" placeholder="What do yo u need?"
-								name="name" value="${param.name}" />
-							<button type="submit" name="prodaction" value="Select"
-								class="site-btn">SEARCH</button>
-						</form>
-					</div>
-					<nav class="header__menu">
-						<ul>
-							<li class="active"><a
-								href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-							<li><a href="./shop-grid.html">Shop</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-							<li><a href="./blog.html">Blog</a></li>
-							<li><a href="./contact.html">Contact</a></li>
-						</ul>
-					</nav>
-				</div>
-
-				<div class="col-lg-4">
-					<div class="header__cart">
-						<ul class="shopping-cart">
-							<li class="shopping-cart-li">
-								<button type="button" class="btn btn-secondary dropdown-toggle"
-									data-bs-toggle="dropdown" aria-expanded="false">會員功能</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
-									<li><hr class="dropdown-divider"></li>
-									<li><a class="dropdown-item" href="#">Separated link</a></li>
-								</ul>
-								<button type="button" class="btn btn-secondary"
-									aria-expanded="false">
-									<i class="fa fa-shopping-bag"> <a
-										href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">購物車</a></i>
-								</button>
-								<button type="button" class="btn btn-secondary"
-									aria-expanded="false">
-									<i class="fa fa-user"><a href="#">登入</a></i>
-								</button>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="humberger__open">
-				<i class="fa fa-bars"></i>
-			</div>
-		</div>
-	</header>
-	<!-- Header Section End -->
+	<%@ include file="../include/header.jsp"%>
 
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg"
@@ -214,7 +108,7 @@ if (userId != null) {
 			<div class="checkout__form">
 				<h4>Billing Details</h4>
 				<form action="<c:url value="/pages/order.controller"/>"
-					method="post" target="_blank">
+					method="post">
 					<div class="row">
 						<div class="col-lg-8 col-md-6">
 							<div class="col-lg-6">
@@ -225,30 +119,24 @@ if (userId != null) {
 									<input type="text" name="receiver" value="${param.receiver }">
 									<span class="error">${errors.receiver}</span>
 								</div>
+								<div class="checkout__input">
+									<p>
+										收件地址<span>*</span>
+									</p>
+									<input type="text" class="checkout__input__add" name="address"
+										value="${param.address }"> <span class="error">${errors.address}</span>
+								</div>
+								<div class="checkout__input">
+									<p>
+										郵遞區號<span>*</span>
+									</p>
+									<input type="text" name="address_zone"> <span
+										class="error">${errors.address_zone}</span>
+								</div>
 							</div>
 
-							<div class="checkout__input">
-								<p>
-									收件地址<span>*</span>
-								</p>
-								<input type="text" class="checkout__input__add" name="address"
-									value="${param.address }"> <span class="error">${errors.address}</span>
-							</div>
-							<div class="checkout__input">
-								<p>
-									郵遞區號<span>*</span>
-								</p>
-								<input type="text" name="address_zone"> <span
-									class="error">${errors.address_zone}</span>
-							</div>
-							<div class="shoping__discount">
-								<h5>折扣碼</h5>
-								<form action="#">
-									<input type="text" placeholder="Enter your coupon code"
-										name="coupon" value="${param.coupon }">
-									<button type="submit" class="site-btn">APPLY</button>
-								</form>
-							</div>
+
+							<input type="hidden" name="coupon" value="${param.coupon }">
 							<div class="shoping__discount">
 								<jsp:useBean id="orderSvc" scope="page"
 									class="com.tibame.tga104.g2.oladesign.order.model.OrderService" />
@@ -256,10 +144,8 @@ if (userId != null) {
 									<span><h5>所持紅利: ${orderSvc.getPoint(userId)}</h5></span>
 								</div>
 								<input type="text" placeholder="use your points"
-									name="point_use" value="${param.point_use }">
-								<button type="button" class="site-btn" id="btn-pointApply">APPLY</button>
-								<span class="error">${errors.point_use}</span> <span
-									class="error">${errors.pointError}</span>
+									name="point_use" value="${param.point_use }"> <span
+									class="error">${errors.point_use}</span> <span class="error">${errors.pointError}</span>
 							</div>
 
 						</div>
@@ -282,18 +168,32 @@ if (userId != null) {
 								</ul>
 
 								<div class="checkout__order__subtotal">
-									Subtotal <span>${orderSvc.getTotalPrice(userId, param.comTaxId)}</span>
+									合計 <span>${orderSvc.getTotalPrice(userId, param.comTaxId)}</span>
 								</div>
 								<div class="checkout__order__total">
-									Total <span>$750.99</span>
+									折扣後 <span>${AfterDiscount }</span>
 								</div>
 								<input type="hidden" name="comTaxId" value="${param.comTaxId }">
+								<input type="hidden" name="memberId" value="${userId }">
 								<button type="submit" name="prodaction" value="PlaceOrder"
 									class="site-btn">結帳</button>
 							</div>
 						</div>
 					</div>
 				</form>
+				<div class="shoping__discount">
+					<h5>折扣碼</h5>
+					<form action="<c:url value="/pages/order.controller"/>"
+						method="post">
+						<input type="text" placeholder="Enter your coupon code"
+							name="coupon" value="${param.coupon }"> <input
+							type="hidden" name="comTaxId" value="${param.comTaxId }">
+						<input type="hidden" name="memberId" value="${userId }">
+						<button type="submit" class="site-btn" name="prodaction"
+							value="Coupon">APPLY</button>
+					</form>
+					<span class="error">${errors.couponError}</span>
+				</div>
 			</div>
 		</div>
 	</section>

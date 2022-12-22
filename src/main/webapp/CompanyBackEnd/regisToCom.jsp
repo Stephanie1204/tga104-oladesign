@@ -194,7 +194,7 @@ String agreement = (String) request.getAttribute("agreement");
 					console.log(data); //回傳JSON資料
 					console.log("data.success = " + data.success);
 					if(!data.success){
-						console.log("顯示錯誤訊息")
+						console.log("顯示錯誤訊息");
 						var dataObj = JSON.parse(data.error); //JSON轉變為物件
 						
 // 						針對input標籤:如果dataObj沒有此物件 -> 沒有錯誤訊息 -> 顯示原本的值；填寫錯誤就清空value						
@@ -217,7 +217,7 @@ String agreement = (String) request.getAttribute("agreement");
 						}
 						return false;
 					}else{
-						console.log("註冊成功")
+						console.log("註冊成功");
 // 						成功提交，刪除所有錯誤訊息
 						$("#err_memName").text("");
 						$("#err_com_taxid").text("");
@@ -226,7 +226,10 @@ String agreement = (String) request.getAttribute("agreement");
 						$("#err_com_owner").text("");
 						$("#err_owner_phone").text("");
 						$("#err_com_address").text("");
-						
+						setTimeout(function(){
+							alert("您已經成功註冊為賣家，請耐心等待審核通過");
+						}, 500);
+						window.location.href = "http://localhost:8080/oladesign/homePage/index.jsp";
 					}				
 				},
 				error: function(xhr){

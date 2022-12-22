@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,26 @@ public class ChatRoomServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
+		//賣家主業點我聊聊跳出對話視窗
+		if("doOpenChatRoom".equals(action)) {
+			String mem_0 = req.getParameter("mem_0");
+			String mem_1 = req.getParameter("mem_1");
+			
+			Chat_RoomVO chat_roomVO = new Chat_RoomVO();
+			chat_roomVO.setMem0(chat_roomVO.getMem0());
+			chat_roomVO.setMem1(chat_roomVO.getMem1());
+						
+			// 準備res
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(chat_roomVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			// 寫好RS給AJAX
+			pw.flush();
+		}
+
 		// 確認有無chatroomid
 		if ("doSetChatRoom".equals(action)) {
 			Integer mem_0 = Integer.valueOf(req.getParameter("mem_0"));
@@ -35,7 +56,7 @@ public class ChatRoomServlet extends HttpServlet {
 			String chatRoomId = chat_roomSvc.chatRoomfindByMemId(mem_0, mem_1);
 
 			if ("".equals(chatRoomId)) {
-				chat_roomVO.setChatRoomId(chat_roomSvc.addchatroom(mem_0, mem_1)); //沒有聊天室的話新增聊天室ID設定聊天室
+				chat_roomVO.setChatRoomId(chat_roomSvc.addchatroom(mem_0, mem_1)); // 沒有聊天室的話新增聊天室ID設定聊天室
 			} else {
 				chat_roomVO.setChatRoomId(chatRoomId); // 有聊天室設定聊天室ID
 			}
@@ -88,5 +109,24 @@ public class ChatRoomServlet extends HttpServlet {
 
 			pw.flush();
 		}
+		
+		// 查詢歷史ChatRoom
+		if("doSetChatRoomLogs".equals(action)) {
+			Integer mem_0 = Integer.valueOf(req.getParameter("mem_0"));
+			Integer mem_1 = Integer.valueOf(req.getParameter("mem_1"));
+			
+			ChatRoomService chatroomSvc = new ChatRoomService();
+			List<Chat_RoomVO> chatroom = chatroomSvc.chatRoomLogs(mem_0,mem_1);
+			
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(chatroom);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+			
+		}
+		
 	}
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 import com.tibame.tga104.g2.oladesign.CompanyMember.dao.Company_MemDAO_interface;
 import com.tibame.tga104.g2.oladesign.CompanyMember.dao.Company_MemJDBCDAO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
+import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
 public class ComMemRegistService {
 	private Company_MemDAO_interface comMemDAO;
@@ -19,10 +21,14 @@ public class ComMemRegistService {
 		
 //		接收請求參數		
 		Integer	memId = Integer.valueOf(comMemVO.getMemId());
-		comMemVO = comMemDAO.findByMemId(memId);
-		if(comMemVO.getComTaxId() != null) {
-			errorMsgs.put("comTaxid", "會員已具有賣家資格，請勿重複註冊");
+		MemberService memSvc = new MemberService();
+		MemberVO memberVO = memSvc.getOneMember(memId);		
+		if(memberVO.isCom()) {
+			errorMsgs.put("memName", "會員已具有賣家資格，請勿重複註冊");
 		}
+		
+		System.out.println("memId=" + memId);
+		System.out.println("memberVO.isCom():" + memberVO.isCom());
 		
 		String comTaxid = comMemVO.getComTaxId();
 		String comTaxidReg = "^[0-9]{8}$";

@@ -43,7 +43,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 
 <body class="hold-transition skin-purple sidebar-mini">
 	<!-- Ola Design Header -->
-	<%@ include file="../include/header.jsp"%>
+	<%@ include file="header.jsp"%>
 	<div class="wrapper">
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>

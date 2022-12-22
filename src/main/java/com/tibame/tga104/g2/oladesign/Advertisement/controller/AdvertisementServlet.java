@@ -34,9 +34,6 @@ public class AdvertisementServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		/*********************************************
-		 * 新增
-		 *************************************************/
 		// 確定新增之前需確定段該日期區間是否會有重複3組
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -48,6 +45,13 @@ public class AdvertisementServlet extends HttpServlet {
 			adimages_bytes = adimages.getInputStream().readAllBytes();
 			adimages_bytes = adimages_bytes.length == 0 ? null : adimages_bytes;
 
+			String com_taxid = req.getParameter("com_taxid");
+			String com_taxidReg = "^[0-9]{8}$";
+			if (com_taxid == null || com_taxid.trim().length() == 0) {
+				errorMsgs.add("公司統編請勿空白");
+			} else if (!com_taxid.trim().matches(com_taxidReg)) {
+				errorMsgs.add("公司統編：需為數字,且長度為8碼");
+			}
 			AdvertisementVO advertisementVO = new AdvertisementVO();
 			advertisementVO.setComTaxId(req.getParameter("com_taxid"));
 			advertisementVO.setStoreLink(req.getParameter("storelink"));
@@ -90,14 +94,13 @@ public class AdvertisementServlet extends HttpServlet {
 			// 如有廠商則設定VO
 			if (adlist.isEmpty()) {
 				result.setIsComHasAD(false);
-			} 
-				result.setIsComHasAD(true);
-			
+			}
+			result.setIsComHasAD(true);
 
 			// 準備res
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String jsonString = gson.toJson(adlist);
-			
+
 			PrintWriter pw = res.getWriter();
 			pw.write(jsonString);
 
@@ -105,5 +108,63 @@ public class AdvertisementServlet extends HttpServlet {
 			pw.flush();
 		}
 
+		// 管理員-顯示全部廣告紀錄
+		if ("doGetAllADInfo".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String adminId = req.getParameter("adminId");
+
+			AdvertisementService advertisementSvc = new AdvertisementService();
+			List<AdvertisementVO> advertisementVO = advertisementSvc.getAll();
+			List<AdvertisementByCheckVO> result = new ArrayList<AdvertisementByCheckVO>();
+			
+			for(int i = 0; i < advertisementVO.size(); i++) {
+				AdvertisementVO advertisement = advertisementVO.get(i);
+				AdvertisementByCheckVO advertisementByCheckVO = new AdvertisementByCheckVO();
+				advertisementByCheckVO.setAdId(advertisement.getAdId());
+				advertisementByCheckVO.setComTaxId(advertisement.getComTaxId());
+				advertisementByCheckVO.setStartDate(advertisement.getStartDate());
+				advertisementByCheckVO.setEndDate(advertisement.getEndDate());
+				advertisementByCheckVO.setAdStatus(advertisement.getAdStatus());
+				advertisementByCheckVO.setAdImageString(advertisement.getAdImagesString());
+				result.add(advertisementByCheckVO);
+				
+			}
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(result);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+
+		// 管理員-審核廣告
+		if ("doReviewAD".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			String adminId = req.getParameter("adminId");
+			String adId = req.getParameter("adId");
+
+			AdvertisementService advertisementSvc = new AdvertisementService();
+			advertisementSvc.updateAdStatus(adId);
+
+			AdvertisementVO advertisementVO = new AdvertisementVO();
+			advertisementVO = advertisementSvc.getOneAdvertisement(adId);
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(advertisementVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+		// 抓取當日廣告
+		
+		
+		
 	}
+
 }

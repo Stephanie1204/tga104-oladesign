@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.ChatMessage;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.Chat_RoomVO;
 
 public class Chat_RoomJDBCDAO implements Chat_RoomDAO_interface {
 	String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -16,6 +21,8 @@ public class Chat_RoomJDBCDAO implements Chat_RoomDAO_interface {
 
 	private static final String CR_FIND_BY_MEM_ID = "select CHATROOM_ID from CHATROOM where (MEM_0=? AND MEM_1=?) OR (MEM_0=? AND MEM_1=?)";
 
+	private static final String CR_ALL_BY_MEM_ID = "select CHATROOM_ID from CHATROOM where MEM_0=? OR MEM_1=?";
+	
 //	private static final String GET_ALL_STMT = "select CHATROOM_ID,MEM_0,MEM_1 from CHATROOM order by CHATROOM_ID";
 //
 //	private static final String GET_ONE_STMT = "select CHATROOM_ID,MEM_0,MEM_1 from CHATROOM where CHATROOM_ID =?";
@@ -111,6 +118,55 @@ public class Chat_RoomJDBCDAO implements Chat_RoomDAO_interface {
 
 	}
 
+	@Override
+	public List<Chat_RoomVO> chatRoomLogs(Integer memId0, Integer memId1) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		List<Chat_RoomVO> list = new ArrayList<Chat_RoomVO>();
+		Chat_RoomVO chat_roomVO;
+		ResultSet rs = null;
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(CR_ALL_BY_MEM_ID);
+			pstmt.setInt(1, memId0);
+			pstmt.setInt(2, memId1);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				chat_roomVO = new Chat_RoomVO();
+				chat_roomVO.setChatRoomId(rs.getString("CHATROOM_ID"));
+
+				list.add(chat_roomVO);
+				
+			}
+			System.out.println(list);;
+
+		} catch (ClassNotFoundException ce) {
+			ce.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+	}
+	
+	
+	
 //	@Override
 //	public void update(Chat_RoomVO chat_roomVO) {
 //		Connection con = null;

@@ -201,3 +201,18 @@
     z-index: 1030;
     width: 100%;
 }
+
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+    color: #E4CD8D;
+}
+
+.btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover {
+    background-color: #E4CD8D;
+    border-color: #ccc;
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #92AFBF;
+    border-color: #ddd;
+}

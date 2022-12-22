@@ -49,6 +49,7 @@ public class ProductServlet extends HttpServlet {
 		String tempSafeStock = request.getParameter("safeStock");// not null
 		String tempStatus = request.getParameter("status");// not null
 		String prodaction = request.getParameter("prodaction");
+		String tempMemId = request.getParameter("memberId");
 //For Cart
 		String tempQuantity = request.getParameter("quantity");
 
@@ -174,13 +175,13 @@ public class ProductServlet extends HttpServlet {
 			return;
 		}
 		if (prodaction.equals("Insert") && errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+					response);
 			return;
 		}
 
 //呼叫Model
 		// 測試用廠商統編
-//		String tempComTaxId = "23045921";
 		ProductBean bean = new ProductBean();
 		bean.setProductId(productId);
 		bean.setComTaxId(comTaxId);
@@ -214,7 +215,8 @@ public class ProductServlet extends HttpServlet {
 			} else {
 				request.setAttribute("insert", result);
 			}
-			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+					response);
 
 		} else if (prodaction != null && prodaction.equals("SelectById")) {
 			List<ProductBean> result = productService.selectByComTaxId(bean.getComTaxId());
@@ -223,6 +225,7 @@ public class ProductServlet extends HttpServlet {
 			request.getRequestDispatcher("/pages/salerProducts.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("Update")) {
+//要驗證商品屬於該統編			
 			ProductBean result = productService.update(bean);
 			if (result == null) {
 				errors.put("action", "Update fail");
@@ -242,28 +245,36 @@ public class ProductServlet extends HttpServlet {
 
 		} // Cart
 		else if (prodaction != null && prodaction.equals("UpdateCart")) {
-			productService.updateFromCart(comTaxId, productId, quantity);
+			productService.updateFromCart(tempMemId, comTaxId, productId, quantity);
 
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("AddCart")) {
 			if (quantity <= 0) {
 				quantity = 1;
-				productService.insertCart(comTaxId, productId, quantity);
+				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
-			} else if(quantity > 9){
+			} else if (quantity > 9) {
 				quantity = 9;
-				productService.insertCart(comTaxId, productId, quantity);
+				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
-			}else {
-				productService.insertCart(comTaxId, productId, quantity);
-				
+			} else {
+				productService.insertCart(tempMemId, comTaxId, productId, quantity);
+
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			}
+		} else if (prodaction != null && prodaction.equals("AddCartByPage")) {
+			productService.insertCart(tempMemId, comTaxId, productId, quantity);
+
+			List<ProductBean> result = productService.select(bean);
+			
+			request.setAttribute("select", result);
+			
+			request.getRequestDispatcher("/homePage/searchResults.jsp").forward(request, response);
 		} else if (prodaction != null && prodaction.equals("DeleteFromCart")) {
-			productService.deleteFromCart(comTaxId, productId);
+			productService.deleteFromCart(tempMemId, comTaxId, productId);
 
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 

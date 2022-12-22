@@ -169,10 +169,7 @@ System.out.println("vericodeDelReset="+ vericodeDelReset);
 		    	if(<%=pwdMessage%> == true){
 		    		alert("已成功重設密碼，現在可以登入使用OLA Design購物了!");
 		    	}	
-		
 	    	}, 500);
-	    		
-	    	
 	    	
 	    </script>
 </body>

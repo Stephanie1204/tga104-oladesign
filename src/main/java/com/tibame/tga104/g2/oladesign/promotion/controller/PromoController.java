@@ -2,7 +2,6 @@ package com.tibame.tga104.g2.oladesign.promotion.controller;
 
 import java.util.List;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;

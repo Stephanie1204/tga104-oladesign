@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -32,14 +35,14 @@ public class OrderDAOJdbc implements OrderDAO {
 	private static final String GET_ORDER_BYMEMID = "SELECT * FROM ORDERS WHERE MEM_ID=?";
 
 	@Override
-	public List<OrderBean> select_Mem(int memberId) {
+	public List<OrderBean> select_Mem(String memberId) {
 
 		List<OrderBean> result = null;
 
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(GET_ORDER_BYMEMID);) {
 
-			stmt.setInt(1, memberId);
+			stmt.setInt(1, Integer.parseInt(memberId));
 
 			ResultSet rset = stmt.executeQuery();
 
@@ -207,5 +210,137 @@ public class OrderDAOJdbc implements OrderDAO {
 			}
 		}
 		return point;
+	}
+	//
+	
+	private static final String UPDATE_MEMBERPOINT = "UPDATE MEMBER SET POINT=? WHERE MEM_ID=?";
+	@Override
+	public void upDatePoint(String memberId, int point) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		if (memberId != null && memberId != null) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE_MEMBERPOINT);
+//
+				stmt.setInt(1, point);
+				stmt.setString(2, memberId);
+				int i = stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	//
+	private static final String GET_DISCOUNTITEM = "SELECT PROD_ID, CODE, DISCOUNT FROM PROMOTION_ITEM WHERE PROMO_ID=( SELECT PROMO_ID FROM PROMOTION WHERE COUPON=?)";
+	
+	@Override
+	public List<DiscountItem> getDiscountItem(String coupon) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		List<DiscountItem> result = null;
+		
+		if (coupon != null && coupon.length() != 0) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(GET_DISCOUNTITEM);
+				result = new ArrayList<DiscountItem>();
+//
+				stmt.setString(1, coupon);
+				ResultSet rset = stmt.executeQuery();
+//
+				while(rset.next()) {
+					DiscountItem bean = new DiscountItem();
+
+					bean.setProductId(rset.getInt("PROD_ID"));
+					bean.setDiscountCode(rset.getString("CODE"));
+					bean.setDiscount(rset.getInt("DISCOUNT"));
+					
+					result.add(bean);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return result;
+	}
+	//追加時間條件
+	private static final String GET_COUPON = "SELECT COUPON FROM PROMOTION WHERE COM_TAXID=? AND START_DATE <=? AND END_DATE >=?";
+	
+	@Override
+	public String getCoupon(String comTaxId) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String sdate = dateFormat.format(date);
+		
+		String coupon = "";
+		
+		if (comTaxId != null && comTaxId.length() != 0) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(GET_COUPON);
+//
+				stmt.setString(1, comTaxId);
+				stmt.setString(2, sdate);
+				stmt.setString(3, sdate);
+				ResultSet rset = stmt.executeQuery();
+//
+				while(rset.next()) {
+					coupon = rset.getString("COUPON");
+				}
+//				System.out.println(coupon);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return coupon;
 	}
 }

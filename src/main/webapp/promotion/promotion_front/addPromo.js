@@ -61,22 +61,29 @@ $("button#checkCoupon").on("click", function () {
 });
 
 // function of get chinese byte
-String.prototype.len=function(){ 
-	return this.replace(/[^\x00-\xff]/g,"xx").length; 
-}
+String.prototype.len = function () {
+  return this.replace(/[^\x00-\xff]/g, "xx").length;
+};
 
-$("input.promoName").on("keyup",function(){
-  if($("input.promoName").val().len()>20){
+$("input.promoName").on("keyup", function () {
+  if ($("input.promoName").val().len() > 20) {
     $("span#promoName_alert").show();
-  }else{
+  } else {
     $("span#promoName_alert").hide();
   }
-})
+});
 
-$("input#coupon_input").on("keyup",function(){
-  if($("input#coupon_input").val().len()>15){
+$("input#coupon_input").on("keyup", function () {
+  if ($("input#coupon_input").val().len() > 15) {
     $("span#coupon_alert").show();
-  }else{
+  } else {
     $("span#coupon_alert").hide();
   }
-})
+});
+
+$("button#cancel_btn").on("click", function () {
+  confirm("確認放棄新增?");
+  if (true) {
+    window.history.back();
+  }
+});

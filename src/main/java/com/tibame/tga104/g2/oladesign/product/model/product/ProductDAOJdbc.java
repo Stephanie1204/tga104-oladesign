@@ -1,6 +1,5 @@
 package com.tibame.tga104.g2.oladesign.product.model.product;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -135,7 +134,7 @@ public class ProductDAOJdbc implements ProductDAO {
 					}
 
 					result.add(bean);
-					System.out.println(result);
+//					System.out.println(result);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -297,9 +296,6 @@ public class ProductDAOJdbc implements ProductDAO {
 					bean.setStyleName(rset.getString("STYLE_NAME"));
 					result.add(bean);
 				}
-				if (conn != null) {
-					conn.close();
-				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -366,10 +362,6 @@ public class ProductDAOJdbc implements ProductDAO {
 				//
 				result.setTypeName(rset.getString("TYPE_NAME"));
 				result.setStyleName(rset.getString("STYLE_NAME"));
-			}
-			if (conn != null) {
-				conn.close();
-				System.out.println("select byId closed");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -538,10 +530,6 @@ public class ProductDAOJdbc implements ProductDAO {
 				}
 				while (styleName.next()) {
 					result.setStyleName(styleName.getString("STYLE_NAME"));
-				}
-
-				if (conn != null) {
-					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

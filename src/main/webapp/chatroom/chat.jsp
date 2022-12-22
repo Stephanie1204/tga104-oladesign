@@ -79,6 +79,11 @@
 								});
 					}
 				});
+		
+		
+		
+		
+		
 	}
 	webSocket.onmessage = function(event) {
 		var jsonObj = JSON.parse(event.data);

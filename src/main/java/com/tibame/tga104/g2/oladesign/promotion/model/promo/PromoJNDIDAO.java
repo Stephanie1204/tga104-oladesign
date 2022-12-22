@@ -34,6 +34,7 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 	private static final String DELETE = "update PROMOTION set PROMO_STATUS=? where PROMO_ID = ?";
 	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=? where PROMO_ID = ?";
 	private static final String CHECK_COUPON = "select promo_ID from promotion where coupon=?";
+	private static final String GETALLPROMO = "select * from promotion";
 	
 //	public static void main(String[] args) {
 //		new PromoJNDIDAO().getAll();	}
@@ -312,5 +313,62 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 
 		return list;
 	}
+	
+	public List<PromoVO> getAllPromo() {
+		List<PromoVO> list = new ArrayList<PromoVO>();
+		PromoVO promoVO = null;
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GETALLPROMO);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				promoVO = new PromoVO();
+				promoVO.setPromoId(rs.getInt("PROMO_ID"));  
+				promoVO.setComTaxId(rs.getString("COM_TAXID"));
+				promoVO.setPromoName(rs.getString("PROMO_NAME"));
+				promoVO.setStartDate(rs.getDate("START_DATE"));
+				promoVO.setEndDate(rs.getDate("END_DATE"));
+				promoVO.setCoupon(rs.getString("COUPON"));
+				promoVO.setPromoStatus(rs.getString("PROMO_STATUS"));
+				promoVO.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+				promoVO.setModifyTime(rs.getTimestamp("MODIFY_TIME"));
+				list.add(promoVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs!= null) {
+				try {
+					rs.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+
+
+	
+	
 }

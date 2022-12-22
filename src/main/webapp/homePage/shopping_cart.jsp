@@ -7,16 +7,15 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
 <%
-ProductService prodSvc = new ProductService();
-String userId = "220001";
-if (userId != null) {
-
-	List<String> cartProductSaler = prodSvc.selectSaler(userId);
-
-	pageContext.setAttribute("saler", cartProductSaler);
-	pageContext.setAttribute("userId", userId);
-
+Object objname = session.getAttribute("memId");
+String userId = "";
+if (objname != null) {
+	userId = objname.toString();
 }
+ProductService prodSvc = new ProductService();
+System.out.println(session.getAttribute("memId"));
+pageContext.setAttribute("userId", userId);
+pageContext.setAttribute("saler", prodSvc.selectSaler(userId));
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -119,73 +118,7 @@ if (userId != null) {
 	<!-- Humberger End -->
 
 	<!-- Header Section Begin -->
-	<!-- header while on PC -->
-	<header class="header">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<div class="header__logo">
-					<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-						src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-						alt="" /></a>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="hero__search__form">
-					<form action="<c:url value="/pages/product.controller" />"
-						method="get">
-						<input type="text" id="name" placeholder="What do yo u need?"
-							name="name" value="${param.name}" />
-						<button type="submit" name="prodaction" value="Select"
-							class="site-btn">SEARCH</button>
-					</form>
-				</div>
-				<nav class="header__menu">
-				<ul>
-					<li class="active"><a
-						href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-					<li><a href="./shop-grid.html">Shop</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-					<li><a href="./blog.html">Blog</a></li>
-					<li><a href="./contact.html">Contact</a></li>
-				</ul>
-				</nav>
-			</div>
-
-			<div class="col-lg-4">
-				<div class="header__cart">
-					<ul class="shopping-cart">
-						<li class="shopping-cart-li">
-							<button type="button" class="btn btn-secondary dropdown-toggle"
-								data-bs-toggle="dropdown" aria-expanded="false">會員功能</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="#">Separated link</a></li>
-							</ul>
-							<button type="button" class="btn btn-secondary"
-								aria-expanded="false">
-								<i class="fa fa-shopping-bag"> <a
-									href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">購物車</a></i>
-							</button>
-							<button type="button" class="btn btn-secondary"
-								aria-expanded="false">
-								<i class="fa fa-user"><a href="#">登入</a></i>
-							</button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="humberger__open">
-			<i class="fa fa-bars"></i>
-		</div>
-	</div>
-	</header>
+	<%@ include file="../include/header.jsp"%>
 	<!-- Header Section End -->
 
 	<!-- Breadcrumb Section Begin -->
@@ -213,7 +146,7 @@ if (userId != null) {
 			<div class="col-lg-12">
 				<div class="shoping__cart__table">
 					<c:if test="${not empty saler}">
-						<c:forEach var="row_saler" items="${saler}">
+						<c:forEach var="row_saler" items="${saler }">
 							<table>
 								<thead>
 									<tr>
@@ -237,6 +170,7 @@ if (userId != null) {
 											<td class="shoping__cart__quantity">
 												<form action="<c:url value="/pages/product.controller" />"
 													method="post">
+													<input type="hidden" name="memberId" value="${userId }">
 													<input type="hidden" name="productId"
 														value="${ row_product.productId }"> <input
 														type="hidden" name="comTaxId"
@@ -246,110 +180,38 @@ if (userId != null) {
 														onchange="submit();">
 														<option value="1"
 															${ row_product.cartQuantity == 1 ? 'selected': ""}>1
-
-
-
-
-
-
-
-
 														
 														<option value="2"
 															${ row_product.cartQuantity == 2 ? 'selected': ""}>2
-
-
-
-
-
-
-
-
 														
 														<option value="3"
 															${ row_product.cartQuantity == 3 ? 'selected': ""}>3
-
-
-
-
-
-
-
-
 														
 														<option value="4"
 															${ row_product.cartQuantity == 4 ? 'selected': ""}>4
-
-
-
-
-
-
-
-
-														
+							
 														<option value="5"
 															${ row_product.cartQuantity == 5 ? 'selected': ""}>5
-
-
-
-
-
-
-
-
-														
+													
 														<option value="6"
 															${ row_product.cartQuantity == 6 ? 'selected': ""}>6
-
-
-
-
-
-
-
-
 														
 														<option value="7"
 															${ row_product.cartQuantity == 7 ? 'selected': ""}>7
-
-
-
-
-
-
-
-
 														
 														<option value="8"
 															${ row_product.cartQuantity == 8 ? 'selected': ""}>8
-
-
-
-
-
-
-
-
 														
 														<option value="9"
 															${ row_product.cartQuantity == 9 ? 'selected': ""}>9
-
-
-
-
-
-
-
-
 														
 													</select>
 												</form>
-
 											</td>
 											<td class="shoping__cart__item__close">
 												<form action="<c:url value="/pages/product.controller" />"
 													method="post">
+													<input type="hidden" name="memberId" value="${userId }">
 													<input type="hidden" name="productId"
 														value="${row_product.productId }"> <input
 														type="hidden" name="comTaxId"
