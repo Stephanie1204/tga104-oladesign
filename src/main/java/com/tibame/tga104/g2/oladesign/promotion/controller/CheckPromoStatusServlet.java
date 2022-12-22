@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+@Deprecated
 //@WebServlet("/CheckPromoStatus")
 public class CheckPromoStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

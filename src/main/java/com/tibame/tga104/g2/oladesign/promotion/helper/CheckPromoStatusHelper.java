@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoService;
 import com.tibame.tga104.g2.oladesign.promotion.model.promo.PromoVO;
 
-@Component
+//@Component
 public class CheckPromoStatusHelper {
 
 	@Autowired
