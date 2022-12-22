@@ -23,14 +23,18 @@ public class OrderService {
 		System.out.println("selects=" + selects);
 	}
 
-	public List<OrderBean> select_Mem(OrderBean bean) {
+	public List<OrderBean> select_Mem(String memberId) {
 		List<OrderBean> result = null;
+
+		result = orderDao.select_Mem(memberId);
 
 		return result;
 	}
 
-	public List<OrderBean> select_Com(OrderBean bean) {
+	public List<OrderBean> select_Com(String comTaxId) {
 		List<OrderBean> result = null;
+
+		result = orderDao.select_Com(comTaxId);
 
 		return result;
 	}
@@ -77,22 +81,23 @@ public class OrderService {
 			bean.setOrderId("svoijsobisop12fvdv");
 			//
 			int amountPrice = 0;
-			if (bean.getCoupon() != null && bean.getCoupon().length() != 0 && bean.getCoupon().equals(getCoupon(bean.getComTaxId()))) {
+			if (bean.getCoupon() != null && bean.getCoupon().length() != 0
+					&& bean.getCoupon().equals(getCoupon(bean.getComTaxId()))) {
 				amountPrice = getDiscountTotalPrice(bean.getMemId(), bean.getComTaxId(), bean.getCoupon());
 			} else {
 				amountPrice = productDao_Cart.getTotal(bean.getMemId(), bean.getComTaxId());
 			}
-            //總金額 - 使用紅利
+			// 總金額 - 使用紅利
 			bean.setAmount(amountPrice - bean.getPointUse());
 			// 紅利取得
 			bean.setPointGet((int) (amountPrice / 100));
 			//
 			int point = getPoint(bean.getMemId()) + bean.getPointGet() - bean.getPointUse();
-			orderDao.upDatePoint(bean.getMemId(),  point);
-			//存取訂單
+			orderDao.upDatePoint(bean.getMemId(), point);
+			// 存取訂單
 			orderDao.insert(bean);
-			//訂單項目存取
-			for(ProductBean item : productDao_Cart.selectCart(bean.getMemId(), bean.getComTaxId())) {
+			// 訂單項目存取
+			for (ProductBean item : productDao_Cart.selectCart(bean.getMemId(), bean.getComTaxId())) {
 				OrderItemBean orderItem = new OrderItemBean();
 				orderItem.setOrderId(bean.getOrderId());
 				orderItem.setProductId(item.getProductId());
@@ -101,7 +106,7 @@ public class OrderService {
 				orderItem.setQuantity(item.getCartQuantity());
 				orderItemDao.insert(orderItem);
 			}
-			//刪除購物車內容物
+			// 刪除購物車內容物
 			productDao_Cart.deleteFromCartByComTaxId(bean.getMemId(), bean.getComTaxId());
 			// 付款
 			genAioCheckOutOneTime(bean);
