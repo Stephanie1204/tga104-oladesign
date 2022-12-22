@@ -113,7 +113,7 @@ $("button#submit_btn").on("click", function (target) {
     startDate: $("input.start_date").val(),
     endDate: $("input.end_date").val(),
     coupon: $("input#coupon_input").val(),
-    promoId:promoId
+    promoId: promoId,
   };
 
   $.ajax({
@@ -125,8 +125,8 @@ $("button#submit_btn").on("click", function (target) {
     success: function (data) {
       console.log(data);
       alert("success");
-      // window.location.href =
-      //   "http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html?comTaxId=";
+      window.location.href =
+        "http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html?comTaxId=" +sessionStorage.getItem("comTaxId");
     },
     error: function (res) {
       console.log("error");

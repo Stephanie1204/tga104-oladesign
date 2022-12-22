@@ -10,4 +10,5 @@ public interface PromoDAOInterface {
 	public PromoVO findByPrimaryKey(Integer promoId); //頁面輸入id搜尋促銷活動
 	public List<PromoVO> getAll(String comTaxId);
 	public Boolean checkCoupon(String coupon);
+	public List<PromoVO> getAllPromo(); //to update promo satus use
 }
