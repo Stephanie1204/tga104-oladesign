@@ -14,13 +14,13 @@ public class CheckPromoStatusServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		super.init();
-		timer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				System.out.println("hello" + new Date());
-			}
-		}, new Date(), 1000 * 5);
+//		super.init();
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			@Override
+//			public void run() {
+//				System.out.println("hello" + new Date());
+//			}
+//		}, new Date(), 1000 * 5);
 	}
 
 	@Override
