@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
 	href="/oladesign/plugins/adminLTE/css/skins/oladesign-skin.css">
-	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>	
 <!-- <link rel="stylesheet" -->
 <!-- 	href="../plugins/adminLTE/css/skins/oladesign-skin.css"> -->
 <aside class="main-sidebar">
@@ -22,15 +22,10 @@
 
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu">
-			<li class="header">選單</li>
-
-			<li id="admin-index"><a href="/oladesign/CompanyBackEnd/company-index.jsp"><i
-					class="fa fa-dashboard"></i> <span>首頁</span></a></li>
-
 			<!-- 菜单 -->
 
 
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa-regular fa-face-smile"></i>
 					<span>會員專區</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -48,7 +43,7 @@
 
 				</ul></li>
 
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa-solid fa-folder-plus"></i>
 					<span>訂單管理</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -62,7 +57,7 @@
 
 				</ul></li>
 
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa-solid fa-briefcase"></i>
 					<span>商品管理</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -79,7 +74,7 @@
 
 				</ul></li>
 
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa-solid fa-tags"></i>
 					<span>促銷活動管理</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -96,7 +91,7 @@
 
 				</ul></li>
 
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa-solid fa-rectangle-ad"></i>
 					<span>廣告投放</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -116,7 +111,7 @@
 
 
 
-			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
+			<li class="treeview"><a href="#"> <i class="fa-solid fa-chart-pie"></i>
 					<span>營運分析報表</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>

@@ -111,75 +111,7 @@ System.out.println("test");
 	</div>
 	<!-- Humberger End -->
 
-	<!-- Header Section Begin -->
-	<!-- header while on PC -->
-	<header class="header">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<div class="header__logo">
-					<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-						src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg"
-						alt="" /></a>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="hero__search__form">
-					<form action="<c:url value="/pages/product.controller" />"
-						method="get">
-						<input type="text" id="name" placeholder="What do yo u need?"
-							name="name" value="${param.name}" />
-						<button type="submit" name="prodaction" value="Select"
-							class="site-btn">SEARCH</button>
-					</form>
-				</div>
-				<nav class="header__menu">
-				<ul>
-					<li class="active"><a
-						href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-					<li><a href="./shop-grid.html">Shop</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-					<li><a href="./blog.html">Blog</a></li>
-					<li><a href="./contact.html">Contact</a></li>
-				</ul>
-				</nav>
-			</div>
-
-			<div class="col-lg-4">
-				<div class="header__cart">
-					<ul class="shopping-cart">
-						<li class="shopping-cart-li">
-							<button type="button" class="btn btn-secondary dropdown-toggle"
-								data-bs-toggle="dropdown" aria-expanded="false">會員功能</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">Action</a></li>
-								<li><a class="dropdown-item" href="#">Another action</a></li>
-								<li><a class="dropdown-item" href="#">Something else
-										here</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="#">Separated link</a></li>
-							</ul>
-							<button type="button" class="btn btn-secondary"
-								aria-expanded="false">
-								<i class="fa fa-shopping-bag"> <a
-									href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp">購物車</a></i>
-							</button>
-							<button type="button" class="btn btn-secondary"
-								aria-expanded="false">
-								<i class="fa fa-user"><a href="#">登入</a></i>
-							</button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="humberger__open">
-			<i class="fa fa-bars"></i>
-		</div>
-	</div>
-	</header>
-	<!-- Header Section End -->
+	<%@ include file="../include/header.jsp"%>
 
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg"

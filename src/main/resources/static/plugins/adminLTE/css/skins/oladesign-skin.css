@@ -210,3 +210,9 @@
     background-color: #E4CD8D;
     border-color: #ccc;
 }
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #92AFBF;
+    border-color: #ddd;
+}

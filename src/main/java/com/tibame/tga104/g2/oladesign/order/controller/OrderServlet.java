@@ -78,15 +78,30 @@ public class OrderServlet extends HttpServlet {
 				e.printStackTrace();
 				errors.put("point_use", "point_use must be a number");
 			}
+//================================================================================================需要變更處			
 			if(point_use > orderService.getPoint("220001")){//暫定使用者ID
 				errors.put("pointError", "紅利點數不足");
 			}
 		}
-
+		//
+		if(prodaction.equals("Coupon") && (!coupon.equals(orderService.getCoupon(comTaxId)) || coupon.length() == 0)){//暫定使用者ID
+			errors.put("couponError", "無此序號");
+		}else if(prodaction.equals("Coupon")){
+			errors.put("couponError", "使用成功");
+//================================================================================================需要變更處			
+			request.setAttribute("AfterDiscount", orderService.getDiscountTotalPrice("220001", comTaxId, coupon));
+			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
+		}
+        //驗證序號用 因為prodaction為null故要先在這邊判斷
+		if (prodaction.equals("Coupon") && errors != null && !errors.isEmpty()) {
+			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
+			return;
+		}
 		if (prodaction.equals("PlaceOrder") && errors != null && !errors.isEmpty()) {
 			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
 			return;
 		}
+		
 //
 //呼叫Model
 
@@ -98,6 +113,7 @@ public class OrderServlet extends HttpServlet {
 //		bean.setOrderTime_toSec(sdate.replaceAll(deleteChar, ""));
 		bean.setOrderTime_toSec(sdate);
 		// insert測試用
+//================================================================================================需要變更處		
 		bean.setMemId("220001");
 		bean.setComTaxId(comTaxId);
 //

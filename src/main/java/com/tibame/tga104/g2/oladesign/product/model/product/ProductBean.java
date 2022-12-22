@@ -1,7 +1,6 @@
 package com.tibame.tga104.g2.oladesign.product.model.product;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Base64;
 
 public class ProductBean {

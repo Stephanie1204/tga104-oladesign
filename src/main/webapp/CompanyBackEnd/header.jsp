@@ -11,7 +11,7 @@
 
 
 			<!-- Logo -->
-			<a href="company-index.jsp" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+			<a href="<%=request.getContextPath()%>/homePage/index.jsp" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>賣家後台首頁</b></span> <!-- logo for regular state and mobile devices -->
 				<span class="logo-lg"><img src="/oladesign/img/OLA_Logo.svg" width=70%></span>
 			</a>

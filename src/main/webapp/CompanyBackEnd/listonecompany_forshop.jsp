@@ -38,6 +38,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
 
 </head>
 
@@ -76,11 +77,12 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 								<div class="box-body">
 									<div class="form-group">
 										<label for="com_taxid">統一編號<font color=red><b>*</b></font></label> 
-										<input type="text" class="form-control" name="com_taxid" id="com_taxid" value="23045921" />
+										<input type="text" class="form-control" name="com_taxid" id="com_taxid" value="" readonly/>
 									</div>
 									
 									<div class="form-group">
-										<label for="mem_id">會員編號<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="mem_id" id="mem_id" />
+										<label for="memId">會員編號<font color=red><b>*</b></font></label> 
+										<input type="text" class="form-control" name="memId" id="memId"  value="${memId}" readonly/>
 									</div>
 
 									<div class="form-group">
@@ -88,14 +90,16 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 											id="store_name" value="${(company_memVO == null) ? '' : company_memVO.getStoreName()}" />
 									</div>
 									<div class="form-group">
-										<label for="store_intro">賣場簡介</label> <input type="text" class="form-control" name="store_intro" id="store_intro"
-											value="${(company_memVO == null) ? '' : company_memVO.getStoreIntro()}" />
+										<label for="store_intro">賣場簡介</label> 
+										<textarea class="form-control" name="store_intro" id="store_intro"/></textarea>
 									</div>
 
 									<div class="form-group">
 										<label for="store_logo">賣場Logo</label>
 										<b><img src="${company_memVO.getStoreLogoString()}" width=30%/></b>
 										<input type="file" id="store_logo" name="store_logo" class="upl1" style="display: none;">
+										
+										<img id="preview_store_logo" style="max-width: 150px; max-height: 150px;"/>
 										<br />
 											<p class="help-block"></p>
 									</div>
@@ -104,6 +108,8 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 										<label for="store_banner">賣場Banner</label> 
 										<b><img src="${company_memVO.getStoreBannerString()}" width=30% /></b>
 										<input type="file" id="store_banner" name="store_banner" class="upl2" style="display: none;">
+										<img id="preview_store_banner" style="max-width: 150px; max-height: 150px;"/>
+										<br />
 										<p class="help-block"></p>
 										
 									</div>
@@ -115,9 +121,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 										<input type="button"value="修改資料" class="btn btn-primary" id="updateshop" > 
 										<input type="button" value="取消修改" class="btn btn-primary" id="cancle_updateshop"
 											style="display: none">
-
 									</div>
-
 								</div>
 								<!--/.col (left) -->
 							</div>
@@ -152,10 +156,8 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 	<script src="../plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
 	<script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script
-		src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+	<script src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 	<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script src="../plugins/fastclick/fastclick.js"></script>
 	<script src="../plugins/iCheck/icheck.min.js"></script>
@@ -163,11 +165,9 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/treeTable/jquery.treetable.js"></script>
 	<script src="../plugins/select2/select2.full.min.js"></script>
 	<script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-	<script
-		src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+	<script src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/markdown.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/to-markdown.js"></script>
 	<script src="../plugins/ckeditor/ckeditor.js"></script>
@@ -183,52 +183,57 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/flot/jquery.flot.categories.min.js"></script>
 	<script src="../plugins/ionslider/ion.rangeSlider.min.js"></script>
 	<script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script src="../plugins/adminLTE/js/oladesign-address.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			// 选择框
-			$(".select2").select2();
-
-			// WYSIHTML5编辑器
-			$(".textarea").wysihtml5({
-				locale : 'zh-TW'
-			});
-			
-	  	       //資料先寫死,合在一起之後要改
-	           $("#com_taxid").val("23045921").attr('readonly', true);
-	           $("#mem_id").val("220020").attr('readonly', true);
+	var ori_store_logo = "";
+	var ori_store_banner = "";
 
                // ajax call api to get CompantMembetInfo
                $.ajax({
                    type : 'POST',
-                   url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_memberdo?action=doGetStoreInfo&memId=220020',
+                   url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetStoreInfo&memId=${memId}',
                    success : function (data, status, xhr) {
                        var dataJson = JSON.parse(data);
 
                        if (dataJson.isMemberHasCom) {
                            // 開始set 資料
                            $("#com_taxid").val(dataJson.comTaxId).attr('readonly', true);
-                           $("#mem_id").val(dataJson.memId).attr('readonly', true);
+                           $("#memId").val(dataJson.memId).attr('readonly', true);
                            $("#store_name").val(dataJson.storeName).attr('readonly', true);
                            $("#store_intro").val(dataJson.storeIntro).attr('readonly', true);
-                           $("#store_logo").val(dataJson.storeLogo).attr('readonly', true);
-                           $("#store_banner").val(dataJson.storeBanner).attr('readonly', true);
+                           $("#preview_store_logo").attr("src", dataJson.storeLogoString);
+                           $("#preview_store_banner").attr("src", dataJson.storeBannerString);
                            $("#update_save").attr('disabled', 'disabled');
-                       }
+                           
+                           ori_store_logo = dataJson.storeLogoString;
+                        	ori_store_banner = dataJson.storeBannerString;
+                       }else {
+                           swal({
+                               title: "賣家功能未啟用",
+                               text: "來去註冊吧",
+                               type: "error",
+                               showConfirmButton: true,
+                               allowEscapeKey: false,
+                               allowOutsideClick: false,
+                             });
+                             $(".confirm").click(function () {
+                               location.href =
+                                 "http://localhost:8080/oladesign/CompanyBackEnd/regisToCom.jsp";
+                             });
+                           }
                    }
                });
 	           
-	  	       
 		        $("#updateshop").on("click", ()=>{
 		            doSetForm(false);
 		        });
 		
 				$("#cancle_updateshop").on("click", ()=>{
-		            doSetForm(true);      				
+		            doSetForm(true);      	
+                    $("#preview_store_logo").attr("src", ori_store_logo);
+                    $("#preview_store_banner").attr("src", ori_store_banner);
 				})
 				
 		        function doSetForm(trueorfalse){
@@ -249,36 +254,35 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			            $("#store_banner").show();
 		            }
 		        }
-			
-			
-			
-			
-		});
 
-		// 设置激活菜单
-		function setSidebarActive(tagUri) {
-			var liObj = $("#" + tagUri);
-			if (liObj.length > 0) {
-				liObj.parent().parent().addClass("active");
-				liObj.addClass("active");
-			}
-		}
+		   $("#store_logo").change(function(){
+			      //當檔案改變後，做一些事 
+			     readURL(this);   // this代表<input id="imgInp">
+			   });
+		   function readURL(input){
+			   if(input.files && input.files[0]){
+			     var reader = new FileReader();
+			     reader.onload = function (e) {
+			        $("#preview_store_logo").attr('src', e.target.result);
+			     }
+			     reader.readAsDataURL(input.files[0]);
+			   }
+			 }
+		   
+		   $("#store_banner").change(function(){
+			      //當檔案改變後，做一些事 
+			     readURL(this);   // this代表<input id="imgInp">
+			   });
+		   function readURL(input){
+			   if(input.files && input.files[0]){
+			     var reader = new FileReader();
+			     reader.onload = function (e) {
+			        $("#preview_store_banner").attr('src', e.target.result);
+			     }
+			     reader.readAsDataURL(input.files[0]);
+			   }
+			 }
 
-		// 激活导航位置
-		setSidebarActive("form-general");
-
-		var preview_el = document.getElementById("preview");
-		var p_file_el = document.getElementById("store_logo");
-		var preview_img = function(file) {
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader
-					.addEventListener(
-							"load",
-							function() {
-								preview_el.innerHTML = `<img src='${reader.result}' class='preview_img'>`;
-							});
-		};
 	</script>
 </body>
 

@@ -20,4 +20,5 @@ public interface ProductDAO_Cart {
 	
 	public abstract int getTotal(String userId, String comTaxId);
 	
+	public abstract int getTotal(String userId, String comTaxId, String coupon);
 }
