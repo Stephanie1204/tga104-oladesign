@@ -218,29 +218,30 @@ textarea {
 <!-- 							id="numQue" maxlength="4" size="4" -->
 <%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>" --%>
 <!-- 							 /></td> -->
-						<jsp:useBean id="intermail_qnSvc" scope="page"
-							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />
+<%-- 						<jsp:useBean id="intermail_qnSvc" scope="page" --%>
+<%-- 							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />  --%>
 							
 <!-- 							<td> -->
 <!-- 								<select size="1" name="numQue"> -->
-<%--  								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.Type}"> --%> 
-<%-- 								<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type} --%>
-<%-- 									</c:forEach> --%> 
+<%-- 								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}"> --%>
+<!-- <!-- 						<td><input type="text" class="form-control" name="numQue" --> 
+<%-- <%-- 							id="numQue" maxlength="4" size="4"  value="${intermailVO.numQue}"></td> --%> 
+<%-- 								<option value="${intermailVO.numQue}">${intermail_qnVO.type} --%>
+<%-- 									</c:forEach> --%>
 <!-- 								</select> -->
 <!-- 							</td> -->
 
-						
-						<td><input type="text" class="form-control" name="numQue" 
-							id="numQue" readonly maxlength="4" size="4"						
-							value="${intermailVO.numQue}"/>${intermail_qnVO.type}
-							
-						</td>
-						
-<!-- 						<td> -->
+							<td>
+<!-- 								<select size="1" name="numQue"> -->
 <%-- 								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}"> --%>
-<%-- 								<input value="${intermailVO.numQue}">${intermail_qnVO.type} --%>
+<%-- 								<option value="${intermailVO.numQue}">${intermail_qnVO.type} --%>
+								<td><input type="text" class="form-control" name="numQue"
+								id="numQue" readonly maxlength="4" size="4"  value="${intermailVO.numQue}"></td>
 <%-- 									</c:forEach> --%>
-<!-- 							</td> -->
+<!-- 								</select> -->
+							</td>
+							
+							
 							
 							
 							
@@ -266,10 +267,10 @@ textarea {
 					</div>
 
 
-				<input type="hidden" id="adminStatus" name="adminStatus" value="1">
-<!-- 				<br> -->
-				<button class="btn back-end-btn" type="submit" id="adminStatus"
-					name="action" value="REPLY">回覆</button>
+<!-- 				<input type="hidden" id="adminStatus" name="adminStatus" value="1"> -->
+<!-- <!-- 				<br> -->
+<!-- 				<button class="btn back-end-btn" type="submit" id="adminStatus" -->
+<!-- 					name="action" value="REPLY">回覆</button> -->
 			</form>
 		</div>
 	</div>

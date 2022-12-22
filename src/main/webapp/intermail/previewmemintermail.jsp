@@ -5,14 +5,14 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
 <%
 IntermailService intermailSvc = new IntermailService();
-List<IntermailVO> list = intermailSvc.getAll();
+List<IntermailVO> list = intermailSvc.getMemReceive();
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有站內信</title>
+<title>會員收信箱</title>
 
 
 <meta name="viewport"
@@ -118,7 +118,7 @@ pageContext.setAttribute("list", list);
 
 		<div style="padding: 20px 15px;">
 			<div style="display: flex;">
-				<h2>所有站內信</h2>
+				<h2>會員收信箱</h2>
 				<div style="display: flex; position: absolute; right: 15px;">
 					<!-- 							<h4> -->
 					<%-- 								<a href="<%=request.getContextPath()%>/back-end/index-admin.jsp">回管理員管理</a> --%>
@@ -165,10 +165,10 @@ pageContext.setAttribute("list", list);
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/intermail/intermail.do"
 									style="margin-bottom: 0px;">
-									<input type="submit" class="btn back-end-btn" value="刪除">
+									<input type="submit" class="btn back-end-btn" value="查看">
 									<input type="hidden" name="interMailId"
 										value="${intermailVO.interMailId}"> <input
-										type="hidden" name="action" value="delete">
+										type="hidden" name="action" value="MemCheck">
 								</FORM>
 							</td>
 							<!-- 								</td>  -->
