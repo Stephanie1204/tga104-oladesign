@@ -1,0 +1,8 @@
+.results {
+	overflow: hidden;
+	display: -webkit-box;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1; /*行數*/
+	-webkit-box-orient: vertical;
+	white-space: normal;
+}

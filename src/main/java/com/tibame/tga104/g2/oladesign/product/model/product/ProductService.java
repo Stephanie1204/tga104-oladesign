@@ -120,8 +120,9 @@ public class ProductService {
 	
 	public void insertCart(String userId, String comTaxId, int productId, int quantity){
 		//String userId = "220001";		
- 
-		productDao_Cart.insert(userId, comTaxId, productId, quantity); 
+		if(userId != null) {
+			productDao_Cart.insert(userId, comTaxId, productId, quantity); 
+		}
 	}
 	
 	public void deleteFromCart(String userId, String comTaxId, int productId){

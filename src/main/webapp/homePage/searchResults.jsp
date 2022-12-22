@@ -2,6 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+Object objname = session.getAttribute("memId");
+String userId = "";
+if (objname != null) {
+	userId = objname.toString();
+}
+
+pageContext.setAttribute("userId", userId);
+%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -44,7 +53,7 @@
 	href="<%=request.getContextPath()%>/homePage/css/conditionBar.css"
 	type="text/css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/results.css"
+	href="<%=request.getContextPath()%>/homePage/css/searchResults.css"
 	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -183,20 +192,37 @@
 
 			<c:if test="${not empty select}">
 				<div
-					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mix">
 					<c:forEach var="row" items="${select}">
-						<div class="col">
-							<a
-								href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
-								class="results" target="_blank">
-
-
-								<div class="img_contents">
-									<img src="${row.productImgBase64}">
-								</div>
-
-								<div class="product_name">${row.getName()}</div>
-							</a>
+						<div class="featured__item">
+							<div class="featured__item__pic set-bg"
+								data-setbg="${row.productImgBase64}">
+								<ul class="featured__item__pic__hover">
+									<li><a href="#"><i class="fa fa-heart"></i></a></li>
+									<li>
+										<form action="<c:url value="/pages/product.controller" />"
+											method="post">
+											<input type="hidden" name="prodaction" value="AddCartByPage">
+											<input type="hidden" name="memberId" value="${userId }">
+											<input type="hidden" name="comTaxId" value="${row.comTaxId }">
+											<input type="hidden" name="productId" value="${row.productId }">
+											<input type="hidden" name="quantity" value="1">
+											<input type="hidden" name="typeCode" value="${param.typeCode }">
+											<input type="hidden" name="styleCode" value="${param.styleCode }">
+											<input type="hidden" name="price" value="${param.price }">
+											<button type="submit" class="fa fa-shopping-cart"></button>
+										</form>
+									</li>
+								</ul>
+							</div>
+							<div class="featured__item__text">
+								<h6>
+									<a
+										href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
+										class="results" target="_blank">${row.getName()}</a>
+								</h6>
+								<h5>${row.getPrice()}</h5>
+							</div>
 						</div>
 					</c:forEach>
 				</div>

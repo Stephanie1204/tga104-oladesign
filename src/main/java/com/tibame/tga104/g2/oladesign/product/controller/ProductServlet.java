@@ -175,7 +175,8 @@ public class ProductServlet extends HttpServlet {
 			return;
 		}
 		if (prodaction.equals("Insert") && errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+					response);
 			return;
 		}
 
@@ -214,7 +215,8 @@ public class ProductServlet extends HttpServlet {
 			} else {
 				request.setAttribute("insert", result);
 			}
-			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request, response);
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+					response);
 
 		} else if (prodaction != null && prodaction.equals("SelectById")) {
 			List<ProductBean> result = productService.selectByComTaxId(bean.getComTaxId());
@@ -253,16 +255,24 @@ public class ProductServlet extends HttpServlet {
 				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
-			} else if(quantity > 9){
+			} else if (quantity > 9) {
 				quantity = 9;
 				productService.insertCart(tempMemId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
-			}else {
+			} else {
 				productService.insertCart(tempMemId, comTaxId, productId, quantity);
-				
+
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			}
+		} else if (prodaction != null && prodaction.equals("AddCartByPage")) {
+			productService.insertCart(tempMemId, comTaxId, productId, quantity);
+
+			List<ProductBean> result = productService.select(bean);
+			
+			request.setAttribute("select", result);
+			
+			request.getRequestDispatcher("/homePage/searchResults.jsp").forward(request, response);
 		} else if (prodaction != null && prodaction.equals("DeleteFromCart")) {
 			productService.deleteFromCart(tempMemId, comTaxId, productId);
 
