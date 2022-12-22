@@ -203,4 +203,77 @@ public class SendMail {
 			
 		}		
 	}
+	
+	public void sendComMemMail(String account, String memName) {		
+//		寄送驗證信
+		String recipient = account;
+		String subject = "OLA Design成為賣家驗證信";
+		String reci_name = memName;
+		String url = "http://localhost:8080/oladesign/homePage/index.jsp";
+		String buttonLink = 
+				  "<tr>"
+				+ "  <td>"	
+				+ "<a style='"
+				+ "				 margin:0;"
+				+ "              padding: 20px;"
+				+ "				 background-color: #0d6efd;"	
+				+ "              border: none;"
+				+ "              border-radius: 5px;"
+				+ "              text-decoration: none;"
+				+ "              color: #4f4e4d;"
+				+ "              font-size: 1rem;"
+				+ "              font-weight: bolder;"
+				+ "            ' href=" + url + ">"		  
+				+ "				 進入OLA Design</a>"
+				+ "	 </td>"
+				+ "	</tr>";
+		String messageText = 
+		"<table style='background-color: #f3f1f2; width: 100%'>"
+		+ "      <tbody>"
+		+ "        <tr>"
+		+ "          <td>"
+		+ "            <table"
+		+ "              style='"
+		+ "				   width: 60%;"			
+		+ "                background-color: white;"
+		+ "                margin: 20%;"
+		+ "                padding: 30px;"
+		+ "                max-width: 540px;"
+		+ "                margin-top: 50px;"
+		+ " 			   margin-bottom: 50px;"
+		+ "                border-radius: 12px;"
+		+ "              '"
+		+ "            >"
+		+ "              <tbody style='text-align: center'>"
+		+ "                <tr>"
+		+ "                  <td>"			
+		+ "						<h1 style='font-size: 2rem; color: #4f4e4d'>Olá! " + reci_name + ":</h1>"
+		+ "					 </td>"
+		+ "					</tr>"
+		+ "                <tr>"
+		+ "                  <td>"		
+		+ "						<p style='font-size: 1rem; color: #4f4e4d; text-align: left'>您的賣場已經通過審核，可以開始經營您的設計館了!</p><br>"
+		+ "					 </td>"
+		+ "					</tr>"
+		+ "                <tr>"
+		+ "                  <td>"
+		+ "						<p style='text-align: left; font-size: 1rem;'>建議您先進入賣場完成基本資料設定，接著就可以開始上架商品進行販售了。</p>" 
+		+ "					 </td>"
+		+ "					</tr>"
+		+ "                <tr>"
+		+ "                  <td>"
+		+ "						<p style='text-align: center; font-size: 1rem;'>進入賣場:</p>"
+		+ "					 </td>"
+		+ "					</tr>"
+		+ "                <tr>"
+		+ "                  <td>"
+		+ "						<p style='font-size: 1rem; text-align: center'><br> " + buttonLink + "<br></p>"
+		+ "                     <p style='font-size: 1rem; text-align: center'>OLA Design團隊 敬上</p>"
+		+ "					 </td>"
+		+ "					</tr>";
+
+		MemberMailThread mailService = new MemberMailThread(recipient, subject, messageText);
+		mailService.start();
+		System.out.println("成為賣家確認信已發送");
+	}
 }

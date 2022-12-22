@@ -15,7 +15,8 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(
 		filterName = "LoginFilter",
-		urlPatterns = "/CompanyBackEnd/regisToCom.jsp"
+		urlPatterns = {"/CompanyBackEnd/regisToCom.jsp",
+					  "/CompanyBackEnd/company_member.do"}
 		)
 public class LoginFilter extends HttpFilter implements Filter {
   
@@ -34,9 +35,9 @@ public class LoginFilter extends HttpFilter implements Filter {
 		if(memId == null) {
 			session.setAttribute("location", request.getRequestURI());
 			response.setContentType("text/html; charset=UTF-8");
-			response.getWriter().write("<script> setTimeout(function(){ alert('請先登入或註冊為會員');" + 
-										"window.location.href='" + request.getContextPath() +"/member/login.jsp';}, 500);</script>");
-//			response.sendRedirect(request.getContextPath() + "/member/login.jsp");
+//			response.getWriter().write("<script> setTimeout(function(){ alert('請先登入或註冊為會員');" + 
+//										"window.location.href='" + request.getContextPath() +"/member/login.jsp';}, 500);</script>");
+			response.sendRedirect(request.getContextPath() + "/member/login.jsp");
 			return;
 		}else {
 			chain.doFilter(request, response);

@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
+import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
+import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
@@ -107,6 +109,13 @@ public class MemberLogin extends HttpServlet {
 			session.setAttribute("isCom", memberVO.isCom());
 			session.setAttribute("memberVO", memberVO);
 			
+			Company_MemVO comMemVO = null;
+			if(memberVO.isCom()) { //如果會員有賣家資格，就傳入賣家資料
+				Company_MemService comMemSvc = new Company_MemService();
+				comMemVO = comMemSvc.doGetCompanyMemByMemId(memberVO.getMemId());
+				session.setAttribute("comMemVO", comMemVO);
+			}
+			
 			try{
 				String location = (String)session.getAttribute("location");
 				if(location != null) { //查看有無來源網頁
@@ -123,10 +132,6 @@ public class MemberLogin extends HttpServlet {
 		
 		if("logout".equals(action)) {
 			HttpSession session = request.getSession();
-			session.removeAttribute("memName");
-			session.removeAttribute("memId");
-			session.removeAttribute("isCom");
-			session.removeAttribute("memberVO");
 			session.invalidate(); //讓session失效，並解除已連結的物件
 			System.out.println("session清空，將成為登出狀態");
 			response.sendRedirect(request.getContextPath() + "/homePage/index.jsp");
