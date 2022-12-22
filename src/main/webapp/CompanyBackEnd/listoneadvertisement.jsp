@@ -58,156 +58,58 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 	<div class="wrapper">
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-
-
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
-
-			<!-- 内容头部 -->
-			<section class="content-header">
-				<h1></h1>
-				<ol class="breadcrumb">
-				</ol>
-			</section>
-			<!-- 内容头部 /-->
-
 			<!-- 正文区域 -->
 			<section class="content">
-
 				<!-- .box-body -->
 				<div class="box box-primary">
 					<div class="box-header with-border"></div>
-
 					<div class="box-body">
-
 						<!-- 数据表格 -->
 						<div class="table-box">
-
-							<!--工具栏-->
-							<div class="pull-left">
-								<div class="form-group form-inline">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="删除"
-											onclick='confirm("你確定要刪除嗎？")'>
-											<i class="fa fa-trash-o"></i> 刪除
-										</button>
-										<button type="button" class="btn btn-default" title="刷新"
-											onclick="window.location.reload();">
-											<i class="fa fa-refresh"></i> 刷新
-										</button>
-									</div>
-								</div>
-							</div>
-							<div class="box-tools pull-right">
-								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜尋"> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
-								</div>
-							</div>
-							<!--工具栏/-->
-
 							<!--数据列表-->
 							<table id="dataList"
 								class="table table-bordered table-striped table-hover dataTable">
 								<thead>
 									<tr>
-										<th class="" style="padding-right: 0px;"><input
-											id="selall" type="checkbox" class="icheckbox_square-blue">
-										</th>
-										<th class="sorting_asc">廣告編號</th>
-										<th class="sorting">公司統編</th>
-										<th class="sorting">廣告導入連結</th>
-										<th class="sorting">廣告開始日期</th>
-										<th class="sorting">廣告結束日期</th>
-										<th class="sorting">廣告圖片</th>
-										<th class="sorting">廣告狀態</th>
-										<th class="text-center">操作</th>
+										<th class="text-center">廣告編號</th>
+										<th class="text-center">公司統編</th>
+										<th class="text-center">廣告導入連結</th>
+										<th class="text-center">廣告開始日期</th>
+										<th class="text-center">廣告結束日期</th>
+										<th class="text-center">廣告圖片</th>
+										<th class="text-center">廣告狀態</th>
 									</tr>
 								</thead>
 								<tbody>
-
-
 									<!-- 只顯示資料,不提供update的必須加上hidden標籤才能完整綁到資料 -->
 									<!--  <input type="hidden" name="com_taxid" value="${company_memVO.getComTaxid()}" /-->
-
-
 									<tr>
-										<td><input name="ids" type="checkbox"></td>
 										<td>${advertisementVO.getAdId()}</td>
 										<td>${advertisementVO.getComTaxId()}</td>
 										<td>${advertisementVO.getStoreLink()}</td>
 										<td>${advertisementVO.getStartDate()}</td>
 										<td>${advertisementVO.getEndDate()}</td>
-										<td><img src="${advertisementVO.getAdImagesString()}" width="10%"></td>
+										<td><img src="${advertisementVO.getAdImagesString()}" style="max-width: 150px; max-height: 150px;"></td>
 										<td>${advertisementVO.getAdStatus()}</td>
-
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-order-manage-edit.html"'>編輯</button>
-										</td>
 									</tr>
-
-								</tbody>
-								
+								</tbody>							
 							</table>
 						</div>
 					</div>
 					<!-- /.box-body -->
-
-					<!-- .box-footer-->
-					<div class="box-footer">
-						<div class="pull-left">
-							<div class="form-group form-inline">
-									
-								总共2 页，共14 条数据。 每页 <select class="form-control">
-									<option>10</option>
-									<option>15</option>
-									<option>20</option>
-									<option>50</option>
-									<option>80</option>
-								</select> 条
-							</div>
-						</div>
-
-						<div class="box-tools pull-right">
-							<ul class="pagination">
-								<li><a href="#" aria-label="Previous">首页</a></li>
-								<li><a href="#">上一页</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-								<li><a href="#" aria-label="Next">尾页</a></li>
-							</ul>
-						</div>
-
-					</div>
-					<!-- /.box-footer-->
-
-
 				</div>
-
 			</section>
 			<!-- 正文区域 /-->
-
 		</div>
-
 		<!-- 内容区域 /-->
-
 		<!-- Ola Design Footer -->
 		<%@ include file="footer.jsp"%>
-
 	</div>
-
-
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
-	<script>
-		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+	<script> $.widget.bridge('uibutton', $.ui.button);</script>
 	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/raphael/raphael-min.js"></script>
 	<script src="../plugins/morris/morris.min.js"></script>

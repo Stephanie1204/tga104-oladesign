@@ -16,43 +16,31 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <!-- Tell the browser to be responsive to screen width -->
-<meta
-	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
-	name="viewport">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 <!-- 页面meta /-->
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="../plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
 <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
 <link rel="stylesheet" href="../plugins/morris/morris.css">
-<link rel="stylesheet"
-	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 <link rel="stylesheet" href="../plugins/datepicker/datepicker3.css">
-<link rel="stylesheet"
-	href="../plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-<link rel="stylesheet"
-	href="../plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 <link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.css">
-<link rel="stylesheet"
-	href="../plugins/treeTable/jquery.treetable.theme.default.css">
+<link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.theme.default.css">
 <link rel="stylesheet" href="../plugins/select2/select2.css">
-<link rel="stylesheet"
-	href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
 <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
-<link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.css">
-<link rel="stylesheet"
-	href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
+<link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet"  href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition skin-purple sidebar-mini">
@@ -63,50 +51,22 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 		<%@ include file="company-menu.jsp"%>
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
-
-			<!-- 内容头部 -->
-			<section class="content-header"></section>
-			<!-- 内容头部 /-->
-
 			<!-- 正文区域 -->
 			<section class="content">
-
 				<!-- .box-body -->
 				<div class="box box-primary">
 					<div class="box-header with-border"></div>
-
 					<div class="box-body">
-
 						<!-- 数据表格 -->
 						<div class="table-box">
-
 							<!--工具栏-->
-							<div class="pull-left">
-								<div class="form-group form-inline">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="删除"
-											onclick='confirm("你確定要刪除嗎？")'>
-											<i class="fa fa-trash-o"></i> 刪除
-										</button>
-										<button type="button" class="btn btn-default" title="刷新"
-											onclick="window.location.reload();">
-											<i class="fa fa-refresh"></i> 刷新
-										</button>
-									</div>
-								</div>
-							</div>
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
 
 									<form method="post" action="advertisement.do">
-										<input type="text" name="comtaxId" placeholder="請輸入廠商統一編號">
-										<input type="submit" value="送出" class="btn btn-default">
-										<input type="hidden" name="adminId" value="A001" /> <input
-											type="hidden" name="action" value="getOneFroADID"> <input
-											type="hidden" name="adStatus"
-											value="${advertisementVO.getAdStatus()}" /> <input
-											type="hidden" name="adId"
-											value="${advertisementVO.getAdId()}" />
+										<input type="hidden" name="adminId" value="A001" /> 
+										<input type="hidden" name="adStatus" value="${advertisementVO.getAdStatus()}" /> 
+										<input type="hidden" name="adId" value="${advertisementVO.getAdId()}" />
 									</form>
 								</div>
 							</div>
@@ -220,10 +180,9 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 	<script src="../plugins/flot/jquery.flot.categories.min.js"></script>
 	<script src="../plugins/ionslider/ion.rangeSlider.min.js"></script>
 	<script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
     $(document).ready(function() {
 		// 选择框
@@ -250,6 +209,7 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 							"<td>"+dataJson[i].startDate+"</td>"+
 							"<td>"+dataJson[i].endDate+"</td>"+
 							"<td>"+ statusNm + "</td>"+
+							"<td><img src = '" +dataJson[i].adImageString +"' style='max-width: 150px; max-height: 150px'></td>"+
 							"<td><button " + isDisabled + " type='button' class='btn btn-default reviewad' adId=" + dataJson[i].adId + ">審核</button></td>"+
 							"</tr>"
 					)
@@ -260,43 +220,19 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 			            type : 'POST',
 			            url : "http://localhost:8080/oladesign/CompanyBackEnd/advertisement.do?action=doReviewAD&adminId=A001&adId=" + $(e.currentTarget).attr("adid"),
 			            success : function (data, status, xhr) {
+					        swal({ 
+		                  	      title: '審核完成',
+		                  	       type: "success",
+		                        })
+			            },complete:function(){
 			            }
 			        });
 				})
             }
         });
+ 
 	});
 
-	// 设置激活菜单
-	function setSidebarActive(tagUri) {
-		var liObj = $("#" + tagUri);
-		if (liObj.length > 0) {
-			liObj.parent().parent().addClass("active");
-			liObj.addClass("active");
-		}
-	}
-
-	$(document).ready(function() {
-
-		// 激活导航位置
-		setSidebarActive("order-manage");
-
-		// 列表按钮 
-		$("#dataList td input[type='checkbox']").iCheck({
-			checkboxClass : 'icheckbox_square-blue',
-			increaseArea : '20%'
-		});
-		// 全选操作 
-		$("#selall").click(function() {
-			var clicks = $(this).is(':checked');
-			if (!clicks) {
-				$("#dataList td input[type='checkbox']").iCheck("uncheck");
-			} else {
-				$("#dataList td input[type='checkbox']").iCheck("check");
-			}
-			$(this).data("clicks", !clicks);
-		});
-	});
     </script>
 </body>
 

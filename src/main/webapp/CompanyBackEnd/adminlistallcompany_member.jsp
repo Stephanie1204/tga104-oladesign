@@ -14,73 +14,47 @@
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <!-- Tell the browser to be responsive to screen width -->
-<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
-	name="viewport">
+<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="../plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
 <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
 <link rel="stylesheet" href="../plugins/morris/morris.css">
-<link rel="stylesheet"
-	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 <link rel="stylesheet" href="../plugins/datepicker/datepicker3.css">
-<link rel="stylesheet"
-	href="../plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-<link rel="stylesheet"
-	href="../plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 <link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.css">
-<link rel="stylesheet"
-	href="../plugins/treeTable/jquery.treetable.theme.default.css">
+<link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.theme.default.css">
 <link rel="stylesheet" href="../plugins/select2/select2.css">
-<link rel="stylesheet"
-	href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
 <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
-<link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.css">
-<link rel="stylesheet"
-	href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
+<link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
 </head>
-
 <body class="hold-transition skin-purple sidebar-mini">
 		<!-- Ola Design Header -->
 		<%@ include file="header.jsp"%>
 	<div class="wrapper">
-
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-
-
-		<!-- 内容区域 -->
+	<!-- 内容区域 -->
 		<div class="content-wrapper">
-
-			<!-- 内容头部 -->
-			<section class="content-header">
-
-			</section>
-			<!-- 内容头部 /-->
-
 			<!-- 正文区域 -->
 			<section class="content">
-
 				<!-- .box-body -->
 				<div class="box box-primary">
 					<div class="box-header with-border"></div>
-
 					<div class="box-body">
-
 						<!-- 数据表格 -->
 						<div class="table-box">
-
 							<!--工具栏-->
 							<div class="pull-left">
 								<div class="form-group form-inline">
@@ -92,7 +66,7 @@
 								<input type="text" name="comtaxId" placeholder="請輸入廠商統一編號"> 
 								<input type="hidden" name="action" value="getOne_For_Display"> 
 								<input type="hidden" name="adminId" value="A001" />
-								<input type="submit" value="送出" class="btn btn-default">	
+								<input type="submit" value="搜尋" class="btn btn-default">	
 								</form>
 								</div>
 							</div>
@@ -219,6 +193,7 @@
 		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script
 		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			// 选择框
@@ -236,7 +211,6 @@
 	                var dataJson = JSON.parse(data);
 					total_len = dataJson.length;
 					for(i=0;i<total_len;i++){
-						var isDisabled = dataJson[i].adStatus? "disabled":"";
 						$("#row").append(
 								"<tr>"+
 								"<td>"+dataJson[i].comTaxId+"</td>"+
@@ -247,10 +221,26 @@
 								"<td>"+dataJson[i].ownerPhone+"</td>"+
 								"<td>"+dataJson[i].comRegdate+"</td>"+
 								"<td>"+dataJson[i].storeName+"</td>"+
-								"<td><button " + isDisabled + " type='button' class='btn btn-default reviewcom' memId=" + dataJson[i].memId + ">審核</button></td>"+
+								"<td><button type='button' class='btn btn-default reviewcom' memId=" + dataJson[i].memId + ">審核</button></td>"+
 								"</tr>"
 						)
 					}
+					$(".reviewcom").on("click",function(e){
+						console.log(this)
+						$(this).attr('disabled','disabled');
+				        $.ajax({
+				            type : 'POST',
+				            url : "http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doReviewCOM&adminId=A001&memId=" + $(e.currentTarget).attr("memId"),
+				            success : function (data, status, xhr) {
+						        swal({ 
+			                  	      title: '審核完成',
+			                  	       type: "success",
+			                        })
+				            }
+				        });
+
+					})
+					
 	               
 	            }
 	        });
