@@ -226,10 +226,10 @@ String agreement = (String) request.getAttribute("agreement");
 						$("#err_com_owner").text("");
 						$("#err_owner_phone").text("");
 						$("#err_com_address").text("");
-						window.location.href = "http://localhost:8080/oladesign/homePage/index.jsp";
 						setTimeout(function(){
 							alert("您已經成功註冊為賣家，請耐心等待審核通過");
 						}, 500);
+						window.location.href = "http://localhost:8080/oladesign/homePage/index.jsp";
 					}				
 				},
 				error: function(xhr){
