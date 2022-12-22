@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="d-flex flex-column" id="content-wrapper">
+				<div class="d-flex flex-column" id="content-wrapper">
 			<div id="content">
 				<nav
 					class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -129,22 +129,23 @@
 									</form>
 								</div></li>
 							<li class="nav-item dropdown no-arrow mx-1">
-								<div class="nav-item dropdown no-arrow">
-									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
-										aria-expanded="false"
-										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${administratorVO.adminid}"
-										onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span
-										class="badge badge-danger badge-counter"></span><i
-										class="fa fa-comment"></i></a>
+<!-- 								<div class="nav-item dropdown no-arrow"> -->
+<!-- 									<a class="dropdown-toggle nav-link" data-toggle="dropdown" -->
+<!-- 										aria-expanded="false" -->
+<%-- 										href="<%=request.getContextPath() %>/customerservice/NameServlet?backaction=admin&userID=${adminVO.adminId}" --%>
+<%-- 										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminId}</span><img --%>
+<!-- 										onclick="window.open(this.href, '', 'width=800,height=800'); return false;"><span -->
+<!-- 										class="badge badge-danger badge-counter"></span><i -->
+<!-- 										class="fa fa-comment"></i></a> -->
 
-								</div>
-							</li>
+<!-- 								</div> -->
+<!-- 							</li> -->
 							<div class="d-none d-sm-block topbar-divider"></div>
 							<li class="nav-item dropdown no-arrow">
 								<div class="nav-item dropdown no-arrow">
 									<a class="dropdown-toggle nav-link" data-toggle="dropdown"
 										aria-expanded="false" href="#"><span
-										class="d-none d-lg-inline mr-2 text-gray-600 small">${administratorVO.adminName}</span><img
+										class="d-none d-lg-inline mr-2 text-gray-600 small">${adminVO.adminName}</span><img
 										class="border rounded-circle img-profile"
 										src="<%=request.getContextPath()%>/image/logo1.png"></a>
 									<div
