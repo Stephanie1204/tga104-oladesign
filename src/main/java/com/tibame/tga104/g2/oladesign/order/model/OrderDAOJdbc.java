@@ -145,7 +145,64 @@ public class OrderDAOJdbc implements OrderDAO {
 		}
 		return result;
 	}
+//
+	private static final String GET_ORDER_BYCOMTAXID_ORDERSTATUS = "SELECT * FROM ORDERS WHERE COM_TAXID=? AND ORDER_STATUS=?";
 
+	@Override
+	public List<OrderBean> select_Com(String comTaxId, int orderStatus) {
+
+		List<OrderBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_ORDER_BYCOMTAXID_ORDERSTATUS);
+			stmt.setString(1, comTaxId);
+			stmt.setInt(2, orderStatus);
+
+			ResultSet rset = stmt.executeQuery();
+
+			result = new ArrayList<OrderBean>();
+
+			while (rset.next()) {
+				OrderBean bean = new OrderBean();
+
+				bean.setOrderId(rset.getString("ORDER_ID"));
+				bean.setComTaxId(rset.getString("COM_TAXID"));
+				bean.setMemId(rset.getString("MEM_ID"));
+				bean.setOrderTime(rset.getTimestamp("ORDER_TIME"));
+				bean.setAddress(rset.getString("ADDRESS"));
+				bean.setAmount(rset.getInt("AMOUNT"));
+				bean.setOrderStatus(rset.getInt("ORDER_STATUS"));
+				bean.setShippingStatus(rset.getInt("SHIPPING_STATUS"));
+				bean.setCoupon(rset.getString("COUPON"));
+				bean.setPointUse(rset.getInt("POINT_USE"));
+				bean.setPointGet(rset.getInt("POINT_GET"));
+				bean.setReceiver(rset.getString("RECEIVER"));
+
+				result.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
 //
 	private static final String GET_ORDER_BYORDERID = "SELECT * FROM ORDERS WHERE ORDER_ID=?";
 
@@ -252,18 +309,75 @@ public class OrderDAOJdbc implements OrderDAO {
 			}
 		}
 	}
-
+//
+	private static final String UPDATE_ORDERSTATUS = "UPDATE ORDERS SET ORDER_STATUS=? WHERE ORDER_ID=?";
 	@Override
-	public OrderBean updateOrderStatus(OrderBean orderBean) {
-		OrderBean result = null;
+	public void updateOrderStatus(String orderId, int orderStatus) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
 
-		return result;
+		if (orderId != null) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE_ORDERSTATUS);
+//
+				stmt.setInt(1, orderStatus);
+				stmt.setString(2, orderId);
+				int i = stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
-
+//
+	private static final String UPDATE_SHIPPINGSTATUS = "UPDATE ORDERS SET SHIPPING_STATUS=? WHERE ORDER_ID=?";
 	@Override
-	public OrderBean updateShippingStatus(OrderBean orderBean) {
-		OrderBean result = null;
-		return result;
+	public void updateShippingStatus(String orderId, int shippingStatus) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		if (orderId != null) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE_SHIPPINGSTATUS);
+//
+				stmt.setInt(1, shippingStatus);
+				stmt.setString(2, orderId);
+				int i = stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 
 	private static final String GET_MEMBERPOINT = "SELECT POINT FROM MEMBER WHERE MEM_ID=?";

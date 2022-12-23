@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.order.model.OrderBean;
-import com.tibame.tga104.g2.oladesign.order.model.OrderItemBean;
 import com.tibame.tga104.g2.oladesign.order.model.OrderService;
 
 //servlet3.0以後，我們可以不用再web.xml裏面配置servlet，只需要加上@WebServlet註解就可以修改該servlet的屬性
@@ -58,6 +56,8 @@ public class OrderServlet extends HttpServlet {
 		String prodaction = request.getParameter("prodaction");
 		String tempMemId = request.getParameter("memberId");
 		String tempOrderId = request.getParameter("orderId");
+		String shipStatus = request.getParameter("shipStatus");
+		String orderStatus = request.getParameter("orderStatus");
 
 //驗證資料 select不會經過此流程
 		Map<String, String> errors = new HashMap<String, String>();
@@ -107,7 +107,6 @@ public class OrderServlet extends HttpServlet {
 			return;
 		}
 
-//
 //呼叫Model
 
 		OrderBean bean = new OrderBean();
@@ -115,7 +114,6 @@ public class OrderServlet extends HttpServlet {
 		bean.setAddress(address_zone + " " + address);
 		bean.setCoupon(coupon);
 		bean.setPointUse(point_use);
-//		bean.setOrderTime_toSec(sdate.replaceAll(deleteChar, ""));
 		bean.setOrderTime_toSec(sdate);
 		// insert測試用
 		bean.setMemId(tempMemId);
@@ -157,13 +155,35 @@ public class OrderServlet extends HttpServlet {
 			// 買家搜尋--驗證成功
 			HttpSession session = request.getSession();
 			if (session.getAttribute("memId").equals(orderService.getOrder(tempOrderId).getMemId())) {
-				
+
 				request.setAttribute("order", orderService.getOrder(tempOrderId));
 				request.setAttribute("orderItems", orderService.getOrderItems(tempOrderId));
 //===================================================================================需更改網址
 				request.getRequestDispatcher("買家訂單項目前端").forward(request, response);
 			} else {
 				request.getRequestDispatcher("買家訂單列表前端").forward(request, response);
+			}
+		} else if (prodaction != null && prodaction.equals("UpdateShipStatus")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			if (companyMem.getComTaxId().equals(orderService.getOrder(tempOrderId).getComTaxId())) {
+				orderService.updateShippingStatus(tempOrderId, Integer.parseInt(shipStatus));
+
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			}
+		} else if (prodaction != null && prodaction.equals("UpdateOrderStatus")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			if (companyMem.getComTaxId().equals(orderService.getOrder(tempOrderId).getComTaxId())) {
+				orderService.updateOrderStatus(tempOrderId, Integer.parseInt(orderStatus));
+
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
 			}
 		} else {
 			errors.put("action", "Unknown Action:" + prodaction);

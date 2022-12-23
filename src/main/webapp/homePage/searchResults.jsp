@@ -218,7 +218,7 @@ pageContext.setAttribute("userId", userId);
 							<div class="featured__item__text">
 								<h6>
 									<a
-										href="<c:url value="<%=request.getContextPath()%>/homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
+										href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 										class="results" target="_blank">${row.getName()}</a>
 								</h6>
 								<h5>${row.getPrice()}</h5>

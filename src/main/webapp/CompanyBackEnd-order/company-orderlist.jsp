@@ -5,7 +5,7 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*"%>
 <%
 Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
-if(companyMem != null){
+if (companyMem != null) {
 	pageContext.setAttribute("comTaxId", companyMem.getComTaxId());
 }
 %>
@@ -103,20 +103,36 @@ if(companyMem != null){
 											<tr>
 												<td>${row_order.orderId }</td>
 												<td>${row_order.getOrderStatusString()}</td>
-												<td><select class="form-control">
-														<option ${1 == row_order.shippingStatus ? 'selected' : ''}>待確認</option>
-														<option ${2 == row_order.shippingStatus ? 'selected' : ''}>待出貨</option>
-														<option ${3 == row_order.shippingStatus ? 'selected' : ''}>已取消</option>
-														<option ${4 == row_order.shippingStatus ? 'selected' : ''}>已出貨</option>
-														<option ${5 == row_order.shippingStatus ? 'selected' : ''}>運送中</option>
-														<option ${6 == row_order.shippingStatus ? 'selected' : ''}>已送達</option>
-												</select></td>
+												<td>
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="UpdateShipStatus"> <input type="hidden"
+															name="orderId" value="${row_order.orderId }"> <select
+															name ="shipStatus" class="form-control" onchange="submit();">
+															<option value="1"
+																${1 == row_order.shippingStatus ? 'selected' : ''}>待確認</option>
+															<option value="2"
+																${2 == row_order.shippingStatus ? 'selected' : ''}>待出貨</option>
+															<option value="3"
+																${3 == row_order.shippingStatus ? 'selected' : ''}>已取消</option>
+															<option value="4"
+																${4 == row_order.shippingStatus ? 'selected' : ''}>已出貨</option>
+															<option value="5"
+																${5 == row_order.shippingStatus ? 'selected' : ''}>運送中</option>
+															<option value="6"
+																${6 == row_order.shippingStatus ? 'selected' : ''}>已送達</option>
+														</select>
+													</form>
+												</td>
 												<td>${row_order.amount }</td>
 												<td class="text-center">
 													<form action="<c:url value="/pages/order.controller"/>"
 														method="post">
-														<input type="hidden" name="prodaction" value="SelectOrderItems_Com">
-														<input type="hidden" name="orderId" value="${row_order.orderId }">
+														<input type="hidden" name="prodaction"
+															value="SelectOrderItems_Com"> <input
+															type="hidden" name="orderId"
+															value="${row_order.orderId }">
 														<button type="submit" class="btn btn-default">查看完整內容</button>
 													</form>
 												</td>
@@ -139,22 +155,46 @@ if(companyMem != null){
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>20221218</td>
-											<td>已確認</td>
-											<td><select class="form-control">
-													<option>待確認</option>
-													<option>待出貨</option>
-													<option>已取消</option>
-													<option>已出貨</option>
-													<option>運送中</option>
-													<option>已送達</option>
-											</select></td>
-											<td>$</td>
-											<td class="text-center">
-												<button type="button" class="btn btn-default">查看完整內容</button>
-											</td>
-										</tr>
+										<c:forEach var="row_order"
+											items="${orderSvc.select_Com(comTaxId, 1)}">
+											<tr>
+												<td>${row_order.orderId }</td>
+												<td>${row_order.getOrderStatusString()}</td>
+												<td>
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="UpdateShipStatus"> <input type="hidden"
+															name="orderId" value="${row_order.orderId }"> <select
+															name ="shipStatus" class="form-control" onchange="submit();">
+															<option value="1"
+																${1 == row_order.shippingStatus ? 'selected' : ''}>待確認</option>
+															<option value="2"
+																${2 == row_order.shippingStatus ? 'selected' : ''}>待出貨</option>
+															<option value="3"
+																${3 == row_order.shippingStatus ? 'selected' : ''}>已取消</option>
+															<option value="4"
+																${4 == row_order.shippingStatus ? 'selected' : ''}>已出貨</option>
+															<option value="5"
+																${5 == row_order.shippingStatus ? 'selected' : ''}>運送中</option>
+															<option value="6"
+																${6 == row_order.shippingStatus ? 'selected' : ''}>已送達</option>
+														</select>
+													</form>
+												</td>
+												<td>${row_order.amount }</td>
+												<td class="text-center">
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="SelectOrderItems_Com"> <input
+															type="hidden" name="orderId"
+															value="${row_order.orderId }">
+														<button type="submit" class="btn btn-default">查看完整內容</button>
+													</form>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -172,22 +212,46 @@ if(companyMem != null){
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>20221218</td>
-											<td>已確認</td>
-											<td><select class="form-control">
-													<option>待確認</option>
-													<option>待出貨</option>
-													<option>已取消</option>
-													<option>已出貨</option>
-													<option>運送中</option>
-													<option>已送達</option>
-											</select></td>
-											<td>$</td>
-											<td class="text-center">
-												<button type="button" class="btn btn-default">查看完整內容</button>
-											</td>
-										</tr>
+										<c:forEach var="row_order"
+											items="${orderSvc.select_Com(comTaxId, 2)}">
+											<tr>
+												<td>${row_order.orderId }</td>
+												<td>${row_order.getOrderStatusString()}</td>
+												<td>
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="UpdateShipStatus"> <input type="hidden"
+															name="orderId" value="${row_order.orderId }"> <select
+															name ="shipStatus" class="form-control" onchange="submit();">
+															<option value="1"
+																${1 == row_order.shippingStatus ? 'selected' : ''}>待確認</option>
+															<option value="2"
+																${2 == row_order.shippingStatus ? 'selected' : ''}>待出貨</option>
+															<option value="3"
+																${3 == row_order.shippingStatus ? 'selected' : ''}>已取消</option>
+															<option value="4"
+																${4 == row_order.shippingStatus ? 'selected' : ''}>已出貨</option>
+															<option value="5"
+																${5 == row_order.shippingStatus ? 'selected' : ''}>運送中</option>
+															<option value="6"
+																${6 == row_order.shippingStatus ? 'selected' : ''}>已送達</option>
+														</select>
+													</form>
+												</td>
+												<td>${row_order.amount }</td>
+												<td class="text-center">
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="SelectOrderItems_Com"> <input
+															type="hidden" name="orderId"
+															value="${row_order.orderId }">
+														<button type="submit" class="btn btn-default">查看完整內容</button>
+													</form>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -205,22 +269,46 @@ if(companyMem != null){
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>20221218</td>
-											<td>已確認</td>
-											<td><select class="form-control">
-													<option>待確認</option>
-													<option>待出貨</option>
-													<option>已取消</option>
-													<option>已出貨</option>
-													<option>運送中</option>
-													<option>已送達</option>
-											</select></td>
-											<td>$</td>
-											<td class="text-center">
-												<button type="submit" class="btn btn-default">查看完整內容</button>
-											</td>
-										</tr>
+										<c:forEach var="row_order"
+											items="${orderSvc.select_Com(comTaxId, 3)}">
+											<tr>
+												<td>${row_order.orderId }</td>
+												<td>${row_order.getOrderStatusString()}</td>
+												<td>
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="UpdateShipStatus"> <input type="hidden"
+															name="orderId" value="${row_order.orderId }"> <select
+															name ="shipStatus" class="form-control" onchange="submit();">
+															<option value="1"
+																${1 == row_order.shippingStatus ? 'selected' : ''}>待確認</option>
+															<option value="2"
+																${2 == row_order.shippingStatus ? 'selected' : ''}>待出貨</option>
+															<option value="3"
+																${3 == row_order.shippingStatus ? 'selected' : ''}>已取消</option>
+															<option value="4"
+																${4 == row_order.shippingStatus ? 'selected' : ''}>已出貨</option>
+															<option value="5"
+																${5 == row_order.shippingStatus ? 'selected' : ''}>運送中</option>
+															<option value="6"
+																${6 == row_order.shippingStatus ? 'selected' : ''}>已送達</option>
+														</select>
+													</form>
+												</td>
+												<td>${row_order.amount }</td>
+												<td class="text-center">
+													<form action="<c:url value="/pages/order.controller"/>"
+														method="post">
+														<input type="hidden" name="prodaction"
+															value="SelectOrderItems_Com"> <input
+															type="hidden" name="orderId"
+															value="${row_order.orderId }">
+														<button type="submit" class="btn btn-default">查看完整內容</button>
+													</form>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

@@ -39,6 +39,14 @@ public class OrderService {
 		return result;
 	}
 
+	public List<OrderBean> select_Com(String comTaxId, int orderStatus) {
+		List<OrderBean> result = null;
+
+		result = orderDao.select_Com(comTaxId, orderStatus);
+
+		return result;
+	}
+	
 	public List<String> selectSaler(String userId) {
 		List<String> result = null;
 
@@ -79,6 +87,8 @@ public class OrderService {
 			// 產生訂單編號
 //			bean.setOrderId(bean.getComTaxId().trim() + bean.getMemId().trim() + bean.getOrderTime_toSec());
 			bean.setOrderId("svoijsobisop12fvdv");
+			bean.setOrderStatus(1);
+			bean.setShippingStatus(1);
 			//
 			int amountPrice = 0;
 			if (bean.getCoupon() != null && bean.getCoupon().length() != 0
@@ -120,14 +130,12 @@ public class OrderService {
 		return productDao_Cart.getTotal(userId, comTaxId);
 	}
 
-	public OrderBean updateOrderStatus(OrderBean bean) {
-		OrderBean result = null;
-		return result;
+	public void updateOrderStatus(String orderId, int orderStatus) {
+		orderDao.updateOrderStatus(orderId, orderStatus);
 	}
 
-	public OrderBean updateShippingStatus(OrderBean bean) {
-		OrderBean result = null;
-		return result;
+	public void updateShippingStatus(String orderId, int shippingStatus) {
+		orderDao.updateShippingStatus(orderId, shippingStatus);
 	}
 
 	public int getPoint(String memberId) {

@@ -141,10 +141,15 @@
 				</div>
 				<!--結帳資訊/-->
 				<!--工具栏-->
-				<div class="box-tools text-center">
-					<button type="button" class="btn btn-default">接受訂單</button>
-					<button type="button" class="btn btn-default">不接受訂單</button>
-				</div>
+				<form action="<c:url value="/pages/order.controller"/>"
+					method="post">
+					<input type="hidden" name="prodaction" value="UpdateOrderStatus">
+					<input type="hidden" name="orderId" value="${order.orderId }">
+					${order.orderStatus == 1 ? '<div class="box-tools text-center">
+						<button type="submit" class="btn btn-default" name ="orderStatus" value="2">接受訂單</button>
+						<button type="submit" class="btn btn-default" name ="orderStatus" value="3">不接受訂單</button>
+					</div>' : '' }
+				</form>
 				<!--工具栏/-->
 			</section>
 			<!-- 正文区域 /-->
