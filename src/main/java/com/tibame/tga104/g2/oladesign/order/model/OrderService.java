@@ -141,4 +141,13 @@ public class OrderService {
 	public int getDiscountTotalPrice(String userId, String comTaxId, String coupon) {
 		return productDao_Cart.getTotal(userId, comTaxId, coupon);
 	}
+	
+	//
+	public List<OrderItemBean> getOrderItems(String orderId){
+		return orderItemDao.select(orderId);
+	}
+	
+	public OrderBean getOrder(String orderId){
+		return orderDao.select(orderId);
+	}
 }

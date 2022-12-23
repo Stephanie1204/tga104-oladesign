@@ -9,6 +9,8 @@ public interface OrderDAO {
 	
 	public abstract List<OrderBean> select_Com(String comTaxId);
 	
+	public abstract OrderBean select(String orderId);
+	
 	public abstract void insert(OrderBean orderBean);
 	
 	public abstract OrderBean updateOrderStatus(OrderBean orderBean);

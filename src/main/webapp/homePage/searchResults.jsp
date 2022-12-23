@@ -192,7 +192,7 @@ pageContext.setAttribute("userId", userId);
 
 			<c:if test="${not empty select}">
 				<div
-					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mix">
+					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-coㄥls-sm-2 mix">
 					<c:forEach var="row" items="${select}">
 						<div class="featured__item">
 							<div class="featured__item__pic set-bg"
@@ -218,7 +218,7 @@ pageContext.setAttribute("userId", userId);
 							<div class="featured__item__text">
 								<h6>
 									<a
-										href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
+										href="<c:url value="<%=request.getContextPath()%>/homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 										class="results" target="_blank">${row.getName()}</a>
 								</h6>
 								<h5>${row.getPrice()}</h5>
