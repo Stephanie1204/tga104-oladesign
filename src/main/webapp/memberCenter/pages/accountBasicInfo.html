@@ -85,23 +85,19 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">帳號</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="請輸入信箱資料">
+                                        <input type="email" class="form-control" id="exampleInputEmail1">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">姓名</label>
-                                        <input type="text" class="form-control" id="#" >
+                                        <input type="text" class="form-control" id="name" >
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">手機</label>
-                                        <input type="text" class="form-control" id="#" >
+                                        <input type="text" class="form-control" id="phone" >
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">地址</label>
-                                        <input type="text" class="form-control" id="#" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">生日</label>
-                                        <input type="date" class="form-control" id="#">
+                                        <input type="text" class="form-control" id="address" >
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">性別 </label>
@@ -117,7 +113,7 @@
                                 <!-- /.box-body -->
 
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary">確認修改</button>
+                                    <button type="submit" id="btn_submit" class="btn btn-primary">確認修改</button>
                                 </div>
                             </form>
                         </div>
@@ -190,6 +186,7 @@
     <script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="./accountBasicInfo.js"></script>
     <script>
         $(document).ready(function() {
             // 选择框

@@ -192,7 +192,7 @@ pageContext.setAttribute("userId", userId);
 
 			<c:if test="${not empty select}">
 				<div
-					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mix">
+					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-coㄥls-sm-2 mix">
 					<c:forEach var="row" items="${select}">
 						<div class="featured__item">
 							<div class="featured__item__pic set-bg"

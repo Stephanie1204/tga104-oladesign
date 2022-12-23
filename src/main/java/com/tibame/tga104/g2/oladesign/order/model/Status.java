@@ -3,9 +3,9 @@ package com.tibame.tga104.g2.oladesign.order.model;
 public class Status {
 
 	protected enum orderStatus {
-	    CHECKING(0),
-	    CREATED(1),
-	    CANCELED(2);
+	    CHECKING(1),
+	    CREATED(2),
+	    CANCELED(3);
 	    
 	    private int code; 
 
@@ -23,12 +23,12 @@ public class Status {
 	}
 
 	protected enum shippingStatus {
-		CHECKING(0),
-	    PREPARING(1),
-	    CANCELED(2),
-	    SENT(3),
-	    SHIPPING(4),
-	    RECEIVED(5);
+		CHECKING(1),
+	    PREPARING(2),
+	    CANCELED(3),
+	    SENT(4),
+	    SHIPPING(5),
+	    RECEIVED(6);
 	    
 	    private int code; 
 

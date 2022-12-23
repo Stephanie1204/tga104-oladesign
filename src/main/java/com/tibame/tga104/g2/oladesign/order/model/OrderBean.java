@@ -75,6 +75,17 @@ public class OrderBean {
 		this.orderStatus = orderStatus;
 	}
 
+	public String getOrderStatusString() {
+		int status = getOrderStatus();
+		if(status == 1) {
+			return "待確認";
+		}else if(status ==2) {
+			return "已接受";
+		}else {
+			return "已取消";
+		}
+	}
+	
 	public int getShippingStatus() {
 		return shippingStatus;
 	}

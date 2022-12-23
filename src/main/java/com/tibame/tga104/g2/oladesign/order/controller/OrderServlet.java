@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.order.model.OrderBean;
 import com.tibame.tga104.g2.oladesign.order.model.OrderService;
 
@@ -53,7 +55,10 @@ public class OrderServlet extends HttpServlet {
 		String comTaxId = request.getParameter("comTaxId");
 		String prodaction = request.getParameter("prodaction");
 		String tempMemId = request.getParameter("memberId");
-		
+		String tempOrderId = request.getParameter("orderId");
+		String shipStatus = request.getParameter("shipStatus");
+		String orderStatus = request.getParameter("orderStatus");
+
 //驗證資料 select不會經過此流程
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
@@ -79,21 +84,20 @@ public class OrderServlet extends HttpServlet {
 				e.printStackTrace();
 				errors.put("point_use", "point_use must be a number");
 			}
-//================================================================================================需要變更處			
-			if(point_use > orderService.getPoint(tempMemId)){//暫定使用者ID
+			if (point_use > orderService.getPoint(tempMemId)) {// 暫定使用者ID
 				errors.put("pointError", "紅利點數不足");
 			}
 		}
 		//
-		if(prodaction.equals("Coupon") && (!coupon.equals(orderService.getCoupon(comTaxId)) || coupon.length() == 0)){//暫定使用者ID
+		if (prodaction.equals("Coupon") && (!coupon.equals(orderService.getCoupon(comTaxId)) || coupon.length() == 0)) {// 暫定使用者ID
 			errors.put("couponError", "無此序號");
-		}else if(prodaction.equals("Coupon")){
+		} else if (prodaction.equals("Coupon")) {
 			errors.put("couponError", "使用成功");
-//================================================================================================需要變更處			
+
 			request.setAttribute("AfterDiscount", orderService.getDiscountTotalPrice(tempMemId, comTaxId, coupon));
 			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
 		}
-        //驗證序號用 因為prodaction為null故要先在這邊判斷
+		// 驗證序號用 因為prodaction為null故要先在這邊判斷
 		if (prodaction.equals("Coupon") && errors != null && !errors.isEmpty()) {
 			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
 			return;
@@ -102,8 +106,7 @@ public class OrderServlet extends HttpServlet {
 			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
 			return;
 		}
-		
-//
+
 //呼叫Model
 
 		OrderBean bean = new OrderBean();
@@ -111,29 +114,76 @@ public class OrderServlet extends HttpServlet {
 		bean.setAddress(address_zone + " " + address);
 		bean.setCoupon(coupon);
 		bean.setPointUse(point_use);
-//		bean.setOrderTime_toSec(sdate.replaceAll(deleteChar, ""));
 		bean.setOrderTime_toSec(sdate);
 		// insert測試用
-//================================================================================================需要變更處		
 		bean.setMemId(tempMemId);
 		bean.setComTaxId(comTaxId);
 //
 		System.out.println("pass3");
 		System.out.println(bean);
-//
+
 //根據Model執行結果導向View
 
-		// 如果product.jsp點擊select按鈕,傳送input中的name="prodaction" 其值value="Select"來servlet
+		// 如果jsp點擊select按鈕,傳送input中的name="prodaction" 其值value="Select"來servlet
 		// 對應到這邊
 		if (prodaction != null && prodaction.equals("PlaceOrder")) {
-			if(orderService.insert(bean)) {
-				//System.out.print(OrderService.genAioCheckOutOneTime(bean));
+			if (orderService.insert(bean)) {
+				// System.out.print(OrderService.genAioCheckOutOneTime(bean));
 				request.setAttribute("directHTML", OrderService.genAioCheckOutOneTime(bean));
-				
+
 				request.getRequestDispatcher("/homePage/directPage.jsp").forward(request, response);
-			}else {
+			} else {
 				request.getRequestDispatcher("/homePage/error.jsp").forward(request, response);
 
+			}
+		} else if (prodaction != null && prodaction.equals("SelectOrderItems_Com")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+//			System.out.println(session.getAttribute("memId"));
+//			System.out.println(companyMem.getComTaxId());
+			//
+			if (companyMem.getComTaxId().equals(orderService.getOrder(tempOrderId).getComTaxId())) {
+				// 商家搜尋--驗證成功
+				request.setAttribute("order", orderService.getOrder(tempOrderId));
+				request.setAttribute("orderItems", orderService.getOrderItems(tempOrderId));
+
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-order.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			}
+		} else if (prodaction != null && prodaction.equals("SelectOrderItems_Mem")) {
+			// 買家搜尋--驗證成功
+			HttpSession session = request.getSession();
+			if (session.getAttribute("memId").equals(orderService.getOrder(tempOrderId).getMemId())) {
+
+				request.setAttribute("order", orderService.getOrder(tempOrderId));
+				request.setAttribute("orderItems", orderService.getOrderItems(tempOrderId));
+//===================================================================================需更改網址
+				request.getRequestDispatcher("買家訂單項目前端").forward(request, response);
+			} else {
+				request.getRequestDispatcher("買家訂單列表前端").forward(request, response);
+			}
+		} else if (prodaction != null && prodaction.equals("UpdateShipStatus")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			if (companyMem.getComTaxId().equals(orderService.getOrder(tempOrderId).getComTaxId())) {
+				orderService.updateShippingStatus(tempOrderId, Integer.parseInt(shipStatus));
+
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			}
+		} else if (prodaction != null && prodaction.equals("UpdateOrderStatus")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			if (companyMem.getComTaxId().equals(orderService.getOrder(tempOrderId).getComTaxId())) {
+				orderService.updateOrderStatus(tempOrderId, Integer.parseInt(orderStatus));
+
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("/CompanyBackEnd-order/company-orderlist.jsp").forward(request, response);
 			}
 		} else {
 			errors.put("action", "Unknown Action:" + prodaction);
