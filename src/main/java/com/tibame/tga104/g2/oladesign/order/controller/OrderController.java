@@ -24,4 +24,9 @@ public class OrderController {
 //	public List<OrderBean> getAllByMemId(@RequestParam("memId") String memId) {
 //		return orderSVC.select_Mem(memId);
 //	}
+	
+	@GetMapping("/orderItem")
+	public void getOrderItem() {
+		
+	}
 }
