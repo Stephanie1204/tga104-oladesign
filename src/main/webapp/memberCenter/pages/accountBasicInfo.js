@@ -1,3 +1,7 @@
+var memId = new URLSearchParams(location.search).get("memId");
+sessionStorage.setItem("memId",memId);
+console.log(sessionStorage.getItem("memId"));
+
 let memName;
 let password;
 let memPhone;
@@ -7,12 +11,11 @@ let point;
 let isBan;
 let isCom;
 let memPhoto;
-let memId;
 
 $.ajax({
   url: "http://localhost:8080/oladesign/member", // 資料請求的網址
   type: "GET", // GET | POST | PUT | DELETE | PATCH
-  data: {}, // 將物件資料(不用雙引號) 傳送到指定的 url
+  data: {memId:memId}, // 將物件資料(不用雙引號) 傳送到指定的 url
   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
   success: function (data) {
     // request 成功取得回應後執行
