@@ -183,7 +183,6 @@ const save = (target) => {
       console.log(data);
     },
     error: function (xhr) {
-      // request 發生錯誤的話執行
       console.log("error");
       console.log(xhr);
     },
@@ -324,7 +323,7 @@ $(document).on("click","#btn_save",function(){
 
     success: function (data) {
       alert("success");
-      window.history.reload;
+      location.reload;
     },
     error: function (xhr) {
       console.log("error");
