@@ -252,18 +252,75 @@ public class OrderDAOJdbc implements OrderDAO {
 			}
 		}
 	}
-
+//
+	private static final String UPDATE_ORDERSTATUS = "UPDATE ORDERS SET ORDER_STATUS=? WHERE ORDER_ID=?";
 	@Override
-	public OrderBean updateOrderStatus(OrderBean orderBean) {
-		OrderBean result = null;
+	public void updateOrderStatus(String orderId, int orderStatus) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
 
-		return result;
+		if (orderId != null) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE_ORDERSTATUS);
+//
+				stmt.setInt(1, orderStatus);
+				stmt.setString(2, orderId);
+				int i = stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
-
+//
+	private static final String UPDATE_SHIPPINGSTATUS = "UPDATE ORDERS SET SHIPPING_STATUS=? WHERE ORDER_ID=?";
 	@Override
-	public OrderBean updateShippingStatus(OrderBean orderBean) {
-		OrderBean result = null;
-		return result;
+	public void updateShippingStatus(String orderId, int shippingStatus) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		if (orderId != null) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE_SHIPPINGSTATUS);
+//
+				stmt.setInt(1, shippingStatus);
+				stmt.setString(2, orderId);
+				int i = stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 
 	private static final String GET_MEMBERPOINT = "SELECT POINT FROM MEMBER WHERE MEM_ID=?";
