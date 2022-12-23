@@ -13,9 +13,9 @@ public interface OrderDAO {
 	
 	public abstract void insert(OrderBean orderBean);
 	
-	public abstract OrderBean updateOrderStatus(OrderBean orderBean);
+	public abstract void updateOrderStatus(String orderId, int orderStatus);
 	
-	public abstract OrderBean updateShippingStatus(OrderBean orderBean);
+	public abstract void updateShippingStatus(String orderId, int shippingStatus);
 
 	public abstract int getPoint(String memberId);
 	
