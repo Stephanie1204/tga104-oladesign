@@ -184,15 +184,6 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
-    $(document).ready(function() {
-		// 选择框
-		$(".select2").select2();
-
-		// WYSIHTML5编辑器
-		$(".textarea").wysihtml5({
-			locale : 'zh-CN'
-		});
-
         $.ajax({
             type : 'POST',
             url : 'http://localhost:8080/oladesign/CompanyBackEnd/advertisement.do?action=doGetAllADInfo&adminId=A001',
@@ -215,25 +206,24 @@ AdvertisementVO advertisementVO = (AdvertisementVO) request.getAttribute("advert
 					)
 				}
 				
-				$(".reviewad").on("click",function(e){
-			        $.ajax({
-			            type : 'POST',
-			            url : "http://localhost:8080/oladesign/CompanyBackEnd/advertisement.do?action=doReviewAD&adminId=A001&adId=" + $(e.currentTarget).attr("adid"),
-			            success : function (data, status, xhr) {
-					        swal({ 
-		                  	      title: '審核完成',
-		                  	       type: "success",
-		                        })
-			            },complete:function(){
-			            }
-			        });
-				})
-            }
-        });
- 
-	});
-
-    </script>
+		        $(".reviewad").on("click", function (e) {
+		            $.ajax({
+		              type: "POST",
+		              url:
+		                "http://localhost:8080/oladesign/CompanyBackEnd/advertisement.do?action=doReviewAD&adminId=A001&adId=" +
+		                $(e.currentTarget).attr("adid"),
+		              success: function (data, status, xhr) {
+		                swal({
+		                  title: "審核完成",
+		                  type: "success",
+		                });
+		              },
+		            });
+		          });
+		        },
+		      });
+		    });
+		  </script>
 </body>
 
 </html>
