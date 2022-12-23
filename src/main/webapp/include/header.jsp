@@ -64,7 +64,7 @@
 							${memName}</span>
 						<ul class="member__menu__dropdown">
 							<li><a
-								href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html">會員中心</a></li>
+								href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html?memId=${memId}">會員中心</a></li>
 							<li><a
 								href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a></li>
 							<li><a href="#">我的訂單</a></li>

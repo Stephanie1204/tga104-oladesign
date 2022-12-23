@@ -88,7 +88,6 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" title="新建" onclick='location.href="all-order-manage-edit.html"'><i class="fa fa-file-o"></i>全部</button>
                                         <button type="button" class="btn btn-default" title="新建" onclick='location.href="all-order-manage-edit.html"'><i class="fa fa-file-o"></i>待收貨</button>
-                                        <button type="button" class="btn btn-default" title="删除" onclick='confirm("你确认要删除吗？")'><i class="fa fa-trash-o"></i> ###</button>
                                     </div>
                                 </div>
                             </div>
@@ -104,9 +103,6 @@
                             <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
                                 <thead>
                                     <tr>
-                                        <th class="" style="padding-right:0px;">
-                                            <input id="selall" type="checkbox" class="icheckbox_square-blue">
-                                        </th>
                                         <th class="sorting_asc">日期</th>
                                         <th class="sorting">訂單編號</th>
                                         <th class="sorting">賣家</th>
@@ -117,9 +113,8 @@
                                         <th class="text-center">操作</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="order_list">
                                     <tr>
-                                        <td><input name="ids" type="checkbox"></td>
                                         <td>
                                             1
                                         </td>
@@ -157,7 +152,7 @@
                             <option>20</option>
                             <option>50</option>
                             <option>80</option>
-                        </select> 条
+                        </select> 條
                             </div>
                         </div>
 
@@ -292,6 +287,7 @@
             });
         });
     </script>
+    <script src="./orderList.js"></script>
 </body>
 
 </html>
