@@ -39,6 +39,14 @@ public class OrderService {
 		return result;
 	}
 
+	public List<OrderBean> select_Com(String comTaxId, int orderStatus) {
+		List<OrderBean> result = null;
+
+		result = orderDao.select_Com(comTaxId, orderStatus);
+
+		return result;
+	}
+	
 	public List<String> selectSaler(String userId) {
 		List<String> result = null;
 
