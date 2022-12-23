@@ -32,7 +32,7 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 	private static final String GET_ALL_STMT = "select * from PROMOTION where COM_TAXID=? order by PROMO_ID desc"; // 反序排
 	private static final String GET_ONE_STMT = "select * from PROMOTION where PROMO_ID = ? "; 
 	private static final String DELETE = "update PROMOTION set PROMO_STATUS=? where PROMO_ID = ?";
-	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=? where PROMO_ID = ?";
+	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=?, PROMO_STATUS=? where PROMO_ID = ?";
 	private static final String CHECK_COUPON = "select promo_ID from promotion where coupon=?";
 	private static final String GETALLPROMO = "select * from promotion";
 	
@@ -139,6 +139,7 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 			pstmt.setObject(idx++, promoVO.getStartDate());
 			pstmt.setObject(idx++, promoVO.getEndDate());
 			pstmt.setString(idx++, promoVO.getCoupon());
+			pstmt.setString(idx++, promoVO.getPromoStatus());
 			pstmt.setInt(idx++, promoVO.getPromoId());
 
 			pstmt.executeUpdate();

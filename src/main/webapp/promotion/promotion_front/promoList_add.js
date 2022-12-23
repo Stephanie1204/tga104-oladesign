@@ -1,14 +1,8 @@
 var promoId = new URLSearchParams(location.search).get("promoId");
 console.log(promoId);
 const discountTypeTable = [
-  {
-    code: "P001",
-    codeName: "單品降價",
-  },
-  {
-    code: "P002",
-    codeName: "單品打折",
-  },
+  { code: "P001", codeName: "單品降價" },
+  { code: "P002", codeName: "單品打折" },
 ];
 
 //專案資訊
@@ -61,38 +55,44 @@ $.ajax({
     $.each(data, function (index, item) {
       list_html += `
         <tr>
-        <td><span class="prodId_text">${item.prodId}</span> </td>
-        <td><span class="prodName_text">${item.prodName}</span> </td>
-        <td><span class="code_text">${item.code}</span></td>
-        <td>
-          <span class="codeName_text">${item.codeName}</span>
-          <select class="codeName_input modify" value='${item.codeName}' />   
-            <option value="P001"  ${
-              item.codeName === "單品降價" ? 'selected="selected"' : ""
-            }>單品降價</option>
-            <option value="P002"  ${
-              item.codeName === "單品打折" ? 'selected="selected"' : ""
-            }>單品打折</option>
-          </select>
-        </td>
-        <td>
-          <span class="discount_text">${item.discount}</span>
-          <input type='text' class="discount_input modify" value='${
-            item.discount
-          }' />
-        </td>
-        <td>${item.price}</td>
-        <td>${item.stock}</td>
-        <td>折扣後金額</td>
-        <td>${formatDate(item.createTime)}</td>;
-        <td>${formatDate(item.modifyTime)}</td>;
-        <td class="text-center">
-        <button type="button" class="btn bg-olive btn-xs" onclick='showBtn(this)' >編輯</button>
-        <button type="button" class="btn bg-olive btn-xs" onclick='deleteData(this)' >刪除</button>
+          <td>
+            <span class="prodId_text">${item.prodId}</span> 
+          </td>
+          <td>
+            <span class="prodName_text">${item.prodName}</span> 
+          </td>
+          <td>
+            <span class="code_text">${item.code}</span>
+          </td>
+          <td>
+            <span class="codeName_text">${item.codeName}</span>
+            <select class="codeName_input modify" value='${item.code}' >   
+              <option value="P001"  ${
+                item.code === "P001" ? 'selected="selected"' : ""
+              }>單品降價</option>
+              <option value="P002"  ${
+                item.code === "P002" ? 'selected="selected"' : ""
+              }>單品打折</option>
+            </select>
+          </td>
+          <td>
+            <span class="discount_text">${item.discount}</span>
+            <input type='text' class="discount_input modify" value='${
+              item.discount
+            }' />
+          </td>
+          <td>${item.price}</td>
+          <td>${item.stock}</td>
+          <td>折扣後金額</td>
+          <td>${formatDate(item.createTime)}</td>;
+          <td>${formatDate(item.modifyTime)}</td>;
+          <td class="text-center">
+            <button type="button" class="btn bg-olive btn-xs" onclick='showBtn(this)' >編輯</button>
+            <button type="button" class="btn bg-olive btn-xs" onclick='deleteData(this)' >刪除</button>
 
-        <button type="button" class="btn bg-olive btn-xs modify" onclick="save(this)" >保存</button>
-        <button type="button" class="btn bg-olive btn-xs modify" onclick="cancel(this)">取消</button>
-        </td>
+            <button type="button" class="btn bg-olive btn-xs modify" onclick="save(this)" >保存</button>
+            <button type="button" class="btn bg-olive btn-xs modify" onclick="cancel(this)">取消</button>
+          </td>
         </tr>
       `;
     });
@@ -158,8 +158,8 @@ const formatDate = (dateStr) => {
 const save = (target) => {
   const $thisTableRow = $(target).closest("tr");
 
-  const codeName = $thisTableRow.find(".codeName_input").val();
-  const discountType = discountTypeTable.find((type) => type.code === codeName);
+  const code = $thisTableRow.find(".codeName_input").val();
+  const discountType = discountTypeTable.find((type) => type.code === code);
   $thisTableRow.find(".code_text").html(discountType.code);
   $thisTableRow.find(".codeName_text").html(discountType.codeName);
 
@@ -213,3 +213,123 @@ const setInvalid = () => {
     },
   });
 };
+
+//新增促銷明細
+$("button#addItem").on("click", function () {
+  let list_html = `
+    <tr>
+      <td><input class="create_item" id="create_prodId" style="width: 100%" ></input></td> <!--商品ID-->
+      <td>
+        <input class="create_item" id="create_prodName"></input>
+        <span id="check_product" hidden style="color:red">查無此商品</span>
+      </td> <!--商品名稱-->
+      <td><input class="create_item" id="create_code" style="width: 100%" readonly ></input></td> <!--促銷種類代碼-->
+      <td> 
+        <select class="create_item" id="create_codeName" style="width: 100px" >
+          <option value="P001" >單品降價</option>
+          <option value="P002" >單品打折</option>
+        </select>
+      </td> <!--促銷種類名稱-->
+      <td>
+        <input class="create_item" id="create_discount" style="width: 100%"></input>
+        <span id="check_discount" hidden style="color:red">請重新確認折扣金額</span> 
+      </td> <!--折扣程度-->
+      <td><input class="create_item" id="create_price" readonly></input></td> <!--原價-->
+      <td><input class="create_item" id="create_stock" readonly></input></td> <!--庫存-->
+      <td><input class="create_item" id="create_discountPrice" readonly></input></td></td> <!--折扣後金額-->
+      <td></td> <!--建立日期-->
+      <td></td>;<!--修改日期-->
+      <td class="text-center">
+        <button type="button" class="btn bg-olive btn-xs modify" id="btn_save">保存</button>
+        <button type="button" class="btn bg-olive btn-xs modify" id="btn_cancel">取消</button>
+      </td>
+    </tr>
+  `;
+  $("tbody.datalist_item").append(list_html);
+});
+
+//自動帶出促銷種類編號
+$(document).on("click","#create_codeName",function(){
+  console.log(this);
+  if($(create_codeName).val()==="P001"){
+    $("input#create_code").attr("value","P001");
+  }else if($(create_codeName).val()==="P002"){
+    $("input#create_code").attr("value","P002");
+  }
+})
+
+
+//檢查折扣
+$(document).on("keyup","#create_discount",function(){
+  if($("#create_codeName").val()==="P001"){
+    if($("#create_discount").val()<=0 || $("#create_discount").val()>=$("#create_price").val()){
+      $("#check_discount").show();
+    }else{
+      $("#check_discount").hide();
+      var disprice = $("#create_price").val()- $("#create_discount").val();
+      $("#create_discountPrice").attr("value",disprice);
+
+    }
+  }else if($("#create_codeName").val()==="P002"){
+    if($("#create_discount").val()<=0 || $("#create_discount").val()>=100){
+      $("#check_discount").show();
+    }else{
+      $("#check_discount").hide();
+      var disprice = Math.ceil($("#create_price").val() * $("#create_discount").val()/100) ;
+      $("#create_discountPrice").attr("value",disprice);
+    }
+  }
+})
+
+//自動帶出商品名稱、價格、庫存
+$(document).on("keyup","#create_prodId",function(){
+  $.ajax({
+    url: "http://localhost:8080/oladesign/product",
+    type: "GET",
+    data: {productId: $("input#create_prodId").val().trim()},
+    contentType: "application/json; charset=UTF-8",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+      if(data.comTaxId === sessionStorage.getItem("comTaxId")){
+        $("#create_prodName").attr("value",data.name);
+        $("#create_price").attr("value",data.price);
+        $("#create_stock").attr("value",data.stock);
+        $("#check_product").hide();
+      }else{
+        $("#check_product").show();
+      }
+    },
+    error: function (xhr) {
+      console.log("error");
+      console.log(xhr);
+    },
+  });
+})
+
+
+$(document).on("click","#btn_save",function(){
+   const formData = {
+    promoId: promoId,
+    prodId:$("input#create_prodId").val().trim(),
+    code:$("input#create_code").val().trim(),
+    discount:$("#create_discount").val().trim()
+  };
+  $.ajax({
+    url: "http://localhost:8080/oladesign/promoItem",
+    type: "POST",
+    data: JSON.stringify(formData),
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+
+    success: function (data) {
+      alert("success");
+      window.history.reload;
+    },
+    error: function (xhr) {
+      console.log("error");
+      console.log(xhr);
+    },
+  });
+
+})
