@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
-
 <head>
 <!-- 页面meta -->
 <meta charset="utf-8">
@@ -12,42 +10,29 @@
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="../plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
 <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
 <link rel="stylesheet" href="../plugins/morris/morris.css">
-<link rel="stylesheet"
-	href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 <link rel="stylesheet" href="../plugins/datepicker/datepicker3.css">
-<link rel="stylesheet"
-	href="../plugins/daterangepicker/daterangepicker.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-<link rel="stylesheet"
-	href="../plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 <link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.css">
-<link rel="stylesheet"
-	href="../plugins/treeTable/jquery.treetable.theme.default.css">
+<link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.theme.default.css">
 <link rel="stylesheet" href="../plugins/select2/select2.css">
-<link rel="stylesheet"
-	href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
 <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
-<link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.css">
-<link rel="stylesheet"
-	href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
+<link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
-<link rel="stylesheet"
-	href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
-<link rel="stylesheet"
-	href="../plugins/adminLTE/css/skins/oladesign-skin.css">
+<link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="../plugins/adminLTE/css/skins/oladesign-skin.css">
 </head>
-
 <body class="hold-transition skin-purple sidebar-mini">
 	<!-- Ola Design Header -->
 	<%@ include file="header.jsp"%>
@@ -56,7 +41,6 @@
 		<%@ include file="company-menu.jsp"%>
 		<!-- 内容区域 -->
 		<div class="content-wrapper">
-
 			<!-- 正文区域 -->
 			<section class="content">
 				<!-- 统计数值 -->
@@ -66,7 +50,6 @@
 						<div class="small-box bg-aqua">
 							<div class="inner">
 								<h3>150</h3>
-
 								<p>新訂單</p>
 							</div>
 							<div class="icon">
@@ -135,129 +118,23 @@
 				<!-- /.row -->
 
 
-				<!-- 待处理订单 -->
-				<div class="box box-primary">
-					<div class="box-header with-border">
-						<i class="fa fa-cube"></i>
-						<h3 class="box-title">套版這裡是放待處理訂單table</h3>
-					</div>
+    <div class="canvas_parent">
+      <canvas id="myChart"></canvas>
+    </div>
 
-					<div class="box-body">
 
-						<!-- 数据表格 -->
-						<div class="table-box">
 
-							<!--数据列表-->
-							<table id="dataList"
-								class="table table-bordered table-striped table-hover dataTable">
-								<thead>
-									<tr>
-										<th class="">***</th>
-										<th class="">***</th>
-										<th class="">***</th>
-										<th class="">***</th>
-										<th class="">***</th>
-										<th class="text-center">編輯</th>
-									</tr>
-								</thead>
-								<tbody>
 
-									<tr>
-										<td>2017020200001</td>
-										<td>西安3日自由行·超级自由行</td>
-										<td>bi'peng0405</td>
-										<td>￥500</td>
-										<td>已取消</td>
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-product-line-edit.html"'>编辑</button>
-										</td>
-									</tr>
 
-									<tr>
-										<td>2017020200001</td>
-										<td>西安3日自由行·超级自由行</td>
-										<td>bi'peng0405</td>
-										<td>￥500</td>
-										<td>已出团(待点评)</td>
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-product-line-edit.html"'>编辑</button>
-										</td>
-									</tr>
-
-									<tr>
-										<td>2017020200001</td>
-										<td>西安3日自由行·超级自由行</td>
-										<td>bi'peng0405</td>
-										<td>￥500</td>
-										<td>已处理(待付款)</td>
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-product-line-edit.html"'>编辑</button>
-										</td>
-									</tr>
-
-									<tr>
-										<td>2017020200001</td>
-										<td>西安3日自由行·超级自由行</td>
-										<td>bi'peng0405</td>
-										<td>￥500</td>
-										<td>已处理(待出团)</td>
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-product-line-edit.html"'>编辑</button>
-										</td>
-									</tr>
-
-									<tr>
-										<td>2017020200001</td>
-										<td>西安3日自由行·超级自由行</td>
-										<td>bi'peng0405</td>
-										<td>￥500</td>
-										<td>已取消</td>
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-product-line-edit.html"'>编辑</button>
-										</td>
-									</tr>
-
-									<tr>
-										<td>2017020200001</td>
-										<td>西安3日自由行·超级自由行</td>
-										<td>bi'peng0405</td>
-										<td>￥500</td>
-										<td>已取消</td>
-										<td class="text-center">
-											<button type="button" class="btn bg-olive btn-xs"
-												onclick='location.href="all-product-line-edit.html"'>编辑</button>
-										</td>
-									</tr>
-
-								</tbody>
-							</table>
-							<!--数据列表/-->
-
-						</div>
-						<!-- 数据表格 /-->
-
-					</div>
-					<!-- /.box-body -->
-
-				</div>
-				<!-- 待处理订单 /-->
 			</section>
 			<!-- 正文区域 /-->
-
 		</div>
 		<!-- 内容区域 /-->
 		<%@ include file="footer.jsp"%>
 	</div>
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
-	<script>
-		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+	<script> $.widget.bridge('uibutton', $.ui.button);</script>
 	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/raphael/raphael-min.js"></script>
 	<script src="../plugins/morris/morris.min.js"></script>
@@ -269,10 +146,8 @@
 	<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 	<script src="../plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
 	<script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script
-		src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+	<script src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 	<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script src="../plugins/fastclick/fastclick.js"></script>
 	<script src="../plugins/iCheck/icheck.min.js"></script>
@@ -280,11 +155,9 @@
 	<script src="../plugins/treeTable/jquery.treetable.js"></script>
 	<script src="../plugins/select2/select2.full.min.js"></script>
 	<script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-	<script
-		src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+	<script src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/markdown.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/to-markdown.js"></script>
 	<script src="../plugins/ckeditor/ckeditor.js"></script>
@@ -300,35 +173,46 @@
 	<script src="../plugins/flot/jquery.flot.categories.min.js"></script>
 	<script src="../plugins/ionslider/ion.rangeSlider.min.js"></script>
 	<script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script>
-		$(document).ready(function() {
-			// 选择框
-			$(".select2").select2();
-
-			// WYSIHTML5编辑器
-			$(".textarea").wysihtml5({
-				locale : 'zh-CN'
-			});
-		});
-
-		// 设置激活菜单
-		function setSidebarActive(tagUri) {
-			var liObj = $("#" + tagUri);
-			if (liObj.length > 0) {
-				liObj.parent().parent().addClass("active");
-				liObj.addClass("active");
-			}
-		}
-
-		$(document).ready(function() {
-			// 激活导航位置
-			setSidebarActive("admin-index");
-		});
-	</script>
+	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 </body>
-
+<script>
+      const ctx = document.getElementById("myChart").getContext("2d");
+      const myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+              ],
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
 </html>
