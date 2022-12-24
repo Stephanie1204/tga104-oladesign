@@ -1,13 +1,13 @@
-var comTaxId = new URLSearchParams(location.search).get("comTaxId");
+// var comTaxId = new URLSearchParams(location.search).get("comTaxId");
 // console.log(comTaxId);
-sessionStorage.setItem("comTaxId", comTaxId);
-console.log(sessionStorage.getItem("comTaxId"));
+// sessionStorage.setItem("comTaxId", comTaxId);
+// console.log(sessionStorage.getItem("comTaxId"));
 
 //get promo
 $.ajax({
   url: "http://localhost:8080/oladesign/promo",
   type: "GET",
-  data: { comTaxId: comTaxId },
+  data: { comTaxId: sessionStorage.getItem("comTaxId") },
   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
   success: function (data) {
     console.log(data);
