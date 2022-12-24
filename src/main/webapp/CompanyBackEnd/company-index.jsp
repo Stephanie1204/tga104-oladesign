@@ -31,7 +31,9 @@
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
-<link rel="stylesheet" href="../plugins/adminLTE/css/skins/oladesign-skin.css">
+<!-- <link rel="stylesheet" href="../plugins/adminLTE/css/skins/oladesign-skin.css"> -->
+<link rel="stylesheet" href="/oladesign/plugins/adminLTE/css/skins/oladesign-skin.css">
+  
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
 	<!-- Ola Design Header -->
