@@ -13,12 +13,14 @@ public interface AdvertisementDAO_interface {
 	public void insert(AdvertisementVO advertisementVO);
 
 	public AdvertisementVO findByPrimaryKey(String advertisementno);
+	
+	public List<AdvertisementVO>  getTodayAD();
 
 	public List<AdvertisementVO> ADRecordByComtaxId(String comTaxId);
 
 	public List<AdvertisementVO> getAll();
 
 	public void updateAdStatus(String adId);
-//  public void delete(Integer advertisementno);
+
 
 }

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %>
 <!DOCTYPE html>
 <html>
-
 <head>
 <!-- 页面meta -->
 <meta charset="utf-8">
@@ -154,9 +154,10 @@
     <script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>   
     <script>
+   	let com = "${comMemVO.comTaxId}";
         $.ajax({
             type : 'POST',
-            url : 'http://localhost:8080/oladesign/CompanyBackEnd/advertisement.do?action=doGetADInfo&comtaxId=45113568',
+            url : 'http://localhost:8080/oladesign/CompanyBackEnd/advertisement.do?action=doGetADInfo&comtaxId=${comMemVO.comTaxId}',
             success : function (data, status, xhr) {
                 var dataJson = JSON.parse(data);
 				total_len = dataJson.length;

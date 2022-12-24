@@ -9,12 +9,12 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>OLA Design | 賣家首頁</title>
+    <title>OLA Design | 設計館總覽</title>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet"/>
     <!-- Css Styles -->
     <link rel="stylesheet" href="../shophome-css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../shophome-css/font-awesome.min.css" type="text/css"/>
+
     <!--<link rel="stylesheet" href="../shophome-css/elegant-icons.css" type="text/css">-->
     <link rel="stylesheet" href="../shophome-css/nice-select.css" type="text/css"/>
     <link rel="stylesheet" href="../shophome-css/jquery-ui.min.css" type="text/css"/>
@@ -22,129 +22,26 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="../shophome-css/slicknav.min.css" type="text/css"/>
     <link rel="stylesheet" href="../shophome-css/style.css" type="text/css" />
     <link rel="stylesheet" href="../shophome-css/coupon.css" type="text/css" />
+    <link rel="stylesheet" href="../shophome-css/shoplogolist.css" type="text/css" />
   </head>
   <body>
-    <%@ include file="../chatroom/chat02.jsp"%> 
     <%@ include file="../include/header.jsp"%>
     <!-- Page Preloder -->
     <div id="preloder">
       <div class="loader"></div>
     </div>
-    <!-- Blog Details Hero Begin -->
-    <section class="blog-details-hero set-bg" id="preview_store_banner"> 
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="blog__details__hero__text">
-              <h2 id="store_name"></h2>
-    <div class="coupon leftandright">
-        <div class="leftcoupon" ></div>
-        <div class="rightcoupon"></div>
-    </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Blog Details Hero End -->
-    <!-- Blog Details Section Begin -->
-    <section class="blog-details spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-5 order-md-1 order-2">
-                <div class="blog__details__author__pic" id="store_logo">
-                  <img id="preview_store_logo" />
-                </div>
-          </div>
-          <div class="col-lg-8 col-md-7 order-md-1 order-1">
-            <div class="blog__details__text">
-              <div style="text-align: right">
-                <button type="button" id="clicktotalk" onclick="startTalk()">點我聊聊</button>
-              </div>
-              <h3>賣家介紹</h3>
-              <p id="store_intro"></p>
-            </div>
-            <div class="blog__details__content">
-              <div class="row">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Blog Details Section End -->
-
     <!-- Related Blog Section Begin -->
     <section class="related-blog spad">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="section-title related-blog-title">
-              <h2>Post You May Like</h2>
+              <h2>設計館總覽</h2>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="../shophome-img/blog/blog-1.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5>
-                  <a href="#">Cooking tips make cooking simple</a>
-                </h5>
-                <p>
-                  Sed quia non numquam modi tempora indunt ut labore et dolore
-                  magnam aliquam quaerat
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="../shophome-img/blog/blog-2.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5>
-                  <a href="#">6 ways to prepare breakfast for 30</a>
-                </h5>
-                <p>
-                  Sed quia non numquam modi tempora indunt ut labore et dolore
-                  magnam aliquam quaerat
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="../shophome-img/blog/blog-3.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5>
-                  <a href="#">Visit the clean farm in the US</a>
-                </h5>
-                <p>
-                  Sed quia non numquam modi tempora indunt ut labore et dolore
-                  magnam aliquam quaerat
-                </p>
-              </div>
-            </div>
-          </div>
+        <div class="row" id="companyList">
+
         </div>
       </div>
     </section>
@@ -156,8 +53,7 @@ pageEncoding="UTF-8"%>
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer__about">
               <div class="footer__about__logo">
-                <a href="./index.html"
-                  ><img src="../shophome-img/logo.png" alt=""
+                <a href="./index.html" ><img src="../shophome-img/logo.png" alt=""
                 /></a>
               </div>
               <ul>
@@ -242,28 +138,32 @@ pageEncoding="UTF-8"%>
     <script src="../shophome-js/owl.carousel.min.js"></script>
     <script src="../shophome-js/main.js"></script>
     <script>
-    let urlParams = new URLSearchParams(window.location.search);
-    var comTaxId = urlParams.get('comTaxId');
-
     $.ajax({
         type : 'POST',
-        url: "http://localhost:8080/oladesign/shophome/shopinfo.do?action=doGetShopInfo&comTaxId=" + comTaxId,
+        url: "http://localhost:8080/oladesign/shophome/shopinfo.do?action=doGetShopList",
         success : function (data, status, xhr) {
             var dataJson = JSON.parse(data);
-
-                $("#store_name").text(dataJson.storeName)
-                $("#store_intro").text(dataJson.storeIntro)
-                $("#preview_store_logo").css("background-image","url('" + dataJson.StoreLogoString +"')" );
-                $("#preview_store_banner").css("background-image", "url('" + dataJson.StoreBannerString + "')");
+            total_len = dataJson.length;
+            for(i = 0 ; i < total_len; i++){
+              
+            	$("#companyList").append(
+            "<div class='col-lg-4 col-md-4 col-sm-6'>" + 
+            "    <div class='blog__item'>" + 
+            "<a href='http://localhost:8080/oladesign/shophome/shopinfo.jsp?taxId=" + dataJson[i].comTaxId + "'>" + 
+            "      <div class='blog__item__pic' id ='store_logo'>" + 
+            "        <img id = 'store_logo' src='" + dataJson[i].StoreLogoString +  "' class ='circlestorelogo' />" + 
+            "      </div>" + 
+            "      <div class='blog__item__text'>" + 
+            "        <h5 id='store_name'>" + dataJson[i].storeName + "</h5>" + 
+            "      </div>" + 
+            "</a>" +
+            "    </div>" + 
+            "   </div>" 
+            )
+            	
+            }
         }
     });
-    
-      function startTalk() {
-        $("#chat").show();
-
-        var messagesArea = document.getElementById("messagesArea");
-        messagesArea.scrollTop = messagesArea.scrollHeight; // 要另外調整
-      }
     </script>
   </body>
 </html>

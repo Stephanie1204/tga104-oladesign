@@ -56,6 +56,9 @@ System.out.println("test");
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/conditionBar.css"
 	type="text/css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/homePage/css/productPage.css"
+	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -168,8 +171,7 @@ System.out.println("test");
 					<p>${ prod.typeName }</p>
 					<p>${ prod.styleName }</p>
 					<!-- add to cart form -->
-					<form
-						action="<c:url value="/pages/product.controller"/>"
+					<form action="<c:url value="/pages/product.controller"/>"
 						method="get">
 						<div class="product__details__quantity">
 							<div class="quantity">
@@ -181,8 +183,8 @@ System.out.println("test");
 						<input type="hidden" name="productId" value="${prod.productId}">
 						<input type="hidden" name="name" value="${prod.name}"> <input
 							type="hidden" name="price" value="${prod.price}"> <input
-							type="hidden" name="comTaxId" value="${prod.comTaxId}">
-							<input type="hidden" name="memberId" value="${memId }">
+							type="hidden" name="comTaxId" value="${prod.comTaxId}"> <input
+							type="hidden" name="memberId" value="${memId }">
 						<button type="submit" name="prodaction" value="AddCart"
 							class="primary-btn">加入購物車</button>
 					</form>
@@ -190,7 +192,9 @@ System.out.println("test");
 					<ul>
 						<li><b>商品狀態: </b> <span>${ prod.status ? "上架" : "下架" }</span></li>
 						<li><b>庫存</b> <span>${ prod.stock }</span></li>
-						<li><b>Weight</b> <span>0.5 kg</span></li>
+						<li><a class="shop-connect"
+							href="<c:url value="../shophome/shopinfo.jsp"><c:param name="comTaxId" value="${prod.comTaxId}" /></c:url>"
+							target="_blank">前往賣場</a></li>
 					</ul>
 				</div>
 			</div>
@@ -198,12 +202,10 @@ System.out.println("test");
 				<div class="product__details__tab">
 					<ul class="nav nav-tabs" role="tablist">
 						<li class="nav-item"><a class="nav-link active"
-							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Description</a>
+							data-toggle="tab" href="#tabs-1" aria-selected="true">Description</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-2" role="tab" aria-selected="false">Information</a></li>
-						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
+							href="#tabs-2" aria-selected="false">Reviews <span>(1)</span></a>
 						</li>
 					</ul>
 					<div class="tab-content">
@@ -236,24 +238,6 @@ System.out.println("test");
 									Cras ultricies ligula sed magna dictum porta. Sed porttitor
 									lectus nibh. Mauris blandit aliquet elit, eget tincidunt nibh
 									pulvinar a.</p>
-							</div>
-						</div>
-						<div class="tab-pane" id="tabs-3" role="tabpanel">
-							<div class="product__details__tab__desc">
-								<h6>Products Infomation</h6>
-								<p>Vestibulum ac diam sit amet quam vehicula elementum sed
-									sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-									Proin eget tortor risus. Vivamus suscipit tortor eget felis
-									porttitor volutpat. Vestibulum ac diam sit amet quam vehicula
-									elementum sed sit amet dui. Donec rutrum congue leo eget
-									malesuada. Vivamus suscipit tortor eget felis porttitor
-									volutpat. Curabitur arcu erat, accumsan id imperdiet et,
-									porttitor at sem. Praesent sapien massa, convallis a
-									pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet
-									quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum
-									primis in faucibus orci luctus et ultrices posuere cubilia
-									Curae; Donec velit neque, auctor sit amet aliquam vel,
-									ullamcorper sit amet ligula. Proin eget tortor risus.</p>
 							</div>
 						</div>
 					</div>
@@ -435,7 +419,8 @@ System.out.println("test");
 	<!-- Js Plugins -->
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/jquery-3.3.1.min.js"></script>
-	<!-- <script src="js/bootstrap.min.js"></script> -->
+	<script
+		src="<%=request.getContextPath()%>/homePage/js/bootstrap.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/homePage/js/jquery.nice-select.min.js"></script>
 	<script
@@ -447,8 +432,6 @@ System.out.println("test");
 		src="<%=request.getContextPath()%>/homePage/js/owl.carousel.min.js"></script>
 
 	<script src="<%=request.getContextPath()%>/homePage/js/main.js"></script>
-
-	<script src="<%=request.getContextPath()%>/homePage/js/clearInput.js"></script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

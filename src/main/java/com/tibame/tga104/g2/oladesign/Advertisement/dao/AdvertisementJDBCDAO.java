@@ -33,6 +33,8 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 	private static final String UPDATE_BY_ADMIN = "update advertisement set ad_status = true where ad_id = ? and ad_status = false";
 
 	private static final String GET_ADSTUS = "select AD_STATUS FROM ADVERTISEMENT where AD_ID=?";
+	
+	private static final String GET_TODAY_AD = "SELECT AD_IMAGES, COM_TAXID FROM advertisement WHERE CURDATE() BETWEEN START_DATE AND END_DATE";
 
 	@Override
 	public Boolean getIsInsertAble(AdvertisementVO advertisementVO) {
@@ -248,42 +250,52 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 
 	}
 
-//    @Override
-//    public void delete(Integer advertisementno) {
-//	Connection con = null;
-//	PreparedStatement pstmt = null;
-//	try {
-//	    Class.forName(DRIVER);
-//	    con = DriverManager.getConnection(URL, USERID, PASSWORD);
-//	    pstmt = con.prepareStatement(DELETE);
-//
-//	    pstmt.setInt(1, advertisementno);
-//
-//	    pstmt.executeUpdate();
-//
-//	} catch (ClassNotFoundException ce) {
-//	    ce.printStackTrace();
-//	} catch (SQLException se) {
-//	    se.printStackTrace();
-//	} finally {
-//	    if (pstmt != null) {
-//	    }
-//	    try {
-//		pstmt.close();
-//	    } catch (SQLException se) {
-//		se.printStackTrace();
-//	    }
-//	    if (con != null) {
-//		try {
-//		    con.close();
-//		} catch (Exception e) {
-//		    e.printStackTrace();
-//		}
-//	    }
-//	}
-//
-//    }
-//
+	@Override
+	public List<AdvertisementVO> getTodayAD() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		List<AdvertisementVO> list = new ArrayList<AdvertisementVO>();
+		AdvertisementVO advertisementVO;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(GET_TODAY_AD);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				advertisementVO = new AdvertisementVO();
+				advertisementVO.setComTaxId(rs.getString("COM_TAXID"));
+				advertisementVO.setAdImages(rs.getBytes("AD_IMAGES"));
+				list.add(advertisementVO);
+			}
+			;
+
+		} catch (ClassNotFoundException ce) {
+			ce.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+
+		return list;
+
+	}
 
 	@Override
 	public AdvertisementVO findByPrimaryKey(String advertisementno) {

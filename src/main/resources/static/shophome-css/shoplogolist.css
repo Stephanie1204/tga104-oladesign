@@ -1,0 +1,15 @@
+.circlestorelogo {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+#companyList .blog__item__pic {
+	height: 15rem;
+	width: 15rem;
+	margin: auto;
+}
+
+#companyList .blog__item {
+	text-align: center;
+}

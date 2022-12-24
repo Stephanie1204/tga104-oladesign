@@ -195,18 +195,9 @@
 		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			// 选择框
-			$(".select2").select2();
-
-			// WYSIHTML5编辑器
-			$(".textarea").wysihtml5({
-				locale : 'zh-CN'
-			});
-
 	        $.ajax({
 	            type : 'POST',
-	            url : 'http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetAllComInfo&adminId=A001',
+	            url : 'http://localhost:8080/oladesign/back-end/comforadmin.do?action=doGetAllComInfo&adminId=A001',
 	            success : function (data, status, xhr) {
 	                var dataJson = JSON.parse(data);
 					total_len = dataJson.length;
@@ -230,7 +221,7 @@
 						$(this).attr('disabled','disabled');
 				        $.ajax({
 				            type : 'POST',
-				            url : "http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doReviewCOM&adminId=A001&memId=" + $(e.currentTarget).attr("memId"),
+				            url : "http://localhost:8080/oladesign/back-end/comforadmin.do?action=doReviewCOM&adminId=A001&memId=" + $(e.currentTarget).attr("memId"),
 				            success : function (data, status, xhr) {
 						        swal({ 
 			                  	      title: '審核完成',
@@ -247,38 +238,7 @@
 			
 			
 			
-		});
 
-		// 设置激活菜单
-		function setSidebarActive(tagUri) {
-			var liObj = $("#" + tagUri);
-			if (liObj.length > 0) {
-				liObj.parent().parent().addClass("active");
-				liObj.addClass("active");
-			}
-		}
-
-		$(document).ready(function() {
-
-			// 激活导航位置
-			setSidebarActive("order-manage");
-
-			// 列表按钮 
-			$("#dataList td input[type='checkbox']").iCheck({
-				checkboxClass : 'icheckbox_square-blue',
-				increaseArea : '20%'
-			});
-			// 全选操作 
-			$("#selall").click(function() {
-				var clicks = $(this).is(':checked');
-				if (!clicks) {
-					$("#dataList td input[type='checkbox']").iCheck("uncheck");
-				} else {
-					$("#dataList td input[type='checkbox']").iCheck("check");
-				}
-				$(this).data("clicks", !clicks);
-			});
-		});
 	</script>
 </body>
 

@@ -2,12 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %>
-<%
-Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");
-%>
+<%Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <!-- 頁面Meta -->
 <meta charset="UTF-8">
@@ -39,9 +36,7 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
 <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
-
 </head>
-
 <body class="hold-transition skin-purple sidebar-mini">
 	<!-- Ola Design Header -->
 	<%@ include file="header.jsp"%>
@@ -136,15 +131,11 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 		<!-- 内容区域 /-->
 		<!-- Ola Design Footer -->
 		<%@ include file="footer.jsp"%>
-
 	</div>
-
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
-	<script>
-		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+	<script>$.widget.bridge('uibutton', $.ui.button);</script>
 	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/raphael/raphael-min.js"></script>
 	<script src="../plugins/morris/morris.min.js"></script>
@@ -189,7 +180,6 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script>
 	var ori_store_logo = "";
 	var ori_store_banner = "";
-
                // ajax call api to get CompantMembetInfo
                $.ajax({
                    type : 'POST',
@@ -282,7 +272,6 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			     reader.readAsDataURL(input.files[0]);
 			   }
 			 }
-
 	</script>
 </body>
 

@@ -81,10 +81,10 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="form-general"><a href="addcompany_member.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/promotion/promotion_front/promoHome.html"> <i
 							class="fa fa-circle-o"></i> 促銷明細
 					</a></li>
-					<li id="form-general"><a href="addcompany_member.jsp"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/promotion/promotion_front/addPromo.html"> <i
 							class="fa fa-circle-o"></i> 新增促銷活動
 					</a></li>
 
