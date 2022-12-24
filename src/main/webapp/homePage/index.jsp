@@ -871,6 +871,8 @@
 	    }
 	});
 	</script>
+	
+	<script >sessionStorage.setItem("comTaxId", ${comMemVO.comTaxId});</script>
 </body>
 
 
