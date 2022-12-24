@@ -83,15 +83,15 @@ $.ajax({
           </td>
           <td>${item.price}</td>
           <td>${item.stock}</td>
-          <td>折扣後金額</td>
+          <td id="td_discount_price">${calcDiscountPrice(item.code, item.discount, item.price)}</td>
           <td>${formatDate(item.createTime)}</td>;
           <td>${formatDate(item.modifyTime)}</td>;
           <td class="text-center">
-            <button type="button" class="btn bg-olive btn-xs" onclick='showBtn(this)' >編輯</button>
-            <button type="button" class="btn bg-olive btn-xs" onclick='deleteData(this)' >刪除</button>
+            <button type="button" class="btn bg-olive btn-xs" onclick='showBtn(this)' > 編輯 </button>
+            <button type="button" class="btn bg-olive btn-xs" onclick='deleteData(this)' > 刪除 </button>
 
-            <button type="button" class="btn bg-olive btn-xs modify" onclick="save(this)" >保存</button>
-            <button type="button" class="btn bg-olive btn-xs modify" onclick="cancel(this)">取消</button>
+            <button type="button" class="btn bg-olive btn-xs modify" onclick="save(this)" > 保存 </button>
+            <button type="button" class="btn bg-olive btn-xs modify" onclick="cancel(this)"> 取消 </button>
           </td>
         </tr>
       `;
@@ -104,6 +104,16 @@ $.ajax({
     console.log(xhr);
   },
 });
+
+const calcDiscountPrice = (code, discount, price) => {
+  if(code==="P001"){
+    return price-discount;
+  }else if(code==="P002"){
+    return Math.ceil(price*discount/100);
+  } else {
+    return price;
+  }
+}
 
 const cancel = (target) => {
   const $thisTableRow = $(target).closest("tr");
@@ -222,7 +232,7 @@ $("button#addItem").on("click", function () {
         <input class="create_item" id="create_prodName"></input>
         <span id="check_product" hidden style="color:red">查無此商品</span>
       </td> <!--商品名稱-->
-      <td><input class="create_item" id="create_code" style="width: 100%" readonly ></input></td> <!--促銷種類代碼-->
+      <td><input class="create_item" id="create_code" style="width: 100px" readonly ></input></td> <!--促銷種類代碼-->
       <td> 
         <select class="create_item" id="create_codeName" style="width: 100px" >
           <option value="P001" >單品降價</option>
@@ -230,12 +240,12 @@ $("button#addItem").on("click", function () {
         </select>
       </td> <!--促銷種類名稱-->
       <td>
-        <input class="create_item" id="create_discount" style="width: 100%"></input>
+        <input class="create_item" id="create_discount" style="width: 80px"></input>
         <span id="check_discount" hidden style="color:red">請重新確認折扣金額</span> 
       </td> <!--折扣程度-->
-      <td><input class="create_item" id="create_price" readonly></input></td> <!--原價-->
-      <td><input class="create_item" id="create_stock" readonly></input></td> <!--庫存-->
-      <td><input class="create_item" id="create_discountPrice" readonly></input></td></td> <!--折扣後金額-->
+      <td><input class="create_item" id="create_price" style="width: 100px" readonly></input></td> <!--原價-->
+      <td><input class="create_item" id="create_stock" style="width: 80px" readonly></input></td> <!--庫存-->
+      <td><input class="create_item" id="create_discountPrice" style="width: 100px" readonly></input></td></td> <!--折扣後金額-->
       <td></td> <!--建立日期-->
       <td></td>;<!--修改日期-->
       <td class="text-center">
@@ -247,55 +257,75 @@ $("button#addItem").on("click", function () {
   $("tbody.datalist_item").append(list_html);
 });
 
-//自動帶出促銷種類編號
-$(document).on("click","#create_codeName",function(){
-  console.log(this);
-  if($(create_codeName).val()==="P001"){
-    $("input#create_code").attr("value","P001");
-  }else if($(create_codeName).val()==="P002"){
-    $("input#create_code").attr("value","P002");
+//計算折扣價格
+const show_promo_price = () => {
+  if ($("#item.codeName").val() === "P001") {
+    var disprice = $("#item.price").val() - $("#item.discount").val();
+    $("#td_discount_price").html(disprice);
+  } else if ($("#item.codeName").val() === "P002") {
+    var disprice = Math.ceil(
+      ($("#item.price").val() * $("#item.discount").val()) / 100
+    );
+    $("#td_discount_price").html(disprice);
   }
-})
+};
 
+//自動帶出促銷種類編號
+$(document).on("click", "#create_codeName", function () {
+  console.log(this);
+  if ($(create_codeName).val() === "P001") {
+    $("input#create_code").attr("value", "P001");
+  } else if ($(create_codeName).val() === "P002") {
+    $("input#create_code").attr("value", "P002");
+  }
+});
 
 //檢查折扣
-$(document).on("keyup","#create_discount",function(){
-  if($("#create_codeName").val()==="P001"){
-    if($("#create_discount").val()<=0 || $("#create_discount").val()>=$("#create_price").val()){
+$(document).on("keyup", "#create_discount", function () {
+  if ($("#create_codeName").val() === "P001") {
+    if (
+      $("#create_discount").val() <= 0 ||
+      Number.parseInt($("#create_discount").val()) >=
+        Number.parseInt($("#create_price").val())
+    ) {
       $("#check_discount").show();
-    }else{
+    } else {
       $("#check_discount").hide();
-      var disprice = $("#create_price").val()- $("#create_discount").val();
-      $("#create_discountPrice").attr("value",disprice);
-
+      var disprice = $("#create_price").val() - $("#create_discount").val();
+      $("#create_discountPrice").attr("value", disprice);
     }
-  }else if($("#create_codeName").val()==="P002"){
-    if($("#create_discount").val()<=0 || $("#create_discount").val()>=100){
+  } else if ($("#create_codeName").val() === "P002") {
+    if (
+      $("#create_discount").val() <= 0 ||
+      $("#create_discount").val() >= 100
+    ) {
       $("#check_discount").show();
-    }else{
+    } else {
       $("#check_discount").hide();
-      var disprice = Math.ceil($("#create_price").val() * $("#create_discount").val()/100) ;
-      $("#create_discountPrice").attr("value",disprice);
+      var disprice = Math.ceil(
+        ($("#create_price").val() * $("#create_discount").val()) / 100
+      );
+      $("#create_discountPrice").attr("value", disprice);
     }
   }
-})
+});
 
 //自動帶出商品名稱、價格、庫存
-$(document).on("keyup","#create_prodId",function(){
+$(document).on("keyup", "#create_prodId", function () {
   $.ajax({
     url: "http://localhost:8080/oladesign/product",
     type: "GET",
-    data: {productId: $("input#create_prodId").val().trim()},
+    data: { productId: $("input#create_prodId").val().trim() },
     contentType: "application/json; charset=UTF-8",
     dataType: "json",
     success: function (data) {
       console.log(data);
-      if(data.comTaxId === sessionStorage.getItem("comTaxId")){
-        $("#create_prodName").attr("value",data.name);
-        $("#create_price").attr("value",data.price);
-        $("#create_stock").attr("value",data.stock);
+      if (data.comTaxId === sessionStorage.getItem("comTaxId")) {
+        $("#create_prodName").attr("value", data.name);
+        $("#create_price").attr("value", data.price);
+        $("#create_stock").attr("value", data.stock);
         $("#check_product").hide();
-      }else{
+      } else {
         $("#check_product").show();
       }
     },
@@ -304,15 +334,14 @@ $(document).on("keyup","#create_prodId",function(){
       console.log(xhr);
     },
   });
-})
+});
 
-
-$(document).on("click","#btn_save",function(){
-   const formData = {
+$(document).on("click", "#btn_save", function () {
+  const formData = {
     promoId: promoId,
-    prodId:$("input#create_prodId").val().trim(),
-    code:$("input#create_code").val().trim(),
-    discount:$("#create_discount").val().trim()
+    prodId: $("input#create_prodId").val().trim(),
+    code: $("input#create_code").val().trim(),
+    discount: $("#create_discount").val().trim(),
   };
   $.ajax({
     url: "http://localhost:8080/oladesign/promoItem",
@@ -323,12 +352,18 @@ $(document).on("click","#btn_save",function(){
 
     success: function (data) {
       alert("success");
-      location.reload;
+      window.location.href =
+        "http://localhost:8080/oladesign/promotion/promotion_front/promoList_add.html?promoId=" +
+        promoId;
     },
     error: function (xhr) {
       console.log("error");
       console.log(xhr);
     },
   });
+});
 
+$(document).on("click", "#btn_cancel", function () {
+  window.location.reload();
 })
+

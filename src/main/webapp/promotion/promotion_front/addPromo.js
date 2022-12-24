@@ -35,6 +35,7 @@ $("button#submit").on("click", function () {
   });
 });
 
+//檢查coupon是否重複
 $("button#checkCoupon").on("click", function () {
   $.ajax({
     url: "http://localhost:8080/oladesign/promo:coupon",
@@ -65,6 +66,7 @@ String.prototype.len = function () {
   return this.replace(/[^\x00-\xff]/g, "xx").length;
 };
 
+//檢查專案名稱字數
 $("input.promoName").on("keyup", function () {
   if ($("input.promoName").val().len() > 20) {
     $("span#promoName_alert").show();
@@ -73,6 +75,7 @@ $("input.promoName").on("keyup", function () {
   }
 });
 
+//檢查coupon字數
 $("input#coupon_input").on("keyup", function () {
   if ($("input#coupon_input").val().len() > 15) {
     $("span#coupon_alert").show();
@@ -81,6 +84,7 @@ $("input#coupon_input").on("keyup", function () {
   }
 });
 
+//btn_取消新增
 $("button#cancel_btn").on("click", function () {
   confirm("確認放棄新增?");
   if (true) {

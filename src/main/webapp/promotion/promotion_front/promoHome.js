@@ -1,16 +1,15 @@
 var comTaxId = new URLSearchParams(location.search).get("comTaxId");
 // console.log(comTaxId);
-sessionStorage.setItem("comTaxId",comTaxId);
+sessionStorage.setItem("comTaxId", comTaxId);
 console.log(sessionStorage.getItem("comTaxId"));
 
 //get promo
 $.ajax({
-  url: "http://localhost:8080/oladesign/promo", // 資料請求的網址
-  type: "GET", // GET | POST | PUT | DELETE | PATCH
-  data: { comTaxId: comTaxId }, // 將物件資料(不用雙引號) 傳送到指定的 url
+  url: "http://localhost:8080/oladesign/promo",
+  type: "GET",
+  data: { comTaxId: comTaxId },
   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
   success: function (data) {
-    // request 成功取得回應後執行
     console.log(data);
 
     let list_html = "";
@@ -29,12 +28,14 @@ $.ajax({
         item.promoId +
         "\"'> 編輯 </button>";
       list_html +=
-        '  <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="promoList_add.html?&promoId=' +
+        '  <button type="button" class="btn bg-olive btn-xs" onclick=\'location.href="promoList_add.html?promoId=' +
         item.promoId +
         "\"'> 查看明細</button>";
       list_html += "  </td>";
-      list_html += '  <td class="create_time">' + item.createTime + "</td>";
-      list_html += '  <td class="modify_time">' + item.modifyTime + "</td>";
+      list_html +=
+        '  <td class="create_time">' + formatDate(item.createTime) + "</td>";
+      list_html +=
+        '  <td class="modify_time">' + formatDate(item.modifyTime) + "</td>";
       list_html += "</tr>";
     });
     $("tbody.promolist_tbody").html(list_html);
@@ -45,25 +46,25 @@ $.ajax({
   },
 });
 
-//for test
-$.ajax({
-  method: "POST",
-  url: "http://localhost:8080/oladesign/person",
-  data: JSON.stringify({
-    name: "Phanie",
-    time: new Date(),
-  }),
-  dataType: "json",
-  contentType: "application/json; charset=UTF-8",
-  success: function (res) {
-    alert("success");
-  },
-  error: function (res) {
-    alert("errror");
-  },
+$("button#addPromo_btn").on("click", function () {
+  window.location.href = "./addPromo.html?comTaxId=" + comTaxId;
 });
 
+//set date format function
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr);
+  //若跳出錯誤訊息，則回傳預設格式
+  if ("Invalid Date" === date.toString()) {
+    return dateStr;
+  }
 
-$("button#addPromo_btn").on("click",function(){
-  window.location.href="./addPromo.html?comTaxId="+comTaxId;
-})
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+  const timeformat = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+
+  return timeformat;
+};
