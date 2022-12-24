@@ -110,7 +110,7 @@
 							</c:forEach>
 						</ul></li>
 					<li><a href="#">促銷商品</a></li>
-					<li><a href="./blog.html">設計館</a></li>
+					<li><a href="../shophome/shoplist.jsp">設計館</a></li>
 					<li><a href="./contact.html">聯絡我們</a></li>
 				</ul>
 			</nav>
