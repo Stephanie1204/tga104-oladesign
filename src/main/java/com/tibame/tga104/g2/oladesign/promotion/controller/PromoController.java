@@ -55,8 +55,12 @@ public class PromoController {
 	}
 
 	@DeleteMapping("/promo")
-	public Boolean deleteVO(@RequestParam Integer promoId) {
+	public Boolean deleteVO(@RequestParam("promoId") Integer promoId) {
 		return service.deletePromo(promoId);
 	}
-
+	@GetMapping("/promo/:coupon")
+	public PromoVO getCurrentPromo(@RequestParam("comTaxId") String comTaxId) {
+		return service.getCurrentPromo(comTaxId);
+		
+	}
 }

@@ -53,4 +53,8 @@ public class PromoService {
 	public List<PromoVO> getAllPromo(){
 		return dao.getAllPromo();
 	}
+	
+	public PromoVO getCurrentPromo(String comTaxId) {
+		return dao.getCurrentPromo(comTaxId);
+	}
 }

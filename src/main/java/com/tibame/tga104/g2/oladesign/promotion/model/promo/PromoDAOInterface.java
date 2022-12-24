@@ -11,4 +11,5 @@ public interface PromoDAOInterface {
 	public List<PromoVO> getAll(String comTaxId);
 	public Boolean checkCoupon(String coupon);
 	public List<PromoVO> getAllPromo(); //to update promo satus use
+	public PromoVO getCurrentPromo(String comTaxId);
 }

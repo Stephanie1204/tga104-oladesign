@@ -13,6 +13,8 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.tibame.tga104.g2.oladesign.promotion.model.promoItem.PromoItemVO;
+
 @Repository
 public class PromoJNDIDAO implements PromoDAOInterface {
 
@@ -35,10 +37,64 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 	private static final String UPDATE = "update PROMOTION set PROMO_NAME=?, START_DATE=?, END_DATE=?, COUPON=?, PROMO_STATUS=? where PROMO_ID = ?";
 	private static final String CHECK_COUPON = "select promo_ID from promotion where coupon=?";
 	private static final String GETALLPROMO = "select * from promotion";
+	private static final String GETCURRENTPROMO = "select * from PROMOTION where PROMO_STATUS=\"PS002\" and COM_TAXID=?;";
 	
 //	public static void main(String[] args) {
 //		new PromoJNDIDAO().getAll();	}
 
+	@Override
+	public PromoVO getCurrentPromo(String comTaxId) {
+	
+		PromoVO vo = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GETCURRENTPROMO);
+			pstmt.setString(1, comTaxId);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				vo = new PromoVO();
+				vo.setPromoId(rs.getInt("PROMO_ID"));  
+				vo.setComTaxId(rs.getString("COM_TAXID"));
+				vo.setPromoName(rs.getString("PROMO_NAME"));
+				vo.setStartDate(rs.getDate("START_DATE"));
+				vo.setEndDate(rs.getDate("END_DATE"));
+				vo.setCoupon(rs.getString("COUPON"));
+				vo.setPromoStatus(rs.getString("PROMO_STATUS"));
+				vo.setCreateTime(rs.getTimestamp("CREATE_TIME"));
+				vo.setModifyTime(rs.getTimestamp("MODIFY_TIME"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs!= null) {
+				try {
+					rs.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return vo;
+	}
 	
 	@Override
 	public Boolean checkCoupon(String coupon) {
@@ -85,7 +141,6 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 		}
 	}
 	
-	
 	@Override
 	public void insert(PromoVO promoVO) {
 		Connection con = null;
@@ -123,7 +178,6 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 		}
 	}
 
-	
 	@Override
 	public void update(PromoVO promoVO) {
 		Connection con = null;
