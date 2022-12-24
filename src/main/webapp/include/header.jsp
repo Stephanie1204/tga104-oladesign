@@ -64,11 +64,11 @@
 							${memName}</span>
 						<ul class="member__menu__dropdown">
 							<li><a
-								href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html">會員中心</a></li>
+								href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html?memId=${memId}">會員中心</a></li>
 							<li><a
 								href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a></li>
-							<li><a href="#">我的訂單</a></li>
-							<li><a href="#">我的紅利</a></li>
+							<li><a href="http://localhost:8080/oladesign/memberCenter/pages/orderList.html">我的訂單</a></li>
+							<li><a href="http://localhost:8080/oladesign/memberCenter/pages/pointManagement.html">我的紅利</a></li>
 							<li><a href="#">聯絡客服</a></li>
 							<li><form method="post"
 									action="<%=request.getContextPath()%>/member/MemberLogin">

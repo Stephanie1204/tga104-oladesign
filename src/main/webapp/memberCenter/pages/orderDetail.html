@@ -1,300 +1,237 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <!-- 页面meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <title>OLA Design|會員中心-訂單明細</title>
-    <meta name="description" content="AdminLTE2定制版">
-    <meta name="keywords" content="AdminLTE2定制版">
+    <meta name="description" content="AdminLTE2定制版" />
+    <meta name="keywords" content="AdminLTE2定制版" />
 
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <meta
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+      name="viewport"
+    />
 
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/font-awesome/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css" />
+    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css" />
+    <link rel="stylesheet" href="../plugins/morris/morris.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css"
+    />
+    <link rel="stylesheet" href="../plugins/datepicker/datepicker3.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/daterangepicker/daterangepicker.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../plugins/datatables/dataTables.bootstrap.css"
+    />
+    <link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/treeTable/jquery.treetable.theme.default.css"
+    />
+    <link rel="stylesheet" href="../plugins/select2/select2.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/colorpicker/bootstrap-colorpicker.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css"
+    />
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/adminLTE/css/skins/_all-skins.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/ionslider/ion.rangeSlider.skinNice.css"
+    />
+    <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css" />
+    <link
+      rel="stylesheet"
+      href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../resources/static/css/olaDesingMember.css"
+    />
+  </head>
 
-    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
-    <link rel="stylesheet" href="../plugins/morris/morris.css">
-    <link rel="stylesheet" href="../plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-    <link rel="stylesheet" href="../plugins/datepicker/datepicker3.css">
-    <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.css">
-    <link rel="stylesheet" href="../plugins/treeTable/jquery.treetable.theme.default.css">
-    <link rel="stylesheet" href="../plugins/select2/select2.css">
-    <link rel="stylesheet" href="../plugins/colorpicker/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet" href="../plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.css">
-    <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
-    <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
-    <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
-    <link rel="stylesheet" href="../../../resources/static/css/olaDesingMember.css">
-</head>
-
-<body class="hold-transition skin-purple sidebar-mini">
-
+  <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
-
-       <!-- 頂端列/側邊欄 匯入-->
-      <script src="https://www.w3schools.com/lib/w3.js"></script> <!--頂端列/側邊欄 匯入使用-->
-      <div w3-include-html="/src/main/webapp/memberCenter/pages/header.html"></div>
-      <div w3-include-html="/src/main/webapp/memberCenter/pages/sideBar.html"></div>
+      <!-- 頂端列/側邊欄 匯入-->
+      <script src="https://www.w3schools.com/lib/w3.js"></script>
+      <!--頂端列/側邊欄 匯入使用-->
+      <div w3-include-html="/oladesign/memberCenter/pages/header.html"></div>
+      <div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
       <script>
         w3.includeHTML();
       </script>
       <!-- 頂端列/側邊欄 匯入 /-->
 
-        <!-- 内容区域 -->
-        <div class="content-wrapper">
+      <!-- 内容区域 -->
+      <div class="content-wrapper">
+        <!-- 内容头部 -->
+        <section class="content-header">
+          <h1>
+            訂單管理
+            <small>訂單明細</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li>
+              <a href="all-admin-index.html"
+                ><i class="fa fa-dashboard"></i> 首頁</a
+              >
+            </li>
+            <li><a href="all-order-manage-list.html">訂單管理</a></li>
+            <li class="active">訂單明細</li>
+          </ol>
+        </section>
+        <!-- 内容头部 /-->
 
-            <!-- 内容头部 -->
-            <section class="content-header">
-                <h1>
-                    訂單管理
-                    <small>訂單明細</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> 首頁</a></li>
-                    <li><a href="all-order-manage-list.html">訂單管理</a></li>
-                    <li class="active">訂單明細</li>
-                </ol>
-            </section>
-            <!-- 内容头部 /-->
+        <!-- 正文区域 -->
+        <section class="content">
+          <!-- 收件資訊 -->
 
-            <!-- 正文区域 -->
-            <section class="content">
+          <div class="panel panel-default receive_info">
+            <div class="panel-heading">收件資訊</div>
+            <div class="row data-type">
+              <div class="col-md-2 title">收件人</div>
+              <div class="col-md-4 data text">STEPHANIE</div>
 
+              <div class="col-md-2 title">連絡電話</div>
+              <div class="col-md-4 data text">0911-111-111</div>
 
+              <div class="col-md-2 title">收件地址</div>
+              <div class="col-md-10 data text">台北市XXXXXXXXXX</div>
+            </div>
+          </div>
+          <!-- 收件資訊 / -->
 
-<!-- 收件資訊 -->
-
-
-<div class="panel panel-default">
-    <div class="panel-heading">收件資訊</div>
-    <div class="row data-type">
-
-        <div class="col-md-2 title">收件人</div>
-        <div class="col-md-4 data text">
-            STEPHANIE
-        </div>
-
-        <div class="col-md-2 title">聯絡信箱</div>
-        <div class="col-md-4 data text">
-            xxxxxx@gmail.com
-        </div>
-
-        <div class="col-md-2 title">連絡電話</div>
-        <div class="col-md-4 data text">
-            0911-111-111
-        </div>
-
-        <div class="col-md-2 title">收件地址</div>
-        <div class="col-md-4 data text">
-            台北市XXXXXXXXXX
-        </div>
-
-    </div>
-</div>
-<!-- 收件資訊 / -->
-
-
-<!--訂單明細-->
-    <div class="panel panel-default">
-        <div class="panel-heading">訂單明細</div>
-        <div class="row data-type">
+          <!--訂單明細-->
+          <div class="panel panel-default">
             
-            <div class="col-md-2 title">賣家</div>
-            <div class="col-md-4 data text"> xx小舖 </div>
+            <div class="panel-heading ">訂單明細</div>
+  
+              <div class="row data-type">
 
-            <div class="col-md-2 title">訂單日期</div>
-            <div class="col-md-4 data text"> 2022/22/22 </div>
+                <div class="order_sellerInfo">
+                  <div class="col-md-2 title">賣家</div>
+                  <div class="col-md-4 data text">xx小舖</div>
 
-            <div class="col-md-2 title">商品名稱</div>
-            <div class="col-md-4 data text">
-                美式餐具組
-            </div>
-
-            <div class="col-md-1 title">原價</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">折扣後金額</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">購買數量</div>
-            <div class="col-md-1 data text">
-                3
-            </div>
-
-            <div class="col-md-2 title">商品名稱</div>
-            <div class="col-md-4 data text">
-                美式餐具組
-            </div>
-
-
-
-            <div class="col-md-1 title">原價</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">折扣後金額</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">購買數量</div>
-            <div class="col-md-1 data text">
-                3
-            </div>
-
-            <div class="col-md-2 title">商品名稱</div>
-            <div class="col-md-4 data text">
-                美式餐具組
-            </div>
-
-            <div class="col-md-1 title">原價</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">折扣後金額</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">購買數量</div>
-            <div class="col-md-1 data text">
-                3
-            </div>
-
-            <div class="col-md-2 title">商品名稱</div>
-            <div class="col-md-4 data text">
-                美式餐具組
-            </div>
-
-            <div class="col-md-1 title">原價</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">折扣後金額</div>
-            <div class="col-md-1 data text">
-                $99
-            </div>
-
-            <div class="col-md-1 title">購買數量</div>
-            <div class="col-md-1 data text">
-                3
-            </div>
-
-            <div class="col-md data"></div>
-
-            <div class="col-md-2 title">訂單狀態</div>
-            <div class="col-md-2 data text">
-                未確認
-            </div>
-
-            <div class="col-md-1 title">異動日期</div>
-            <div class="col-md-1 data text">
-                2022/xx/xx
-            </div>
-
-            
-            <div class="col-md-2 title">商品小計</div>
-            <div class="col-md-4 data text">
-                $9999
-            </div>
-
-            <div class="col-md-2 title">物流狀態</div>
-            <div class="col-md-2 data text">
-                未確認
-            </div>
-
-            <div class="col-md-1 title">異動日期</div>
-            <div class="col-md-1 data text">
-                2022/xx/xx
-            </div>
-
-            <div class="col-md-2 title">運費</div>
-            <div class="col-md-4 data text">
-                $60
-            </div>
-
-            <div class="col-md-6 data text"></div>
-            <div class="col-md-2 title">使用折扣碼</div>
-            <div class="col-md-4 data text">
-                $60
-            </div>
-
-            <div class="col-md-6 data text"></div>
-            <div class="col-md-2 title">使用紅利點數</div>
-            <div class="col-md-4 data text">
-                $60
-            </div>
-
-            <div class="col-md-6 data text"></div>
-            <div class="col-md-2 title">訂單總金額</div>
-            <div class="col-md-4 data text">
-                $60
-            </div>
-
-            <div class="col-md-6 data text"></div>
-            <div class="col-md-2 title">付款方式</div>
-            <div class="col-md-4 data text">
-                信用卡
-            </div>
-
-        </div>
-    </div>
-
-       
-    <!--数据列表/-->
-
-<!--游客信息/-->
-
-
-
-                <!--工具栏-->
-                <div class="box-tools text-center">
-                    <button type="button" class="btn btn-default" title="新建" onclick='location.href="all-order-manage-edit.html"'><i class="fa fa-file-o"></i>回到訂單管理頁面</button>
-                    <button type="button" class="btn btn-default" title="新建" onclick='location.href="all-order-manage-edit.html"'><i class="fa fa-file-o"></i>聯絡客服</button>
+                  <div class="col-md-2 title">訂單日期</div>
+                  <div class="col-md-4 data text">2022/22/22</div>
                 </div>
-                <!--工具栏/-->
+            
+                <div class="all_list">
 
-            </section>
-            <!-- 正文区域 /-->
+                  <div class="one_list">
+                    <div class="col-md-2 title">商品編號</div>
+                    <div class="col-md-4 data text">xxxxxxxxx</div>
+                    <div class="col-md-6 data text"></div>
 
-        </div>
-        <!-- 内容区域 /-->
+                    <div class="col-md-2 title">商品名稱</div>
+                    <div class="col-md-4 data text">美式餐具組</div>
+                    
+                    <div class="col-md-1 title">原價</div>
+                    <div class="col-md-1 data text">$99</div>
 
-        <!-- 底部导航 -->
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.8
+                    <div class="col-md-1 title">折扣後金額</div>
+                    <div class="col-md-1 data text">$99</div>
+
+                    <div class="col-md-1 title">購買數量</div>
+                    <div class="col-md-1 data text">3</div>
+                  </div>
+
+                </div>
+            
+                <div class="col-md data"></div>
+
+                <div class="order_sellerInfo2">
+                  <div class="col-md-2 title">訂單狀態</div>
+                  <div class="col-md-4 data text">未確認</div>
+
+                  <div class="col-md-2 title">商品小計</div>
+                  <div class="col-md-4 data text">$9999</div>
+
+                  <div class="col-md-2 title">物流狀態</div>
+                  <div class="col-md-4 data text">未確認</div>
+
+                  <div class="col-md-2 title">使用折扣碼</div>
+                  <div class="col-md-4 data text">$60</div>
+
+                  <div class="col-md-6 data text"></div>
+                  <div class="col-md-2 title">使用紅利點數</div>
+                  <div class="col-md-4 data text">$60</div>
+
+                  <div class="col-md-6 data text"></div>
+                  <div class="col-md-2 title">訂單總金額</div>
+                  <div class="col-md-4 data text">$60</div>
+
+                  <div class="col-md-6 data text"></div>
+                  <div class="col-md-2 title">付款方式</div>
+                  <div class="col-md-4 data text">信用卡</div>
+                </div>
+              </div>
             </div>
-            <strong>Copyright &copy; 2014-2017 <a href="http://www.itcast.cn">研究院研发部</a>.</strong> All rights reserved.
-        </footer>
-        <!-- 底部导航 /-->
 
+          <!--数据列表/-->
+
+          <!--游客信息/-->
+
+          <!--工具栏-->
+          <div class="box-tools text-center">
+            <button
+              type="button"
+              class="btn btn-default"
+              title="新建"
+              onclick='location.href="./orderList.html"'
+            >
+              <i class="fa fa-file-o"></i>回到訂單管理頁面
+            </button>
+         
+          </div>
+          <!--工具栏/-->
+        </section>
+        <!-- 正文区域 /-->
+      </div>
+      <!-- 内容区域 /-->
+
+      <!-- 底部导航 -->
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs"><b>Version</b> 1.0.8</div>
+        <strong
+          >Copyright &copy; 2014-2017
+          <a href="http://www.itcast.cn">研究院研发部</a>.</strong
+        >
+        All rights reserved.
+      </footer>
+      <!-- 底部导航 /-->
     </div>
-
 
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
     <script>
-        $.widget.bridge('uibutton', $.ui.button);
+      $.widget.bridge("uibutton", $.ui.button);
     </script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="../plugins/raphael/raphael-min.js"></script>
@@ -337,48 +274,44 @@
     <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script>
-        $(document).ready(function() {
-            // 选择框
-            $(".select2").select2();
+      $(document).ready(function () {
+        // 选择框
+        $(".select2").select2();
 
-            // WYSIHTML5编辑器
-            $(".textarea").wysihtml5({
-                locale: 'zh-CN'
-            });
+        // WYSIHTML5编辑器
+        $(".textarea").wysihtml5({
+          locale: "zh-CN",
         });
+      });
 
-
-        // 设置激活菜单
-        function setSidebarActive(tagUri) {
-            var liObj = $("#" + tagUri);
-            if (liObj.length > 0) {
-                liObj.parent().parent().addClass("active");
-                liObj.addClass("active");
-            }
+      // 设置激活菜单
+      function setSidebarActive(tagUri) {
+        var liObj = $("#" + tagUri);
+        if (liObj.length > 0) {
+          liObj.parent().parent().addClass("active");
+          liObj.addClass("active");
         }
+      }
 
-
-        $(document).ready(function() {
-            $('#datepicker-a3').datepicker({
-                autoclose: true,
-                language: 'zh-CN'
-            });
+      $(document).ready(function () {
+        $("#datepicker-a3").datepicker({
+          autoclose: true,
+          language: "zh-CN",
         });
+      });
 
-
-        $(document).ready(function() {
-            $('#datepicker-a6').datepicker({
-                autoclose: true,
-                language: 'zh-CN'
-            });
+      $(document).ready(function () {
+        $("#datepicker-a6").datepicker({
+          autoclose: true,
+          language: "zh-CN",
         });
+      });
 
-
-        $(document).ready(function() {
-            // 激活导航位置
-            setSidebarActive("order-manage");
-        });
+      $(document).ready(function () {
+        // 激活导航位置
+        setSidebarActive("order-manage");
+      });
     </script>
-</body>
-
+    <script src="./orderDetail.js"></script>
+  </body>
 </html>

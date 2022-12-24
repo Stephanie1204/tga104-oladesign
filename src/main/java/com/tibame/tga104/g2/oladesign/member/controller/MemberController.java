@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -34,8 +35,8 @@ public class MemberController {
 	}
 	
 	@GetMapping("/member")
-	public MemberVO getVo(Integer memId) {
-		return service.getOneMember(220003);
+	public MemberVO getVo(@RequestParam("memId")Integer memId) {
+		return service.getOneMember(memId);
 	}
 
 //	@PostMapping("/member/mock")
