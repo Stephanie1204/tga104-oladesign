@@ -329,43 +329,6 @@ public class Company_MemServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("getOne_For_Display".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			String str = req.getParameter("comtaxId");
-			if (str == null || (str.trim()).length() == 0) {
-				errorMsgs.add("請輸入廠商統一編號");
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/adminselect.jsp");
-				failureView.forward(req, res);
-				return; // 下面的程式不執行
-			}
-			String comtaxId = str;
-			if (str.length() != 8) {
-				errorMsgs.add("統一編號格式不正確");
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher successView = req.getRequestDispatcher("/CompanyBackEnd/adminselect.jsp");
-				successView.forward(req, res);
-				return;
-			}
-			Company_MemService company_memSvc = new Company_MemService();
-			Company_MemVO company_memVO = company_memSvc.getOneCompany_Mem(comtaxId);
-			if (company_memVO == null) {
-				errorMsgs.add("查無資料");
-			}
-			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/adminselect.jsp");
-				failureView.forward(req, res);
-				return;
-			}
-			req.setAttribute("company_memVO", company_memVO); // 資料庫取出的company_memVO物件,存入req
-			String url = "/CompanyBackEnd/listonecompany_member.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-
 		if ("doGetAllComInfo".equals(action)) {
 			String adminId = req.getParameter("adminId");
 
@@ -400,6 +363,7 @@ public class Company_MemServlet extends HttpServlet {
 
 			pw.flush();
 		}
+
 
 //		/************************* 處理listAll.page的需求 *************************/
 //		if ("getOne_For_Update".equals(action)) {

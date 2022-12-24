@@ -72,7 +72,7 @@
 									<div class="form-group">
 										<label for="com_taxid">公司統編<font color=red><b>*</b></font></label>
 										<input type="text" class="form-control" name="com_taxid"
-											id="com_taxid" value="${com_taxid}" readonly="readonly"/>
+											id="com_taxid" value="${comMemVO.comTaxId}" readonly="readonly"/>
 									</div>
 
 									<div class="form-group">

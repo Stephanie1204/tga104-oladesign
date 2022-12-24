@@ -75,7 +75,7 @@ company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
                     
                       <label for="com_taxid">公司統編<font color="red"><b>*</b></font></label>
                       <input type="text" class="form-control" name="com_taxid" id="com_taxid"
-                        value="${(company_memVO == null) ? '' : company_memVO.getComTaxId()}"/>
+                        value="" readonly/>
                     </div>
                     <div class="form-group">
                       <label for="memId">會員編號<font color="red"><b>*</b></font></label>
@@ -185,6 +185,7 @@ company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
     <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script src="./jquery.twzipcode.min.js"></script>
     <script>
+    $("#twzipcode").twzipcode();
         // ajax call api to get CompantMembetInfo
         $.ajax({
           type: "POST",
@@ -230,7 +231,6 @@ company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
       });
 
       function doSetForm(trueorfalse) {
-        $("#com_taxid").attr("readonly", trueorfalse);
         $("#com_name").attr("readonly", trueorfalse);
         $("#com_address").attr("readonly", trueorfalse);
         $("#com_phone").attr("readonly", trueorfalse);

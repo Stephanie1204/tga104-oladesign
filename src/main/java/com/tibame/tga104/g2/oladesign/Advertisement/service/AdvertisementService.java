@@ -28,6 +28,21 @@ public class AdvertisementService {
 		return dao.ADRecordByComtaxId(comTaxId);
 	}
 
+	// 單一查詢
+	public AdvertisementVO getOneAdvertisement(String advertisementno) {
+		return dao.findByPrimaryKey(advertisementno);
+	}
+
+	// 單一查詢該筆廣告資料的狀態
+	public AdvertisementVO getAdStatus(String adId) {
+		return dao.getAdStatus(adId);
+	}
+	
+	// 抓取今日廣告項目
+	public List<AdvertisementVO> getTodayAD() {
+		return dao.getTodayAD();
+	}
+		
 	// 新增
 	public String addAdvertisement(AdvertisementVO advertisementVO) {
 		String adId = seqDao.getOneSeq("AD");
@@ -40,22 +55,6 @@ public class AdvertisementService {
 	// 修改-管理員審核
 	public void updateAdStatus(String adId) {
 		dao.updateAdStatus(adId);
-	}
-
-//
-//    // 刪除
-//    public void deleteAdvertisement(Integer advertisementno) {
-//	dao.delete(advertisementno);
-//    }
-//    
-	// 單一查詢
-	public AdvertisementVO getOneAdvertisement(String advertisementno) {
-		return dao.findByPrimaryKey(advertisementno);
-	}
-
-	// 單一查詢該筆廣告資料的狀態
-	public AdvertisementVO getAdStatus(String adId) {
-		return dao.getAdStatus(adId);
 	}
 
 	// 多筆查詢

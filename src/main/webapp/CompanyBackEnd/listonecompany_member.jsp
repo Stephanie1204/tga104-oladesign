@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %>
-
-<%
-Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");
-%>
+<%Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <!-- 頁面Meta -->
 <meta charset="UTF-8">
@@ -38,16 +34,13 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
 <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
-
 </head>
-
 <body class="hold-transition skin-purple sidebar-mini">
 	<!-- Ola Design Header -->
 	<%@ include file="header.jsp"%>
 	<div class="wrapper">
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-
 		<!-- 内容區域 -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -132,22 +125,15 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 			</section>
 			<!-- /.content -->
 		</div>
-
-
-
 		<!-- /.content-wrapper -->
 		<!-- 内容区域 /-->
 		<!-- Ola Design Footer -->
 		<%@ include file="footer.jsp"%>
-
 	</div>
-
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
-	<script>
-		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+	<script>$.widget.bridge('uibutton', $.ui.button);</script>
 	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/raphael/raphael-min.js"></script>
 	<script src="../plugins/morris/morris.min.js"></script>
@@ -159,10 +145,8 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 	<script src="../plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
 	<script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script
-		src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+	<script src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 	<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script src="../plugins/fastclick/fastclick.js"></script>
 	<script src="../plugins/iCheck/icheck.min.js"></script>
@@ -170,11 +154,9 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/treeTable/jquery.treetable.js"></script>
 	<script src="../plugins/select2/select2.full.min.js"></script>
 	<script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-	<script
-		src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+	<script src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/markdown.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/to-markdown.js"></script>
 	<script src="../plugins/ckeditor/ckeditor.js"></script>
@@ -190,48 +172,8 @@ Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memV
 	<script src="../plugins/flot/jquery.flot.categories.min.js"></script>
 	<script src="../plugins/ionslider/ion.rangeSlider.min.js"></script>
 	<script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script src="../plugins/adminLTE/js/oladesign-address.js"></script>
-	<script>
-		$(document).ready(function() {
-			// 选择框
-			$(".select2").select2();
-
-			// WYSIHTML5编辑器
-			$(".textarea").wysihtml5({
-				locale : 'zh-TW'
-			});
-		});
-
-		// 设置激活菜单
-		function setSidebarActive(tagUri) {
-			var liObj = $("#" + tagUri);
-			if (liObj.length > 0) {
-				liObj.parent().parent().addClass("active");
-				liObj.addClass("active");
-			}
-		}
-
-		// 激活导航位置
-		setSidebarActive("form-general");
-
-		var preview_el = document.getElementById("preview");
-		var p_file_el = document.getElementById("store_logo");
-		var preview_img = function(file) {
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader
-					.addEventListener(
-							"load",
-							function() {
-								preview_el.innerHTML = `<img src='${reader.result}' class='preview_img'>`;
-							});
-		};
-
-	</script>
 </body>
-
 </html>
