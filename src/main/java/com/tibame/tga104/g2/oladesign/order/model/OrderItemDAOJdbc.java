@@ -53,7 +53,7 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 		return result;
 	}
 //
-	
+
 	private static final String GET_ORDERITEM_BYORDERID = "SELECT * FROM ORDER_ITEM WHERE ORDER_ID=?";
 
 	public List<OrderItemBean> select(String orderId) {
@@ -107,6 +107,44 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 				//
 				stmt.executeUpdate();
 
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if (stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+
+	//
+	private static final String UPDATE_ORDERITEM_COMMENT = "UPDATE ORDER_ITEM SET COMM_TEXT=?, COMM_STAR=? WHERE PROD_ID=?";
+
+	public void update(OrderItemBean bean) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		if (bean != null) {
+			try {
+				conn = dataSource.getConnection();
+				stmt = conn.prepareStatement(UPDATE_ORDERITEM_COMMENT);
+//
+				stmt.setString(1, bean.getComment());
+				stmt.setInt(2, bean.getCommentStar());
+				stmt.setInt(3, bean.getProductId());
+
+				int i = stmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
