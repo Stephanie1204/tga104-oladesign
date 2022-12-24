@@ -5,15 +5,13 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>OLA Design|會員中心-基本資料</title>
+    <title>数据 - AdminLTE2定制版</title>
     <meta name="description" content="AdminLTE2定制版">
     <meta name="keywords" content="AdminLTE2定制版">
-
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-    
     <!-- 页面meta /-->
+
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../plugins/ionicons/css/ionicons.min.css">
@@ -36,23 +34,23 @@
     <link rel="stylesheet" href="../plugins/ionslider/ion.rangeSlider.skinNice.css">
     <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css">
     <link rel="stylesheet" href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
-    <link rel="stylesheet" href="/oladesign/css/olaDesingMember.css">
-
+    <link rel="stylesheet" href="../../../resources/static/css/olaDesingMember.css">
 </head>
 
+<!--頂端列/側邊欄 匯入使用-->
+<div w3-include-html="/oladesign/memberCenter/pages/header.html"></div>
+<div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
 <body class="hold-transition skin-purple sidebar-mini">
 
     <div class="wrapper">
 
-        <!-- 頂端列/側邊欄 匯入-->
-        <script src="https://www.w3schools.com/lib/w3.js"></script> <!--頂端列/側邊欄 匯入使用-->
-        <div w3-include-html="/oladesign/memberCenter/pages/header.html"></div>
-        <div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
-        <script>
-            w3.includeHTML();
-        </script>
-        <!-- 頂端列/側邊欄 匯入 /-->
-        
+         <!-- 頂端列/側邊欄 匯入-->
+         <script src="https://www.w3schools.com/lib/w3.js"></script> 
+         <script>
+             w3.includeHTML();
+         </script>
+         <!-- 頂端列/側邊欄 匯入 /-->
+
 
         <!-- 内容区域 -->
         <!-- Content Wrapper. Contains page content -->
@@ -60,7 +58,8 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    帳號管理
+                    站內信
+                    <small>Preview</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -72,53 +71,45 @@
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <!-- left column -->
+                  
+                    <!-- right column -->
                     <div class="col-md-8">
-                        <!-- general form elements -->
-                        <div class="box box-primary">
+                        <!-- Horizontal Form -->
+                        
+                       
+                        <!-- general form elements disabled -->
+                        <div class="box box-warning">
                             <div class="box-header with-border">
-                                <h3 class="box-title">個人檔案</h3>
+                                <h3 class="box-title">聯絡客服</h3>
                             </div>
                             <!-- /.box-header -->
-                            <!-- form start -->
-                            <form role="form">
-                                <div class="box-body">
+                            <div class="box-body">
+                                <form role="form">
+                                    <!-- select -->
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">帳號</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                        <label>問題種類</label>
+                                        <select class="form-control">
+                                            <option value="1">檢舉</option>
+                                            <option value="2">疑難雜症</option>
+                                        </select>
                                     </div>
+                                    
+                                    <!-- textarea -->
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">姓名</label>
-                                        <input type="text" class="form-control" id="name" >
+                                        <label>信件內容</label>
+                                        <textarea class="form-control" rows="10" placeholder="請輸入信件內容 ..."></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">手機</label>
-                                        <input type="text" class="form-control" id="phone" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">地址</label>
-                                        <input type="text" class="form-control" id="address" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">性別 </label>
-                                        <input type="radio" name="gender" value="女"> 女
-                                        <input type="radio" name="gender" value="男"> 男
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">個人圖像上傳</label>
-                                        <input type="file" id="exampleInputFile">
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                </div>
-                                <!-- /.box-body -->
 
-                                <div class="box-footer">
-                                    <button type="submit" id="btn_submit" class="btn btn-primary">確認修改</button>
-                                </div>
-                            </form>
+                                    <!-- submit -->
+                                    <div class="form-group">
+                                        <button type="button" id="btn_submit" style="height: 30px;"> 送出信件 </button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                            <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
-                        <!-- Form Element sizes -->
                     </div>
                     <!--/.col (right) -->
                 </div>
@@ -186,7 +177,6 @@
     <script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-    <script src="./accountBasicInfo.js"></script>
     <script>
         $(document).ready(function() {
             // 选择框
@@ -212,8 +202,6 @@
         // 激活导航位置
         setSidebarActive("form-general");
     </script>
-
-    
 </body>
 
 </html>

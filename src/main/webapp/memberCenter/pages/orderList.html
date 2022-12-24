@@ -76,13 +76,14 @@
     />
   </head>
 
+  <!--頂端列/側邊欄 匯入使用-->
+  <div w3-include-html="/oladesign/memberCenter/pages/header.html"></div>
+  <div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
   <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
       <!-- 頂端列/側邊欄 匯入-->
       <script src="https://www.w3schools.com/lib/w3.js"></script>
-      <!--頂端列/側邊欄 匯入使用-->
-      <div w3-include-html="/oladesign/memberCenter/pages/header.html"></div>
-      <div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
+      
       <script>
         w3.includeHTML();
       </script>
@@ -182,8 +183,15 @@
                       <td>2017-03-09 13:51:26</td>
                       <td>已付款(待出行)</td>
                       <td class="text-center">
-                        <button type="button" class="btn bg-olive btn-xs"> 訂單詳情 </button>
-                        <button type="button" class="btn bg-olive btn-xs writeReview" > 填寫評價 </button>
+                        <button type="button" class="btn bg-olive btn-xs">
+                          訂單詳情
+                        </button>
+                        <button
+                          type="button"
+                          class="btn bg-olive btn-xs writeReview"
+                        >
+                          填寫評價
+                        </button>
                       </td>
                     </tr>
                   </tbody>
