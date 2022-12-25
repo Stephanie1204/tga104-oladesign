@@ -46,8 +46,9 @@ $.ajax({
   },
 });
 
+//觸發新增促銷按鈕
 $("button#addPromo_btn").on("click", function () {
-  window.location.href = "./addPromo.html?comTaxId=" + comTaxId;
+  window.location.href = "./addPromo.html";
 });
 
 //set date format function
