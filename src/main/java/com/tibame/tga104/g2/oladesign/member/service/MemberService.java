@@ -82,6 +82,7 @@ public class MemberService {
 		memberVO.setPoint(vo.getPoint());
 		memberVO.setBan(vo.isBan());
 		memberVO.setCom(vo.isCom());
+		memberVO.setIsRegCom(vo.getIsRegCom());
 		memberVO.setMemPhoto(vo.getMemPhoto());
 		memberVO.setMemPhotoBase64(vo.getMemPhoto()); //不作為參數存進memberVO
 		dao.update(memberVO);

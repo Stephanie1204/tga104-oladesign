@@ -103,16 +103,11 @@ public class FavorDAOImpl implements FavorDAO{
 		
 	}
 	
-	private static final String GetOneMemAllSQL = "select pf.MEM_ID, pf.PROD_ID, pf.COM_TAXID, pf.TYPE_CODE, pf.STYLE_CODE, pf.NAME, pf.PRICE, i.IMG_NUM, i.IMG "
-			+ "from ( "
-			+ "	select f.MEM_ID, p.PROD_ID, p.COM_TAXID, p.TYPE_CODE, p.STYLE_CODE, p.NAME, p.PRICE "
-			+ "	from PRODUCT p  "
-			+ "	join FAVORITE f "
-			+ "	on p.PROD_ID = f.PROD_ID "
-			+ ") as pf "
-			+ "	join PRODUCT_IMG i "
-			+ "		on pf.PROD_ID = i.PROD_ID "
-			+ "where pf.MEM_ID = ?;";
+	private static final String GetOneMemAllSQL = "select f.MEM_ID, p.PROD_ID, p.COM_TAXID, p.TYPE_CODE, p.STYLE_CODE, p.NAME, p.PRICE, p.IMG "
+												+ "from PRODUCT p  "
+												+ "join FAVORITE f "
+												+ "on p.PROD_ID = f.PROD_ID "
+												+ "where f.MEM_ID = ?;";
 
 	@Override
 	public List<FavorVO> getOneMemAll(Integer memId) {
@@ -131,17 +126,16 @@ public class FavorDAOImpl implements FavorDAO{
 			
 			while(rs.next()) {
 				favorVO = new FavorVO();
-				favorVO.setMemId(rs.getInt("pf.MEM_ID"));
-				favorVO.setProductId(rs.getInt("pf.PROD_ID"));
-				favorVO.setComTaxId(rs.getString("pf.COM_TAXID"));
-				favorVO.setTypeCode(rs.getString("pf.TYPE_CODE"));
-				favorVO.setStyleCode(rs.getString("pf.STYLE_CODE"));
-				favorVO.setName(rs.getString("pf.NAME"));
-				favorVO.setPrice(rs.getInt("pf.PRICE"));
-				favorVO.setImgNum(rs.getInt("i.IMG_NUM"));
-				favorVO.setImg(rs.getBytes("i.IMG"));	
-				if(rs.getBytes("i.IMG") != null) {
-					favorVO.setImgBase64(rs.getBytes("i.IMG"));
+				favorVO.setMemId(rs.getInt("f.MEM_ID"));
+				favorVO.setProductId(rs.getInt("p.PROD_ID"));
+				favorVO.setComTaxId(rs.getString("p.COM_TAXID"));
+				favorVO.setTypeCode(rs.getString("p.TYPE_CODE"));
+				favorVO.setStyleCode(rs.getString("p.STYLE_CODE"));
+				favorVO.setName(rs.getString("p.NAME"));
+				favorVO.setPrice(rs.getInt("p.PRICE"));
+				favorVO.setImg(rs.getBytes("p.IMG"));	
+				if(rs.getBytes("p.IMG") != null) {
+					favorVO.setImgBase64(rs.getBytes("p.IMG"));
 				}
 				
 				favorList.add(favorVO);

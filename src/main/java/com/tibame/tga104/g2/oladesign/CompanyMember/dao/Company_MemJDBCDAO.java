@@ -111,7 +111,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 			// pstmt.setDate(10, company_memVO.getComRegdate());
 
 			pstmt.executeUpdate();
-		} catch (ClassNotFoundException ce) {
+		}catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();

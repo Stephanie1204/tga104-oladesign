@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.featured__item__pic__hover li:hover a{
+	background: #E86F62;
+	border-color: #E86F62;
+}
+
+.featured__item__pic__hover li a i.active{
+	color: #E86F62;
+}
+
+.featured__item__pic__hover li a.active{
+	background: #ffffff;
+	border-color: #ffffff;
+}

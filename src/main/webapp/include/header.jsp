@@ -76,7 +76,7 @@
 									<input type="hidden" name="action" value="logout">
 								</form></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+					<li><a href="#"><i class="fa fa-heart"></i> <span id="fav"></span></a>
 					</li>
 					<li><a
 						href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp"><i
