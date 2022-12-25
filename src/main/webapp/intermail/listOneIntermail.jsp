@@ -74,7 +74,7 @@ IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i

@@ -126,7 +126,7 @@ textarea {
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -214,32 +214,11 @@ textarea {
 <!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label> 
 					<div class="col-sm-10">
-<!-- 						<td><input type="text" class="form-control" name="numQue" placeholder=" 請輸入1或2, 1為檢舉 2為疑難雜症 " -->
-<!-- 							id="numQue" maxlength="4" size="4" -->
-<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>" --%>
-<!-- 							 /></td> -->
-<%-- 						<jsp:useBean id="intermail_qnSvc" scope="page" --%>
-<%-- 							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />  --%>
-							
-<!-- 							<td> -->
-<!-- 								<select size="1" name="numQue"> -->
-<%-- 								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}"> --%>
-<!-- <!-- 						<td><input type="text" class="form-control" name="numQue" --> 
-<%-- <%-- 							id="numQue" maxlength="4" size="4"  value="${intermailVO.numQue}"></td> --%> 
-<%-- 								<option value="${intermailVO.numQue}">${intermail_qnVO.type} --%>
-<%-- 									</c:forEach> --%>
-<!-- 								</select> -->
-<!-- 							</td> -->
-
 							<td>
-<!-- 								<select size="1" name="numQue"> -->
-<%-- 								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}"> --%>
-<%-- 								<option value="${intermailVO.numQue}">${intermail_qnVO.type} --%>
-								<td><input type="text" class="form-control" name="numQue"
-								id="numQue" readonly maxlength="4" size="4"  value="${intermailVO.numQue}"></td>
-<%-- 									</c:forEach> --%>
-<!-- 								</select> -->
-							</td>
+						<td><input type="text" class="form-control" name="numQue" 
+							id="numQue" readonly maxlength="4" size="4"						
+							value="${intermailVO.type}"/>							
+						</td>
 							
 							
 							

@@ -13,11 +13,11 @@ private IntermailDAO_interface dao;
 		dao = new IntermailJDBCDAO();
 	}
 	
-	public IntermailVO addIntermail(String interMailId, Integer memId,String adminId,String numQue,String conTent) {
-
+//	public IntermailVO addIntermail(Integer interMailId, Integer memId,String adminId,String numQue,String conTent) {
+	public IntermailVO addIntermail( Integer memId,String adminId,String numQue,String conTent) {
 		IntermailVO intermailVO = new IntermailVO();
 
-		intermailVO.setInterMailId(interMailId);
+//		intermailVO.setInterMailId(interMailId);
 		intermailVO.setMemId(memId);
 		intermailVO.setAdminId(adminId);
 		intermailVO.setNumQue(numQue);
@@ -27,11 +27,12 @@ private IntermailDAO_interface dao;
 		return intermailVO;
 	}
 	
-	public IntermailVO addmemIntermail(String interMailId, Integer memId,String adminId,String numQue,String conTent) {
+//	public IntermailVO addmemIntermail(Integer interMailId, Integer memId,String adminId,String numQue,String conTent) {
+	public IntermailVO addmemIntermail( Integer memId,String adminId,String numQue,String conTent) {
 
 		IntermailVO intermailVO = new IntermailVO();
 
-		intermailVO.setInterMailId(interMailId);
+//		intermailVO.setInterMailId(interMailId);
 		intermailVO.setMemId(memId);
 		intermailVO.setAdminId(adminId);
 		intermailVO.setNumQue(numQue);
@@ -41,11 +42,12 @@ private IntermailDAO_interface dao;
 		return intermailVO;
 	}
 
-	public IntermailVO updateIntermail(String interMailId, Integer memId,String adminId,String numQue,String conTent) {
+//	public IntermailVO updateIntermail(Integer interMailId, Integer memId,String adminId,String numQue,String conTent) {
+	public IntermailVO updateIntermail( Integer memId,String adminId,String numQue,String conTent) {
 
 		IntermailVO intermailVO = new IntermailVO();
 
-		intermailVO.setInterMailId(interMailId);
+//		intermailVO.setInterMailId(interMailId);
 		intermailVO.setMemId(memId);
 		intermailVO.setAdminId(adminId);
 		intermailVO.setNumQue(numQue);
@@ -55,11 +57,14 @@ private IntermailDAO_interface dao;
 		return intermailVO;
 	}
 
-	public void deleteIntermail(String interMailId) {
+	public void deleteIntermail(Integer interMailId) {
 		dao.delete(interMailId);
 	}
+	public void deleteMemIntermail(Integer interMailId) {
+		dao.Memdelete(interMailId);
+	}
 
-	public IntermailVO getOneIntermail(String interMailId) {
+	public IntermailVO getOneIntermail(Integer interMailId) {
 		return dao.findByPrimaryKey(interMailId);
 	}
 
@@ -71,19 +76,23 @@ private IntermailDAO_interface dao;
 		return dao.getReceive();
 	}
 	
-	public List<IntermailVO> getMemReceive() {
-		return dao.getMemReceive();
+	public List<IntermailVO> getMemReceive(Integer memId) {
+		return dao.getMemReceive(memId);
 	}
 
-	public IntermailVO getCheck(String interMailId) {
+	public IntermailVO getCheck(Integer interMailId) {
 		return dao.getCheck(interMailId);
 	}
 	
-	public IntermailVO getMemCheck(String interMailId) {
+	public IntermailVO getCheckAll(Integer interMailId) {
+		return dao.getCheckAll(interMailId);
+	}
+	
+	public IntermailVO getMemCheck(Integer interMailId) {
 		return dao.getMemCheck(interMailId);
 	}
 	
-	public IntermailVO getReply(String interMailId, Boolean isSend,Integer memId, String adminId,Boolean isReply) {
+	public IntermailVO getReply(Integer interMailId, Boolean isSend,Integer memId, String adminId,Boolean isReply) {
 		
 		IntermailVO intermailVO = new IntermailVO();
 		intermailVO.setIsSend(isSend);

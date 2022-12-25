@@ -104,7 +104,7 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -152,7 +152,7 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 					<h4>新增地區類別</h4>
 				</div>
 				<div class="mb-3 row">
-					<label for="typeCode" class="col-sm-2 col-form-label Label">類別編號:</label>
+					<label for="typeCode" >類別編號:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="typeCode"
 							id="typeCode" maxlength="4" size="4"
@@ -162,7 +162,7 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 				</div>
 				
 				<div class="mb-3 row">
-					<label for="typeName" class="col-sm-2 col-form-label adminLabel">類別名稱:</label>
+					<label for="typeName" >類別名稱:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="typeName"
 							id="typeName" maxlength="4" size="4"

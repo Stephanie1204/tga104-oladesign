@@ -4,22 +4,14 @@
 <%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>
 <%
-AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
+AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 %>
 <%
 IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
 %>
 <%
-MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
-System.out.println("login memberVO="+ memberVO);
-String message = (String)request.getAttribute("success");
-System.out.println("message="+ message);
-String pwdMessage = (String)request.getAttribute("pwdrecover");
-String vericodeDel = (String)request.getAttribute("vericodeDel");
-System.out.println("vericodeDel="+ vericodeDel);
-String vericodeDelReset = (String)request.getAttribute("vericodeDelReset");
-System.out.println("vericodeDelReset="+ vericodeDelReset);
-%>	
+MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,7 +132,7 @@ textarea {
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -188,21 +180,21 @@ textarea {
 				<div class="col title">
 					<h4>站內信</h4>
 				</div>
-				<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label>
-					<div class="col-sm-10">
-						<td><input type="text" class="form-control" name="interMailId"
-							id="interMailId" maxlength="4" size="4"
-							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td>
-					</div>
-				</div>
+<!-- 				<div class="mb-3 row"> -->
+<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label> -->
+<!-- 					<div class="col-sm-10"> -->
+<!-- 						<td><input type="text" class="form-control" name="interMailId" -->
+<!-- 							id="interMailId" maxlength="4" size="4" -->
+<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
 				<div class="mb-3 row">
 					<label for="adminName" class="col-sm-2 col-form-label adminLabel">會員編號:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="memId"
 							id="memId" maxlength="6" size="6"
-							value="<%= (intermailVO==null)? "" : intermailVO.getMemId()%>"
+							value="<%= (intermailVO==null)? memberVO.getMemId() : memberVO.getMemId()%>"
 							 /></td>
 					</div>
 				</div>
@@ -212,7 +204,8 @@ textarea {
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="adminId"
 							id="adminId" maxlength="4" size="4"
-							value="<%= (intermailVO==null)? adminVO.getAdminId() : intermailVO.getAdminId()%>"
+<%-- 							value="<%= (intermailVO==null)? adminVO.getAdminId() : intermailVO.getAdminId()%>" --%>
+								value="A001"
 							 /></td>
 					</div>
 				</div>

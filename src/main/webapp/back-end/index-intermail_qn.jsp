@@ -57,7 +57,7 @@
                      <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
 		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i class="fas fa-table"></i>店家會員管理</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i class="fas fa-table"></i>廠商會員管理</a></li>
                     	</ul>
                     </li>
                     
@@ -175,10 +175,10 @@
 
 					<ul>
 						<li><a
-							href="<%=request.getContextPath()%>/intermail_qn/listAllIntermail_qn.jsp">檢視所有商品地區類別</a>
+							href="<%=request.getContextPath()%>/intermail_qn/listAllIntermail_qn.jsp">檢視所有問題類別</a>
 						</li>
 						<li><a
-							href="<%=request.getContextPath()%>/intermail_qn/addIntermail_qn.jsp">新增商品地區類別</a>
+							href="<%=request.getContextPath()%>/intermail_qn/addIntermail_qn.jsp">新增問題類別</a>
 						</li>
 
 						<%-- <li>
