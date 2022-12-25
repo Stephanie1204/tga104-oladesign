@@ -2,7 +2,6 @@ package com.tibame.tga104.g2.oladesign.CompanyMember.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -330,8 +329,6 @@ public class Company_MemServlet extends HttpServlet {
 		}
 
 		if ("doGetAllComInfo".equals(action)) {
-			String adminId = req.getParameter("adminId");
-
 			Company_MemService company_memSvc = new Company_MemService();
 			List<Company_MemVO> company_memVO = company_memSvc.getAll();
 
@@ -346,7 +343,6 @@ public class Company_MemServlet extends HttpServlet {
 		if ("doReviewCOM".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String adminId = req.getParameter("adminId");
 			Integer memId = Integer.valueOf(req.getParameter("memId"));
 
 			MemberIsComService memberIsComSVC = new MemberIsComService();
@@ -364,36 +360,20 @@ public class Company_MemServlet extends HttpServlet {
 			pw.flush();
 		}
 
+		if ("doGetMemIdByComTaxId".equals(action)) {
+			String comTaxId = req.getParameter("comTaxId");
 
-//		/************************* 處理listAll.page的需求 *************************/
-//		if ("getOne_For_Update".equals(action)) {
-//			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			/******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
-//			String com_taxid = req.getParameter("com_taxid");
-//			/************************
-//			 * Contoller第二步開始查詢資料
-//			 ************************/
-//			Company_MemService company_memSvc = new Company_MemService();
-//			Company_MemVO company_memVO = company_memSvc
-//					.getOneCompany_Mem(com_taxid);
-//			/************************ Contoller第三步開始查詢完成,準備轉交 ****************/
-//			req.setAttribute("company_memVO", company_memVO);
-//			String url = "/back-end/company_member/updatecompany_member.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);
-//			successView.forward(req, res);
-//		}
-//
-//		if ("delete".equals(action)) {
-//			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			String com_taxid = req.getParameter("com_taxid");
-//			Company_MemService company_memSvc = new Company_MemService();
-//			company_memSvc.deleteCompany_Mem(com_taxid);
-//			String url = "/back-end/company_member/listAllcompany_member.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);
-//			successView.forward(req, res);
-//		}
+			Company_MemService company_memSvc = new Company_MemService();
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMemId(company_memSvc.doGetMemIdByComTaxId(comTaxId));
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(memberVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
 	}
-
 }
