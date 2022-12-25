@@ -195,8 +195,13 @@ pageContext.setAttribute("userId", userId);
 					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-coㄥls-sm-2 mix">
 					<c:forEach var="row" items="${select}">
 						<div class="featured__item">
-							<div class="featured__item__pic set-bg"
-								data-setbg="${row.productImgBase64}">
+							<div class="featured__item__pic">
+								<a
+									href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
+									class="results" target="_blank" class="set-bg"
+							data-setbg="img/featured/feature-4.jpg"><img
+									class="product__details__pic__item--large"
+									src="${ row.productImgBase64 }" alt="No Image"></a>
 								<ul class="featured__item__pic__hover">
 									<li><a href="#"><i class="fa fa-heart"></i></a></li>
 									<li>
@@ -205,10 +210,11 @@ pageContext.setAttribute("userId", userId);
 											<input type="hidden" name="prodaction" value="AddCartByPage">
 											<input type="hidden" name="memberId" value="${userId }">
 											<input type="hidden" name="comTaxId" value="${row.comTaxId }">
-											<input type="hidden" name="productId" value="${row.productId }">
-											<input type="hidden" name="quantity" value="1">
-											<input type="hidden" name="typeCode" value="${param.typeCode }">
-											<input type="hidden" name="styleCode" value="${param.styleCode }">
+											<input type="hidden" name="productId"
+												value="${row.productId }"> <input type="hidden"
+												name="quantity" value="1"> <input type="hidden"
+												name="typeCode" value="${param.typeCode }"> <input
+												type="hidden" name="styleCode" value="${param.styleCode }">
 											<input type="hidden" name="price" value="${param.price }">
 											<button type="submit" class="fa fa-shopping-cart"></button>
 										</form>

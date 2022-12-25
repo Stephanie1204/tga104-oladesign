@@ -1,3 +1,16 @@
 li > a.shop-connect{
 	color: blue;
 }
+
+div.star_block {
+  display: inline-block;
+  position: relative;
+}
+div.star_block > span.star {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 3px;
+}
+div.star_block > span.star.-on {
+  color: yellow;
+}
