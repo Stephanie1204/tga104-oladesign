@@ -3,9 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>
 <%
+IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
+%>
+<%
+Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail_qnVO");
+%>
+<%
+MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+Integer memId = Integer.parseInt(session.getAttribute("memId").toString());
 IntermailService intermailSvc = new IntermailService();
-List<IntermailVO> list = intermailSvc.getMemReceive();
+List<IntermailVO> list = intermailSvc.getMemReceive(memId);
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
@@ -77,7 +86,7 @@ pageContext.setAttribute("list", list);
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -100,8 +109,12 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
+									class="fas fa-table"></i><span>站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
@@ -130,14 +143,16 @@ pageContext.setAttribute("list", list);
 			<div>
 				<table class="table table-striped table-sm table-hover">
 					<tr>
-						<th nowrap="nowrap" >站內信編號</th>
-						<th nowrap="nowrap" >會員編號</th>
-						<th nowrap="nowrap" >管理員編號</th>
-						<th nowrap="nowrap" >問題類型選項</th>
-						<th nowrap="nowrap" >內容</th>
-						<th nowrap="nowrap" >>發送時間</th>
-						<th nowrap="nowrap" ></th>
-						<th nowrap="nowrap" >刪除</th>
+						<th nowrap="nowrap">站內信編號</th>
+						<th nowrap="nowrap">會員編號</th>
+						<th nowrap="nowrap">管理員編號</th>
+						<!-- 						<th nowrap="nowrap" >問題類型選項</th> -->
+						<th nowrap="nowrap">問題類型</th>
+						<th nowrap="nowrap">內容</th>
+						<th nowrap="nowrap">發送時間</th>
+						<th nowrap="nowrap"></th>
+						<th nowrap="nowrap">查看</th>
+						<th nowrap="nowrap">刪除</th>
 					</tr>
 
 					<%@ include file="page1.file"%>
@@ -149,17 +164,13 @@ pageContext.setAttribute("list", list);
 							<td>${intermailVO.interMailId}</td>
 							<td>${intermailVO.memId}</td>
 							<td>${intermailVO.adminId}</td>
-							<td>${intermailVO.numQue}</td>
+							<%-- 							<td>${intermailVO.numQue}</td> --%>
+							<td>${intermailVO.type}</td>
 							<td>${intermailVO.conTent}</td>
-							<td><fmt:formatDate value="${intermailVO.sentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-<%-- 							<td>${intermailVO.isSend}</td> --%>
-							<td>
-								<!-- 			  <FORM METHOD="post"  --> <%-- 			 ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do" style="margin-bottom: 0px;"> --%>
-								<!-- 			     <input type="submit" class="btn back-end-btn" value="修改"> -->
-								<%-- 			      <input type="hidden" name="numQue"  value="${intermail_qnVO.numQue}"> --%>
-								<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"> -->
-								<!-- 			  </FORM> -->
-							</td>
+							<td><fmt:formatDate value="${intermailVO.sentTime}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<%-- 							<td>${intermailVO.isSend}</td> --%>
+							<td></td>
 							<td>
 
 								<FORM METHOD="post"
@@ -171,11 +182,23 @@ pageContext.setAttribute("list", list);
 										type="hidden" name="action" value="MemCheck">
 								</FORM>
 							</td>
+
+							<td>
+
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/intermail/intermail.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="刪除">
+									<input type="hidden" name="interMailId"
+										value="${intermailVO.interMailId}"> <input
+										type="hidden" name="action" value="Memdelete">
+								</FORM>
+							</td>
 							<!-- 								</td>  -->
 						</tr>
 					</c:forEach>
 				</table>
-				<%@ include file="page2.file" %>
+				<%@ include file="page2.file"%>
 			</div>
 		</div>
 

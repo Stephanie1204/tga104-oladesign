@@ -3,7 +3,7 @@ package com.tibame.tga104.g2.oladesign.intermail.model;
 import java.sql.Timestamp;
 
 public class IntermailVO implements java.io.Serializable{
-	private String interMailId;
+	private Integer interMailId;
 	private Integer memId;
 	private String adminId;
 	private String numQue;
@@ -11,9 +11,23 @@ public class IntermailVO implements java.io.Serializable{
 	private Timestamp sentTime;
 	private Boolean isSend;
 	private Boolean isReply;
+	private String type;
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	
 	
 	
+	public Integer getInterMailId() {
+		return interMailId;
+	}
+	public void setInterMailId(Integer interMailId) {
+		this.interMailId = interMailId;
+	}
 
 	public Boolean getIsReply() {
 		return isReply;
@@ -21,12 +35,7 @@ public class IntermailVO implements java.io.Serializable{
 	public void setIsReply(Boolean isReply) {
 		this.isReply = isReply;
 	}
-	public String getInterMailId() {
-		return interMailId;
-	}
-	public void setInterMailId(String interMailId) {
-		this.interMailId = interMailId;
-	}
+
 	public Integer getMemId() {
 		return memId;
 	}

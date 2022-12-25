@@ -130,7 +130,7 @@ textarea {
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -178,14 +178,14 @@ textarea {
 				<div class="col title">
 					<h4>新增站內信問題類別</h4>
 				</div>
-				<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label>
-					<div class="col-sm-10">
-						<td><input type="text" class="form-control" name="interMailId"
-							id="interMailId" maxlength="4" size="4"
-							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td>
-					</div>
-				</div>
+<!-- 				<div class="mb-3 row"> -->
+<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label> -->
+<!-- 					<div class="col-sm-10"> -->
+<!-- 						<td><input type="text" class="form-control" name="interMailId" -->
+<!-- 							id="interMailId" maxlength="4" size="4" -->
+<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
 				
 				<div class="mb-3 row">
 					<label for="adminName" class="col-sm-2 col-form-label adminLabel">會員編號:</label>

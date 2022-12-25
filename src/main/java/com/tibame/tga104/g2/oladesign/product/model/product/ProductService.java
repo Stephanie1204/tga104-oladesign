@@ -4,15 +4,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemBean;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemDAO;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemDAOJdbc;
+
 public class ProductService {
-	//create DAO object
+	//DAO object
 	private ProductDAO productDao = new ProductDAOJdbc();
 	private ProductDAO_Cart productDao_Cart = new ProductDAORedis();
+	private OrderItemDAO orderItemDao = new OrderItemDAOJdbc();
 	
 	public static void main(String[] args) {
-		ProductService productService = new ProductService();
-		List<ProductBean> selects = productService.select(null);
-		System.out.println("selects="+selects);
+		
 	}
 	public List<ProductBean> select(ProductBean bean) {
 		List<ProductBean> result = null;
@@ -111,23 +114,26 @@ public class ProductService {
 		}
 		return result;
 	}
-//================================================================================================需要變更處	
-	public void updateFromCart(String userId, String comTaxId, int productId, int quantity){
-		//String userId = "220001";		
+//================================================================================================	
+	public void updateFromCart(String userId, String comTaxId, int productId, int quantity){	
  
 		productDao_Cart.updateFromCart(userId, comTaxId, productId, quantity); 
 	}
 	
 	public void insertCart(String userId, String comTaxId, int productId, int quantity){
-		//String userId = "220001";		
+		
 		if(userId != null) {
 			productDao_Cart.insert(userId, comTaxId, productId, quantity); 
 		}
 	}
 	
 	public void deleteFromCart(String userId, String comTaxId, int productId){
-		//String userId = "220001";	
+
 		productDao_Cart.deleteFromCart(userId, comTaxId, productId); 
 	}
-	
+//================================================================================================	
+	public List<OrderItemBean> getComment(int productId){
+
+		return orderItemDao.select(productId);
+	}
 }

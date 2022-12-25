@@ -12,7 +12,7 @@ pageContext.setAttribute("list", list);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有站內信</title>
+<title>所有尚未回覆站內信</title>
 
 
 <meta name="viewport"
@@ -77,7 +77,7 @@ pageContext.setAttribute("list", list);
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i
-									class="fas fa-table"></i>店家會員管理</a></li>
+									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -118,7 +118,7 @@ pageContext.setAttribute("list", list);
 
 		<div style="padding: 20px 15px;">
 			<div style="display: flex;">
-				<h2>所有站內信</h2>
+				<h2>所有尚未回覆站內信</h2>
 				<div style="display: flex; position: absolute; right: 15px;">
 					<!-- 							<h4> -->
 					<%-- 								<a href="<%=request.getContextPath()%>/back-end/index-admin.jsp">回管理員管理</a> --%>
@@ -133,7 +133,8 @@ pageContext.setAttribute("list", list);
 						<th>站內信編號</th>
 						<th>會員編號</th>
 						<th>管理員編號</th>
-						<th>問題類型選項</th>
+<!-- 						<th>問題類型選項</th> -->
+						<th>問題類型</th>
 						<th>內容</th>
 						<th>發送時間</th>
 						<th></th>
@@ -149,7 +150,8 @@ pageContext.setAttribute("list", list);
 							<td>${intermailVO.interMailId}</td>
 							<td>${intermailVO.memId}</td>
 							<td>${intermailVO.adminId}</td>
-							<td>${intermailVO.numQue}</td>
+<%-- 							<td>${intermailVO.numQue}</td> --%>
+							<td>${intermailVO.type}</td>
 							<td>${intermailVO.conTent}</td>
 							<td><fmt:formatDate value="${intermailVO.sentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 <%-- 							<td>${intermailVO.isSend}</td> --%>
