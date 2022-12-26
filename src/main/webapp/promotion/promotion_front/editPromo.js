@@ -1,5 +1,7 @@
 var promoId = new URLSearchParams(location.search).get("promoId");
 console.log(promoId);
+let promoStatus;
+
 
 // get original promo
 $.ajax({
@@ -10,9 +12,10 @@ $.ajax({
   contentType: "application/json; charset=UTF-8",
   success: function (res) {
     alert("success");
+  promoStatus = res.promoStatus;
 
     let form_html = `
-      <label>專案名稱 ： <input  class="promoName" type="text" value="${res.promoName} "></label><br>
+      <label>專案名稱 ： <input  class="promoName" type="text" value="${res.promoName}"></label><br>
       <label> 折 扣 碼 ：  
         <input id="coupon_input" type="text" value="${res.coupon}"> 
         <button type="button" id="checkCoupon"> 檢查</button>
@@ -42,43 +45,45 @@ $.ajax({
   },
 });
 
-// while click submit button
-$("button#submit").on("click", function () {
-  if (new Date($("input.start_date").val().trim()) < new Date()) {
-    alert("開始日期不可小於今日");
-    return;
-  }
-  if ($("input.end_date").val().trim() < $("input.start_date").val().trim()) {
-    alert("結束日期不可小於開始日期");
-    return;
-  }
+// // while click submit button
+// $("button#submit").on("click", function () {
+//   if (new Date($("input.start_date").val().trim()) < new Date()) {
+//     alert("開始日期不可小於今日");
+//     return;
+//   }
+//   if ($("input.end_date").val().trim() < $("input.start_date").val().trim()) {
+//     alert("結束日期不可小於開始日期");
+//     return;
+//   }
 
-  // set and trim added info into a form_data variable
-  const formData = {
-    promoName: $("input.promoName").val().trim(),
-    startDate: $("input.start_date").val().trim(),
-    endDate: $("input.end_date").val().trim(),
-    coupon: $("input#coupon_input").val().trim(),
-  };
+//   // set and trim added info into a form_data variable
+//   const formData = {
+//     promoName: $("input.promoName").val().trim(),
+//     startDate: $("input.start_date").val().trim(),
+//     endDate: $("input.end_date").val().trim(),
+//     coupon: $("input#coupon_input").val().trim(),
+//     promoStatus: promoStatus,
+//   };
 
-  $.ajax({
-    url: "http://localhost:8080/oladesign/promo",
-    type: "POST",
-    data: JSON.stringify(formData),
-    dataType: "json",
-    contentType: "application/json; charset=UTF-8",
+//   $.ajax({
+//     url: "http://localhost:8080/oladesign/promo",
+//     type: "PUT",
+//     data: JSON.stringify(formData),
+//     dataType: "json",
+//     contentType: "application/json; charset=UTF-8",
 
-    success: function (data) {
-      alert("success ");
-      window.location.href = `http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html?comTaxId=${data.comTaxId}`;
-    },
-    error: function (xhr) {
-      console.log("error");
-      console.log(xhr);
-    },
-  });
-});
+//     success: function (data) {
+//       alert("success ");
+//       window.location.href = `http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html`;
+//     },
+//     error: function (xhr) {
+//       console.log("error");
+//       console.log(xhr);
+//     },
+//   });
+// });
 
+//檢查折扣碼
 $("button#checkCoupon").on("click", function () {
   $.ajax({
     url: "http://localhost:8080/oladesign/promo:coupon",
@@ -104,16 +109,24 @@ $("button#checkCoupon").on("click", function () {
   });
 });
 
-// edit promo
-$("button#submit_btn").on("click", function (target) {
-  const $thisTableRow = $(target).closest("tr");
+// 送出修改
+$("#submit_btn").on("click", function () {
+  if (new Date($("input.start_date").val().trim()) < new Date()) {
+    alert("開始日期不可小於今日");
+    return;
+  }
+  if ($("input.end_date").val().trim() < $("input.start_date").val().trim()) {
+    alert("結束日期不可小於開始日期");
+    return;
+  } 
 
   const formData = {
     promoName: $("input.promoName").val(),
     startDate: $("input.start_date").val(),
     endDate: $("input.end_date").val(),
     coupon: $("input#coupon_input").val(),
-    promoId: promoId,
+    promoStatus: promoStatus,
+    promoId:promoId,
   };
 
   $.ajax({
@@ -125,8 +138,12 @@ $("button#submit_btn").on("click", function (target) {
     success: function (data) {
       console.log(data);
       alert("success");
-      window.location.href =
-        "http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html?comTaxId=" +sessionStorage.getItem("comTaxId");
+      if(data === true){
+        window.location.href =
+        "http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html";
+      }else if(data === false){
+        alert("修改失敗");
+      }
     },
     error: function (res) {
       console.log("error");

@@ -32,9 +32,20 @@ public class PromoService {
 		return promoVO;
 	}
 
-	public PromoVO update(PromoVO promoVO) {
+//	public PromoVO update(PromoVO promoVO) {
+//		if(!promoVO.getPromoStatus().equals("PS001")) {
+//			return promoVO;
+//		}
+//		dao.update(promoVO);
+//		return promoVO;
+//	}
+	
+	public Boolean update(PromoVO promoVO) {
+		if(!promoVO.getPromoStatus().equals("PS001")) {
+			return false;
+		}
 		dao.update(promoVO);
-		return promoVO;
+		return true;
 	}
 
 	public Boolean deletePromo(Integer promoId) {

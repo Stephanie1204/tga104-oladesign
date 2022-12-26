@@ -15,6 +15,8 @@ public class PromoVO implements Serializable{
 	private Timestamp createTime;
 	private Timestamp modifyTime;
 	
+	
+	
 	public Integer getPromoId() {
 		return promoId;
 	}
