@@ -24,8 +24,8 @@ public class PromoController {
 	@Autowired
 	PromoService service;
 	@GetMapping("/promo") // get all promo by comTaxId
-	public List<PromoVO> getAllPromo(HttpSession session) {
-		String comTaxId  = (String) session.getAttribute("comTaxId");
+	public List<PromoVO> getAllPromo(@RequestParam("comTaxId") String comTaxId) {
+//		String comTaxId  = (String) session.getAttribute("comTaxId");
 		List<PromoVO> vo = service.getAll(comTaxId);
 		return vo;
 	}
@@ -42,15 +42,17 @@ public class PromoController {
 	}
 
 	@PostMapping("/promo") // create new promo (should auto set comTaxId)
-	public PromoVO postVO(@RequestBody PromoVO promoVO, HttpSession session) {
-		String comTaxId  = (String) session.getAttribute("comTaxId");
-		promoVO.setComTaxId(comTaxId);
+	public PromoVO postVO(@RequestBody PromoVO promoVO) {
+//		String comTaxId  = (String) session.getAttribute("comTaxId");
+//		promoVO.setComTaxId(comTaxId);
 		return service.addPromo(promoVO);
 	}
 
 	@PutMapping("/promo") // update
-	public PromoVO putVO(@RequestBody PromoVO promoVO) {
-		PromoVO vo = service.update(promoVO);
+	public Boolean putVO(@RequestBody PromoVO promoVO) {
+//		String comTaxId  = (String) session.getAttribute("comTaxId");
+//		promoVO.setComTaxId(comTaxId);
+		Boolean vo = service.update(promoVO);
 		return vo;
 	}
 
