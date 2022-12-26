@@ -1,0 +1,9 @@
+div>ul.picture_1>li>img {
+	width: 150px;
+	height: 150px;
+}
+
+div.img_display {
+	width: 100%;
+	vertical-align: top;
+}
