@@ -1,6 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*"%>
+<%
+Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+if (companyMem != null) {
+	pageContext.setAttribute("comTaxId", companyMem.getComTaxId());
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,8 +84,7 @@
 							method="post" enctype="multipart/form-data">
 							<div class="col-md-2 title">公司統編</div>
 							<div class="col-md-4 data">
-								<input type="text" class="form-control" placeholder="公司統編"
-									value="" />
+								${comTaxId }
 							</div>
 
 							<div class="col-md-2 title">商品名稱</div>
@@ -138,6 +144,8 @@
 								<select size="1" name="status">
 									<option value="true" ${param.status == true ? 'selected' : ''}>上架
 
+
+									
 									<option value="false"
 										${param.status == false ? 'selected' : ''}>下架
 								</select>

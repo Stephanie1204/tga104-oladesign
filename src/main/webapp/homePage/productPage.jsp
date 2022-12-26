@@ -149,14 +149,17 @@ System.out.println("test");
 							src="${ prod.productImgBase64 }" alt="No Image">
 					</div>
 					<div class="product__details__pic__slider owl-carousel">
-						<img data-imgbigurl="img/product/details/product-details-2.jpg"
-							src="img/product/details/thumb-1.jpg" alt=""> <img
-							data-imgbigurl="img/product/details/product-details-3.jpg"
-							src="img/product/details/thumb-2.jpg" alt=""> <img
-							data-imgbigurl="img/product/details/product-details-5.jpg"
-							src="img/product/details/thumb-3.jpg" alt=""> <img
-							data-imgbigurl="img/product/details/product-details-4.jpg"
-							src="img/product/details/thumb-4.jpg" alt="">
+						<img data-imgbigurl="${ prod.productImgBase64 }"
+							src="${ prod.productImgBase64 }" alt="">
+						<jsp:useBean id="proSvc" scope="page"
+							class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
+						<c:if test="${not empty proSvc.getImages(prod.productId)}">
+							<c:forEach var="row_image"
+								items="${proSvc.getImages(prod.productId)}">
+								<img data-imgbigurl="${row_image.productImgBase64}"
+									src="${row_image.productImgBase64}" alt="">
+							</c:forEach>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -213,30 +216,30 @@ System.out.println("test");
 
 						<div class="tab-pane" id="tabs-2" role="tabpanel">
 							<div class="product__details__tab__desc">
-								<jsp:useBean id="proSvc" scope="page"
-									class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
-								<c:forEach var="row"
-									items="${proSvc.getComment(prod.productId)}">
-									<div class="star_block">
-										<span
-											class="star ${ row.commentStar >= 1 ? '
+								<c:if test="${not empty proSvc.getComment(prod.productId)}">
+									<c:forEach var="row"
+										items="${proSvc.getComment(prod.productId)}">
+										<div class="star_block">
+											<span
+												class="star ${ row.commentStar >= 1 ? '
 											-on' : '' }"><i
-											class="fas fa-star"></i></span> <span
-											class="star ${ row.commentStar >= 2 ? '
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 2 ? '
 											-on' : '' }"><i
-											class="fas fa-star"></i></span> <span
-											class="star ${ row.commentStar >= 3 ? '
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 3 ? '
 											-on' : '' }"><i
-											class="fas fa-star"></i></span> <span
-											class="star ${ row.commentStar >= 4 ? '
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 4 ? '
 											-on' : '' }"><i
-											class="fas fa-star"></i></span> <span
-											class="star ${ row.commentStar >= 5 ? '
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 5 ? '
 											-on' : '' }"><i
-											class="fas fa-star"></i></span>
-										<p>${row.comment }</p>
-									</div>
-								</c:forEach>
+												class="fas fa-star"></i></span>
+											<p>${row.comment }</p>
+										</div>
+									</c:forEach>
+								</c:if>
 							</div>
 						</div>
 					</div>

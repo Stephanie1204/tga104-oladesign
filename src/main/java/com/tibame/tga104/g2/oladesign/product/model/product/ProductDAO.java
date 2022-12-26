@@ -22,4 +22,11 @@ public interface ProductDAO {
 	
 	public abstract int getPrice(int productId);
 
+	public abstract List<ProductImageBean> selectImg(int productId);
+
+	public abstract void insertImg(ProductImageBean bean);
+	
+	public abstract void deleteImg(int imageId);
+	
+	public abstract int getImgAmount(int productId);
 }
