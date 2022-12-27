@@ -73,44 +73,44 @@ pageContext.setAttribute("userId", userId);
 
 	<!-- Humberger Begin -->
 	<!-- Home/shop/pages/blog/contact bar while mobile -->
-	<div class="humberger__menu__overlay"></div>
-	<div class="humberger__menu__wrapper">
-		<!-- organi logo -->
-		<div class="humberger__menu__logo">
-			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a>
-		</div>
+<!-- 	<div class="humberger__menu__overlay"></div> -->
+<!-- 	<div class="humberger__menu__wrapper"> -->
+<!-- 		<!-- organi logo --> 
+<!-- 		<div class="humberger__menu__logo"> -->
+<%-- 			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img --%>
+<%-- 				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a> --%>
+<!-- 		</div> -->
 
-		<!-- shopping cart and heart on the right -->
+<!-- 		<!-- shopping cart and heart on the right --> 
 
-		<div class="humberger__menu__widget">
-			<!-- login button on the top-->
-			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i>登入</a>
-			</div>
-		</div>
+<!-- 		<div class="humberger__menu__widget"> -->
+<!-- 			<!-- login button on the top--> 
+<!-- 			<div class="header__top__right__auth"> -->
+<!-- 				<a href="#"><i class="fa fa-user"></i>登入</a> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 
-		<nav class="humberger__menu__nav mobile-menu">
-			<ul>
-				<li class="active"><a
-					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-				<li><a href="./shop-grid.html">Shop</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-				<li><a href="./blog.html">Blog</a></li>
-				<li><a href="./contact.html">Contact</a></li>
-			</ul>
-		</nav>
-		<div id="mobile-menu-wrap"></div>
+<!-- 		<nav class="humberger__menu__nav mobile-menu"> -->
+<!-- 			<ul> -->
+<!-- 				<li class="active"><a -->
+<%-- 					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li> --%>
+<!-- 				<li><a href="./shop-grid.html">Shop</a></li> -->
+<!-- 				<li><a -->
+<%-- 					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li> --%>
+<!-- 				<li><a href="./blog.html">Blog</a></li> -->
+<!-- 				<li><a href="./contact.html">Contact</a></li> -->
+<!-- 			</ul> -->
+<!-- 		</nav> -->
+<!-- 		<div id="mobile-menu-wrap"></div> -->
 
-		<!-- info on left-top -->
+<!-- 		<!-- info on left-top --> 
 
-		<div class="humberger__menu__contact">
-			<ul>
-				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-			</ul>
-		</div>
-	</div>
+<!-- 		<div class="humberger__menu__contact"> -->
+<!-- 			<ul> -->
+<!-- 				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<!-- Humberger End -->
 
 	<!-- Header Section Begin -->
@@ -188,14 +188,14 @@ pageContext.setAttribute("userId", userId);
 	</section>
 	<!-- Hero Section End -->
 	<section class="products">
-		<div class="container">
+		<div class="prodcontainer">
 			<h3>${fn:length(select)}項搜尋結果</h3>
 			<input type="hidden" name="result" id="resultNum"
 				value="${fn:length(select)}">
 
 			<c:if test="${not empty select}">
 				<div
-					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-coㄥls-sm-2 mix">
+					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 mix">
 					<c:forEach var="row" items="${select}">
 						<div class="featured__item">
 							<div class="featured__item__pic">
@@ -206,9 +206,9 @@ pageContext.setAttribute("userId", userId);
 									class="product__details__pic__item--large"
 									src="${ row.productImgBase64 }" alt="No Image"></a>
 								<ul class="featured__item__pic__hover">
-									<li><a href="##" class="favorcircle">
+									<li><!-- <a href="###" class="favorcircle"> -->
 											<i class="fa fa-heart favorheart" id="${row.productId}" data="${row.productId}"></i>
-										</a>
+<!-- 										</a> -->
 									</li>
 									<li>
 										<form action="<c:url value="/pages/product.controller" />"
@@ -346,109 +346,9 @@ pageContext.setAttribute("userId", userId);
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-	<script>
-	$(window).on("load", function(){
-		let memId = "${memId}";
-	    console.log("memId=" + memId);
-	  //先查詢已經加入收藏的商品
-	    if(memId.length != 0){ 
-    		$.ajax({
-    			url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-    			type: "PUT",
-    			data: JSON.stringify({
-    				"memId": memId
-    			}),
-        		dataType: "json",
-        		contentType: "application/json",
-        		processData: false,
-        		success: function(data){
-	            	console.log("data");
-	            	var favorObj = JSON.parse(data.getFavor);
-	            	console.log(favorObj);
-	            	console.log("favorObj.length:" + favorObj.length);
-	            	$("#fav").text(favorObj.length); //在收藏icon顯示收藏數量
-	            	
-	            	$.each(favorObj, function(index, item){ //取出已收藏的商品ID
-		            	console.log(item.prodId);
-	            		$("#" + item.prodId + "").addClass("active");
-	            		$("#" + item.prodId + "").closest("a").addClass("active");
-		            });	            	
-	            },
-	            error: function(xhr){
-	            	console.log(xhr);
-	            },
-	            complete: function(xhr){
-	            	console.log(xhr);
-	            }
-    		});
-    	}
-	  
-	  	//新增收藏
-	    $(".favorcircle").on("click", function(e){
-	    	if(memId == null || memId.length == 0){
-	    		alert("請先登入會員");
-	    	}else{
-	    		let prodId = $(e.target).attr("data");
-	    		console.log("prodId=" + prodId);
-	    		$(e.target).toggleClass("active");
-		        $(e.target).closest("a").toggleClass("active");
-		        
-		        var favordata ={
-		        		"memId": memId,
-		        		"prodId": prodId
-		        };
-		        console.log(favordata);
-		        let active = $(e.target).hasClass("active");
-		        console.log("active=" + active);
-		        if(active == true){ //新增收藏
-		        	$.ajax({
-			            url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-			            type: "POST",
-			            data: JSON.stringify(favordata),
-			            dataType: "json",
-			            contentType: "application/json",
-			            processData: false,
-			            success: function(adddata){
-			            	console.log("adddata=" + adddata);
-			            	var count = $("#fav").text();
-			            	var countFav = parseInt(count); //String 轉為 number
-			            	$("#fav").text(countFav + 1);
-			            },
-			            error: function(xhr){
-			            	console.log(xhr);
-			            },
-			            complete: function(xhr){
-			            	console.log(xhr);
-			            }
-			        });
-		        }else{ //移除收藏
-		        	$.ajax({
-		        		url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-		        		type: "DELETE",
-		        		data: JSON.stringify(favordata),
-		        		dataType: "json",
-		        		contentType: "application/json",
-		        		processData: false,
-		        		success: function(deldata){
-		        			console.log("deldata");
-			            	console.log(deldata);
-			            	var count = $("#fav").text();
-			            	var countFav = parseInt(count); //String 轉為 number
-			            	$("#fav").text(countFav - 1);
-			            },
-			            error: function(xhr){
-			            	console.log(xhr);
-			            },
-			            complete: function(xhr){
-			            	console.log(xhr);
-			            }
-		        	});
-		        }
-		        
-	    	}
-	        
-	    });
-	});
-	</script>
+		
+		
+<%@ include file="../include/favorite.jsp"%>		
+	
 </body>
 </html>

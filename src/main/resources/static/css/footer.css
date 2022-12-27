@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+div.footercontent{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	border: 2px solid red;
+	height: 180px;
+}
+
+div.footer__about{
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 350px;
+}
+
+div.footer__about__logo{
+	width: 350px;
+	
+}
+
+div.footer__link{
+	flex-grow: 2;
+    flex-shrink: 2;
+    flex-basis: 600px;
+}
+
+div.footer__widget{
+	border: 2px solid blue;
+	height: 180px;
+}
+
