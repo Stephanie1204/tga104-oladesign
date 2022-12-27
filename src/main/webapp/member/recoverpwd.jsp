@@ -30,6 +30,9 @@ System.out.println("recoverpwd.jsp memId=" + memId);
     <link rel="stylesheet" href="../css/forgetpwd.css" />
   </head>
   <body class="hold-transition login-page">
+  	<div class="backtoindex">
+		<a href="<%=request.getContextPath()%>/homePage/index.jsp" class="index"><span class="back">回首頁</span></a>
+	</div>
     <div class="login-box">
       <div class="card card-outline">
         <div class="card-header text-center">

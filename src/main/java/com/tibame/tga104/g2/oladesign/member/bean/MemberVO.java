@@ -111,13 +111,16 @@ public class MemberVO implements Serializable{
 	public Boolean getIsRegCom() {
 		return isRegCom;
 	}
+
 	public void setIsRegCom(Boolean isRegCom) {
 		this.isRegCom = isRegCom;
 	}
+	
 
 	public byte[] getMemPhoto() {
 		return memPhoto;
 	}
+
 	public void setMemPhoto(byte[] memPhoto) {
 		this.memPhoto = memPhoto;
 	}

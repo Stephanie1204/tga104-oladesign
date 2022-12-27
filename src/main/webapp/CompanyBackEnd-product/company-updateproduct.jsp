@@ -2,13 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*"%>
+<%
+Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+if (companyMem != null) {
+	pageContext.setAttribute("comTaxId", companyMem.getComTaxId());
+}
+%>
 <%
 ProductService prodSvc = new ProductService();
 String productId = request.getParameter("productId");
 if (productId != null) {
 	ProductBean product = prodSvc.selectByProdId(Integer.parseInt(productId));
 	pageContext.setAttribute("prod", product);
+
+	int imgAmount = prodSvc.getImgAmount(Integer.parseInt(productId));
+	pageContext.setAttribute("amount", imgAmount);
 }
+
 System.out.println("test");
 %>
 <!DOCTYPE html>
@@ -57,6 +68,7 @@ System.out.println("test");
 <link rel="stylesheet" href="../plugins/bootstrap-slider/slider.css" />
 <link rel="stylesheet"
 	href="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+<link rel="stylesheet" href="../plugins/updateProduct/updateProduct.css" />
 
 <script type="text/javascript">
 	function clearForm() {
@@ -83,6 +95,68 @@ System.out.println("test");
 				<!--订单信息-->
 				<div class="panel panel-default">
 					<div class="row data-type">
+						<div class="col-md-2 title rowHeight2x">商品圖片上傳</div>
+						<div class="col-md-10 data" style="height: 320px">
+							<div>
+								<div class="img_display">
+									<div>
+										<form action='<c:url value="/pages/saler.controller"/>'
+											method="post" enctype="multipart/form-data">
+											<div>
+												<input type="file" id="p_file1" name="img_file1"
+													style="display: none;" accept="image/*" multiple /> <input
+													type="button" value="Browse..."
+													onclick="document.getElementById('p_file1').click();" />
+											</div>
+											<div>
+												<input type="hidden" name="comTaxId" value="${comTaxId }">
+												<input type="hidden" name="imgAmount" value="${amount }">
+												<input type="hidden" name="productId"
+													value="${prod.productId }"> <input type="hidden"
+													name="prodaction" value="addImg">
+												<button type="submit">上傳</button>
+											</div>
+										</form>
+									</div>
+									<div id="preview1">
+										<span class="text" id="text-preview">預覽圖</span>
+									</div>
+									<div>
+										<ul class="picture_1"></ul>
+									</div>
+									<div>
+										<h4>圖片一覽</h4>
+									</div>
+									<div>
+										<ul class="pictures"></ul>
+										<jsp:useBean id="productSvc" scope="page"
+											class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
+										<c:if test="${not empty productSvc.getImages(prod.productId)}">
+											<c:forEach var="row_image"
+												items="${productSvc.getImages(prod.productId)}">
+												<li style="display: inline-block">
+													<form action='<c:url value="/pages/saler.controller"/>'
+														method="post" enctype="multipart/form-data">
+														<div>
+															<img style="width: 80px; height: 80px;"
+																src="${row_image.productImgBase64}">
+														</div>
+														<div>
+															<input type="hidden" name="comTaxId" value="${comTaxId }">
+															<input type="hidden" name="productId"
+																value="${prod.productId }"> <input type="hidden"
+																name="imageId" value="${row_image.imageId }"> <input
+																type="hidden" name="prodaction" value="deleteImg">
+															<button type="submit">刪除</button>
+														</div>
+													</form>
+												</li>
+											</c:forEach>
+										</c:if>
+									</div>
+								</div>
+							</div>
+						</div>
 						<form action='<c:url value="/pages/saler.controller"/>'
 							method="post" enctype="multipart/form-data">
 							<div class="col-md-2 title">商品編號</div>
@@ -105,7 +179,7 @@ System.out.println("test");
 									<option value="">無
 										<c:forEach var="typeBean" items="${typeSvc.getAll()}">
 											<option value="${typeBean.typeCode}"
-												${prod.typeCode == typeBean.typeCode ? 'selected' : ''}>${typeBean.typeName}
+												${prod.typeCode == typeBean.typeCode ? 'selected' : ''}>${typeBean.typeName}</option>
 										</c:forEach>
 								</select>
 							</div>
@@ -119,7 +193,7 @@ System.out.println("test");
 									<option value="">無
 										<c:forEach var="styleBean" items="${styleSvc.getAll()}">
 											<option value="${styleBean.styleCode}"
-												${prod.styleCode == styleBean.styleCode ? 'selected' : ''}>${styleBean.styleName}
+												${prod.styleCode == styleBean.styleCode ? 'selected' : ''}>${styleBean.styleName}</option>
 										</c:forEach>
 								</select>
 							</div>
@@ -146,19 +220,17 @@ System.out.println("test");
 							<div class="col-md-4 data">
 								<select size="1" name="status" class="form-control"
 									style="width: 100%">
-									<option value="true" ${prod.status == true ? 'selected' : ''}>上架
-									
-									<option value="false" ${prod.status == false ? 'selected' : ''}>下架
-
+									<option value="true" ${prod.status == true ? 'selected' : ''}>上架</option>
+									<option value="false" ${prod.status == false ? 'selected' : ''}>下架</option>
 								</select>
 							</div>
-							<div class="col-md-2 title rowHeight2x">圖片上傳</div>
+							<div class="col-md-2 title rowHeight2x">主圖上傳</div>
 							<div class="col-md-10 data" style="height: 320px">
 								<input type="file" name="img_file" accept="image/*"
 									id="uploadimage" class="upl" /> <img class="preview"
 									src="${prod.productImgBase64}"
-									style="max-width: 150px; max-height: 150px;">
-									<input type="hidden" name="tempImg" value="${prod.productImgBase64}">
+									style="max-width: 150px; max-height: 150px;"> <input
+									type="hidden" name="tempImg" value="${prod.productImgBase64}">
 								<div class="img-box"></div>
 							</div>
 
@@ -175,6 +247,7 @@ System.out.println("test");
 							<!--工具栏-->
 							<div class="box-tools text-center">
 								<hr />
+								<input type="hidden" name="comTaxId" value="${comTaxId }">
 								<input type="submit" name="prodaction" value="Update"
 									class="btn bg-maroon"><input type="submit"
 									name="prodaction" value="Delete" class="btn bg-maroon">
@@ -283,6 +356,7 @@ System.out.println("test");
 		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script
 		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="../plugins/updateProduct/updateproduct.js"></script>
 	<script>
 		$(function() {
 

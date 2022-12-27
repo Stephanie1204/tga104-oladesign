@@ -28,7 +28,7 @@ private IntermailDAO_interface dao;
 	}
 	
 //	public IntermailVO addmemIntermail(Integer interMailId, Integer memId,String adminId,String numQue,String conTent) {
-	public IntermailVO addmemIntermail( Integer memId,String adminId,String numQue,String conTent) {
+	public Boolean addmemIntermail( Integer memId,String adminId,String numQue,String conTent) {
 
 		IntermailVO intermailVO = new IntermailVO();
 
@@ -37,9 +37,13 @@ private IntermailDAO_interface dao;
 		intermailVO.setAdminId(adminId);
 		intermailVO.setNumQue(numQue);
 		intermailVO.setConTent(conTent);
-		dao.meminsert(intermailVO);
-
-		return intermailVO;
+		
+		if((dao.meminsert(intermailVO))==1) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 //	public IntermailVO updateIntermail(Integer interMailId, Integer memId,String adminId,String numQue,String conTent) {

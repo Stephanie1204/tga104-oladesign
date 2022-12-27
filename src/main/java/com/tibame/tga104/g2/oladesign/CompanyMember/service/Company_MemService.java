@@ -15,9 +15,8 @@ public class Company_MemService {
 	}
 
 	// 新增廠商資料
-	public Company_MemVO addCompany_Mem(String comtaxid, Integer memid,
-			String comname, String comaddress, String comphone, String comowner,
-			String ownerphone, String comBankaccount) {
+	public Company_MemVO addCompany_Mem(String comtaxid, Integer memid, String comname, String comaddress,
+			String comphone, String comowner, String ownerphone, String comBankaccount) {
 		Company_MemVO company_memVO = new Company_MemVO();
 		company_memVO.setComTaxId(comtaxid);
 		company_memVO.setMemId(memid);
@@ -38,9 +37,8 @@ public class Company_MemService {
 	}
 
 	// 修改廠商資料
-	public Company_MemVO updateCompany_Mem(String comtaxid, Integer memid,
-			String comname, String comaddress, String comphone, String comowner,
-			String ownerphone, String comBankaccount) {
+	public Company_MemVO updateCompany_Mem(String comtaxid, Integer memid, String comname, String comaddress,
+			String comphone, String comowner, String ownerphone, String comBankaccount) {
 		Company_MemVO company_memVO = new Company_MemVO();
 		company_memVO.setComTaxId(comtaxid);
 		company_memVO.setMemId(memid);
@@ -56,8 +54,8 @@ public class Company_MemService {
 	}
 
 	// 修改賣家介紹
-	public Company_MemVO updateforshop(String comtaxid,String storename, String storeintro,
-			byte[] storelogo, byte[] storebanner) {
+	public Company_MemVO updateforshop(String comtaxid, String storename, String storeintro, byte[] storelogo,
+			byte[] storebanner) {
 		Company_MemVO company_memVO = new Company_MemVO();
 		company_memVO.setComTaxId(comtaxid);
 		company_memVO.setStoreName(storename);
@@ -74,15 +72,12 @@ public class Company_MemService {
 		return dao.findByPrimaryKey(comtaxid);
 	}
 
-	// 刪除
-	// public void deleteCompany_Mem(String company_memno) {
-	// dao.delete(company_memno);
-	//
-	// }
+	// 多筆查詢
+	public List<Company_MemVO> getAll() {
+		return dao.getAll();
+	}
 
-    //多筆查詢
-	 public List<Company_MemVO> getAll() {
-	 return dao.getAll();
-	 }
-
+	public Integer doGetMemIdByComTaxId(String comTaxId) {
+		return dao.doGetMemIdByComTaxId(comTaxId);
+	}
 }

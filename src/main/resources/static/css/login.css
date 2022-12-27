@@ -127,6 +127,30 @@ ol, ul{
 	padding: 0;
 }
 
+div.backtoindex{
+	display: flex;
+	justify-content: start;
+}
+
+a.index{
+	margin-top: 30px;
+	margin-left: 30px; 
+	padding: 10px;
+	background-color: white;
+	opacity: 0.5;
+	text-decoration: none;
+	border-radius: 10px;
+}
+
+a.index:hover{
+	opacity: 1;
+	transition: all 0.3s ease-in;
+}
+
+span.back{
+	font-weight: bolder;
+}
+
 /* �ĤT��n�J*/
 
 /* form div.or span{

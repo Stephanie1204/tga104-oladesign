@@ -15,17 +15,26 @@ import com.google.gson.JsonObject;
 import com.tibame.tga104.g2.oladesign.CompanyMember.service.ComMemRegistService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
+import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.tibame.tga104.g2.oladesign.member.dao.MemberDAO;
+import com.tibame.tga104.g2.oladesign.member.dao.MemberDAOImpl;
 
 @WebServlet("/CompanyBackEnd/ComMemRegist")
 public class ComMemRegist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ComMemRegistService comSvc;
 	private Gson gson;
+	
+	private MemberDAO memberDAO;
+	private MemberVO memberVO;
        
 	@Override
 	public void init() throws ServletException {
 		comSvc = new ComMemRegistService();
 		gson = new Gson();
+		
+		memberDAO = new MemberDAOImpl();
+		memberVO = new MemberVO();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +53,10 @@ public class ComMemRegist extends HttpServlet {
 			}else {
 				System.out.println("成功註冊");
 				respBody.addProperty("success", true);
-				respBody.addProperty("comMemVO", gson.toJson(comMemVO));
+				respBody.addProperty("comMemVO", gson.toJson(comSvc.comMemRegist(comMemVO)));
+				memberVO = memberDAO.findByPrimaryKey(comMemVO.getMemId());
+				System.out.println("getRegCom="+ memberVO.getIsRegCom());
+				respBody.addProperty("regCom", memberVO.getIsRegCom());
 			}	
 		}
 		response.getWriter().write(respBody.toString());

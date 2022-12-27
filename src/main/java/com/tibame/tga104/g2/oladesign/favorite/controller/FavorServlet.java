@@ -71,6 +71,7 @@ public class FavorServlet extends HttpServlet {
 			respBody.addProperty("getFavor", false);
 		}else {
 			respBody.addProperty("getFavor", gson.toJson(favorSvc.getOneAllFavor(favorVO)));
+			System.out.println("getFavor="+ gson.toJson(favorSvc.getOneAllFavor(favorVO)));
 		}
 		response.getWriter().write(respBody.toString());	
 	}
