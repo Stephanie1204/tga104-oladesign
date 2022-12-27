@@ -8,18 +8,42 @@ $.ajax({
       let list_html = "";
       $.each(data, function (index, item) {
         list_html += `
-        <tr>
-            <td>${item.orderTime}</td>
-            <td><span class="get_orderId">${item.orderId}</span></td>
-            <td>${item.comTaxId}</td>
-            <td>${item.amount}</td>
-            <td class="orderStatus">${item.orderStatus}</td>
-            <td class="shippingStatus">${item.shippingStatus}</td>
-            <td class="text-center">
-                <button type="button" class="btn bg-olive btn-xs" id="btn_order_detail">訂單詳情</button>
-                <button type="button" class="btn bg-olive btn-xs writeReview">填寫評價</button>
-            </td>
-        </tr>
+        <td>1234567</td>
+        <td>XXX美式地毯</td>
+        <td class="">
+          <textarea rows="3" cols="50">這是內容</textarea>
+        </td>
+        <td>
+          <div class="star_block">
+            ;
+            <span
+              class="star + ${item.star >= 1 ? " -on" : ""}+ ';"
+              data-star="1"
+              ><i class="fas fa-star"></i></span
+            >;
+            <span
+              class="star + (item.star >= 2 ? ' -on'; : '') + ';"
+              data-star="2"
+              ><i class="fas fa-star"></i></span
+            >;
+            <span
+              class="star + (item.star >= 3 ? ' -on'; : '') + ';"
+              data-star="3"
+              ><i class="fas fa-star"></i></span
+            >;
+            <span
+              class="star + (item.star >= 4 ? ; -on'; : '') + ';"
+              data-star="4"
+              ><i class="fas fa-star"></i></span
+            >;
+            <span
+              class="star + (item.star >= 5 ? ' -on'; : '') + ';"
+              data-star="5"
+              ><i class="fas fa-star"></i></span
+            >;
+          </div>
+          
+        </td>
         `;
       });
       $("tbody#order_list").html(list_html);

@@ -75,7 +75,40 @@
       href="../../../resources/static/css/olaDesingMember.css"
     />
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    
+
+    <style>
+      /* ===== 評論的星號 ===== */
+      div.star_block {
+        display: inline-block;
+        position: relative;
+      }
+      div.temp_loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: hsla(0, 0%, 0%, 0.1);
+        text-align: center;
+        z-index: 2;
+        color: white;
+      }
+      div.temp_loading > span {
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      div.star_block > span.star {
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 3px;
+      }
+      div.star_block > span.star.-on {
+        color: yellow;
+      }
+    </style>
   </head>
 
   <!--頂端列/側邊欄 匯入使用-->
@@ -83,11 +116,10 @@
   <div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
   <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
-        <!-- 頂端列/側邊欄 匯入 /-->
+      <!-- 頂端列/側邊欄 匯入 /-->
       <script>
         w3.includeHTML();
       </script>
-    
 
       <!-- 内容区域 -->
       <div class="content-wrapper">
@@ -152,21 +184,36 @@
                       <td class="">
                         <textarea rows="3" cols="50">這是內容</textarea>
                       </td>
-                    </tr>
-
-                    <tr>
-                      <td>1234567</td>
-                      <td>XXX美式地毯</td>
-                      <td class="">
-                        <textarea rows="3" cols="50">這是內容</textarea>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>1234567</td>
-                      <td>XXX美式地毯</td>
-                      <td class="">
-                        <textarea rows="3" cols="50">這是內容</textarea>
+                      <td>
+                        <div class="star_block">
+                          ;
+                          <span
+                            class="star + (item.star >= 1 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
+                            data-star="1"
+                            ><i class="fas fa-star"></i></span
+                          >;
+                          <span
+                            class="star + (item.star >= 2 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
+                            data-star="2"
+                            ><i class="fas fa-star"></i></span
+                          >;
+                          <span
+                            class="star + (item.star >= 3 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
+                            data-star="3"
+                            ><i class="fas fa-star"></i></span
+                          >;
+                          <span
+                            class="star + (item.star >= 4 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
+                            data-star="4"
+                            ><i class="fas fa-star"></i></span
+                          >;
+                          <span
+                            class="star + (item.star >= 5 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
+                            data-star="5"
+                            ><i class="fas fa-star"></i></span
+                          >;
+                        </div>
+                        
                       </td>
                     </tr>
                   </tbody>
