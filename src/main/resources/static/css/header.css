@@ -248,6 +248,10 @@ nav.header__menu{
 	right: -12px;
 }
 
+.header__cart ul li a span.down {
+	background: none;
+	color: #F3F1F2;
+}
 /* 註冊登入、成為賣家按鈕 */
 
 .header__cart ul li button{
@@ -334,6 +338,12 @@ button#logout{
 
 button#logout:hover{
 	color: #92AFBF;
+}
+
+button:disabled{
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
 }
 
 .header__cart ul li .member__menu__dropdown {

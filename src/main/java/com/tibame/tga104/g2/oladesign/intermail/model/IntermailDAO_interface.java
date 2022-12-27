@@ -15,7 +15,7 @@ public interface IntermailDAO_interface {
     public IntermailVO getCheckAll(Integer interMailId); //管理員查看所有站內信內容
     public void getReply(IntermailVO intermailVO); //管理員回覆會員信件更改 回復狀態
     
-    public void meminsert(IntermailVO intermailVO); // 會員新增站內信
+    public Integer meminsert(IntermailVO intermailVO); // 會員新增站內信
     public List<IntermailVO> getMemReceive(Integer memId); //會員查看自己所有的站內信
     public IntermailVO getMemCheck(Integer interMailId); //會員查看自己所有站內信內容
 //    public List<IntermailVO> getAllmem();

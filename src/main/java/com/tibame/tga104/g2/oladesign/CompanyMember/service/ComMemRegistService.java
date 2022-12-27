@@ -75,17 +75,22 @@ public class ComMemRegistService {
 			errorMsgs.put("ownerPhone", "請填正確手機格式");
 		}
 		
-		//待新增VO的zipcode, city, town
+		
 		String comAddress = comMemVO.getComAddress();
+		String zipcode = comAddress.substring(0, 3);
+		System.out.println("zipcode"+zipcode);
+		String zipcodeReg = "^\\d{3}$";
 		if (comAddress == null || comAddress.trim().length() == 0) {
 			errorMsgs.put("comAddress", "公司地址請勿空白");
+		}else if (!zipcode.matches(zipcodeReg)) {
+			errorMsgs.put("comAddress", "請選擇縣市與行政區");
 		}
-		
+
 		if(!errorMsgs.isEmpty()) {
 			return errorMsgs;
 		}
 		comMemDAO.insert(comMemVO);
-		memberDAO.regComTag(memId, true); //設定已經註冊賣家的標記等待審核，審核通過後改為false
+		memberDAO.regComTag(memId, true); //設定已經註冊賣家的標記等待審核，審核不通過的話改回false
 		return comMemVO;
 	}
 }

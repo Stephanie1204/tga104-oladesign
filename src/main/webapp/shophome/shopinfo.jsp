@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %>
+pageEncoding="UTF-8"%> <%@ page
+import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,36 +11,71 @@ pageEncoding="UTF-8"%>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>OLA Design | 賣家首頁</title>
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+      rel="stylesheet"
+    />
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../shophome-css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../shophome-css/font-awesome.min.css" type="text/css"/>
+    <link
+      rel="stylesheet"
+      href="../shophome-css/bootstrap.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="../shophome-css/font-awesome.min.css"
+      type="text/css"
+    />
     <!--<link rel="stylesheet" href="../shophome-css/elegant-icons.css" type="text/css">-->
-    <link rel="stylesheet" href="../shophome-css/nice-select.css" type="text/css"/>
-    <link rel="stylesheet" href="../shophome-css/jquery-ui.min.css" type="text/css"/>
-    <link rel="stylesheet" href="../shophome-css/owl.carousel.min.css" type="text/css"/>
-    <link rel="stylesheet" href="../shophome-css/slicknav.min.css" type="text/css"/>
+    <link
+      rel="stylesheet"
+      href="../shophome-css/nice-select.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="../shophome-css/jquery-ui.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="../shophome-css/owl.carousel.min.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="../shophome-css/slicknav.min.css"
+      type="text/css"
+    />
     <link rel="stylesheet" href="../shophome-css/style.css" type="text/css" />
     <link rel="stylesheet" href="../shophome-css/coupon.css" type="text/css" />
+    <link
+      href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <%@ include file="../chatroom/chat02.jsp"%> 
     <%@ include file="../include/header.jsp"%>
     <!-- Page Preloder -->
     <div id="preloder">
       <div class="loader"></div>
     </div>
     <!-- Blog Details Hero Begin -->
-    <section class="blog-details-hero set-bg" id="preview_store_banner"> 
+    <section class="blog-details-hero set-bg" id="preview_store_banner">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="blog__details__hero__text">
               <h2 id="store_name"></h2>
-    <div class="coupon leftandright">
-        <div class="leftcoupon" ></div>
-        <div class="rightcoupon"></div>
-    </div>
+              <div
+                class="coupon leftandright"
+                id="todaycoupon"
+                onclick="copycoupon('leftcoupon')"
+                style="display:none"
+              >
+                <div class="leftcoupon" id="leftcoupon"></div>
+                <div class="rightcoupon" id="rightcoupon">領折扣碼</div>
+              </div>
             </div>
           </div>
         </div>
@@ -52,21 +87,22 @@ pageEncoding="UTF-8"%>
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-5 order-md-1 order-2">
-                <div class="blog__details__author__pic" id="store_logo">
-                  <img id="preview_store_logo" />
-                </div>
+            <div class="blog__details__author__pic" id="store_logo">
+              <img id="preview_store_logo" />
+            </div>
           </div>
           <div class="col-lg-8 col-md-7 order-md-1 order-1">
             <div class="blog__details__text">
               <div style="text-align: right">
-                <button type="button" id="clicktotalk" onclick="startTalk()">點我聊聊</button>
+                <button type="button" id="clicktotalk" onclick="startTalk()">
+                  點我聊聊
+                </button>
               </div>
               <h3>賣家介紹</h3>
               <p id="store_intro"></p>
             </div>
             <div class="blog__details__content">
-              <div class="row">
-              </div>
+              <div class="row"></div>
             </div>
           </div>
         </div>
@@ -74,81 +110,6 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- Blog Details Section End -->
 
-    <!-- Related Blog Section Begin -->
-    <section class="related-blog spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="section-title related-blog-title">
-              <h2>Post You May Like</h2>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="../shophome-img/blog/blog-1.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5>
-                  <a href="#">Cooking tips make cooking simple</a>
-                </h5>
-                <p>
-                  Sed quia non numquam modi tempora indunt ut labore et dolore
-                  magnam aliquam quaerat
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="../shophome-img/blog/blog-2.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5>
-                  <a href="#">6 ways to prepare breakfast for 30</a>
-                </h5>
-                <p>
-                  Sed quia non numquam modi tempora indunt ut labore et dolore
-                  magnam aliquam quaerat
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="blog__item">
-              <div class="blog__item__pic">
-                <img src="../shophome-img/blog/blog-3.jpg" alt="" />
-              </div>
-              <div class="blog__item__text">
-                <ul>
-                  <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                  <li><i class="fa fa-comment-o"></i> 5</li>
-                </ul>
-                <h5>
-                  <a href="#">Visit the clean farm in the US</a>
-                </h5>
-                <p>
-                  Sed quia non numquam modi tempora indunt ut labore et dolore
-                  magnam aliquam quaerat
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Related Blog Section End -->
     <!-- Footer Section Begin -->
     <footer class="footer spad">
       <div class="container">
@@ -241,28 +202,77 @@ pageEncoding="UTF-8"%>
     <script src="../shophome-js/mixitup.min.js"></script>
     <script src="../shophome-js/owl.carousel.min.js"></script>
     <script src="../shophome-js/main.js"></script>
+    <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
-    let urlParams = new URLSearchParams(window.location.search);
-    var comTaxId = urlParams.get('comTaxId');
+      let urlParams = new URLSearchParams(window.location.search);
+      var comTaxId = urlParams.get("comTaxId");
 
-    $.ajax({
-        type : 'POST',
-        url: "http://localhost:8080/oladesign/shophome/shopinfo.do?action=doGetShopInfo&comTaxId=" + comTaxId,
-        success : function (data, status, xhr) {
-            var dataJson = JSON.parse(data);
+      $.ajax({
+        type: "POST",
+        url:
+          "http://localhost:8080/oladesign/shophome/shopinfo.do?action=doGetShopInfo&comTaxId=" +
+          comTaxId,
+        success: function (data, status, xhr) {
+          var dataJson = JSON.parse(data);
 
-                $("#store_name").text(dataJson.storeName)
-                $("#store_intro").text(dataJson.storeIntro)
-                $("#preview_store_logo").css("background-image","url('" + dataJson.StoreLogoString +"')" );
-                $("#preview_store_banner").css("background-image", "url('" + dataJson.StoreBannerString + "')");
-        }
-    });
-    
+          $("#store_name").text(dataJson.storeName);
+          $("#store_intro").text(dataJson.storeIntro);
+          $("#preview_store_logo").attr("src", dataJson.StoreLogoString);
+          $("#preview_store_banner").css(
+            "background-image",
+            "url('" + dataJson.StoreBannerString + "')"
+          );
+        },
+      });
+
+      $.ajax({
+        url: "http://localhost:8080/oladesign/promo/:coupon",
+        type: "GET",
+        data: {
+          comTaxId: comTaxId,
+        },
+        success: function (data) {
+        	if((data.coupon)!=null){
+              $("#todaycoupon").show();
+              $("#leftcoupon").text(data.coupon);
+        	}
+        },
+      });
+
       function startTalk() {
         $("#chat").show();
+        doGetMemIdByComTaxId(comTaxId);
+      }
 
-        var messagesArea = document.getElementById("messagesArea");
-        messagesArea.scrollTop = messagesArea.scrollHeight; // 要另外調整
+      function copycoupon(id) {
+        var TextRange = document.createRange();
+        TextRange.selectNode(document.getElementById(id));
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(TextRange);
+        document.execCommand("copy");
+        swal({
+          title: "折扣碼複製成功",
+          type: "success",
+        }); //此行可加可不加
+      }
+
+      function doGetMemIdByComTaxId(comTaxId) {
+        var memId = "";
+        $.ajax({
+          url: "http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetMemIdByComTaxId",
+          type: "POST",
+          data: {
+            comTaxId: comTaxId,
+          },
+          success: function (data, status, xhr) {
+            var dataJson = JSON.parse(data);
+            memId = dataJson.memId;
+            doShowChatroom(memId);
+          },
+        });
+
+        return memId;
       }
     </script>
   </body>

@@ -139,6 +139,8 @@ String agreement = (String) request.getAttribute("agreement");
 		<!-- 連動式地址下拉選單來源  https://github.com/essoduke/jQuery-TWzipcode -->
 <script src="../plugins/jQuery-TWzipcode-master/jquery.twzipcode.js"></script>
 <%-- <script src="<%=basePath%>/static/js/registToCom.js"></script> --%>
+
+<%@ include file="../include/favorite.jsp"%>
 <script>
 	$(function(){	
 		//連動式地址下拉選單
@@ -151,7 +153,10 @@ String agreement = (String) request.getAttribute("agreement");
 			districtName: "town" // 自訂地區 select 標籤的 name 值
 		});	
 		
-		$("#com_regist").on("click", function(){
+		let isRegCom = null;
+		
+		$("#com_regist").on("click", function(e){
+			
 //	 		接收參數
 			let memId = "${memId}";
 			console.log("memId=" + memId);
@@ -219,6 +224,7 @@ String agreement = (String) request.getAttribute("agreement");
 						return false;
 					}else{
 						console.log("註冊成功");
+						
 // 						成功提交，刪除所有錯誤訊息
 						$("#err_memName").text("");
 						$("#err_com_taxid").text("");
@@ -227,11 +233,17 @@ String agreement = (String) request.getAttribute("agreement");
 						$("#err_com_owner").text("");
 						$("#err_owner_phone").text("");
 						$("#err_com_address").text("");
-						setTimeout(function(){
-							console.log("等待");
-							alert("您已經成功註冊為賣家，請耐心等待審核通過");
-						}, 500);
-						window.location.href = "http://localhost:8080/oladesign/homePage/index.jsp";
+						alert("已完成賣家註冊，請耐心等待審核通過");
+						console.log("dataregCom=" + data.regCom);
+						isRegCom = data.regCom;
+						if(isRegCom == true){
+							console.log("等待中");
+							$(".regist_com").prop("disabled", true);
+							$("a.beCom").text("賣家註冊審核中");
+							$("input.waiting").addClass("wait");
+						}
+						window.location.href = "<%=request.getContextPath()%>/homePage/index.jsp";
+						
 					}				
 				},
 				error: function(xhr){
@@ -240,9 +252,20 @@ String agreement = (String) request.getAttribute("agreement");
 				},
 				complete: function(xhr){
 					console.log(xhr);
+					
 				}
 			});
 		});
+	});
+	
+	
+	$(window).on("load", function(){
+		let registCom = "${memberVO.isRegCom}";
+		console.log("registCom=" + registCom);
+		if(registCom == true){
+			$("button.regist_com").attr("disabled", true);
+			$("a.beCom").text("賣家註冊審核中");	
+		}
 	});
 	
 </script>

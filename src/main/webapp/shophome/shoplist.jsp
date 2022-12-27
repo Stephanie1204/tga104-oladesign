@@ -149,7 +149,7 @@ pageEncoding="UTF-8"%>
             	$("#companyList").append(
             "<div class='col-lg-4 col-md-4 col-sm-6'>" + 
             "    <div class='blog__item'>" + 
-            "<a href='http://localhost:8080/oladesign/shophome/shopinfo.jsp?taxId=" + dataJson[i].comTaxId + "'>" + 
+            "<a href='http://localhost:8080/oladesign/shophome/shopinfo.jsp?comTaxId=" + dataJson[i].comTaxId + "'>" + 
             "      <div class='blog__item__pic' id ='store_logo'>" + 
             "        <img id = 'store_logo' src='" + dataJson[i].StoreLogoString +  "' class ='circlestorelogo' />" + 
             "      </div>" + 

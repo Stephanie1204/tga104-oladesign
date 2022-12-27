@@ -26,7 +26,7 @@
 
 
 			<li class="treeview"><a href="#"> <i class="fa-regular fa-face-smile"></i>
-					<span>會員專區</span> <span class="pull-right-container"> <i
+					<span>賣家專區</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>
@@ -50,7 +50,7 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="form-general"><a href="#"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd-order/company-orderlist.jsp"> <i
 							class="fa fa-circle-o"></i> 訂單管理
 					</a></li>
 
@@ -118,11 +118,8 @@
 			</a>
 				<ul class="treeview-menu">
 
-					<li id="form-general"><a href="#"> <i
-							class="fa fa-circle-o"></i> 營收明細
-					</a></li>
 
-					<li id="form-general"><a href="#"> <i
+					<li id="form-general"><a href="<%=request.getContextPath()%>/CompanyBackEnd/report.jsp"> <i
 							class="fa fa-circle-o"></i> 銷量明細
 					</a></li>
 

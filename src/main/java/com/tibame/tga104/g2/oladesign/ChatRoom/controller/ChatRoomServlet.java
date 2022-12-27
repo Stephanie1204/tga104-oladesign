@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +16,7 @@ import com.tibame.tga104.g2.oladesign.ChatRoom.service.ChatMessageService;
 import com.tibame.tga104.g2.oladesign.ChatRoom.service.ChatRoomService;
 import com.tibame.tga104.g2.oladesign.ChatRoom.vo.ChatMessage;
 import com.tibame.tga104.g2.oladesign.ChatRoom.vo.Chat_RoomVO;
+import com.tibame.tga104.g2.oladesign.ChatRoom.vo.Hist_Chat_RoomVO;
 
 @WebServlet("/chatroom/chatstart.do")
 public class ChatRoomServlet extends HttpServlet {
@@ -26,15 +26,12 @@ public class ChatRoomServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-		//賣家主業點我聊聊跳出對話視窗
-		if("doOpenChatRoom".equals(action)) {
-			String mem_0 = req.getParameter("mem_0");
-			String mem_1 = req.getParameter("mem_1");
-			
+		// 賣家主業點我聊聊跳出對話視窗
+		if ("doOpenChatRoom".equals(action)) {
 			Chat_RoomVO chat_roomVO = new Chat_RoomVO();
 			chat_roomVO.setMem0(chat_roomVO.getMem0());
 			chat_roomVO.setMem1(chat_roomVO.getMem1());
-						
+
 			// 準備res
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String jsonString = gson.toJson(chat_roomVO);
@@ -109,15 +106,15 @@ public class ChatRoomServlet extends HttpServlet {
 
 			pw.flush();
 		}
-		
+
 		// 查詢歷史ChatRoom
-		if("doSetChatRoomLogs".equals(action)) {
+		if ("doSetChatRoomLogs".equals(action)) {
 			Integer mem_0 = Integer.valueOf(req.getParameter("mem_0"));
 			Integer mem_1 = Integer.valueOf(req.getParameter("mem_1"));
-			
+
 			ChatRoomService chatroomSvc = new ChatRoomService();
-			List<Chat_RoomVO> chatroom = chatroomSvc.chatRoomLogs(mem_0,mem_1);
-			
+			List<Chat_RoomVO> chatroom = chatroomSvc.chatRoomLogs(mem_0, mem_1);
+
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String jsonString = gson.toJson(chatroom);
 
@@ -125,8 +122,21 @@ public class ChatRoomServlet extends HttpServlet {
 			pw.write(jsonString);
 
 			pw.flush();
-			
+
 		}
-		
+
+		if ("doGetAllChatroom".equals(action)) {
+			Integer mem_0 = Integer.valueOf(req.getParameter("mem_0"));
+			ChatRoomService chat_roomSvc = new ChatRoomService();
+			List<Hist_Chat_RoomVO> hist_Chat_RoomVO = chat_roomSvc.doGetAllChatroom(mem_0);
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(hist_Chat_RoomVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
 	}
 }

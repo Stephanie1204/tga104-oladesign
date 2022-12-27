@@ -136,8 +136,9 @@ public class FavorDAOImpl implements FavorDAO{
 				favorVO.setImg(rs.getBytes("p.IMG"));	
 				if(rs.getBytes("p.IMG") != null) {
 					favorVO.setImgBase64(rs.getBytes("p.IMG"));
+					System.out.println("拿到圖片base64");
 				}
-				
+				System.out.println("沒有拿到圖片base64");
 				favorList.add(favorVO);
 			}
 		}catch(SQLException e) {

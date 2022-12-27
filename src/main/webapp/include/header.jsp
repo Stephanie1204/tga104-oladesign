@@ -43,14 +43,13 @@
 				<ul>
 					<li>
 						<button type="button" class="regist_com" aria-expanded="false">
-							<a
-								href="<%=request.getContextPath()%>/CompanyBackEnd/regisToCom.jsp">成為賣家</a>
+							<a href="<%=request.getContextPath()%>/CompanyBackEnd/regisToCom.jsp" class="beCom">成為賣家</a>
 						</button>
+						<input type="hidden" class="waiting" value="">
 					</li>
 					<li>
 						<button type="button" class="mystore none" aria-expanded="false">
-							<a
-								href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a>
+							<a href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a>
 						</button>
 					</li>
 					<li class="logout">
@@ -76,11 +75,11 @@
 									<input type="hidden" name="action" value="logout">
 								</form></li>
 						</ul></li>
-					<li><a href="#"><i class="fa fa-heart"></i> <span id="fav"></span></a>
+					<li><a href="###"><i class="fa fa-heart memFav"></i> <span id="fav"></span></a>
 					</li>
 					<li><a
 						href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp"><i
-							class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+							class="fa fa-shopping-bag"></i> </a></li>
 				</ul>
 			</div>
 		</div>
@@ -123,14 +122,18 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(window).on("load", function() {
+		let memberVO = "${memberVO}";
+		console.log("memberVO=" + memberVO);
 		let user = "${memName}";
 		console.log("user=" + user);
 		if (user.trim().length != 0) { //登入狀態
 			console.log("已登入");
 			$("li.logout *").addClass("none");
+			$("#fav").removeClass("down");
 		} else { //未登入
 			console.log("未登入");
 			$("li.login *").addClass("none");
+			$("span#fav").addClass("down");
 		}
 
 		let isCom = "${isCom}";
@@ -142,5 +145,19 @@
 			$("button.regist_com").removeClass("none");
 			$("button.mystore").addClass("none");
 		}
+		
+		let registCom = "${memberVO.isRegCom}";
+		console.log("registCom=" + registCom);
+		
+		if(registCom == "true"){
+			$(".regist_com").prop("disabled", true);
+			$("a.beCom").text("賣家註冊審核中");	
+		}else if($("input.waiting").hasClass("wait")){
+			console.log("here");
+			$(".regist_com").prop("disabled", true);
+			$("a.beCom").text("賣家註冊審核中");	
+		}
+		
 	});
 </script>
+

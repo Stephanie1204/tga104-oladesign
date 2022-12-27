@@ -46,16 +46,6 @@
 		<!-- 内容區域 -->
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-			</section>
-			<c:if test="${not empty errorMsgs}">
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
@@ -81,7 +71,9 @@
 									</div>
 
 									<div class="form-group">
-										<label for="store_name">賣場名稱<font color=red><b>*</b></font></label> <input type="text" class="form-control" name="store_name"
+										<label for="store_name">賣場名稱<font color=red><b>*</b></font>
+										 <span class="errorcolor">${errorMsgs.store_name}</span></label> 
+										 <input type="text" class="form-control" name="store_name"
 											id="store_name" value="${(company_memVO == null) ? '' : company_memVO.getStoreName()}" />
 									</div>
 									<div class="form-group">
@@ -91,7 +83,7 @@
 
 									<div class="form-group">
 										<label for="store_logo">賣場Logo</label>
-										<b><img src="${company_memVO.getStoreLogoString()}" width=30%/></b>
+										<b><img src="" width=30%/></b>
 										<input type="file" id="store_logo" name="store_logo" class="upl1" style="display: none;">
 										
 										<img id="preview_store_logo" style="max-width: 150px; max-height: 150px;"/>
@@ -101,7 +93,7 @@
 
 									<div class="form-group">
 										<label for="store_banner">賣場Banner</label> 
-										<b><img src="${company_memVO.getStoreBannerString()}" width=30% /></b>
+										<b><img src="" width=30% /></b>
 										<input type="file" id="store_banner" name="store_banner" class="upl2" style="display: none;">
 										<img id="preview_store_banner" style="max-width: 150px; max-height: 150px;"/>
 										<br />
@@ -193,8 +185,8 @@
                            $("#memId").val(dataJson.memId).attr('readonly', true);
                            $("#store_name").val(dataJson.storeName).attr('readonly', true);
                            $("#store_intro").val(dataJson.storeIntro).attr('readonly', true);
-                           $("#preview_store_logo").attr("src", dataJson.storeLogoString);
-                           $("#preview_store_banner").attr("src", dataJson.storeBannerString);
+                           $("#preview_store_logo").attr("src", dataJson.StoreLogoString);
+                           $("#preview_store_banner").attr("src", dataJson.StoreBannerString);
                            $("#update_save").attr('disabled', 'disabled');
                            
                            ori_store_logo = dataJson.storeLogoString;
@@ -244,7 +236,6 @@
 			            $("#store_banner").show();
 		            }
 		        }
-
 		   $("#store_logo").change(function(){
 			      //當檔案改變後，做一些事 
 			     readURL(this);   // this代表<input id="imgInp">

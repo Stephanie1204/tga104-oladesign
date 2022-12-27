@@ -96,12 +96,16 @@ System.out.println("vericodeDelReset="+ vericodeDelReset);
 <body class="text-center">
 <!-- 	    <button type="button" class="login">登入/註冊</button> -->
 	<div class="container1">
+	<div class="backtoindex">
+		<a href="<%=request.getContextPath()%>/homePage/index.jsp" class="index"><span class="back">回首頁</span></a>
+	</div>
+	
 		<!-- <div class="filter"></div> -->
 		<main class="form-signin w-100 m-auto main">
 			<form method="post" action="<%=request.getContextPath()%>/member/MemberLogin">
 <!-- 				<button type="button" class="btn-close" aria-label="Close"></button> -->
 				<!--關閉登入頁面按鈕-->
-				<img class="mb-4 logo" src="../img/OLA_Logo.svg" alt="logo" />
+				<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img class="mb-4 logo" src="../img/OLA_Logo.svg" alt="logo" /></a>
 				<h1 class="h3 mb-3 fw-normal fw-bold">用帳號登入</h1>
 
 				<div class="form-floating">

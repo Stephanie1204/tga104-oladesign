@@ -38,3 +38,29 @@ h1.reset{
 div.error li{
 	list-style: none;
 }
+
+div.backtoindex{
+	position: relative;
+	top: -10%;
+	left: -45%;
+}
+
+a.index{
+	margin-top: 30px;
+	margin-left: 30px; 
+	padding: 10px;
+	background-color: white;
+	opacity: 0.5;
+	text-decoration: none;
+	border-radius: 10px;
+}
+
+a.index:hover{
+	opacity: 1;
+	transition: all 0.3s ease-in;
+}
+
+span.back{
+	font-weight: bolder;
+	color: #0d6efd;
+}
