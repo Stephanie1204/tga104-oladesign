@@ -42,7 +42,7 @@
                      <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
 		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i class="fas fa-table"></i>廠商會員管理</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i class="fas fa-table"></i>廠商會員管理</a></li>
                     	</ul>
                     </li>
                     
@@ -67,16 +67,16 @@
                     </li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>廣告管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/announcement/select_page.jsp"><i class="fas fa-table"></i><span>查看活動公告</span></a></li> --%>
+								<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
 <%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 <%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
                     	</ul>
                     </li>
                 </ul>
-				<div class="text-center d-none d-md-inline" style="margin: 0 auto;">
-					<button class="btn rounded-circle border-0" id="sidebarToggle"
-						type="button"></button>
-				</div>
+<!-- 				<div class="text-center d-none d-md-inline" style="margin: 0 auto;"> -->
+<!-- 					<button class="btn rounded-circle border-0" id="sidebarToggle" -->
+<!-- 						type="button"></button> -->
+<!-- 				</div> -->
 			</div>
 		</nav>
 		<div class="d-flex flex-column" id="content-wrapper">
@@ -153,7 +153,7 @@
                                 <div class="card text-white bg-primary shadow">
                                 	<a href="<%=request.getContextPath()%>/back-end/index-admin.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
-	                                        <p class="m-0">管理員帳號管理</p>
+	                                        <p class="m-0">管理員管理</p>
 	                                        <p class="text-white-50 small m-0"></p>
 	                                    </div>
 	                                </a>
@@ -201,7 +201,7 @@
                             </div>
                             <div class="col-lg-6 mb-4">
                                 <div class="card text-white bg-danger shadow">
-                                	<a href="<%=request.getContextPath()%>/back-end/forum/select_actype_page.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
+                                	<a href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
 	                                        <p class="m-0">廣告管理</p>
 	                                        <p class="text-white-50 small m-0"></p>
