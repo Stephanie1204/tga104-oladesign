@@ -5,14 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 
 public class Company_MemJDBCDAO implements Company_MemDAO_interface {
-	
+
 	String DRIVER = "com.mysql.cj.jdbc.Driver";
 	String URL = "jdbc:mysql://localhost:3306/tga104g2?serverTimezone=Asia/Taipei";
 	String USERID = "root";
@@ -26,11 +25,15 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 
 	private static final String GET_ONE_STMT = "select COM_TAXID,MEM_ID,COM_NAME,COM_ADDRESS,COM_PHONE,COM_OWNER,OWNER_PHONE,COM_BANKACCOUNT,STORE_NAME,COM_REGDATE,STORE_INTRO,STORE_LOGO,STORE_BANNER from COMPANY_MEM where COM_TAXID =?";
 
-	//private static final String DELETE = "delete from COMPANY_MEM where COM_TAXID =?";
+	// private static final String DELETE = "delete from COMPANY_MEM where COM_TAXID
+	// =?";
 
 	private static final String UPDATE = "update COMPANY_MEM set COM_NAME=?,COM_ADDRESS=?,COM_PHONE=?,COM_OWNER=?,OWNER_PHONE=?,COM_BANKACCOUNT=? where COM_TAXID=?";
 
 	private static final String UPDATEFORSHOP = "update COMPANY_MEM set STORE_NAME=?,STORE_INTRO=?,STORE_LOGO=ifnull(?,STORE_LOGO),STORE_BANNER=ifnull(?,STORE_BANNER) where COM_TAXID=?";
+
+	private static final String GET_MEM_BY_COM = "SELECT MEM_ID FROM COMPANY_MEM WHERE COM_TAXID = ?";
+
 	// ifnull=>第一個參數是在servlet
 	// get到的值,會以第一個參數去判斷是否為null,如果非null則回傳第一個參數,如果是null則回傳第二參數的值(維持現有欄位的值不做更動)
 
@@ -90,7 +93,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 
 		return company_memVO;
 	}
-	
+
 	@Override
 	public void insert(Company_MemVO company_memVO) {
 		Connection con = null;
@@ -171,7 +174,7 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 		}
 
 	}
-	
+
 	@Override
 	public void updateforshop(Company_MemVO company_memVO) {
 		Connection con = null;
@@ -208,41 +211,6 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 		}
 
 	}
-
-//	@Override
-//	public void delete(String company_memno) {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		try {
-//			Class.forName(DRIVER);
-//			con = DriverManager.getConnection(URL, USERID, PASSWORD);
-//			pstmt = con.prepareStatement(DELETE);
-//
-//			pstmt.setString(1, company_memno);
-//
-//			pstmt.executeUpdate();
-//
-//		} catch (ClassNotFoundException ce) {
-//			ce.printStackTrace();
-//		} catch (SQLException se) {
-//			se.printStackTrace();
-//		}
-//		if (pstmt != null) {
-//			try {
-//				pstmt.close();
-//			} catch (SQLException se) {
-//				se.printStackTrace();
-//			}
-//		}
-//		if (con != null) {
-//			try {
-//				con.close();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//	}
 
 	@Override
 	public Company_MemVO findByPrimaryKey(String company_memno) {
@@ -282,25 +250,25 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
 		return company_memVO;
 	}
-	
 
 	@Override
 	public List<Company_MemVO> getAll() {
@@ -356,5 +324,49 @@ public class Company_MemJDBCDAO implements Company_MemDAO_interface {
 		}
 
 		return list;
+	}
+
+	@Override
+	public Integer doGetMemIdByComTaxId(String comTaxId) {
+		Integer memId = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USERID, PASSWORD);
+			pstmt = con.prepareStatement(GET_MEM_BY_COM);
+
+			pstmt.setString(1, comTaxId);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memId = rs.getInt("MEM_ID");
+			}
+
+		} catch (ClassNotFoundException ce) {
+			ce.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return memId;
 	}
 }
