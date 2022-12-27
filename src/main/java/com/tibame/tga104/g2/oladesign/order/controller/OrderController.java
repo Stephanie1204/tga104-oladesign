@@ -17,7 +17,7 @@ public class OrderController {
 
 	OrderService service = new OrderService();
 	
-//	@GetMapping("/order")
+//	@GetMapping("/")
 //	public List<OrderBean> getAllByMemId(Integer memId) {
 //		return service.select_Mem("memId");
 //	}
