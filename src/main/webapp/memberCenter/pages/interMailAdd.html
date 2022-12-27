@@ -88,7 +88,7 @@
                                     <!-- select -->
                                     <div class="form-group">
                                         <label>問題種類</label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="type">
                                             <option value="1">檢舉</option>
                                             <option value="2">疑難雜症</option>
                                         </select>
@@ -97,7 +97,7 @@
                                     <!-- textarea -->
                                     <div class="form-group">
                                         <label>信件內容</label>
-                                        <textarea class="form-control" rows="10" placeholder="請輸入信件內容 ..."></textarea>
+                                        <textarea class="form-control" rows="10" id="content" placeholder="請輸入信件內容 ..."></textarea>
                                     </div>
 
                                     <!-- submit -->
@@ -202,6 +202,7 @@
         // 激活导航位置
         setSidebarActive("form-general");
     </script>
+    <script src="./interMailAdd.js"></script>
 </body>
 
 </html>
