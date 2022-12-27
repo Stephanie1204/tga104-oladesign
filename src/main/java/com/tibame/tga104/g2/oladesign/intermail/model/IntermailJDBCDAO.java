@@ -13,6 +13,8 @@ import javax.mail.Session;
 import javax.servlet.http.HttpServlet;
 import javax.sql.DataSource;
 
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
+
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -443,10 +445,11 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 	private static final String MEMINSERT_STMT = "INSERT INTO INTERMAIL (MEM_ID,ADMIN_ID,NUM_QUE,CONTENT,IS_SEND,IS_REPLY) VALUES (?,?,?,?,?,?)";
 
 	@Override
-	public void meminsert(IntermailVO intermailVO) {
+	public Integer meminsert(IntermailVO intermailVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
+		int count=0;
 		try {
 
 			con = dataSource.getConnection();
@@ -460,7 +463,7 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 			pstmt.setBoolean(5, false);
 			pstmt.setBoolean(6, false);
 
-			pstmt.executeUpdate();
+			count =  pstmt.executeUpdate();
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -480,15 +483,16 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
-		}
+		} return count;
 
 	}
+	
 
 //	private static final String MemRECEIVE = 
 //			"SELECT * from INTERMAIL where IS_SEND = '1' ";
 	private static final String MemRECEIVE =
 //			"SELECT * from INTERMAIL where MEM_ID = ? AND IS_SEND = '1' ";
-			"SELECT * from INTERMAIL inner join intermail_qn on intermail.NUM_QUE = intermail_qn.NUM_QUE where MEM_ID = ? order by INTERMAIL.INTERMAIL_ID ";
+			"SELECT * from INTERMAIL inner join intermail_qn on intermail.NUM_QUE = intermail_qn.NUM_QUE where MEM_ID = ? order by INTERMAIL.INTERMAIL_ID desc";
 
 	@Override
 	public List<IntermailVO> getMemReceive(Integer memId) {
