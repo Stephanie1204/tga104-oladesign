@@ -127,6 +127,7 @@ pageContext.setAttribute("userId", userId);
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>條件篩選</span>
 						</div>
+						<!-- 送到value指定的servlet -->
 						<form action="<c:url value="/pages/product.controller" />"
 							method="get">
 							<ul>
@@ -171,17 +172,22 @@ pageContext.setAttribute("userId", userId);
 				<!-- the searh input part -->
 				<div class="col-lg-9">
 					<!-- big picture with vege and fruits in the middle -->
-					<div class="hero__item set-bg"
-						data-setbg="<%=request.getContextPath()%>/homePage/img/hero/banner.jpg">
-						<div class="hero__text">
-							<span>FRUIT FRESH</span>
-							<h2>
-								Vegetable <br />100% Organic
-							</h2>
-							<p>Free Pickup and Delivery Available</p>
-							<a href="#" class="primary-btn">SHOP NOW</a>
-						</div>
+					<!-- 輪播圖開始 -->
+					<div id="carouselExampleControls" class="carousel slide"
+						data-bs-ride="carousel">
+						<div class="carousel-inner" id="todayAD"></div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleControls" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
+					<!-- 輪播圖結束 -->
 				</div>
 			</div>
 		</div>
@@ -202,14 +208,14 @@ pageContext.setAttribute("userId", userId);
 								<a
 									href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 									class="results" target="_blank" class="set-bg"
-							data-setbg="img/featured/feature-4.jpg"><img
+									data-setbg="img/featured/feature-4.jpg"><img
 									class="product__details__pic__item--large"
 									src="${ row.productImgBase64 }" alt="No Image"></a>
 								<ul class="featured__item__pic__hover">
-									<li><a href="##" class="favorcircle">
-											<i class="fa fa-heart favorheart" id="${row.productId}" data="${row.productId}"></i>
-										</a>
-									</li>
+									<li><a href="##" class="favorcircle"> <i
+											class="fa fa-heart favorheart" id="${row.productId}"
+											data="${row.productId}"></i>
+									</a></li>
 									<li>
 										<form action="<c:url value="/pages/product.controller" />"
 											method="post">
@@ -423,32 +429,46 @@ pageContext.setAttribute("userId", userId);
 			        });
 		        }else{ //移除收藏
 		        	$.ajax({
-		        		url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-		        		type: "DELETE",
-		        		data: JSON.stringify(favordata),
-		        		dataType: "json",
-		        		contentType: "application/json",
-		        		processData: false,
-		        		success: function(deldata){
-		        			console.log("deldata");
-			            	console.log(deldata);
-			            	var count = $("#fav").text();
-			            	var countFav = parseInt(count); //String 轉為 number
-			            	$("#fav").text(countFav - 1);
-			            },
-			            error: function(xhr){
-			            	console.log(xhr);
-			            },
-			            complete: function(xhr){
-			            	console.log(xhr);
-			            }
-		        	});
-		        }
-		        
-	    	}
-	        
-	    });
-	});
+		        		url: "<%=request.getContextPath()%>
+		/favorite/FavorServlet",
+																	type : "DELETE",
+																	data : JSON
+																			.stringify(favordata),
+																	dataType : "json",
+																	contentType : "application/json",
+																	processData : false,
+																	success : function(
+																			deldata) {
+																		console
+																				.log("deldata");
+																		console
+																				.log(deldata);
+																		var count = $(
+																				"#fav")
+																				.text();
+																		var countFav = parseInt(count); //String 轉為 number
+																		$(
+																				"#fav")
+																				.text(
+																						countFav - 1);
+																	},
+																	error : function(
+																			xhr) {
+																		console
+																				.log(xhr);
+																	},
+																	complete : function(
+																			xhr) {
+																		console
+																				.log(xhr);
+																	}
+																});
+													}
+
+												}
+
+											});
+						});
 	</script>
 </body>
 </html>
