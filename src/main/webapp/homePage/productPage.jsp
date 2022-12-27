@@ -5,6 +5,7 @@
 
 <%@ page import="java.util.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.product.model.product.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
 <%
 ProductService prodSvc = new ProductService();
 String productId = request.getParameter("productId");
@@ -148,25 +149,23 @@ System.out.println("test");
 							src="${ prod.productImgBase64 }" alt="No Image">
 					</div>
 					<div class="product__details__pic__slider owl-carousel">
-						<img data-imgbigurl="img/product/details/product-details-2.jpg"
-							src="img/product/details/thumb-1.jpg" alt=""> <img
-							data-imgbigurl="img/product/details/product-details-3.jpg"
-							src="img/product/details/thumb-2.jpg" alt=""> <img
-							data-imgbigurl="img/product/details/product-details-5.jpg"
-							src="img/product/details/thumb-3.jpg" alt=""> <img
-							data-imgbigurl="img/product/details/product-details-4.jpg"
-							src="img/product/details/thumb-4.jpg" alt="">
+						<img data-imgbigurl="${ prod.productImgBase64 }"
+							src="${ prod.productImgBase64 }" alt="">
+						<jsp:useBean id="proSvc" scope="page"
+							class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
+						<c:if test="${not empty proSvc.getImages(prod.productId)}">
+							<c:forEach var="row_image"
+								items="${proSvc.getImages(prod.productId)}">
+								<img data-imgbigurl="${row_image.productImgBase64}"
+									src="${row_image.productImgBase64}" alt="">
+							</c:forEach>
+						</c:if>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product__details__text">
 					<h3>${ prod.name }</h3>
-					<div class="product__details__rating">
-						<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-							class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-							class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
-					</div>
 					<div class="product__details__price">${ prod.price }$</div>
 					<p>${ prod.typeName }</p>
 					<p>${ prod.styleName }</p>
@@ -205,8 +204,7 @@ System.out.println("test");
 							data-toggle="tab" href="#tabs-1" aria-selected="true">Description</a>
 						</li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-2" aria-selected="false">Reviews <span>(1)</span></a>
-						</li>
+							href="#tabs-2" aria-selected="false">Reviews</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -215,29 +213,33 @@ System.out.println("test");
 								<p>${ prod.intro }</p>
 							</div>
 						</div>
+
 						<div class="tab-pane" id="tabs-2" role="tabpanel">
 							<div class="product__details__tab__desc">
-								<h6>Products Infomation</h6>
-								<p>Vestibulum ac diam sit amet quam vehicula elementum sed
-									sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-									Proin eget tortor risus. Vivamus suscipit tortor eget felis
-									porttitor volutpat. Vestibulum ac diam sit amet quam vehicula
-									elementum sed sit amet dui. Donec rutrum congue leo eget
-									malesuada. Vivamus suscipit tortor eget felis porttitor
-									volutpat. Curabitur arcu erat, accumsan id imperdiet et,
-									porttitor at sem. Praesent sapien massa, convallis a
-									pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet
-									quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum
-									primis in faucibus orci luctus et ultrices posuere cubilia
-									Curae; Donec velit neque, auctor sit amet aliquam vel,
-									ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-								<p>Praesent sapien massa, convallis a pellentesque nec,
-									egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-									adipiscing elit. Mauris blandit aliquet elit, eget tincidunt
-									nibh pulvinar a. Cras ultricies ligula sed magna dictum porta.
-									Cras ultricies ligula sed magna dictum porta. Sed porttitor
-									lectus nibh. Mauris blandit aliquet elit, eget tincidunt nibh
-									pulvinar a.</p>
+								<c:if test="${not empty proSvc.getComment(prod.productId)}">
+									<c:forEach var="row"
+										items="${proSvc.getComment(prod.productId)}">
+										<div class="star_block">
+											<span
+												class="star ${ row.commentStar >= 1 ? '
+											-on' : '' }"><i
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 2 ? '
+											-on' : '' }"><i
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 3 ? '
+											-on' : '' }"><i
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 4 ? '
+											-on' : '' }"><i
+												class="fas fa-star"></i></span> <span
+												class="star ${ row.commentStar >= 5 ? '
+											-on' : '' }"><i
+												class="fas fa-star"></i></span>
+											<p>${row.comment }</p>
+										</div>
+									</c:forEach>
+								</c:if>
 							</div>
 						</div>
 					</div>

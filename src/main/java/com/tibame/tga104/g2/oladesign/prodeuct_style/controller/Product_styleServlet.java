@@ -100,11 +100,11 @@ public class Product_styleServlet extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
 			String styleCode = req.getParameter("styleCode");
-			String enameReg = "^[(a-zA-Z0-9_)]{3,10}$";
+			String enameReg = "^[(a-zA-Z0-9_)]{4,10}$";
 			if (styleCode == null || styleCode.trim().length() == 0) {
 				errorMsgs.add("類型編號: 請勿空白");
 			} else if (!styleCode.trim().matches(enameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("類型編號: 只能是英文、數字 , 且長度必需在3到10之間");
+				errorMsgs.add("類型編號: 只能是英文、數字 , 且長度必需在4到10之間");
 			}
 
 			String styleName = req.getParameter("styleName");

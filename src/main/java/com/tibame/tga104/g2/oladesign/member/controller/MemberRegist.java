@@ -144,16 +144,19 @@ public class MemberRegist extends HttpServlet {
 			String finalAddress = zipcode + city + town + memAddress;
 			
 //			註冊成功新增會員(待驗證)
-			MemberService memSvc = new MemberService();
+			MemberService memSvc = new MemberService();			
+			
 			memberVO = memSvc.addMember(memName, account, passwordKey, memPhone, finalAddress, sex, null);
 			Integer memId = memberVO.getMemId();
 			System.out.println("memId=" + memId);
 			
 			if(!memSvc.isCheckMail()) { //false從dao -> service -> controller
 				errorMsgs.put("account", "帳號已經存在，請勿重複註冊");
+				System.out.println("帳號已經存在，請勿重複註冊");
 			}
 			
 			if(!errorMsgs.isEmpty()) { //判斷帳號已經存在的錯誤
+				memberVO = null;
 				request.setAttribute("memberVO", memberVO);
 				RequestDispatcher errView = request.getRequestDispatcher("/member/memRegist.jsp");
 				errView.forward(request, response);

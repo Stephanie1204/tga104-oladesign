@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*"%>
+<%
+Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+if (companyMem != null) {
+	pageContext.setAttribute("comTaxId", companyMem.getComTaxId());
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +100,7 @@
 							<!--工具栏/-->
 							<jsp:useBean id="prodSvc" scope="page"
 								class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
-							<c:if test="${not empty prodSvc.selectByComTaxId('32425565')}">
+							<c:if test="${not empty prodSvc.selectByComTaxId(comTaxId)}">
 								<table id="dataList"
 									class="table table-bordered table-striped table-hover dataTable"
 									style="table-layout: fixed;">
@@ -112,7 +118,7 @@
 											<th style="width: 5%" class="text-center">操作</th>
 										</tr>
 										<c:forEach var="row"
-											items="${prodSvc.selectByComTaxId('32425565')}">
+											items="${prodSvc.selectByComTaxId(comTaxId)}">
 											<form
 												action="<c:url value="/CompanyBackEnd-product/company-updateproduct.jsp">
 						<c:param name="productId" value="${row.productId}" />

@@ -17,19 +17,19 @@ public class MemberVO implements Serializable{
 	private Date memRegdate;
 	private String sex;
 	private Integer point;
-	private boolean isBan;
-	private boolean isCom;
-	private boolean isActive;
+	private Boolean isBan;
+	private Boolean isCom;
+	private Boolean isActive;
+	private Boolean isRegCom;
 	private byte[] memPhoto;
 	private String memPhotoBase64;
-	
 	
 	@Override
 	public String toString() {
 		return "MemberVO [memId=" + memId + ", memName=" + memName + ", account=" + account + ", password=" + password
 				+ ", memPhone=" + memPhone + ", memAddress=" + memAddress + ", memRegdate=" + memRegdate + ", sex="
 				+ sex + ", point=" + point + ", isBan=" + isBan + ", isCom=" + isCom + ", isActive=" + isActive
-				+ ", memPhoto=" + Arrays.toString(memPhoto) + "]";
+				+ ", isRegCom=" + isRegCom + ", memPhoto=" + Arrays.toString(memPhoto) + "]";
 	}
 	
 	public Integer getMemId() {
@@ -86,25 +86,33 @@ public class MemberVO implements Serializable{
 	public void setPoint(Integer point) {
 		this.point = point;
 	}
-	public boolean isBan() {
+	public Boolean isBan() {
 		return isBan;
 	}
+	
 	public void setBan(boolean isBan) {
 		this.isBan = isBan;
 	}
-	public boolean isCom() {
+	public Boolean isCom() {
 		return isCom;
 	}
 	public void setCom(boolean isCom) {
 		this.isCom = isCom;
 	}
 	
-	public boolean isActive() {
+	public Boolean isActive() {
 		return isActive;
 	}
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	
+	public Boolean getIsRegCom() {
+		return isRegCom;
+	}
+	public void setIsRegCom(Boolean isRegCom) {
+		this.isRegCom = isRegCom;
 	}
 
 	public byte[] getMemPhoto() {

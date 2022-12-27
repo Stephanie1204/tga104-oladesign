@@ -29,10 +29,12 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 
 	public List<OrderItemBean> select(int productId) {
 		List<OrderItemBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(GET_COMMENT_BYPRODUCTID);) {
-
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_COMMENT_BYPRODUCTID);
 			stmt.setInt(1, productId);
 
 			ResultSet rset = stmt.executeQuery();
@@ -49,6 +51,21 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return result;
 	}
@@ -58,10 +75,12 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 
 	public List<OrderItemBean> select(String orderId) {
 		List<OrderItemBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
 
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(GET_ORDERITEM_BYORDERID);) {
-
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_ORDERITEM_BYORDERID);
 			stmt.setString(1, orderId);
 
 			ResultSet rset = stmt.executeQuery();
@@ -83,6 +102,21 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return result;
 	}

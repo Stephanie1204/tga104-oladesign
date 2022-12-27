@@ -42,7 +42,7 @@
                      <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
 		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i class="fas fa-table"></i>店家會員管理</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/store/allStore.jsp"><i class="fas fa-table"></i>廠商會員管理</a></li>
                     	</ul>
                     </li>
                     
@@ -163,7 +163,17 @@
                                 <div class="card text-white bg-success shadow">
                                 	<a href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
-	                                        <p class="m-0">會員帳號管理<br></p>
+	                                        <p class="m-0">會員管理<br></p>
+	                                        <p class="text-white-50 small m-0"></p>
+	                                    </div>
+	                                </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <div class="card text-white bg-success shadow">
+                                	<a href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
+	                                    <div class="card-body">
+	                                        <p class="m-0">廠商管理<br></p>
 	                                        <p class="text-white-50 small m-0"></p>
 	                                    </div>
 	                                </a>
@@ -183,7 +193,7 @@
                                 <div class="card text-white bg-warning shadow">
                                 	<a href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
-	                                        <p class="m-0">商城管理</p>
+	                                        <p class="m-0">訂單管理</p>
 	                                        <p class="text-white-50 small m-0"></p>
 	                                    </div>
 	                                </a>
@@ -193,22 +203,22 @@
                                 <div class="card text-white bg-danger shadow">
                                 	<a href="<%=request.getContextPath()%>/back-end/forum/select_actype_page.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
-	                                        <p class="m-0">商品分類</p>
+	                                        <p class="m-0">廣告管理</p>
 	                                        <p class="text-white-50 small m-0"></p>
 	                                    </div>
 	                                </a>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card text-white bg-secondary shadow">
-                                	<a href="<%=request.getContextPath()%>/customerservice/NameServlet?backaction=admin&userID=${administratorVO.adminid}" onclick="window.open(this.href, '', 'width=800,height=800'); return false;">
-	                                    <div class="card-body">
-	                                        <p class="m-0">線上客服</p>
-	                                        <p class="text-white-50 small m-0"></p>
-	                                    </div>
-                                	</a>
-                                </div>
-                            </div>
+<!--                             <div class="col-lg-6 mb-4"> -->
+<!--                                 <div class="card text-white bg-secondary shadow"> -->
+<%--                                 	<a href="<%=request.getContextPath()%>/customerservice/NameServlet?backaction=admin&userID=${administratorVO.adminid}" onclick="window.open(this.href, '', 'width=800,height=800'); return false;"> --%>
+<!-- 	                                    <div class="card-body"> -->
+<!-- 	                                        <p class="m-0">線上客服</p> -->
+<!-- 	                                        <p class="text-white-50 small m-0"></p> -->
+<!-- 	                                    </div> -->
+<!--                                 	</a> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                         </div>
                     </div>
                 </div>

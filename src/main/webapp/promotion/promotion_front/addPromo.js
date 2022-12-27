@@ -11,6 +11,7 @@ $("button#submit").on("click", function () {
 
   // set and trim added info into a form_data variable
   const formData = {
+    comTaxId: sessionStorage.getItem("comTaxId"),
     promoName: $("input.promoName").val().trim(),
     startDate: $("input.start_date").val().trim(),
     endDate: $("input.end_date").val().trim(),
@@ -26,11 +27,12 @@ $("button#submit").on("click", function () {
 
     success: function (data) {
       alert("success ");
-      window.location.href = `http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html?comTaxId=${data.comTaxId}`;
+      window.location.href = `http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html`;
     },
     error: function (xhr) {
       console.log("error");
       console.log(xhr);
+      console.log(sessionStorage.getItem("comTaxId"));
     },
   });
 });

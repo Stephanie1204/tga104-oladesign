@@ -206,6 +206,7 @@ String agreement = (String) request.getAttribute("agreement");
 						$("#com_address").val((dataObj.comAddress === undefined ? com_address : ""));
 
 // 						針對錯誤訊息span標籤:如果如果dataObj有此物件 ->顯示錯誤訊息；改正後刪除錯誤訊息
+						$("#err_memName").text((dataObj.memName === undefined ? "" : dataObj.memName));
 						$("#err_com_taxid").text((dataObj.comTaxid === undefined ? "" : dataObj.comTaxid));
 						$("#err_com_name").text((dataObj.comName === undefined ? "" : dataObj.comName));
 						$("#err_com_phone").text((dataObj.comPhone === undefined ? "" : dataObj.comPhone));
@@ -227,6 +228,7 @@ String agreement = (String) request.getAttribute("agreement");
 						$("#err_owner_phone").text("");
 						$("#err_com_address").text("");
 						setTimeout(function(){
+							console.log("等待");
 							alert("您已經成功註冊為賣家，請耐心等待審核通過");
 						}, 500);
 						window.location.href = "http://localhost:8080/oladesign/homePage/index.jsp";

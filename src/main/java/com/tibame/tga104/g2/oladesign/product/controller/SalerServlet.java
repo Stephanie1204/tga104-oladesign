@@ -2,6 +2,8 @@ package com.tibame.tga104.g2.oladesign.product.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,15 +14,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductBean;
+import com.tibame.tga104.g2.oladesign.product.model.product.ProductImageBean;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductService;
 
 @WebServlet(urlPatterns = { "/pages/saler.controller" })
 @MultipartConfig(fileSizeThreshold = 1024 * 10, // 10 KB
-		maxFileSize = 1024 * 300, // 300 KB
-		maxRequestSize = 1024 * 1024 // 1 MB
+		maxFileSize = 1024 * 10340, 
+		maxRequestSize = 1024 * 10240 // 1 MB
 )
 //Servlet 必須繼承 javax.servlet.http.HttpServlet
 public class SalerServlet extends HttpServlet {
@@ -55,6 +60,10 @@ public class SalerServlet extends HttpServlet {
 		String tempStatus = request.getParameter("status");// not null
 		String prodaction = request.getParameter("prodaction");
 		Part filePart = request.getPart("img_file");
+
+		//
+		Collection<Part> fileParts = request.getParts();
+		String imageId = request.getParameter("imageId");
 		System.out.println(intro);
 //驗證資料 select不會經過此流程
 		Map<String, String> errors = new HashMap<String, String>();
@@ -176,13 +185,38 @@ public class SalerServlet extends HttpServlet {
 		bean.setSafeStock(safeStock);
 		bean.setStatus(status);
 		// part file is null?
-		InputStream inputStream = null;
-		byte[] buffer = null;
-		buffer = filePart.getInputStream().readAllBytes();
-		buffer = buffer.length == 0 ? null : buffer;
-		bean.setProductImgByteArray(buffer);
-		bean.setProductImg(inputStream);
+		if(filePart != null) {
+			InputStream inputStream = null;
+			byte[] buffer = null;
+			buffer = filePart.getInputStream().readAllBytes();
+			buffer = buffer.length == 0 ? null : buffer;
+			bean.setProductImgByteArray(buffer);
+			bean.setProductImg(inputStream);
+		}
+		//
+		int currentimgAmount = productService.getImgAmount(productId);
+		int count = currentimgAmount;
+		int maxAmount = 3;
+		List<ProductImageBean> imageList = new ArrayList<ProductImageBean>();
+		for (Part imagePart : fileParts) {
+			if (count >= maxAmount) {
+				break;
+			}
+			String partName = imagePart.getName(); // form 表單的欄位
+			if (partName.equals("img_file1")) {
+				ProductImageBean imageBean = new ProductImageBean();
+				InputStream inputStream_imgs = null;
+				byte[] buffer_imgs = null;
+				buffer_imgs = imagePart.getInputStream().readAllBytes();
+				buffer_imgs = buffer_imgs.length == 0 ? null : buffer_imgs;
+				imageBean.setProductImgByteArray(buffer_imgs);
+				imageBean.setProductImg(inputStream_imgs);
+				imageBean.setProductId(productId);
 
+				imageList.add(imageBean);
+				count++;
+			}
+		}
 		System.out.println("pass3");
 		System.out.println(bean);
 
@@ -198,6 +232,9 @@ public class SalerServlet extends HttpServlet {
 			// 傳遞result list到下面指定的jsp檔
 			request.getRequestDispatcher("/pages/display.jsp").forward(request, response);
 		} else if (prodaction != null && prodaction.equals("Insert")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+			bean.setComTaxId(companyMem.getComTaxId());
 			ProductBean result = productService.insert(bean);
 			if (result == null) {
 				errors.put("action", "Insert fail");
@@ -213,24 +250,45 @@ public class SalerServlet extends HttpServlet {
 			request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("Update")) {
-			ProductBean result = productService.update(bean);
-			if (result == null) {
-				errors.put("action", "Update fail");
-			} else {
-				request.setAttribute("update", result);
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+			if(companyMem.getComTaxId().equals(bean.getComTaxId())) {
+				ProductBean result = productService.update(bean);
+				if (result == null) {
+					errors.put("action", "Update fail");
+				} else {
+					request.setAttribute("update", result);
+				}
+				request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+						response);
+			}
+		} else if (prodaction != null && prodaction.equals("Delete")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+			if(companyMem.getComTaxId().equals(bean.getComTaxId())) {
+				boolean result = productService.delete(bean);
+				if (!result) {
+					request.setAttribute("delete", 0);
+				} else {
+					request.setAttribute("delete", 1);
+				}
+				request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);
+
+			}
+		} else if (prodaction != null && prodaction.equals("addImg")) {
+			for (ProductImageBean imgbean : imageList) {
+				if (imgbean.getProductId() != 0) {
+					productService.insertImg(imgbean);
+				}
 			}
 			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
 					response);
 
-		} else if (prodaction != null && prodaction.equals("Delete")) {
-			boolean result = productService.delete(bean);
-			if (!result) {
-				request.setAttribute("delete", 0);
-			} else {
-				request.setAttribute("delete", 1);
-			}
-			request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);
+		} else if (prodaction != null && prodaction.equals("deleteImg")) {
+			productService.deleteImg(Integer.parseInt(imageId));
 
+			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
+					response);
 		} else {
 			errors.put("action", "Unknown Action:" + prodaction);
 			request.getRequestDispatcher("/CompanyBackEnd-product/company-productlist.jsp").forward(request, response);

@@ -88,7 +88,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return memId;
 	}
 
-	private static final String UpdatSQL = "update member  "
+	private static final String UpdateSQL = "update member  "
 			+ "set MEM_NAME = ?, PASSWORD = ?, MEM_PHONE = ?, "
 			+ " MEM_ADDRESS = ?, SEX = ?, POINT = ?, IS_BAN = ?, IS_COM = ?, MEM_PHOTO = ifnull(?, MEM_PHOTO) "
 			+ "where MEM_ID = ?;";
@@ -100,7 +100,7 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		try {
 			connection = ds.getConnection();
-			psmt = connection.prepareStatement(UpdatSQL);
+			psmt = connection.prepareStatement(UpdateSQL);
 			
 			psmt.setString(1, memberVO.getMemName());
 			psmt.setString(2, memberVO.getPassword());
@@ -171,7 +171,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	private static final String GetOneSQL = 
-			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, MEM_PHOTO"
+			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
 			+ " from member where MEM_ID = ?;";
 	
 	@Override
@@ -201,6 +201,7 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setBan(rs.getBoolean("IS_BAN"));
 				memberVO.setCom(rs.getBoolean("IS_COM"));
 				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
 				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
 				
@@ -235,7 +236,7 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	
 	private static final String GetOnebyEmailSQL = 
-			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, MEM_PHOTO"
+			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
 			+ " from member where ACCOUNT = ?;";
 
 	@Override
@@ -265,6 +266,7 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setBan(rs.getBoolean("IS_BAN"));
 				memberVO.setCom(rs.getBoolean("IS_COM"));
 				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
 				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
 				
@@ -298,7 +300,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	private static final String GetAllSQL = 
-			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, MEM_PHOTO"
+			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
 			+ " from member order by MEM_ID;";
 
 	@Override
@@ -329,6 +331,7 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setBan(rs.getBoolean("IS_BAN"));
 				memberVO.setCom(rs.getBoolean("IS_COM"));
 				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
 				
 				if(rs.getBytes("MEM_PHOTO") != null) {
@@ -366,7 +369,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return memList;
 	}
 
-	private static final String CheckLoginSQL = "select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, MEM_PHOTO "
+	private static final String CheckLoginSQL = "select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO "
 			+ "from MEMBER where ACCOUNT = ? and `PASSWORD` = ? ;";
 	
 	@Override
@@ -398,6 +401,7 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setBan(rs.getBoolean("IS_BAN"));
 				memberVO.setCom(rs.getBoolean("IS_COM"));
 				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
 				
 				if(rs.getBytes("MEM_PHOTO") != null) {
@@ -499,5 +503,38 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 	}
 	
+	private static final String setRegComTagSQL = "update MEMBER set IS_REGCOM = ? where MEM_ID = ?;";
 
+	@Override
+	public void regComTag(Integer memId, Boolean isRegCom) {
+		Connection connection = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			connection = ds.getConnection();
+			psmt = connection.prepareStatement(setRegComTagSQL);
+			psmt.setBoolean(1, isRegCom);
+			psmt.setInt(2, memId);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(psmt != null) {
+				try {
+					psmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
 }

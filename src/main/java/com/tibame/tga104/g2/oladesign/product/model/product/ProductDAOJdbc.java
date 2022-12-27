@@ -36,7 +36,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		List<ProductBean> result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc selectAll");
+//		System.out.println("jdbc selectAll");
 		try {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(GET_ALL_PRODUCT);
@@ -97,7 +97,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		List<ProductBean> result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc selectAll_byName");
+//		System.out.println("jdbc selectAll_byName");
 		if (name != null) {
 
 			ResultSet rset = null;
@@ -176,7 +176,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		List<ProductBean> result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc selectAll_byCondition");
+//		System.out.println("jdbc selectAll_byCondition");
 		if (name != null) {
 
 			ResultSet rset = null;
@@ -263,7 +263,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		List<ProductBean> result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc selectAll_bycomTaxId");
+//		System.out.println("jdbc selectAll_bycomTaxId");
 		if (comTaxId != null) {
 
 			ResultSet rset = null;
@@ -335,7 +335,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		ProductBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc selectAll byprodId");
+//		System.out.println("jdbc selectAll byprodId");
 		try {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(GET_PRODUCT_BY_PRODID);
@@ -387,7 +387,6 @@ public class ProductDAOJdbc implements ProductDAO {
 	//
 	private static final String INSERT = "INSERT INTO PRODUCT (COM_TAXID, TYPE_CODE, STYLE_CODE, NAME, PRICE, INTRO, STOCK, SAFE_STOCK, STATUS, IMG) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n";
 	private static final String GET_MAX_PRODID = "SELECT MAX(PROD_ID) FROM PRODUCT";
-	private static final String INSERT_IMG = "INSERT INTO PRODUCT_IMG (PROD_ID, IMG) values (?, ?)";
 	private static final String GET_TYPENAME = "SELECT TYPE_NAME FROM PRODUCT_TYPE WHERE TYPE_CODE = ?";
 	private static final String GET_STYLENAME = "SELECT STYLE_NAME FROM PRODUCT_STYLE WHERE STYLE_CODE = ?";
 
@@ -400,7 +399,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		PreparedStatement stmt_type = null;
 		PreparedStatement stmt_style = null;
 		PreparedStatement stmt_img = null;
-		System.out.println("jdbc insert");
+//		System.out.println("jdbc insert");
 		//
 		if (bean != null && bean.getComTaxId() != null) {
 			try {
@@ -449,28 +448,28 @@ public class ProductDAOJdbc implements ProductDAO {
 				}
 				if (stmt_maxId != null) {
 					try {
-						stmt.close();
+						stmt_maxId.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 				}
 				if (stmt_type != null) {
 					try {
-						stmt.close();
+						stmt_type.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 				}
 				if (stmt_style != null) {
 					try {
-						stmt.close();
+						stmt_style.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 				}
 				if (stmt_img != null) {
 					try {
-						stmt.close();
+						stmt_img.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -496,7 +495,7 @@ public class ProductDAOJdbc implements ProductDAO {
 		PreparedStatement stmt = null;
 		PreparedStatement stmt_type = null;
 		PreparedStatement stmt_style = null;
-		System.out.println("jdbc update");
+//		System.out.println("jdbc update");
 		if (bean != null) {
 			try {
 				conn = dataSource.getConnection();
@@ -515,7 +514,7 @@ public class ProductDAOJdbc implements ProductDAO {
 				stmt.setInt(10, bean.getProductId());
 
 				int i = stmt.executeUpdate();
-				System.out.println(bean.getProductImgByteArray());
+//				System.out.println(bean.getProductImgByteArray());
 				//
 				stmt_type.setString(1, bean.getTypeCode());
 				ResultSet typeName = stmt_type.executeQuery();
@@ -543,14 +542,14 @@ public class ProductDAOJdbc implements ProductDAO {
 				}
 				if (stmt_type != null) {
 					try {
-						stmt.close();
+						stmt_type.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 				}
 				if (stmt_style != null) {
 					try {
-						stmt.close();
+						stmt_style.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -572,7 +571,7 @@ public class ProductDAOJdbc implements ProductDAO {
 
 	@Override
 	public boolean delete(int productId) {
-		System.out.println("jdbc delete");
+//		System.out.println("jdbc delete");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
@@ -630,5 +629,164 @@ public class ProductDAOJdbc implements ProductDAO {
 			}
 		}
 		return productPrice;
+	}
+
+//
+	private static final String SELECT_IMG = "SELECT IMG_NUM, PROD_ID, IMG FROM PRODUCT_IMG WHERE PROD_ID=?";
+
+	@Override
+	public List<ProductImageBean> selectImg(int productId) {
+		List<ProductImageBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(SELECT_IMG);
+			stmt.setInt(1, productId);
+			
+			ResultSet rset = stmt.executeQuery();
+
+			result = new ArrayList<ProductImageBean>();
+			int maxLength = 3;
+			int imageOrder = 1;
+			while (rset.next()) {
+				ProductImageBean bean = new ProductImageBean();
+				bean.setImageId(Integer.toString(rset.getInt("IMG_NUM")));
+				bean.setProductId(rset.getInt("PROD_ID"));
+//
+				byte[] buffer = rset.getBytes("IMG");
+				if (buffer != null) {
+					bean.setProductImgBase64(buffer);
+				}
+				result.add(bean);
+				imageOrder++;
+				if (imageOrder > maxLength) {
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
+	private static final String INSERT_IMG = "INSERT INTO PRODUCT_IMG (PROD_ID, IMG) values (?, ?)";
+
+	@Override
+	public void insertImg(ProductImageBean bean) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(INSERT_IMG);
+			stmt.setInt(1, bean.getProductId());
+			stmt.setBytes(2, bean.getProductImgByteArray());
+			//
+			int i = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	private static final String DELETE_IMG = "DELETE FROM PRODUCT_IMG WHERE IMG_NUM=?";
+
+	@Override
+	public void deleteImg(int imageId) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(DELETE_IMG);
+			stmt.setInt(1, imageId);
+			//
+			int i = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	//
+	private static final String GET_IMG_AMOUNT = "SELECT COUNT(PROD_ID) FROM PRODUCT_IMG WHERE PROD_ID=?";
+	@Override
+	public int getImgAmount(int productId) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+        int amount = 0;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_IMG_AMOUNT);
+			
+			stmt.setInt(1, productId);
+			ResultSet rset = stmt.executeQuery();
+
+			while (rset.next()) {
+				amount = rset.getInt("COUNT(PROD_ID)");
+//				System.out.println(amount);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return amount;
 	}
 }

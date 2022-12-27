@@ -19,7 +19,7 @@ pageContext.setAttribute("userId", userId);
 <meta name="keywords" content="Ogani, unica, creative, html" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>Ogani | Template</title>
+<title>OLA Design | 首頁</title>
 
 <!-- Google Font -->
 <link
@@ -54,6 +54,9 @@ pageContext.setAttribute("userId", userId);
 	type="text/css" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/searchResults.css"
+	type="text/css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/homePage/css/favorite.css"
 	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -195,20 +198,29 @@ pageContext.setAttribute("userId", userId);
 					class="productDisplay row row-cols-lg-4 row-cols-md-3 row-coㄥls-sm-2 mix">
 					<c:forEach var="row" items="${select}">
 						<div class="featured__item">
-							<div class="featured__item__pic set-bg"
-								data-setbg="${row.productImgBase64}">
+							<div class="featured__item__pic">
+								<a
+									href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
+									class="results" target="_blank" class="set-bg"
+							data-setbg="img/featured/feature-4.jpg"><img
+									class="product__details__pic__item--large"
+									src="${ row.productImgBase64 }" alt="No Image"></a>
 								<ul class="featured__item__pic__hover">
-									<li><a href="#"><i class="fa fa-heart"></i></a></li>
+									<li><a href="##" class="favorcircle">
+											<i class="fa fa-heart favorheart" id="${row.productId}" data="${row.productId}"></i>
+										</a>
+									</li>
 									<li>
 										<form action="<c:url value="/pages/product.controller" />"
 											method="post">
 											<input type="hidden" name="prodaction" value="AddCartByPage">
 											<input type="hidden" name="memberId" value="${userId }">
 											<input type="hidden" name="comTaxId" value="${row.comTaxId }">
-											<input type="hidden" name="productId" value="${row.productId }">
-											<input type="hidden" name="quantity" value="1">
-											<input type="hidden" name="typeCode" value="${param.typeCode }">
-											<input type="hidden" name="styleCode" value="${param.styleCode }">
+											<input type="hidden" name="productId"
+												value="${row.productId }"> <input type="hidden"
+												name="quantity" value="1"> <input type="hidden"
+												name="typeCode" value="${param.typeCode }"> <input
+												type="hidden" name="styleCode" value="${param.styleCode }">
 											<input type="hidden" name="price" value="${param.price }">
 											<button type="submit" class="fa fa-shopping-cart"></button>
 										</form>
@@ -334,5 +346,109 @@ pageContext.setAttribute("userId", userId);
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
+	<script>
+	$(window).on("load", function(){
+		let memId = "${memId}";
+	    console.log("memId=" + memId);
+	  //先查詢已經加入收藏的商品
+	    if(memId.length != 0){ 
+    		$.ajax({
+    			url: "<%=request.getContextPath()%>/favorite/FavorServlet",
+    			type: "PUT",
+    			data: JSON.stringify({
+    				"memId": memId
+    			}),
+        		dataType: "json",
+        		contentType: "application/json",
+        		processData: false,
+        		success: function(data){
+	            	console.log("data");
+	            	var favorObj = JSON.parse(data.getFavor);
+	            	console.log(favorObj);
+	            	console.log("favorObj.length:" + favorObj.length);
+	            	$("#fav").text(favorObj.length); //在收藏icon顯示收藏數量
+	            	
+	            	$.each(favorObj, function(index, item){ //取出已收藏的商品ID
+		            	console.log(item.prodId);
+	            		$("#" + item.prodId + "").addClass("active");
+	            		$("#" + item.prodId + "").closest("a").addClass("active");
+		            });	            	
+	            },
+	            error: function(xhr){
+	            	console.log(xhr);
+	            },
+	            complete: function(xhr){
+	            	console.log(xhr);
+	            }
+    		});
+    	}
+	  
+	  	//新增收藏
+	    $(".favorcircle").on("click", function(e){
+	    	if(memId == null || memId.length == 0){
+	    		alert("請先登入會員");
+	    	}else{
+	    		let prodId = $(e.target).attr("data");
+	    		console.log("prodId=" + prodId);
+	    		$(e.target).toggleClass("active");
+		        $(e.target).closest("a").toggleClass("active");
+		        
+		        var favordata ={
+		        		"memId": memId,
+		        		"prodId": prodId
+		        };
+		        console.log(favordata);
+		        let active = $(e.target).hasClass("active");
+		        console.log("active=" + active);
+		        if(active == true){ //新增收藏
+		        	$.ajax({
+			            url: "<%=request.getContextPath()%>/favorite/FavorServlet",
+			            type: "POST",
+			            data: JSON.stringify(favordata),
+			            dataType: "json",
+			            contentType: "application/json",
+			            processData: false,
+			            success: function(adddata){
+			            	console.log("adddata=" + adddata);
+			            	var count = $("#fav").text();
+			            	var countFav = parseInt(count); //String 轉為 number
+			            	$("#fav").text(countFav + 1);
+			            },
+			            error: function(xhr){
+			            	console.log(xhr);
+			            },
+			            complete: function(xhr){
+			            	console.log(xhr);
+			            }
+			        });
+		        }else{ //移除收藏
+		        	$.ajax({
+		        		url: "<%=request.getContextPath()%>/favorite/FavorServlet",
+		        		type: "DELETE",
+		        		data: JSON.stringify(favordata),
+		        		dataType: "json",
+		        		contentType: "application/json",
+		        		processData: false,
+		        		success: function(deldata){
+		        			console.log("deldata");
+			            	console.log(deldata);
+			            	var count = $("#fav").text();
+			            	var countFav = parseInt(count); //String 轉為 number
+			            	$("#fav").text(countFav - 1);
+			            },
+			            error: function(xhr){
+			            	console.log(xhr);
+			            },
+			            complete: function(xhr){
+			            	console.log(xhr);
+			            }
+		        	});
+		        }
+		        
+	    	}
+	        
+	    });
+	});
+	</script>
 </body>
 </html>

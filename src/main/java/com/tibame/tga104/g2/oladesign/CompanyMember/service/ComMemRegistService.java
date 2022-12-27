@@ -7,12 +7,16 @@ import com.tibame.tga104.g2.oladesign.CompanyMember.dao.Company_MemDAO_interface
 import com.tibame.tga104.g2.oladesign.CompanyMember.dao.Company_MemJDBCDAO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.tibame.tga104.g2.oladesign.member.dao.MemberDAO;
+import com.tibame.tga104.g2.oladesign.member.dao.MemberDAOImpl;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
 public class ComMemRegistService {
 	private Company_MemDAO_interface comMemDAO;
+	private MemberDAO memberDAO;
 	public ComMemRegistService() {
 		comMemDAO = new Company_MemJDBCDAO();
+		memberDAO = new MemberDAOImpl();
 	}
 	
 	public Object comMemRegist(Company_MemVO comMemVO) {
@@ -27,8 +31,9 @@ public class ComMemRegistService {
 			errorMsgs.put("memName", "會員已具有賣家資格，請勿重複註冊");
 		}
 		
-		System.out.println("memId=" + memId);
-		System.out.println("memberVO.isCom():" + memberVO.isCom());
+		if(memberVO.getIsRegCom()) {
+			errorMsgs.put("memName", "已註冊申請賣家資格，請耐心等待審核");
+		}
 		
 		String comTaxid = comMemVO.getComTaxId();
 		String comTaxidReg = "^[0-9]{8}$";
@@ -80,6 +85,7 @@ public class ComMemRegistService {
 			return errorMsgs;
 		}
 		comMemDAO.insert(comMemVO);
+		memberDAO.regComTag(memId, true); //設定已經註冊賣家的標記等待審核，審核通過後改為false
 		return comMemVO;
 	}
 }

@@ -26,4 +26,6 @@ public interface MemberDAO {
 	public void activeMember(Integer memId, Boolean isActive);
 	
 	public void resetPWD(String newPassword, Integer memId);
+	
+	public void regComTag(Integer memId, Boolean isRegCom);
 }
