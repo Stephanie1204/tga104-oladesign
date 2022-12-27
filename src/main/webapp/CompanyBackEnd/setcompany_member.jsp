@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%> <%@ page
-import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %> <%@ page
-import="com.tibame.tga104.g2.oladesign.member.bean.*" %> <%Company_MemVO
-company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
+uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*" %> 
+<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*" %> 
+<%Company_MemVO company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
 <%MemberVO memberVO = (MemberVO) request.getAttribute("MemberVO");%>
 <!DOCTYPE html>
 <html>
@@ -50,13 +50,6 @@ company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header"></section>
-        <c:if test="${not empty errorMsgs}">
-          <ul>
-            <c:forEach var="message" items="${errorMsgs}">
-              <li style="color: red">${message}</li>
-            </c:forEach>
-          </ul>
-        </c:if>
         <!-- Main content -->
         <section class="content">
           <div class="row">
@@ -73,23 +66,27 @@ company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
                   <div class="box-body">
                     <div class="form-group">
                     
-                      <label for="com_taxid">公司統編<font color="red"><b>*</b></font></label>
+                      <label for="com_taxid">公司統編<font color="red"><b>*</b></font>
+                      </label>
                       <input type="text" class="form-control" name="com_taxid" id="com_taxid"
                         value="" readonly/>
                     </div>
                     <div class="form-group">
-                      <label for="memId">會員編號<font color="red"><b>*</b></font></label>
+                      <label for="memId">會員編號<font color="red"><b>*</b></font>
+                      <span class="errorcolor">${errorMsgs.memId}</span></label>
                       <input type="text" class="form-control" name="memId" id="memId" value="${memId}" readonly/>
                     </div>
 
                     <div class="form-group">
-                      <label for="com_name">公司名稱<font color="red"><b>*</b></font></label>
+                      <label for="com_name">公司名稱<font color="red"><b>*</b></font>
+                      <span class="errorcolor">${errorMsgs.com_name}</span></label>
                       <input type="text" class="form-control" name="com_name"  id="com_name"
                         value=""/>
                     </div>
 
                     <div class="form-group">
-                      <label for="com_address">公司地址<font color="red"><b>*</b></font></label>
+                      <label for="com_address">公司地址<font color="red"><b>*</b></font>
+                      <span class="errorcolor">${errorMsgs.com_address}</span></label>
                       <div id="twzipcode"></div>
 
                       <input type="text" class="form-control" name="com_address" id="com_address"
@@ -97,29 +94,30 @@ company_memVO = (Company_MemVO) request.getAttribute("company_memVO");%>
                     </div>
 
                     <div class="form-group">
-                      <label for="com_phone">公司電話<font color="red"><b>*</b></font></label>
+                      <label for="com_phone">公司電話<font color="red"><b>*</b></font>
+                      <span class="errorcolor">${errorMsgs.com_phone}</span></label>
                       <input type="text" class="form-control" name="com_phone" id="com_phone"/>
                     </div>
                     <div class="form-group">
-                      <label for="com_owner">負責人<font color="red"><b>*</b></font></label>
+                      <label for="com_owner">負責人<font color="red"><b>*</b></font>
+                      <span class="errorcolor">${errorMsgs.com_owner}</span></label>
                       <input type="text" class="form-control" name="com_owner"id="com_owner"/>
                     </div>
                     <div class="form-group">
-                      <label for="owner_phone">負責人手機號碼<font color="red"><b>*</b></font></label>
+                      <label for="owner_phone">負責人手機號碼<font color="red"><b>*</b></font>
+                      <span class="errorcolor">${errorMsgs.owner_phone}</span></label>
                       <input type="text" class="form-control" name="owner_phone"id="owner_phone"/>
                     </div>
 
                     <div class="form-group">
-                      <label for="com_bankaccount">銀行帳戶</label>
+                      <label for="com_bankaccount">銀行帳戶
+                      <span class="errorcolor">${errorMsgs.com_bankaccount}</span></label>
                       <input type="text" class="form-control" name="com_bankaccount" id="com_bankaccount"/>
                     </div>
 
                     <div class="box-footer">
                       <input type="hidden" name="action" value="insert" id="action"/>
                       <input type="submit" value="儲存" class="btn btn-primary" id="update_save"/>
-                      <input type="hidden" name="com_regdate"
-                      value="${company_memVO.getComRegdate().toString()}"
-                      />
                       <input type="button" value="修改資料"class="btn btn-primary" id="update"/>
                       <input type="button" value="取消修改" class="btn btn-primary" id="cancle"
                       style="display: none"/>

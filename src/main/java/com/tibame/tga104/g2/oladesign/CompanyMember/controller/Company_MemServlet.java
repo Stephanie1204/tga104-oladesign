@@ -2,8 +2,10 @@ package com.tibame.tga104.g2.oladesign.CompanyMember.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -78,15 +80,15 @@ public class Company_MemServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, String> errorMsgs = new HashMap<String, String>(); 
 			req.setAttribute("errorMsgs", errorMsgs);
 			// 公司統編
 			String com_taxid = req.getParameter("com_taxid");
 			String com_taxidReg = "^[0-9]{8}$";
 			if (com_taxid == null || com_taxid.trim().length() == 0) {
-				errorMsgs.add("公司統編請勿空白");
+				errorMsgs.put("com_taxid","公司統編請勿空白");
 			} else if (!com_taxid.trim().matches(com_taxidReg)) {
-				errorMsgs.add("公司統編：需為數字,且長度為8碼");
+				errorMsgs.put("com_taxid","公司統編：需為數字,且長度為8碼");
 			}
 			// 會員編號
 			Integer memId = Integer.valueOf(req.getParameter("memId"));
@@ -95,9 +97,9 @@ public class Company_MemServlet extends HttpServlet {
 			String com_name = req.getParameter("com_name");
 			String com_nameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,50}$";
 			if (com_name == null || com_name.trim().length() == 0) {
-				errorMsgs.add("公司名稱請勿空白");
+				errorMsgs.put("com_name","公司名稱請勿空白");
 			} else if (!com_name.trim().matches(com_nameReg)) {
-				errorMsgs.add("公司名稱：只能是中、英文,且長度需在2-50之間");
+				errorMsgs.put("com_name","公司名稱：只能是中、英文,且長度需在2-50之間");
 			}
 			// 公司地址
 			String zipcode = req.getParameter("zipcode");
@@ -107,39 +109,39 @@ public class Company_MemServlet extends HttpServlet {
 			String iscom_address = zipcode + county + district + com_address;
 			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (com_address == null || com_address.trim().length() == 0) {
-				errorMsgs.add("公司地址請勿空白");
+				errorMsgs.put("com_address","公司地址請勿空白");
 			} else if (!com_address.trim().matches(com_addressReg)) {
-				errorMsgs.add("地址錯誤請重新填寫");
+				errorMsgs.put("com_address","地址錯誤請重新填寫");
 			}
 			// 公司電話
 			String com_phone = req.getParameter("com_phone");
 			String com_phoneReg = "^(\\d{2,3}-?|\\d{2,3})\\d{3,4}-?\\d{4}$";
 			if (com_phone == null || com_phone.trim().length() == 0) {
-				errorMsgs.add("公司電話請勿空白");
+				errorMsgs.put("com_phone","公司電話請勿空白");
 			} else if (!com_phone.trim().matches(com_phoneReg)) {
-				errorMsgs.add("公司電話：需有區碼-");
+				errorMsgs.put("com_phone","公司電話：需有區碼-");
 			}
 			// 負責人
 			String com_owner = req.getParameter("com_owner");
 			String com_ownerReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]{2,10}$";
 			if (com_owner == null || com_owner.trim().length() == 0) {
-				errorMsgs.add("負責人姓名請勿空白");
+				errorMsgs.put("com_owner","負責人姓名請勿空白");
 			} else if (!com_owner.trim().matches(com_ownerReg)) {
-				errorMsgs.add("負責人姓名：只能是中、英文,且長度需在2-10之間");
+				errorMsgs.put("com_owner","負責人姓名：只能是中、英文,且長度需在2-10之間");
 			}
 			// 負責人手機號碼
 			String owner_phone = req.getParameter("owner_phone");
 			String owner_phoneReg = "^09\\d{8}$";
 			if (owner_phone == null || com_owner.trim().length() == 0) {
-				errorMsgs.add("負責人手機號碼請勿空白");
+				errorMsgs.put("owner_phone","負責人手機號碼請勿空白");
 			} else if (!owner_phone.trim().matches(owner_phoneReg)) {
-				errorMsgs.add("負責人手機號碼：請重新檢查");
+				errorMsgs.put("owner_phone","負責人手機號碼：請重新檢查");
 			}
 			// 銀行帳戶
 			String com_bankaccount = req.getParameter("com_bankaccount");
 			String com_bankaccountReg = "^\\d{10,16}$";
 			if (!"".equals(com_bankaccount.trim()) && !com_bankaccount.trim().matches(com_bankaccountReg)) {
-				errorMsgs.add("銀行帳戶：長度需在10-16碼之間");
+				errorMsgs.put("com_bankaccount","銀行帳戶：長度需在10-16碼之間");
 			}
 			Company_MemVO company_memVO = new Company_MemVO();
 			if (!errorMsgs.isEmpty()) {
@@ -158,67 +160,68 @@ public class Company_MemServlet extends HttpServlet {
 		}
 
 		if ("update_save".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, String> errorMsgs = new HashMap<String, String>(); 
 			req.setAttribute("errorMsgs", errorMsgs);
 			// 公司統編
 			String com_taxid = req.getParameter("com_taxid");
 			String com_taxidReg = "^[0-9]{8}$";
 			if (com_taxid == null || com_taxid.trim().length() == 0) {
-				errorMsgs.add("公司統編請勿空白");
+				errorMsgs.put("com_taxid","公司統編請勿空白");
 			} else if (!com_taxid.trim().matches(com_taxidReg)) {
-				errorMsgs.add("公司統編：需為數字,且長度為8碼");
+				errorMsgs.put("com_taxid","公司統編：需為數字,且長度為8碼");
 			}
 			// 會員編號
 			Integer memId = Integer.valueOf(req.getParameter("memId"));
+
 			// 公司名稱
 			String com_name = req.getParameter("com_name");
 			String com_nameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,50}$";
 			if (com_name == null || com_name.trim().length() == 0) {
-				errorMsgs.add("公司名稱請勿空白");
+				errorMsgs.put("com_name","公司名稱請勿空白");
 			} else if (!com_name.trim().matches(com_nameReg)) {
-				errorMsgs.add("公司名稱：只能是中、英文,且長度需在2-50之間");
+				errorMsgs.put("com_name","公司名稱：只能是中、英文,且長度需在2-50之間");
 			}
 			// 公司地址
 			String zipcode = req.getParameter("zipcode");
 			String county = req.getParameter("county");
-			String district = req.getParameter("district");
+			String district = req.getParameter("Zero");
 			String com_address = req.getParameter("com_address");
 			String iscom_address = zipcode + county + district + com_address;
 			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (com_address == null || com_address.trim().length() == 0) {
-				errorMsgs.add("公司地址請勿空白");
+				errorMsgs.put("com_address","公司地址請勿空白");
 			} else if (!com_address.trim().matches(com_addressReg)) {
-				errorMsgs.add("地址錯誤請重新填寫");
+				errorMsgs.put("com_address","地址錯誤請重新填寫");
 			}
 			// 公司電話
 			String com_phone = req.getParameter("com_phone");
 			String com_phoneReg = "^(\\d{2,3}-?|\\d{2,3})\\d{3,4}-?\\d{4}$";
 			if (com_phone == null || com_phone.trim().length() == 0) {
-				errorMsgs.add("公司電話請勿空白");
+				errorMsgs.put("com_phone","公司電話請勿空白");
 			} else if (!com_phone.trim().matches(com_phoneReg)) {
-				errorMsgs.add("公司電話：需有區碼-");
+				errorMsgs.put("com_phone","公司電話：需有區碼-");
 			}
 			// 負責人
 			String com_owner = req.getParameter("com_owner");
 			String com_ownerReg = "^[(\u4e00-\u9fa5)(a-zA-Z)]{2,10}$";
 			if (com_owner == null || com_owner.trim().length() == 0) {
-				errorMsgs.add("負責人姓名請勿空白");
+				errorMsgs.put("com_owner","負責人姓名請勿空白");
 			} else if (!com_owner.trim().matches(com_ownerReg)) {
-				errorMsgs.add("負責人姓名：只能是中、英文,且長度需在2-10之間");
+				errorMsgs.put("com_owner","負責人姓名：只能是中、英文,且長度需在2-10之間");
 			}
 			// 負責人手機號碼
 			String owner_phone = req.getParameter("owner_phone");
 			String owner_phoneReg = "^09\\d{8}$";
 			if (owner_phone == null || com_owner.trim().length() == 0) {
-				errorMsgs.add("負責人手機號碼請勿空白");
+				errorMsgs.put("owner_phone","負責人手機號碼請勿空白");
 			} else if (!owner_phone.trim().matches(owner_phoneReg)) {
-				errorMsgs.add("負責人手機號碼：請重新檢查");
+				errorMsgs.put("owner_phone","負責人手機號碼：請重新檢查");
 			}
 			// 銀行帳戶
 			String com_bankaccount = req.getParameter("com_bankaccount");
 			String com_bankaccountReg = "^\\d{10,16}$";
 			if (!"".equals(com_bankaccount.trim()) && !com_bankaccount.trim().matches(com_bankaccountReg)) {
-				errorMsgs.add("銀行帳戶：長度需在10-16碼之間");
+				errorMsgs.put("com_bankaccount","銀行帳戶：長度需在10-16碼之間");
 			}
 			Company_MemVO company_memVO = new Company_MemVO();
 			if (!errorMsgs.isEmpty()) {
@@ -274,7 +277,7 @@ public class Company_MemServlet extends HttpServlet {
 		}
 
 		if ("updateshop_save".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, String> errorMsgs = new HashMap<String, String>(); 
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/******************* Contoller第一步接收請求參數,輸入格式的錯誤處理 ****************/
@@ -283,15 +286,15 @@ public class Company_MemServlet extends HttpServlet {
 			String store_name = req.getParameter("store_name");
 			String store_nameReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,100}$";
 			if (store_name == null || store_name.trim().length() == 0) {
-				errorMsgs.add("賣場名稱請勿空白");
+				errorMsgs.put("store_name","賣場名稱請勿空白");
 			} else if (!store_name.trim().matches(store_nameReg)) {
-				errorMsgs.add("賣場名稱：只能是中、英文,且長度需在2-100之間");
+				errorMsgs.put("store_name","賣場名稱：只能是中、英文,且長度需在2-100之間");
 			}
 			// 賣場簡介
 			String store_intro = req.getParameter("store_intro");
 			String store_introReg = "^[(\u4e00-\\u9fa5)(a-zA-Z)]{2,2000}$";
 			if (!"".equals(store_intro.trim()) && !store_name.trim().matches(store_introReg)) {
-				errorMsgs.add("賣場簡介：只能是中、英文,且長度需在2-1000之間");
+				errorMsgs.put("store_intro","賣場簡介：只能是中、英文,且長度需在2-1000之間");
 			}
 
 			byte[] store_logo_bytes = null;
