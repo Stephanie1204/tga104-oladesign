@@ -17,15 +17,15 @@ public class OrderController {
 
 	OrderService service = new OrderService();
 	
-	@GetMapping("/order")
-	public List<OrderBean> getAllByMemId(Integer memId) {
-		return service.select_Mem("220003");
-	}
-	
-//	@GetMapping("/order")
-//	public List<OrderBean> getAllByMemId(@RequestParam("memId") String memId) {
-//		return orderSVC.select_Mem(memId);
+//	@GetMapping("/")
+//	public List<OrderBean> getAllByMemId(Integer memId) {
+//		return service.select_Mem("memId");
 //	}
+	
+	@GetMapping("/order")
+	public List<OrderBean> getAllByMemId(@RequestParam("memId") String memId) {
+		return service.select_Mem(memId);
+	}
 	
 	@GetMapping("/order:id")
 	public OrderBean getOneOrder(@RequestParam("orderId")String orderId) {
