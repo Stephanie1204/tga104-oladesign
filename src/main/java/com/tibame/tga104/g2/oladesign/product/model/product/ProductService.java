@@ -127,7 +127,7 @@ public class ProductService {
 
 	public void insertCart(String userId, String comTaxId, int productId, int quantity) {
 
-		if (userId != null) {
+		if (userId != null && userId.length() != 0) {
 			productDao_Cart.insert(userId, comTaxId, productId, quantity);
 		}
 	}

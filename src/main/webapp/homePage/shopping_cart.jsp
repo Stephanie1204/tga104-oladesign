@@ -75,47 +75,7 @@ pageContext.setAttribute("saler", prodSvc.selectSaler(userId));
 		<div class="loader"></div>
 	</div>
 
-	<!-- Humberger Begin -->
-	<!-- Home/shop/pages/blog/contact bar while mobile -->
-	<div class="humberger__menu__overlay"></div>
-	<div class="humberger__menu__wrapper">
-		<!-- organi logo -->
-		<div class="humberger__menu__logo">
-			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img
-				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a>
-		</div>
 
-		<!-- shopping cart and heart on the right -->
-
-		<div class="humberger__menu__widget">
-			<!-- login button on the top-->
-			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i>登入</a>
-			</div>
-		</div>
-
-		<nav class="humberger__menu__nav mobile-menu">
-		<ul>
-			<li class="active"><a
-				href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-			<li><a href="./shop-grid.html">Shop</a></li>
-			<li><a
-				href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li>
-			<li><a href="./blog.html">Blog</a></li>
-			<li><a href="./contact.html">Contact</a></li>
-		</ul>
-		</nav>
-		<div id="mobile-menu-wrap"></div>
-
-		<!-- info on left-top -->
-
-		<div class="humberger__menu__contact">
-			<ul>
-				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-			</ul>
-		</div>
-	</div>
-	<!-- Humberger End -->
 
 	<!-- Header Section Begin -->
 	<%@ include file="../include/header.jsp"%>
@@ -179,32 +139,31 @@ pageContext.setAttribute("saler", prodSvc.selectSaler(userId));
 													<select id="qty" size="1" name="quantity"
 														onchange="submit();">
 														<option value="1"
-															${ row_product.cartQuantity == 1 ? 'selected': ""}>1
-														
+															${ row_product.cartQuantity == 1 ? 'selected': ""}>1</option>
+
 														<option value="2"
-															${ row_product.cartQuantity == 2 ? 'selected': ""}>2
-														
+															${ row_product.cartQuantity == 2 ? 'selected': ""}>2</option>
+
 														<option value="3"
-															${ row_product.cartQuantity == 3 ? 'selected': ""}>3
-														
+															${ row_product.cartQuantity == 3 ? 'selected': ""}>3</option>
+
 														<option value="4"
-															${ row_product.cartQuantity == 4 ? 'selected': ""}>4
-							
+															${ row_product.cartQuantity == 4 ? 'selected': ""}>4</option>
+
 														<option value="5"
-															${ row_product.cartQuantity == 5 ? 'selected': ""}>5
-													
+															${ row_product.cartQuantity == 5 ? 'selected': ""}>5</option>
+
 														<option value="6"
-															${ row_product.cartQuantity == 6 ? 'selected': ""}>6
-														
+															${ row_product.cartQuantity == 6 ? 'selected': ""}>6</option>
+
 														<option value="7"
-															${ row_product.cartQuantity == 7 ? 'selected': ""}>7
-														
+															${ row_product.cartQuantity == 7 ? 'selected': ""}>7</option>
+
 														<option value="8"
-															${ row_product.cartQuantity == 8 ? 'selected': ""}>8
-														
+															${ row_product.cartQuantity == 8 ? 'selected': ""}>8</option>
+
 														<option value="9"
-															${ row_product.cartQuantity == 9 ? 'selected': ""}>9
-														
+															${ row_product.cartQuantity == 9 ? 'selected': ""}>9</option>
 													</select>
 												</form>
 											</td>
