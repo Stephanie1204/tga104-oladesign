@@ -11,5 +11,5 @@ public interface OrderItemDAO {
 
 	public abstract void insert(OrderItemBean bean);
 
-	public abstract void update(OrderItemBean bean);
+	public abstract Integer update(OrderItemBean bean);
 }
