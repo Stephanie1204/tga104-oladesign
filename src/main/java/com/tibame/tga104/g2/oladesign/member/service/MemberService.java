@@ -6,6 +6,8 @@ import java.util.List;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.dao.MemberDAO;
 import com.tibame.tga104.g2.oladesign.member.dao.MemberDAOImpl;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemBean;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemDAOJdbc;
 
 
 
@@ -116,5 +118,14 @@ public class MemberService {
 	
 	public void resetMemberPWD(String newPassword,Integer memId) {
 		dao.resetPWD(newPassword, memId);
+	}
+	
+	public Boolean addReview(OrderItemBean bean) {
+		if(new OrderItemDAOJdbc().update(bean)==1) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 }
