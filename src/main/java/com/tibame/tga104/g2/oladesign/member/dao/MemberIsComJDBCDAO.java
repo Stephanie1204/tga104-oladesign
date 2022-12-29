@@ -11,7 +11,7 @@ public class MemberIsComJDBCDAO implements MemberIsComDAO {
 	String USERID = "root";
 	String PASSWORD = "password";
 
-	private static final String UPDATE_BY_ADMIN = "update member set is_com = true, is_regcom = true where mem_id = ? and (is_com = false or is_regcom = false);";
+	private static final String UPDATE_BY_ADMIN = "update member set is_com = true where mem_id = ? and is_com = false";
 
 	@Override
 	public void updateIsCom(Integer memId) {
