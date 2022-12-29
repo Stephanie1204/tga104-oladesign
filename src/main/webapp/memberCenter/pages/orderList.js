@@ -17,8 +17,8 @@ $.ajax({
           <td class="orderStatus">${code2CodeName(item.orderStatus, orderStatusType)}</td>
           <td class="shippingStatus">${code2CodeName(item.shippingStatus, shippingStatusType)}</td>
           <td class="text-center">
-              <button type="button" class="btn bg-olive btn-xs btn_order_detail">訂單詳情</button>
-              <button type="button" class="btn bg-olive btn-xs btn_writeReview">填寫評價</button>
+              <button type="button" class="btn bg-olive btn-xs btn_order_detail" >訂單詳情</button>
+              <button type="button" class="btn bg-olive btn-xs btn_writeReview" >填寫評價</button>
           </td>
       </tr>
       `;
@@ -40,7 +40,7 @@ $(document).on("click", "button.btn_writeReview", function () {
   window.location.href = "./orderProductReview.html?orderId=" + orderId;
 });
 
-//觸發專案明細按鈕
+//觸發訂單詳情按鈕
 $(document).on("click", "button.btn_order_detail", function () {
   let $thisTableRow = $(this).closest("tr");
   // console.log($thisTableRow);

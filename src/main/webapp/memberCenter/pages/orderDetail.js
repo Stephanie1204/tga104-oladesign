@@ -1,8 +1,53 @@
 var orderId = new URLSearchParams(location.search).get("orderId");
+let originalPrice=0;
+
+//get orderlist
+$.ajax({
+    url: "http://localhost:8080/oladesign/orderItem",
+    type: "GET",
+    data: {orderId:orderId},
+    contentType: "application/json; charset=UTF-8",
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+
+        let list_html = "";
+        $.each(data, function (index, item) {
+          originalPrice += item.price*item.quantity;
+
+            list_html += `
+            <div class="one_list">
+            <div class="col-md-2 title">商品編號</div>
+            <div class="col-md-4 data text">${item.productId}</div>
+            <div class="col-md-6 data text"></div>
+
+            <div class="col-md-2 title">商品名稱</div>
+            <div class="col-md-4 data text">${item.productName}</div>
+            
+            <div class="col-md-2 title">原價</div>
+            <div class="col-md-2 data text">$${item.price}</div>
+
+            <div class="col-md-1 title">購買數量</div>
+            <div class="col-md-1 data text">${item.quantity}</div>
+            </div>
+            `;
+        });
+
+        $("div.all_list").html(list_html);
+
+
+    },
+    error: function (xhr) {
+      // request 發生錯誤的話執行
+      console.log("error");
+      console.log(xhr);
+    },
+});
+
 
 //get order
 $.ajax({
-    url: "http://localhost:8080/oladesign/order:id",
+    url: "http://localhost:8080/oladesign/order/:id",
     type: "GET",
     data: {orderId:orderId},
     contentType: "application/json; charset=UTF-8",
@@ -43,13 +88,13 @@ $.ajax({
             <div class="col-md-4 data text">${code2CodeName(data.orderStatus, orderStatusType)}</div>
 
             <div class="col-md-2 title">商品小計</div>
-            <div class="col-md-4 data text">商品小計</div>
+            <div class="col-md-4 data text">${originalPrice}</div>
 
             <div class="col-md-2 title">物流狀態</div>
             <div class="col-md-4 data text">${code2CodeName(data.shippingStatus, shippingStatusType)}</div>
 
             <div class="col-md-2 title">使用折扣碼</div>
-            <div class="col-md-4 data text">${data.coupon}</div>
+            <div class="col-md-4 data text">${data.coupon===null?"":data.coupon}</div>
 
             <div class="col-md-6 data text"></div>
             <div class="col-md-2 title">使用紅利點數</div>
@@ -96,49 +141,6 @@ const formatDate = (dateStr) => {
   };
 
 
-//get orderlist
-$.ajax({
-    url: "http://localhost:8080/oladesign/orderItem",
-    type: "GET",
-    data: {orderId:orderId},
-    contentType: "application/json; charset=UTF-8",
-    dataType: "json",
-    success: function (data) {
-      console.log(data);
-
-        let list_html = "";
-        $.each(data, function (index, item) {
-            list_html += `
-            <div class="one_list">
-            <div class="col-md-2 title">商品編號</div>
-            <div class="col-md-4 data text">${item.productId}</div>
-            <div class="col-md-6 data text"></div>
-
-            <div class="col-md-2 title">商品名稱</div>
-            <div class="col-md-4 data text">${item.productName}</div>
-            
-            <div class="col-md-2 title">原價</div>
-            <div class="col-md-2 data text">$${item.price}</div>
-
-            <!-- <div class="col-md-1 title">折扣後金額</div>
-            <div class="col-md-1 data text">$折扣後金額2</div> -->
-
-            <div class="col-md-1 title">購買數量</div>
-            <div class="col-md-1 data text">${item.quantity}</div>
-            </div>
-            `;
-        });
-
-        $("div.all_list").html(list_html);
-
-
-    },
-    error: function (xhr) {
-      // request 發生錯誤的話執行
-      console.log("error");
-      console.log(xhr);
-    },
-});
 
 const orderStatusType = [
   { code: 1, codeName: "待確認" },

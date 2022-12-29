@@ -6,7 +6,7 @@ $.ajax({
 
   success: function (data) {
     console.log(data);
-    alert("success");
+    console.log("success");
 
     let list_html = "";
     $.each(data, function (index, item) {

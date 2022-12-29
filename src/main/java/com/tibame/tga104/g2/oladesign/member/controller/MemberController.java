@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemBean;
 
 @RestController
 @CrossOrigin
@@ -38,6 +39,13 @@ public class MemberController {
 	public MemberVO getVo(@RequestParam("memId")Integer memId) {
 		return service.getOneMember(memId);
 	}
+	
+	@PutMapping("/productReview")
+	public Boolean addReview(@RequestBody OrderItemBean bean) {
+		return service.addReview(bean);
+		
+	}
+
 
 //	@PostMapping("/member/mock")
 //	public void fakeVo(HttpSession session) {
