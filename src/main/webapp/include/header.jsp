@@ -72,7 +72,7 @@
 								href="http://localhost:8080/oladesign/memberCenter/pages/orderList.html">我的訂單</a></li>
 							<li><a
 								href="http://localhost:8080/oladesign/memberCenter/pages/pointManagement.html">我的紅利</a></li>
-							<li><a href="#">聯絡客服</a></li>
+							<li><a href="http://localhost:8080/oladesign/memberCenter/pages/interMail.html">聯絡客服</a></li>
 							<li><form method="post"
 									action="<%=request.getContextPath()%>/member/MemberLogin">
 									<button type="submit" class="logout" id="logout">登出</button>

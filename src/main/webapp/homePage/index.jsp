@@ -330,6 +330,7 @@
 	</script>
 	<%@ include file="../include/favorite.jsp"%>
 	<script>sessionStorage.setItem("comTaxId", ${comMemVO.comTaxId});</script>
+	<script>sessionStorage.setItem("memId", ${memId});</script>
 </body>
 
 
