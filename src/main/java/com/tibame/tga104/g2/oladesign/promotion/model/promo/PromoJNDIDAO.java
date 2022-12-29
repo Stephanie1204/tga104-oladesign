@@ -108,10 +108,10 @@ public class PromoJNDIDAO implements PromoDAOInterface {
 			pstmt.setString(1, coupon);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
-				return false;
+			if(rs.next()) { // 資料庫已存在資料
+				return false; //不能使用
 			}else {
-				return true;
+				return true; //可以使用
 			}			
 
 		} catch (SQLException se) {

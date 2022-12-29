@@ -2,7 +2,7 @@
 $.ajax({
   url: "http://localhost:8080/oladesign/order",
   type: "GET",
-  data: {},
+  data: {memId:sessionStorage.getItem("memId")},
   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
   success: function (data) {
     console.log(data);
@@ -10,7 +10,7 @@ $.ajax({
     $.each(data, function (index, item) {
       list_html += `
       <tr>
-          <td>${item.orderTime}</td>
+          <td>${formatDate(item.orderTime)}</td>
           <td><span class="get_orderId">${item.orderId}</span></td>
           <td>${item.comTaxId}</td>
           <td>${item.amount}</td>
@@ -72,13 +72,22 @@ const code2CodeName = (code, types) => {
   return "";
 };
 
-// // let input = 1; //$("td.orderStatus").val();
-// // (obj)=>obj.code === input;
+//set date format function
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr);
+  //若跳出錯誤訊息，則回傳預設格式
+  if ("Invalid Date" === date.toString()) {
+    return dateStr;
+  }
 
-// const orderstatus_check=(code)=>{
-//   if(code === orderStatusType.code){
-// return orderStatusType.codeName;
-//   }
-// }
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+  const timeformat = `${year}-${month}-${day}`;
 
-// orderstatus_check(0);
+  return timeformat;
+};
+

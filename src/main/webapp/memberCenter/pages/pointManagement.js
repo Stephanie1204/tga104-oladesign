@@ -2,7 +2,7 @@
 $.ajax({
   url: "http://localhost:8080/oladesign/order",
   type: "GET",
-  data: {memId:220011},
+  data: {memId:sessionStorage.getItem("memId")},
   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
   success: function (data) {
     console.log(data);
@@ -12,8 +12,9 @@ $.ajax({
         <tr>
             <td>${formatDate(item.orderTime)}</td>
             <td>${item.orderId}</td>
-            <td>${item.pointUse}</td>
-            <td>${item.pointGet}</td>
+            <td>＋　${item.pointGet}</td>
+            <td>－　${item.pointUse}</td>
+            
         </tr>
       `;
     });
@@ -29,7 +30,7 @@ $.ajax({
 $.ajax({
     url: "http://localhost:8080/oladesign/member",
     type: "GET",
-    data: {memId:220011},
+    data: {memId:sessionStorage.getItem("memId")},
     dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
     success: function (data) {
       console.log(data);

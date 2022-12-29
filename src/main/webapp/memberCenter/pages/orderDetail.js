@@ -40,13 +40,13 @@ $.ajax({
 
         let  order_sellerInfo2 = `
             <div class="col-md-2 title">訂單狀態</div>
-            <div class="col-md-4 data text">${data.orderStatus}</div>
+            <div class="col-md-4 data text">${code2CodeName(data.orderStatus, orderStatusType)}</div>
 
             <div class="col-md-2 title">商品小計</div>
             <div class="col-md-4 data text">商品小計</div>
 
             <div class="col-md-2 title">物流狀態</div>
-            <div class="col-md-4 data text">${data.shippingStatus}</div>
+            <div class="col-md-4 data text">${code2CodeName(data.shippingStatus, shippingStatusType)}</div>
 
             <div class="col-md-2 title">使用折扣碼</div>
             <div class="col-md-4 data text">${data.coupon}</div>
@@ -60,7 +60,7 @@ $.ajax({
             <div class="col-md-4 data text">${data.pointGet}</div>
 
             <div class="col-md-6 data text"></div>
-            <div class="col-md-2 title">訂單總金額</div>
+            <div class="col-md-2 title">折扣後總額</div>
             <div class="col-md-4 data text">${data.amount}</div>
 
             <div class="col-md-6 data text"></div>
@@ -117,11 +117,11 @@ $.ajax({
             <div class="col-md-2 title">商品名稱</div>
             <div class="col-md-4 data text">${item.productName}</div>
             
-            <div class="col-md-1 title">原價</div>
-            <div class="col-md-1 data text">$${item.price}</div>
+            <div class="col-md-2 title">原價</div>
+            <div class="col-md-2 data text">$${item.price}</div>
 
-            <div class="col-md-1 title">折扣後金額</div>
-            <div class="col-md-1 data text">$折扣後金額</div>
+            <!-- <div class="col-md-1 title">折扣後金額</div>
+            <div class="col-md-1 data text">$折扣後金額2</div> -->
 
             <div class="col-md-1 title">購買數量</div>
             <div class="col-md-1 data text">${item.quantity}</div>
@@ -140,3 +140,25 @@ $.ajax({
     },
 });
 
+const orderStatusType = [
+  { code: 1, codeName: "待確認" },
+  { code: 2, codeName: "已成立" },
+  { code: 3, codeName: "已取消" },
+];
+
+const shippingStatusType = [
+  { code: 1, codeName: "待確認" },
+  { code: 2, codeName: "待出貨" },
+  { code: 3, codeName: "已取消" },
+  { code: 4, codeName: "已出貨" },
+  { code: 5, codeName: "運送中" },
+  { code: 6, codeName: "已送達" },
+];
+
+const code2CodeName = (code, types) => {
+  const obj = types.find((type) => type.code === code);
+  if (obj) {
+    return obj.codeName;
+  }
+  return "";
+};

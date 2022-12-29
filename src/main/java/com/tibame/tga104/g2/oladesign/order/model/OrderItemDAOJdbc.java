@@ -163,11 +163,12 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 	}
 
 	//
-	private static final String UPDATE_ORDERITEM_COMMENT = "UPDATE ORDER_ITEM SET COMM_TEXT=?, COMM_STAR=? WHERE PROD_ID=?";
+	private static final String UPDATE_ORDERITEM_COMMENT = "UPDATE ORDER_ITEM SET COMM_TEXT=?, COMM_STAR=? WHERE PROD_ID=? and ORDER_ID=?";
 
-	public void update(OrderItemBean bean) {
+	public Integer update(OrderItemBean bean) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
+		int i=0;
 
 		if (bean != null) {
 			try {
@@ -177,8 +178,9 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 				stmt.setString(1, bean.getComment());
 				stmt.setInt(2, bean.getCommentStar());
 				stmt.setInt(3, bean.getProductId());
+				stmt.setString(4, bean.getOrderId());
 
-				int i = stmt.executeUpdate();
+				i = stmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -197,6 +199,6 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 					}
 				}
 			}
-		}
+		}return i;
 	}
 }
