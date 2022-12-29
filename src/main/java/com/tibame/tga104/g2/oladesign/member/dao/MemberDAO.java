@@ -2,6 +2,7 @@ package com.tibame.tga104.g2.oladesign.member.dao;
 
 import java.util.List;
 
+import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 
 
@@ -28,4 +29,10 @@ public interface MemberDAO {
 	public void resetPWD(String newPassword, Integer memId);
 	
 	public void regComTag(Integer memId, Boolean isRegCom);
+
+	public MemberVO getCheckOne(Integer memId);
+	
+//	public void getBan(MemberVO memberVO);
+	
+	public void getBan(Integer memId,Boolean isBan);
 }

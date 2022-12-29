@@ -1,11 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.admin.model.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
+<%
+OrderBean orderBean = (OrderBean) request.getAttribute("orderBean");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>新增管理員</title>
+<title>訂單</title>
 
 
 <meta name="viewport"
@@ -47,7 +51,7 @@
 }
 
 #addAdmin .adminLabel {
-	width: 100px;
+	width: 200px;
 }
 
 .back-end-li:hover>.back-end-li-child {
@@ -66,6 +70,24 @@
 .back-end-btn:hover {
 	background-color: #7f70f5;
 	color: #ffffff !important;
+}
+
+textarea {
+	display: block;
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0.25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 </style>
 </head>
@@ -100,7 +122,7 @@
 								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsplistallcompanymember.jsp"><i
+								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i
 									class="fas fa-table"></i>廠商會員管理</a></li>
 						</ul></li>
 
@@ -134,7 +156,9 @@
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -153,65 +177,135 @@
 					</c:forEach>
 				</ul>
 			</c:if>
-			<form METHOD="post" ACTION="admin.do" class="addAdmin"
+
+
+			<form METHOD="post" ACTION="intermail.do" class="addAdmin"
 				name="addAdmin">
 				<div class="col title">
-					<h4>新增管理員</h4>
+					<!-- 					<h4>新增站內信問題類別</h4> -->
 				</div>
 				<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">編號：</label>
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">訂單編號:</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" name="adminId"
-							id="adminid" maxlength="4" size="4"
-							placeholder="請輸入數字如：1001、2001" required />
-					</div>
-				</div>
-				<div class="mb-3 row">
-					<label for="adminName" class="col-sm-2 col-form-label adminLabel">名稱：</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" name="adminName"
-							id="adminName" maxlength="20" size="20" placeholder="中、英文皆可"
-							required />
-					</div>
-				</div>
-				<div class="mb-3 row">
-					<label for="account" class="col-sm-2 col-form-label adminLabel">帳號：</label>
-					<div class="col-sm-10">
-						<input type="email" class="form-control" name="account"
-							id="account" maxlength="20" size="20" placeholder="請輸入電子郵件帳號"
-							required />
-					</div>
-				</div>
-				<div class="mb-3 row">
-					<label for="password" class="col-sm-2 col-form-label adminLabel">密碼：</label>
-					<div class="col-sm-10">
-						<input type="password" class="form-control" name="password"
-							id="password" maxlength="20" size="20" required />
+						<td><input type="text" class="form-control"
+							name="interMailId" id="interMailId" readonly maxlength="4"
+							size="4" value="${orderBean.orderId}" /></td>
 					</div>
 				</div>
 
-				<input type="hidden" id="adminStatus" name="adminStatus" value="1">
-				<br>
-				<button class="btn back-end-btn" type="submit" id="sendAddAdmin"
-					name="action" value="insert">送出</button>
+				<div class="mb-3 row">
+					<label for="adminName" class="col-sm-2 col-form-label adminLabel">公司統編:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="memId"
+							id="memId" readonly maxlength="6" size="6"
+							value="${orderBean.comTaxId}" /></td>
+					</div>
+				</div>
+
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">會員編號:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.memId}" /></td>
+					</div>
+				</div>
+
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">訂單日期:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.orderTime}" /></td>
+					</div>
+				</div>
+
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">收件地址:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.address}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">結帳金額:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.amount}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">訂單狀態:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.orderStatus}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">物流狀態:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.shippingStatus}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">折扣碼:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.coupon}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">紅利折抵:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.pointUse}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">紅利新增:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.pointGet}" /></td>
+					</div>
+				</div>
+				
+				<div class="mb-3 row">
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">收件人名稱:</label>
+					<div class="col-sm-10">
+						<td><input type="text" class="form-control" name="adminId"
+							id="adminId" readonly maxlength="4" size="4"
+							value="${orderBean.receiver}" /></td>
+					</div>
+				</div>
+
+
+
+
 			</form>
 		</div>
-
 	</div>
-	<footer class="bg-white sticky-footer">
-		<div class="container my-auto">
-			<div class="text-center my-auto copyright">
-				<span>oladesign</span>
-			</div>
-		</div>
 	</footer>
 	</div>
 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i
 		class="fas fa-angle-up"></i></a>
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
+		src="<%=request.getContextPath()%>/back-end/css/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
 </body>
 
 

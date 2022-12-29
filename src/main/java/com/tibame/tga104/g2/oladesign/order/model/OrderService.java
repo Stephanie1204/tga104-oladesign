@@ -2,6 +2,7 @@ package com.tibame.tga104.g2.oladesign.order.model;
 
 import java.util.List;
 
+import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductBean;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductDAORedis;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductDAO_Cart;
@@ -158,4 +159,18 @@ public class OrderService {
 	public OrderBean getOrder(String orderId){
 		return orderDao.select(orderId);
 	}
+	
+	public List<OrderBean> getAll() {
+		return orderDao.getAll();
+	}
+	public OrderBean getCheckOne(String orderId) {  //查看選擇的訂單編號明細
+		return orderDao.getCheckOne(orderId);
+	}
+	
+	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus) {
+		return orderDao.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+	} 
+	
+
+	
 }

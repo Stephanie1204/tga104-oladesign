@@ -1,17 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.prodeuct_style.model.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.service.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>
 <%
-Product_styleService product_styleSvc = new Product_styleService();
-    List<Product_styleVO> list = product_styleSvc.getAll();
-    pageContext.setAttribute("list",list);
+MemberService memberSvc = new MemberService();
+List<MemberVO> list = memberSvc.getAll();
+pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有地區類別</title>
+<title></title>
 
 
 <meta name="viewport"
@@ -88,19 +90,28 @@ Product_styleService product_styleSvc = new Product_styleService();
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>商品分類</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i
+									class="fas fa-table"></i><span>商品地區類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i
+									class="fas fa-table"></i><span>商品類別</span></a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>						</ul></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
+									class="fas fa-table"></i><span>站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -111,51 +122,75 @@ Product_styleService product_styleSvc = new Product_styleService();
 
 
 		<div style="padding: 20px 15px;">
-			<div style="display: flex;">
-				<h2>所有地區類別</h2>
-				<div style="display: flex; position: absolute; right: 15px;">
-					<!-- 							<h4> -->
-					<%-- 								<a href="<%=request.getContextPath()%>/back-end/index-admin.jsp">回管理員管理</a> --%>
-					<%-- 								<a href="<%=request.getContextPath()%>/admin/addAdmin.jsp">新增管理員</a> --%>
-					<!-- 							</h4> -->
-				</div>
-			</div>
+							<div class="box-tools pull-right">
+								<div class="has-feedback">
+								<form method="post" ACTION="<%=request.getContextPath()%>/MemberForAdmin">
+								<input type="text" name="memId" placeholder="請輸入會員編號"> 
+								<input type="hidden" name="action" value="getOne_For_Display"> 
+<!-- 								<input type="hidden" name="adminId" value="A001" /> -->
+								<input type="submit" value="搜尋" class="btn btn-default">	
+								</form>
+								</div>
+							</div>
 
 			<div>
 				<table class="table table-striped table-sm table-hover">
-					<tr>
-						<th scope="col">地區類別編號</th>
-						<th scope="col">地區類別名稱</th>				
-					</tr>
+			<tr>
+				<th nowrap="nowrap">會員編號</th>
+				<th nowrap="nowrap">會員名稱</th>
+				<th nowrap="nowrap">會員帳號</th>
+				<th nowrap="nowrap">會員手機號</th>
+<!-- 				<th nowrap="nowrap">帳號是否停權</th> -->
+<!-- 				<th nowrap="nowrap">帳號是否啟用</th> -->
 
-<%-- 	<%@ include file="page1.file" %>  --%>
-<%-- 	<c:forEach var="adminVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+<!-- 				<th nowrap="nowrap"></th> -->
+<!-- 				<th nowrap="nowrap"></th> -->
+				<th nowrap="nowrap">查看</th>
+				<th nowrap="nowrap">停權</th>
+			</tr>
 
-					<c:forEach var="product_styleVO" items="${list}">
+					<%@ include file="page1.file"%>
+					<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>"
+						end="<%=pageIndex+rowsPerPage-1%>">
+
+						<%-- 					<c:forEach var="intermail_qnVO" items="${list}"> --%>
 						<tr>
-			<td>${product_styleVO.styleCode}</td>
-			<td>${product_styleVO.styleName}</td>
-							<td>
+							
+					<td>${memberVO.memId}</td>
+					<td>${memberVO.memName}</td>
+					<td>${memberVO.account}</td>
+					<td>${memberVO.memPhone}</td>
+<%-- 					<td>${memberVO.isBan}</td> --%>
+<%-- 					<td>${memberVO.isActive}</td> --%>
 
-<!-- 			  <FORM METHOD="post"  -->
-<%-- 			  ACTION="<%=request.getContextPath()%>/product_style/product_style.do" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" class="btn back-end-btn" value="修改"> -->
-<%-- 			      <input type="hidden" name="styleCode"  value="${product_styleVO.styleCode}"> --%>
-<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"> -->
-<!-- 			  </FORM> -->
-							</td>
-							<td>
 
-			  <FORM METHOD="post" 
-			  ACTION="<%=request.getContextPath()%>/product_style/product_style.do" style="margin-bottom: 0px;">
-			     <input type="submit" class="btn back-end-btn" value="刪除">
-			     <input type="hidden" name="styleCode"  value="${product_styleVO.styleCode}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+
+							<td>
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/MemberForAdmin"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="查看">
+									<input type="hidden" name="memId"
+										value="${memberVO.memId}"> <input
+										type="hidden" name="action" value="CheckOne">
+								</FORM>
+								</td>
+
+<td>
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/MemberForAdmin"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="停權">
+									<input type="hidden" name="memId"
+										value="${memberVO.memId}"> <input
+										type="hidden" name="action" value="Ban">
+								</FORM>
 							</td>
-<!-- 								</td>  -->
+							<!-- 								</td>  -->
 						</tr>
 					</c:forEach>
 				</table>
+				<%@ include file="page2.file"%>
 			</div>
 		</div>
 

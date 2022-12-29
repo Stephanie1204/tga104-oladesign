@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.order.model.Status.orderStatus;
 import com.tibame.tga104.g2.oladesign.order.model.Status.shippingStatus;
 import com.zaxxer.hikari.HikariConfig;
@@ -554,5 +555,235 @@ public class OrderDAOJdbc implements OrderDAO {
 			}
 		}
 		return coupon;
+	}
+	private static final String GET_ALL_STMT =
+			"SELECT * FROM ORDERS ORDER BY ORDER_ID  ";
+	@Override
+	public List<OrderBean> getAll() {
+		List<OrderBean> result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(GET_ALL_STMT);
+
+			ResultSet rset = stmt.executeQuery();
+
+			result = new ArrayList<OrderBean>();
+
+			while (rset.next()) {
+				OrderBean bean = new OrderBean();
+
+				bean.setOrderId(rset.getString("ORDER_ID"));
+				bean.setComTaxId(rset.getString("COM_TAXID"));
+				bean.setMemId(rset.getString("MEM_ID"));
+				bean.setOrderTime(rset.getTimestamp("ORDER_TIME"));
+				bean.setAddress(rset.getString("ADDRESS"));
+				bean.setAmount(rset.getInt("AMOUNT"));
+				bean.setOrderStatus(rset.getInt("ORDER_STATUS"));
+				bean.setShippingStatus(rset.getInt("SHIPPING_STATUS"));
+				bean.setCoupon(rset.getString("COUPON"));
+				bean.setPointUse(rset.getInt("POINT_USE"));
+				bean.setPointGet(rset.getInt("POINT_GET"));
+				bean.setReceiver(rset.getString("RECEIVER"));
+
+				result.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+	private static final String CHECKONE =
+			"SELECT * FROM ORDERS where ORDER_ID = ? ";
+	@Override
+	public OrderBean getCheckOne(String orderId) {
+		OrderBean orderBean = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(CHECKONE);
+			
+			stmt.setString(1, orderId);
+
+			ResultSet rset = stmt.executeQuery();
+
+
+			while (rset.next()) {
+				orderBean = new OrderBean();
+
+				orderBean.setOrderId(rset.getString("ORDER_ID"));
+				orderBean.setComTaxId(rset.getString("COM_TAXID"));
+				orderBean.setMemId(rset.getString("MEM_ID"));
+				orderBean.setOrderTime(rset.getTimestamp("ORDER_TIME"));
+				orderBean.setAddress(rset.getString("ADDRESS"));
+				orderBean.setAmount(rset.getInt("AMOUNT"));
+				orderBean.setOrderStatus(rset.getInt("ORDER_STATUS"));
+				orderBean.setShippingStatus(rset.getInt("SHIPPING_STATUS"));
+				orderBean.setCoupon(rset.getString("COUPON"));
+				orderBean.setPointUse(rset.getInt("POINT_USE"));
+				orderBean.setPointGet(rset.getInt("POINT_GET"));
+				orderBean.setReceiver(rset.getString("RECEIVER"));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return orderBean;
+	}
+
+	static String search ;
+	
+//	private static final String GetSearch =
+//			" SELECT * FROM ORDERS " + search + "order by orderId desc";
+//			"SELECT * FROM ORDERS WHERE 1=1";
+	
+	
+	@Override
+	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus) {
+				
+//		List<OrderBean> list = new ArrayList<OrderBean>();
+
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+//		ResultSet rs = null;
+		
+
+		try {
+			conn = dataSource.getConnection();			
+			String sql = "SELECT * FROM ORDERS WHERE 1=1 " ;
+			StringBuffer sb = new StringBuffer(sql);			
+			List l = new ArrayList<>();
+			if(orderId != null && orderId != "") {
+				sb.append(" and ORDER_ID like  '%' ? '%' ");
+				l.add(orderId);
+			}
+			
+			if(comTaxId != null && comTaxId != "") {
+				sb.append(" and COM_TAXID like '%' ? '%' ");
+				l.add(comTaxId);
+			}
+			if(memId != null && memId != "") {
+				sb.append("and MEM_ID like '%' ? '%' ");
+				l.add(memId);
+			}
+			if(receiver != null && receiver != "") {
+				sb.append("and RECEIVER like '%' ? '%' ");
+				l.add(receiver);
+			}
+//			String orderStatus1 = String.valueOf(orderStatus);
+//			if(orderStatus1 != null && orderStatus1 != "") {
+//				sb.append("and orderStatus = ? ");
+//				orderStatus =Integer.parseInt(orderStatus1);
+//				l.add(orderStatus);
+//			}
+			int orderStatus1 = 0;
+			if(orderStatus != null && orderStatus != "") {
+				orderStatus1 = Integer.parseInt(orderStatus);
+				sb.append("and ORDER_STATUS = ? ");
+				l.add(orderStatus1);
+			}
+//			String shippingStatus1 = String.valueOf(shippingStatus);
+//			if(shippingStatus1 != null && shippingStatus1 != "") {
+//				sb.append("and shippingStatus = ? ");
+//				shippingStatus =Integer.parseInt(shippingStatus1);
+//				l.add(shippingStatus);
+//			}
+			int shippingStatus1 = 0;
+			if(shippingStatus != null && shippingStatus != "") {
+				orderStatus1 = Integer.parseInt(shippingStatus);
+				sb.append("and SHIPPING_STATUS = ? ");
+				l.add(shippingStatus1);
+			}		
+			stmt = conn.prepareStatement(sb.toString());						
+			for(int i = 1 ; i<=l.size(); i++) {
+				stmt.setObject(i, l.get(i-1));
+			}			
+			
+//			stmt.setString(1, orderId);
+//			stmt.setString(2, comTaxId);
+//			stmt.setString(3, memId);
+//			stmt.setString(4, receiver);
+//			stmt.setInt(5, orderStatus);
+//			stmt.setInt(6, shippingStatus);		
+
+			ResultSet rset = stmt.executeQuery();
+			OrderBean orderBean = null;
+			List<OrderBean> list = new ArrayList();
+			while (rset.next()) {
+				orderBean = new OrderBean();
+
+				orderBean.setOrderId(rset.getString("ORDER_ID"));
+				orderBean.setComTaxId(rset.getString("COM_TAXID"));
+				orderBean.setMemId(rset.getString("MEM_ID"));
+				orderBean.setOrderTime(rset.getTimestamp("ORDER_TIME"));
+				orderBean.setAddress(rset.getString("ADDRESS"));
+				orderBean.setAmount(rset.getInt("AMOUNT"));
+				orderBean.setOrderStatus(rset.getInt("ORDER_STATUS"));
+				orderBean.setShippingStatus(rset.getInt("SHIPPING_STATUS"));
+				orderBean.setCoupon(rset.getString("COUPON"));
+				orderBean.setPointUse(rset.getInt("POINT_USE"));
+				orderBean.setPointGet(rset.getInt("POINT_GET"));
+				orderBean.setReceiver(rset.getString("RECEIVER"));
+
+				list.add(orderBean);
+			}
+			System.out.println("8787");
+			return list;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null ;
 	}
 }

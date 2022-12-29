@@ -2,6 +2,8 @@ package com.tibame.tga104.g2.oladesign.order.model;
 
 import java.util.List;
 
+import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
+
 
 public interface OrderDAO {
 	
@@ -26,4 +28,10 @@ public interface OrderDAO {
 	public abstract String getCoupon(String comTaxId);
 	
 	public abstract void upDatePoint(String memberId, int point);
+	
+    public abstract List<OrderBean> getAll();	 //管理員查詢所有訂單
+    public OrderBean getCheckOne(String orderId); //管理員查看選擇單筆訂單明細
+//    public abstract List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus);
+    public abstract List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus);
+    
 }

@@ -48,7 +48,7 @@
                     
                     <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i>訂單管理</a>
                     	<ul class="back-end-li-child" style="display:none;">
-<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/listAllType.jsp"><i class="fas fa-table"></i><span>商品類型管理</span></a></li> --%>
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
 <%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
                     	</ul>
                     </li>
@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-lg-6 mb-4">
                                 <div class="card text-white bg-success shadow">
-                                	<a href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
+                                	<a href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
 	                                        <p class="m-0">廠商管理<br></p>
 	                                        <p class="text-white-50 small m-0"></p>
