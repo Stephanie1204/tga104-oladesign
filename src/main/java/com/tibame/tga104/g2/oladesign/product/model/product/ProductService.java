@@ -16,6 +16,10 @@ public class ProductService {
 
 	}
 
+	public List<ProductBean> selectAll(){
+		List<ProductBean> temp = productDao.select();
+		return temp;
+	}
 	public List<ProductBean> select(ProductBean bean) {
 		List<ProductBean> result = null;
 
