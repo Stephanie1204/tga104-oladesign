@@ -8,7 +8,7 @@
 <!-- 页面meta -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>OLA Design 賣家中心</title>
+<title>OLA Design 賣家中心 | 廣告紀錄</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">

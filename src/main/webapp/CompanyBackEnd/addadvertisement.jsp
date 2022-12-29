@@ -58,32 +58,20 @@
 						<!-- /.col (left) -->
 						<div class="col-md-6">
 							<div class="box box-primary">
-						        <c:if test="${not empty errorMsgs}">
-						          <ul>
-						            <c:forEach var="message" items="${errorMsgs}">
-						              <li style="color: red">${message}</li>
-						            </c:forEach>
-						          </ul>
-						        </c:if>
 								<div class="box-body">
 									<div class="form-group"></div>
 									<!-- /.form group -->
 									<!--統一編號要改成自動帶入  -->
 									<div class="form-group">
-										<label for="com_taxid">公司統編<font color=red><b>*</b></font></label>
+										<label for="com_taxid">公司統編<font color=red><b>*</b></font>
+										<span class="errorcolor">${errorMsgs.com_taxid}</span></label>
 										<input type="text" class="form-control" name="com_taxid"
 											id="com_taxid" value="${comMemVO.comTaxId}" readonly="readonly"/>
 									</div>
-
-									<div class="form-group">
-										<label for="storeLink">廣告導入連結<font color=red><b>*</b></font></label>
-										<input type="text" class="form-control" name="storelink"
-											id="storelink"
-											value="${(advertisementVO == null) ? '' : advertisementVO.getStoreLink()}" />
-									</div>
 									<!-- Date range -->
 									<div class="form-group">
-										<label>廣告時段<font color=red><b>*</b></font></label>
+										<label>廣告時段<font color=red><b>*</b></font>
+										<span class="errorcolor">${errorMsgs.adId}</span></label>
 										<div class="input-group">
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>

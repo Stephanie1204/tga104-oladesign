@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,8 +42,8 @@ public class AdvertisementForaAdminServlet extends HttpServlet {
 			AdvertisementService advertisementSvc = new AdvertisementService();
 			List<AdvertisementVO> advertisementVO = advertisementSvc.getAll();
 			List<AdvertisementByCheckVO> result = new ArrayList<AdvertisementByCheckVO>();
-			
-			for(int i = 0; i < advertisementVO.size(); i++) {
+
+			for (int i = 0; i < advertisementVO.size(); i++) {
 				AdvertisementVO advertisement = advertisementVO.get(i);
 				AdvertisementByCheckVO advertisementByCheckVO = new AdvertisementByCheckVO();
 				advertisementByCheckVO.setAdId(advertisement.getAdId());
@@ -55,7 +53,7 @@ public class AdvertisementForaAdminServlet extends HttpServlet {
 				advertisementByCheckVO.setAdStatus(advertisement.getAdStatus());
 				advertisementByCheckVO.setAdImageString(advertisement.getAdImagesString());
 				result.add(advertisementByCheckVO);
-				
+
 			}
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String jsonString = gson.toJson(result);
@@ -87,6 +85,6 @@ public class AdvertisementForaAdminServlet extends HttpServlet {
 			pw.write(jsonString);
 
 			pw.flush();
-		}		
+		}
 	}
 }

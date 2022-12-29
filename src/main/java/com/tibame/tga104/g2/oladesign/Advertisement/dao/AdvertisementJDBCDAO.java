@@ -34,7 +34,7 @@ public class AdvertisementJDBCDAO implements AdvertisementDAO_interface {
 
 	private static final String GET_ADSTUS = "select AD_STATUS FROM ADVERTISEMENT where AD_ID=?";
 	
-	private static final String GET_TODAY_AD = "SELECT AD_IMAGES, COM_TAXID FROM advertisement WHERE CURDATE() BETWEEN START_DATE AND END_DATE";
+	private static final String GET_TODAY_AD = "SELECT AD_IMAGES, COM_TAXID FROM advertisement WHERE (CURDATE() BETWEEN START_DATE AND END_DATE) AND (AD_STATUS = TRUE)";
 
 	@Override
 	public Boolean getIsInsertAble(AdvertisementVO advertisementVO) {
