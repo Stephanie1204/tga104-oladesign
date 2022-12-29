@@ -24,6 +24,11 @@
 			color:#ffffff;
 			text-decoration:none;
 		}
+		button.btn.btn-default.reviewcom {
+		    padding: 5px 15px;
+		    background-color: #afaab1;
+		    color: black;
+		}
     </style>
 </head>
 
