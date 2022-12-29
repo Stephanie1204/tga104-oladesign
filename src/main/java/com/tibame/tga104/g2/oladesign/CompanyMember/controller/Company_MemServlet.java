@@ -367,11 +367,26 @@ public class Company_MemServlet extends HttpServlet {
 			String comTaxId = req.getParameter("comTaxId");
 
 			Company_MemService company_memSvc = new Company_MemService();
-			MemberVO memberVO = new MemberVO();
-			memberVO.setMemId(company_memSvc.doGetMemIdByComTaxId(comTaxId));
+			
+			Company_MemVO company_memVO = company_memSvc.getOneCompany_Mem(comTaxId);
+			
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(company_memVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+		
+		if ("doGetComName".equals(action)) {
+			String comTaxId = req.getParameter("comTaxId");
+
+			Company_MemService company_memSvc = new Company_MemService();
+			Company_MemVO company_memVO = company_memSvc.getOneCompany_Mem(comTaxId);
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-			String jsonString = gson.toJson(memberVO);
+			String jsonString = gson.toJson(company_memVO);
 
 			PrintWriter pw = res.getWriter();
 			pw.write(jsonString);
