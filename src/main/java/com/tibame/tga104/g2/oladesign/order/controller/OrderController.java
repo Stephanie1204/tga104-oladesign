@@ -27,7 +27,7 @@ public class OrderController {
 		return service.select_Mem(memId);
 	}
 	
-	@GetMapping("/order:id")
+	@GetMapping("/order/:id")
 	public OrderBean getOneOrder(@RequestParam("orderId")String orderId) {
 		return service.getOrder(orderId);
 	}
