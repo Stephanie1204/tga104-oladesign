@@ -28,8 +28,8 @@ public class OrderServlet extends HttpServlet {
 	Date date = new Date();
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	String sdate = dateFormat.format(date);
-	String deleteChar = "[-: ]";
 
+    
 	// create productService object
 	private OrderService orderService;
 

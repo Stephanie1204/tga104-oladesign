@@ -43,13 +43,15 @@
 				<ul>
 					<li>
 						<button type="button" class="regist_com" aria-expanded="false">
-							<a href="<%=request.getContextPath()%>/CompanyBackEnd/regisToCom.jsp" class="beCom">成為賣家</a>
-						</button>
-						<input type="hidden" class="waiting" value="">
+							<a
+								href="<%=request.getContextPath()%>/CompanyBackEnd/regisToCom.jsp"
+								class="beCom">成為賣家</a>
+						</button> <input type="hidden" class="waiting" value="">
 					</li>
 					<li>
 						<button type="button" class="mystore none" aria-expanded="false">
-							<a href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a>
+							<a
+								href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a>
 						</button>
 					</li>
 					<li class="logout">
@@ -66,17 +68,19 @@
 								href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html?memId=${memId}">會員中心</a></li>
 							<li><a
 								href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a></li>
-							<li><a href="http://localhost:8080/oladesign/memberCenter/pages/orderList.html">我的訂單</a></li>
-							<li><a href="http://localhost:8080/oladesign/memberCenter/pages/pointManagement.html">我的紅利</a></li>
-							<li><a href="#">聯絡客服</a></li>
+							<li><a
+								href="http://localhost:8080/oladesign/memberCenter/pages/orderList.html">我的訂單</a></li>
+							<li><a
+								href="http://localhost:8080/oladesign/memberCenter/pages/pointManagement.html">我的紅利</a></li>
+							<li><a href="http://localhost:8080/oladesign/memberCenter/pages/interMail.html">聯絡客服</a></li>
 							<li><form method="post"
 									action="<%=request.getContextPath()%>/member/MemberLogin">
 									<button type="submit" class="logout" id="logout">登出</button>
 									<input type="hidden" name="action" value="logout">
 								</form></li>
 						</ul></li>
-					<li><a href="###"><i class="fa fa-heart memFav"></i> <span id="fav"></span></a>
-					</li>
+					<li><a href="###"><i class="fa fa-heart memFav"></i> <span
+							id="fav"></span></a></li>
 					<li><a
 						href="<%=request.getContextPath()%>/homePage/shopping_cart.jsp"><i
 							class="fa fa-shopping-bag"></i> </a></li>
@@ -145,19 +149,19 @@
 			$("button.regist_com").removeClass("none");
 			$("button.mystore").addClass("none");
 		}
-		
+
 		let registCom = "${memberVO.isRegCom}";
 		console.log("registCom=" + registCom);
-		
-		if(registCom == "true"){
+
+		if (registCom == "true") {
 			$(".regist_com").prop("disabled", true);
-			$("a.beCom").text("賣家註冊審核中");	
-		}else if($("input.waiting").hasClass("wait")){
+			$("a.beCom").text("賣家註冊審核中");
+		} else if ($("input.waiting").hasClass("wait")) {
 			console.log("here");
 			$(".regist_com").prop("disabled", true);
-			$("a.beCom").text("賣家註冊審核中");	
+			$("a.beCom").text("賣家註冊審核中");
 		}
-		
+
 	});
 </script>
 

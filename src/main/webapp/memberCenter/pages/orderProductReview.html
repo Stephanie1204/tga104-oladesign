@@ -98,15 +98,15 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        /* transform: translate(-50%, -50%); */
       }
       div.star_block > span.star {
         cursor: pointer;
         display: inline-block;
-        margin-right: 3px;
+        margin-right: 8px;
       }
       div.star_block > span.star.-on {
-        color: yellow;
+        color: orange;
       }
     </style>
   </head>
@@ -168,17 +168,19 @@
                 <table
                   id="dataList"
                   class="table table-bordered table-striped table-hover dataTable"
-                  style="width: 75%"
+                  
                 >
                   <thead>
                     <tr>
-                      <th class="">商品編號</th>
-                      <th class="">商品名稱</th>
-                      <th class="">評價</th>
+                      <th >商品編號</th>
+                      <th >商品名稱</th>
+                      <th >評價</th>
+                      <th >星等</th>
+                      <th ></button></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody id="list">
+                    <!-- <tr>
                       <td>1234567</td>
                       <td>XXX美式地毯</td>
                       <td class="">
@@ -186,36 +188,12 @@
                       </td>
                       <td>
                         <div class="star_block">
-                          ;
-                          <span
-                            class="star + (item.star >= 1 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
-                            data-star="1"
-                            ><i class="fas fa-star"></i></span
-                          >;
-                          <span
-                            class="star + (item.star >= 2 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
-                            data-star="2"
-                            ><i class="fas fa-star"></i></span
-                          >;
-                          <span
-                            class="star + (item.star >= 3 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
-                            data-star="3"
-                            ><i class="fas fa-star"></i></span
-                          >;
-                          <span
-                            class="star + (item.star >= 4 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
-                            data-star="4"
-                            ><i class="fas fa-star"></i></span
-                          >;
-                          <span
-                            class="star + (item.star >= 5 ? &quot; -on&quot; : &quot;&quot;) + &quot;"
-                            data-star="5"
-                            ><i class="fas fa-star"></i></span
-                          >;
+                          <span> 測試</span>
+                          <span>看看</span>
                         </div>
                         
                       </td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
                 <!--数据列表/-->
@@ -224,14 +202,14 @@
                 <div class="pull-left">
                   <div class="form-group form-inline">
                     <div class="btn-group">
-                      <button
+                      <!-- <button
                         type="button"
                         class="btn btn-default"
                         title="送出"
                         onclick='confirm("確認送出?")'
                       >
                         <i class="fa fa-check"></i> 送出
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </div>
@@ -392,6 +370,7 @@
         });
       });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <script src="./orderProductReview.js"></script>
   </body>
 </html>
