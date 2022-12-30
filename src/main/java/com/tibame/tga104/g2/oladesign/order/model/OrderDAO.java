@@ -31,7 +31,8 @@ public interface OrderDAO {
 	
     public abstract List<OrderBean> getAll();	 //管理員查詢所有訂單
     public OrderBean getCheckOne(String orderId); //管理員查看選擇單筆訂單明細
-//    public abstract List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus);
-    public abstract List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus);
+    public abstract List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus);
+//    public abstract List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus);
+//    public abstract List<OrderBean> getSearch(String orderId,String comTaxId);
     
 }

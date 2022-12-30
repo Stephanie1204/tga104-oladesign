@@ -86,8 +86,9 @@ public class OrderService {
 	public boolean insert(OrderBean bean) {
 		if (productDao_Cart.salerExist(bean.getMemId(), bean.getComTaxId())) {
 			// 產生訂單編號
-//			bean.setOrderId(bean.getComTaxId().trim() + bean.getMemId().trim() + bean.getOrderTime_toSec());
-			bean.setOrderId("svoijsobisop12fvdv");
+			String deleteChar = "[/: ]";
+			bean.setOrderId(bean.getMemId().trim() + bean.getOrderTime_toSec().replaceAll(deleteChar, "").trim().substring(4));
+
 			bean.setOrderStatus(1);
 			bean.setShippingStatus(1);
 			//
@@ -167,9 +168,16 @@ public class OrderService {
 		return orderDao.getCheckOne(orderId);
 	}
 	
-	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus) {
+//	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus) {
+//		return orderDao.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+//	} 
+	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus) {
 		return orderDao.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
 	} 
+	
+//	public List<OrderBean> getSearch(String orderId,String comTaxId) {
+//		return orderDao.getSearch(orderId, comTaxId);
+//	} 
 	
 
 	

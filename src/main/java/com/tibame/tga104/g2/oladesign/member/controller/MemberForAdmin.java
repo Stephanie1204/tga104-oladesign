@@ -104,7 +104,7 @@ public class MemberForAdmin extends HttpServlet {
 				return;
 			}
 			req.setAttribute("memberVO", memberVO); // 資料庫取出的company_memVO物件,存入req
-			String url = "/memForAdmin/listonemem1.jsp";
+			String url = "/memForAdmin/listOneMem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -119,7 +119,7 @@ public class MemberForAdmin extends HttpServlet {
 			MemberVO memberVO = memberService.getCheckOne(memId);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("memberVO", memberVO);
-			String url = "/memForAdmin/listonemem1.jsp";
+			String url = "/memForAdmin/listOneMem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); //
 			successView.forward(req, res);
 		}
@@ -138,7 +138,7 @@ public class MemberForAdmin extends HttpServlet {
 			memberService.getBan(memId, isBan);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("memberVO", memberVO);
-			String url = "/memForAdmin/listallmember1.jsp";
+			String url = "/memForAdmin/listallmember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); //
 			successView.forward(req, res);
 		}

@@ -72,7 +72,7 @@ Product_styleService product_styleSvc = new Product_styleService();
 							class="fas fa-table"></i><span>前台會員管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+								href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i
@@ -168,8 +168,8 @@ Product_styleService product_styleSvc = new Product_styleService();
 		</div>
 	</footer>
 	</div>
-	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i
-		class="fas fa-angle-up"></i></a>
+<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>

@@ -73,7 +73,7 @@ pageContext.setAttribute("list", list);
 							class="fas fa-table"></i><span>前台會員管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+								href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i
@@ -140,8 +140,11 @@ pageContext.setAttribute("list", list);
 						<input type="text" name="memId" placeholder="會員編號"> 
 						<input type="text" name="receiver" placeholder="收件人名稱"> 
 						<input type="text" name="orderStatus" placeholder="訂單狀態"> 
-						<input type="text" name="shippingStatus" placeholder="物流狀態">						 
-						<input type="date" name="orderTime" value="2022-01-01">
+						<input type="text" name="shippingStatus" placeholder="物流狀態">
+<!-- 						<input type="date" name="orderTime" value="2022-01-01">						  -->
+						<input type="date" name="startTime" value="2022-01-01">
+						<input type="date" name="overTime" value="2022-12-31">
+						
 						<input type="submit" value="查詢" class="btn btn-default">  
 						<input type="hidden" name="action" value="Select">
 
@@ -220,8 +223,8 @@ pageContext.setAttribute("list", list);
 		</div>
 	</footer>
 	</div>
-	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i
-		class="fas fa-angle-up"></i></a>
+<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>

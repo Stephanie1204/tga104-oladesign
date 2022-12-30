@@ -75,7 +75,40 @@
       href="../../../resources/static/css/olaDesingMember.css"
     />
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    
+
+    <style>
+      /* ===== 評論的星號 ===== */
+      div.star_block {
+        display: inline-block;
+        position: relative;
+      }
+      div.temp_loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: hsla(0, 0%, 0%, 0.1);
+        text-align: center;
+        z-index: 2;
+        color: white;
+      }
+      div.temp_loading > span {
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        /* transform: translate(-50%, -50%); */
+      }
+      div.star_block > span.star {
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      div.star_block > span.star.-on {
+        color: orange;
+      }
+    </style>
   </head>
 
   <!--頂端列/側邊欄 匯入使用-->
@@ -83,11 +116,10 @@
   <div w3-include-html="/oladesign/memberCenter/pages/sideBar.html"></div>
   <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
-        <!-- 頂端列/側邊欄 匯入 /-->
+      <!-- 頂端列/側邊欄 匯入 /-->
       <script>
         w3.includeHTML();
       </script>
-    
 
       <!-- 内容区域 -->
       <div class="content-wrapper">
@@ -136,39 +168,32 @@
                 <table
                   id="dataList"
                   class="table table-bordered table-striped table-hover dataTable"
-                  style="width: 75%"
+                  
                 >
                   <thead>
                     <tr>
-                      <th class="">商品編號</th>
-                      <th class="">商品名稱</th>
-                      <th class="">評價</th>
+                      <th >商品編號</th>
+                      <th >商品名稱</th>
+                      <th >評價</th>
+                      <th >星等</th>
+                      <th ></button></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody id="list">
+                    <!-- <tr>
                       <td>1234567</td>
                       <td>XXX美式地毯</td>
                       <td class="">
                         <textarea rows="3" cols="50">這是內容</textarea>
                       </td>
-                    </tr>
-
-                    <tr>
-                      <td>1234567</td>
-                      <td>XXX美式地毯</td>
-                      <td class="">
-                        <textarea rows="3" cols="50">這是內容</textarea>
+                      <td>
+                        <div class="star_block">
+                          <span> 測試</span>
+                          <span>看看</span>
+                        </div>
+                        
                       </td>
-                    </tr>
-
-                    <tr>
-                      <td>1234567</td>
-                      <td>XXX美式地毯</td>
-                      <td class="">
-                        <textarea rows="3" cols="50">這是內容</textarea>
-                      </td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
                 <!--数据列表/-->
@@ -177,14 +202,14 @@
                 <div class="pull-left">
                   <div class="form-group form-inline">
                     <div class="btn-group">
-                      <button
+                      <!-- <button
                         type="button"
                         class="btn btn-default"
                         title="送出"
                         onclick='confirm("確認送出?")'
                       >
                         <i class="fa fa-check"></i> 送出
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </div>
@@ -345,6 +370,7 @@
         });
       });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <script src="./orderProductReview.js"></script>
   </body>
 </html>

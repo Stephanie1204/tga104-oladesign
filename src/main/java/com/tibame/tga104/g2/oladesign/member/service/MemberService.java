@@ -7,6 +7,8 @@ import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.dao.MemberDAO;
 import com.tibame.tga104.g2.oladesign.member.dao.MemberDAOImpl;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemBean;
+import com.tibame.tga104.g2.oladesign.order.model.OrderItemDAOJdbc;
 
 
 
@@ -119,6 +121,7 @@ public class MemberService {
 		dao.resetPWD(newPassword, memId);
 	}
 	
+//<<<<<<< HEAD
 	public MemberVO getCheckOne(Integer memId) {
 		return dao.getCheckOne(memId);
 	}
@@ -134,5 +137,15 @@ public class MemberService {
 
 	public void getBan(Integer memId,Boolean isBan) {
 		dao.getBan(memId, isBan);
+	}
+//=======
+	public Boolean addReview(OrderItemBean bean) {
+		if(new OrderItemDAOJdbc().update(bean)==1) {
+			return true;
+		}else {
+			return false;
+		}
+		
+//>>>>>>> dev
 	}
 }

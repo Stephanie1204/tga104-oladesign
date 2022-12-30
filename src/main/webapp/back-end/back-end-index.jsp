@@ -41,7 +41,7 @@
                     
                      <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
 		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i class="fas fa-table"></i>廠商會員管理</a></li>
                     	</ul>
                     </li>
@@ -161,7 +161,7 @@
                             </div>
                             <div class="col-lg-6 mb-4">
                                 <div class="card text-white bg-success shadow">
-                                	<a href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
+                                	<a href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
 	                                        <p class="m-0">會員管理<br></p>
 	                                        <p class="text-white-50 small m-0"></p>
@@ -191,7 +191,7 @@
                             </div>
                             <div class="col-lg-6 mb-4">
                                 <div class="card text-white bg-warning shadow">
-                                	<a href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
+                                	<a href="<%=request.getContextPath()%>/order/listAllOrder.jsp" onclick="window.assign(this.href, '', 'width=800,height=800'); return false;">
 	                                    <div class="card-body">
 	                                        <p class="m-0">訂單管理</p>
 	                                        <p class="text-white-50 small m-0"></p>

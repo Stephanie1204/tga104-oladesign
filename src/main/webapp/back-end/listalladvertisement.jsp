@@ -66,7 +66,7 @@ button.btn.btn-default.reviewad {
 							class="fas fa-table"></i><span>前台會員管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+								href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i

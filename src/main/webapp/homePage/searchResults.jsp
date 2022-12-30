@@ -71,47 +71,6 @@ pageContext.setAttribute("userId", userId);
 		<div class="loader"></div>
 	</div>
 
-	<!-- Humberger Begin -->
-	<!-- Home/shop/pages/blog/contact bar while mobile -->
-<!-- 	<div class="humberger__menu__overlay"></div> -->
-<!-- 	<div class="humberger__menu__wrapper"> -->
-<!-- 		<!-- organi logo --> 
-<!-- 		<div class="humberger__menu__logo"> -->
-<%-- 			<a href="<%=request.getContextPath()%>/homePage/index.jsp"><img --%>
-<%-- 				src="<%=request.getContextPath()%>/homePage/img/OLA_Logo.svg" alt="" /></a> --%>
-<!-- 		</div> -->
-
-<!-- 		<!-- shopping cart and heart on the right --> 
-
-<!-- 		<div class="humberger__menu__widget"> -->
-<!-- 			<!-- login button on the top--> 
-<!-- 			<div class="header__top__right__auth"> -->
-<!-- 				<a href="#"><i class="fa fa-user"></i>登入</a> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-
-<!-- 		<nav class="humberger__menu__nav mobile-menu"> -->
-<!-- 			<ul> -->
-<!-- 				<li class="active"><a -->
-<%-- 					href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li> --%>
-<!-- 				<li><a href="./shop-grid.html">Shop</a></li> -->
-<!-- 				<li><a -->
-<%-- 					href="<%=request.getContextPath()%>/homePage/checkOut.jsp">結帳</a></li> --%>
-<!-- 				<li><a href="./blog.html">Blog</a></li> -->
-<!-- 				<li><a href="./contact.html">Contact</a></li> -->
-<!-- 			</ul> -->
-<!-- 		</nav> -->
-<!-- 		<div id="mobile-menu-wrap"></div> -->
-
-<!-- 		<!-- info on left-top --> 
-
-<!-- 		<div class="humberger__menu__contact"> -->
-<!-- 			<ul> -->
-<!-- 				<li><i class="fa fa-envelope"></i> hello@colorlib.com</li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-	<!-- Humberger End -->
 
 	<!-- Header Section Begin -->
 	<%@ include file="../include/header.jsp"%>
@@ -127,6 +86,7 @@ pageContext.setAttribute("userId", userId);
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>條件篩選</span>
 						</div>
+						<!-- 送到value指定的servlet -->
 						<form action="<c:url value="/pages/product.controller" />"
 							method="get">
 							<ul>
@@ -171,17 +131,22 @@ pageContext.setAttribute("userId", userId);
 				<!-- the searh input part -->
 				<div class="col-lg-9">
 					<!-- big picture with vege and fruits in the middle -->
-					<div class="hero__item set-bg"
-						data-setbg="<%=request.getContextPath()%>/homePage/img/hero/banner.jpg">
-						<div class="hero__text">
-							<span>FRUIT FRESH</span>
-							<h2>
-								Vegetable <br />100% Organic
-							</h2>
-							<p>Free Pickup and Delivery Available</p>
-							<a href="#" class="primary-btn">SHOP NOW</a>
-						</div>
+					<!-- 輪播圖開始 -->
+					<div id="carouselExampleControls" class="carousel slide"
+						data-bs-ride="carousel">
+						<div class="carousel-inner" id="todayAD"></div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleControls" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
+					<!-- 輪播圖結束 -->
 				</div>
 			</div>
 		</div>
@@ -202,14 +167,16 @@ pageContext.setAttribute("userId", userId);
 								<a
 									href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 									class="results" target="_blank" class="set-bg"
-							data-setbg="img/featured/feature-4.jpg"><img
+									data-setbg="img/featured/feature-4.jpg"><img
 									class="product__details__pic__item--large"
 									src="${ row.productImgBase64 }" alt="No Image"></a>
 								<ul class="featured__item__pic__hover">
-									<li><!-- <a href="###" class="favorcircle"> -->
-											<i class="fa fa-heart favorheart" id="${row.productId}" data="${row.productId}"></i>
-<!-- 										</a> -->
-									</li>
+
+									<li><a href="##" class="favorcircle"> <i
+											class="fa fa-heart favorheart" id="${row.productId}"
+											data="${row.productId}"></i>
+									</a></li>
+
 									<li>
 										<form action="<c:url value="/pages/product.controller" />"
 											method="post">
@@ -346,9 +313,130 @@ pageContext.setAttribute("userId", userId);
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-		
-		
-<%@ include file="../include/favorite.jsp"%>		
-	
+
+	<script>
+	$(window).on("load", function(){
+		let memId = "${memId}";
+	    console.log("memId=" + memId);
+	  //先查詢已經加入收藏的商品
+	    if(memId.length != 0){ 
+    		$.ajax({
+    			url: "<%=request.getContextPath()%>/favorite/FavorServlet",
+    			type: "PUT",
+    			data: JSON.stringify({
+    				"memId": memId
+    			}),
+        		dataType: "json",
+        		contentType: "application/json",
+        		processData: false,
+        		success: function(data){
+	            	console.log("data");
+	            	var favorObj = JSON.parse(data.getFavor);
+	            	console.log(favorObj);
+	            	console.log("favorObj.length:" + favorObj.length);
+	            	$("#fav").text(favorObj.length); //在收藏icon顯示收藏數量
+	            	
+	            	$.each(favorObj, function(index, item){ //取出已收藏的商品ID
+		            	console.log(item.prodId);
+	            		$("#" + item.prodId + "").addClass("active");
+	            		$("#" + item.prodId + "").closest("a").addClass("active");
+		            });	            	
+	            },
+	            error: function(xhr){
+	            	console.log(xhr);
+	            },
+	            complete: function(xhr){
+	            	console.log(xhr);
+	            }
+    		});
+    	}
+	  
+	  	//新增收藏
+	    $(".favorcircle").on("click", function(e){
+	    	if(memId == null || memId.length == 0){
+	    		alert("請先登入會員");
+	    	}else{
+	    		let prodId = $(e.target).attr("data");
+	    		console.log("prodId=" + prodId);
+	    		$(e.target).toggleClass("active");
+		        $(e.target).closest("a").toggleClass("active");
+		        
+		        var favordata ={
+		        		"memId": memId,
+		        		"prodId": prodId
+		        };
+		        console.log(favordata);
+		        let active = $(e.target).hasClass("active");
+		        console.log("active=" + active);
+		        if(active == true){ //新增收藏
+		        	$.ajax({
+			            url: "<%=request.getContextPath()%>/favorite/FavorServlet",
+			            type: "POST",
+			            data: JSON.stringify(favordata),
+			            dataType: "json",
+			            contentType: "application/json",
+			            processData: false,
+			            success: function(adddata){
+			            	console.log("adddata=" + adddata);
+			            	var count = $("#fav").text();
+			            	var countFav = parseInt(count); //String 轉為 number
+			            	$("#fav").text(countFav + 1);
+			            },
+			            error: function(xhr){
+			            	console.log(xhr);
+			            },
+			            complete: function(xhr){
+			            	console.log(xhr);
+			            }
+			        });
+		        }else{ //移除收藏
+		        	$.ajax({
+		        		url: "<%=request.getContextPath()%>
+		/favorite/FavorServlet",
+																	type : "DELETE",
+																	data : JSON
+																			.stringify(favordata),
+																	dataType : "json",
+																	contentType : "application/json",
+																	processData : false,
+																	success : function(
+																			deldata) {
+																		console
+																				.log("deldata");
+																		console
+																				.log(deldata);
+																		var count = $(
+																				"#fav")
+																				.text();
+																		var countFav = parseInt(count); //String 轉為 number
+																		$(
+																				"#fav")
+																				.text(
+																						countFav - 1);
+																	},
+																	error : function(
+																			xhr) {
+																		console
+																				.log(xhr);
+																	},
+																	complete : function(
+																			xhr) {
+																		console
+																				.log(xhr);
+																	}
+																});
+													}
+
+												}
+
+											});
+						});
+	</script>
+	=======
+
+
+	<%@ include file="../include/favorite.jsp"%>
+
+	>>>>>>> dev
 </body>
 </html>

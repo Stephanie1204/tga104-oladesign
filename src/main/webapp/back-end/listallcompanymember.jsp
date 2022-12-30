@@ -24,6 +24,11 @@
 			color:#ffffff;
 			text-decoration:none;
 		}
+		button.btn.btn-default.reviewcom {
+		    padding: 5px 15px;
+		    background-color: #afaab1;
+		    color: black;
+		}
     </style>
 </head>
 
@@ -42,7 +47,7 @@
                     
                      <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
-		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
+		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
 		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i class="fas fa-table"></i>廠商會員管理</a></li>
                     	</ul>
                     </li>

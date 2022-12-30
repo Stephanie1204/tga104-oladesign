@@ -1,5 +1,7 @@
 package com.tibame.tga104.g2.oladesign.member.dao;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -544,6 +546,8 @@ public class MemberDAOImpl implements MemberDAO {
 		Connection connection = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
+//		InputStream is = null;
+//		OutputStream os = null;
 
 		try {
 

@@ -3,13 +3,29 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
-<%-- <% --%>
-<!-- // OrderService orderSvc = new OrderService(); -->
-<!-- // List<OrderBean> list = orderSvc.getSearch(); -->
-<!-- // pageContext.setAttribute("list", list); -->
-<%-- %> --%>
+
+
 <%
-request.getAttribute("list");
+Integer orderStatus= null;
+Integer shippingStatus = null;
+OrderService orderSvc = new OrderService();
+String orderId = request.getParameter("orderId");
+String comTaxId = request.getParameter("comTaxId");
+String memId = request.getParameter("memId");
+String receiver = request.getParameter("receiver");
+if(request.getParameter("orderStatus")!=null && request.getParameter("orderStatus") != "") {
+	 orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
+}	
+//Integer orderStatus = Integer.valueOf(req.getParameter("orderStatus"));
+if(request.getParameter("shippingStatus")!=null && request.getParameter("shippingStatus") != "") {
+	shippingStatus = Integer.valueOf(request.getParameter("shippingStatus"));
+}
+// String orderStatus = request.getParameter("orderStatus");
+// String shippingStatus = request.getParameter("shippingStatus");
+// Integer orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
+// Integer shippingStatus = Integer.valueOf(request.getParameter("shippingStatus"));
+List<OrderBean> list = orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -78,7 +94,7 @@ request.getAttribute("list");
 							class="fas fa-table"></i><span>前台會員管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+								href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i
@@ -136,17 +152,20 @@ request.getAttribute("list");
 
 			<div class="box-tools pull-right">
 				<div class="has-feedback">
-					<form method="post" action="/pages/order.controller">
-						<input type="text" name="orderId" placeholder="訂單編號">
-						<input type="text" name="comTaxId" placeholder="公司統編">
-						<input type="text" name="memId" placeholder="會員編號">
-						<input type="text" name="receiver" placeholder="收件人名稱">
-						<input type="text" name="orderStatus" placeholder="訂單狀態">
+					<form method="post"
+						ACTION="<%=request.getContextPath()%>/order/order.do">
+						<input type="text" name="orderId" placeholder="訂單編號"> 
+						<input type="text" name="comTaxId" placeholder="公司統編"> 
+						<input type="text" name="memId" placeholder="會員編號"> 
+						<input type="text" name="receiver" placeholder="收件人名稱"> 
+						<input type="text" name="orderStatus" placeholder="訂單狀態"> 
 						<input type="text" name="shippingStatus" placeholder="物流狀態">
-						<input type="date" name="orderTime"  value="2022-01-01">
-						<input type="hidden" name="action" value="">
-						<input type="hidden" name="adminId" value="A001" />
-						 <input type="submit" value="查詢" class="btn btn-default">
+						<input type="date" name="startTime" value="2022-01-01">
+						<input type="date" name="overTime" value="2022-12-31">						 
+<!-- 						<input type="date" name="orderTime" value="2022-01-01"> -->
+						<input type="submit" value="查詢" class="btn btn-default">  
+						<input type="hidden" name="action" value="Select">
+
 					</form>
 				</div>
 			</div>
@@ -166,9 +185,9 @@ request.getAttribute("list");
 						<th nowrap="nowrap">查看</th>
 					</tr>
 
-<%-- 					<%@ include file="page1.file"%> --%>
-<%-- 					<c:forEach var="orderBean" items="${list}" begin="<%=pageIndex%>" --%>
-<%-- 						end="<%=pageIndex+rowsPerPage-1%>"> --%>
+					<%@ include file="page1.file"%>
+					<c:forEach var="orderBean" items="${list}" begin="<%=pageIndex%>"
+						end="<%=pageIndex+rowsPerPage-1%>"> 
 
 						<%-- 					 					<c:forEach var="OrderBean" items="${list}"> --%>
 						<tr>
@@ -193,9 +212,9 @@ request.getAttribute("list");
 										type="hidden" name="action" value="CheckOne">
 								</FORM>
 								</td>																		
-<%-- 					</c:forEach> --%>
+					</c:forEach>
 				</table>
-<%-- 				<%@ include file="page2.file"%> --%>
+				<%@ include file="page2.file"%>
 			</div>
 		</div>
 
@@ -208,8 +227,8 @@ request.getAttribute("list");
 		</div>
 	</footer>
 	</div>
-	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i
-		class="fas fa-angle-up"></i></a>
+<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>
