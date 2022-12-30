@@ -73,11 +73,11 @@ System.out.println("test");
 		<div class="loader"></div>
 	</div>
 
-	
+
 
 	<%@ include file="../include/header.jsp"%>
 
-	
+
 	</section>
 	<!-- Breadcrumb Section End -->
 
@@ -127,8 +127,7 @@ System.out.println("test");
 						<input type="hidden" name="productId" value="${prod.productId}">
 						<input type="hidden" name="name" value="${prod.name}"> <input
 							type="hidden" name="price" value="${prod.price}"> <input
-							type="hidden" name="comTaxId" value="${prod.comTaxId}"> <input
-							type="hidden" name="memberId" value="${memId }">
+							type="hidden" name="comTaxId" value="${prod.comTaxId}">
 						<button type="submit" name="prodaction" value="AddCart"
 							class="primary-btn">加入購物車</button>
 					</form>

@@ -32,7 +32,7 @@ public class StyleDAOJdbc implements StyleDAO {
 		List<StyleBean> result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc style");
+//		System.out.println("jdbc style");
 		try {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(GET_ALL_TYPE);
@@ -47,7 +47,6 @@ public class StyleDAOJdbc implements StyleDAO {
 				result.add(bean);
 			}
 			if (conn != null) {
-				System.out.println("style closed");
 				conn.close();
 			}
 		} catch (SQLException e) {
