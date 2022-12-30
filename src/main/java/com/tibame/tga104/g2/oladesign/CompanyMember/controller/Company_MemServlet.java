@@ -102,12 +102,8 @@ public class Company_MemServlet extends HttpServlet {
 				errorMsgs.put("com_name","公司名稱：只能是中、英文,且長度需在2-50之間");
 			}
 			// 公司地址
-			String zipcode = req.getParameter("zipcode");
-			String county = req.getParameter("county");
-			String district = req.getParameter("Zero");
 			String com_address = req.getParameter("com_address");
-			String iscom_address = zipcode + county + district + com_address;
-			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,15}$";
 			if (com_address == null || com_address.trim().length() == 0) {
 				errorMsgs.put("com_address","公司地址請勿空白");
 			} else if (!com_address.trim().matches(com_addressReg)) {
@@ -151,7 +147,7 @@ public class Company_MemServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.addCompany_Mem(com_taxid, memId, com_name, iscom_address, com_phone, com_owner, owner_phone,
+			company_memSvc.addCompany_Mem(com_taxid, memId, com_name, com_address, com_phone, com_owner, owner_phone,
 					com_bankaccount);
 			req.setAttribute("company_memVO", company_memVO);
 			String url = "/CompanyBackEnd/listonecompany_member.jsp";
@@ -182,12 +178,8 @@ public class Company_MemServlet extends HttpServlet {
 				errorMsgs.put("com_name","公司名稱：只能是中、英文,且長度需在2-50之間");
 			}
 			// 公司地址
-			String zipcode = req.getParameter("zipcode");
-			String county = req.getParameter("county");
-			String district = req.getParameter("Zero");
 			String com_address = req.getParameter("com_address");
-			String iscom_address = zipcode + county + district + com_address;
-			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,15}$";
 			if (com_address == null || com_address.trim().length() == 0) {
 				errorMsgs.put("com_address","公司地址請勿空白");
 			} else if (!com_address.trim().matches(com_addressReg)) {
@@ -231,7 +223,7 @@ public class Company_MemServlet extends HttpServlet {
 				return; // 程式中斷
 			}
 			Company_MemService company_memSvc = new Company_MemService();
-			company_memSvc.updateCompany_Mem(com_taxid, memId, com_name, iscom_address, com_phone, com_owner,
+			company_memSvc.updateCompany_Mem(com_taxid, memId, com_name, com_address, com_phone, com_owner,
 					owner_phone, com_bankaccount);
 			company_memVO = company_memSvc.getOneCompany_Mem(com_taxid);
 			req.setAttribute("company_memVO", company_memVO);
