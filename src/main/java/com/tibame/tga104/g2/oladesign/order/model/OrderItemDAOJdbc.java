@@ -25,7 +25,7 @@ public class OrderItemDAOJdbc implements OrderItemDAO {
 
 	}
 	//
-	private static final String GET_COMMENT_BYPRODUCTID = "SELECT COMM_STAR, COMM_TEXT FROM ORDER_ITEM WHERE PROD_ID=?";
+	private static final String GET_COMMENT_BYPRODUCTID = "SELECT COMM_STAR, COMM_TEXT FROM ORDER_ITEM WHERE PROD_ID=? AND COMM_STAR > 0";
 
 	public List<OrderItemBean> select(int productId) {
 		List<OrderItemBean> result = null;
