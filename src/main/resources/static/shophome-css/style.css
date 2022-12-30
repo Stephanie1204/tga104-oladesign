@@ -30,14 +30,6 @@
 /* Template default CSS
 /*----------------------------------------*/
 
-html,
-body {
-	height: 100%;
-	font-family: "Cairo", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
-}
-
 h1,
 h2,
 h3,
@@ -3471,3 +3463,9 @@ ol {
 		font-size: 24px;
 	}
 }
+
+	.productpriceis{
+	text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    }
