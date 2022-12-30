@@ -1,5 +1,7 @@
 package com.tibame.tga104.g2.oladesign.member.dao;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +16,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -514,6 +517,145 @@ public class MemberDAOImpl implements MemberDAO {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(setRegComTagSQL);
 			psmt.setBoolean(1, isRegCom);
+			psmt.setInt(2, memId);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(psmt != null) {
+				try {
+					psmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	private static final String CHECKONE =
+			"SELECT * FROM MEMBER  where MEM_ID = ? ";
+	@Override
+	public MemberVO getCheckOne(Integer memId) {
+		MemberVO memberVO = null;
+		Connection connection = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+//		InputStream is = null;
+//		OutputStream os = null;
+
+		try {
+
+			connection = ds.getConnection();
+			psmt = connection.prepareStatement(CHECKONE);
+
+			psmt.setInt(1, memId);
+
+			rs = psmt.executeQuery();
+				
+
+			while(rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMemId(rs.getInt("MEM_ID"));
+				memberVO.setMemName(rs.getString("MEM_NAME"));
+				memberVO.setAccount(rs.getString("ACCOUNT"));
+				memberVO.setPassword(rs.getString("PASSWORD"));
+				memberVO.setMemPhone(rs.getString("MEM_PHONE"));
+				memberVO.setMemAddress(rs.getString("MEM_ADDRESS"));
+				memberVO.setMemRegdate(rs.getDate("MEM_REGDATE"));
+				memberVO.setSex(rs.getString("SEX"));
+				memberVO.setPoint(rs.getInt("POINT"));
+				memberVO.setBan(rs.getBoolean("IS_BAN"));
+				memberVO.setCom(rs.getBoolean("IS_COM"));
+				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
+				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
+				
+				if(rs.getBytes("MEM_PHOTO") != null) {
+					memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
+				}
+			}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(psmt != null) {
+					try {
+						psmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			return memberVO;
+		}
+	
+//	private static final String GETBAN =
+//			"UPDATE MEMBER SET IS_BAN = ? where MEM_ID = ?";
+//	@Override
+//	public void getBan(MemberVO memberVO) {
+//		Connection connection = null;
+//		PreparedStatement psmt = null;
+//		
+//		try {
+//			connection = ds.getConnection();
+//			psmt = connection.prepareStatement(GETBAN);
+//			
+//			psmt.setBoolean(1, true);
+//			psmt.setInt(2, memberVO.getMemId());
+//			System.out.println("333333333333333333");
+//			psmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			if(psmt != null) {
+//				try {
+//					psmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if(connection != null) {
+//				try {
+//					connection.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		
+//	}
+	
+	private static final String GETBAN =
+	"UPDATE MEMBER SET IS_BAN = ? where MEM_ID = ?";
+	@Override
+	public void getBan(Integer memId, Boolean isBan) {
+		Connection connection = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			connection = ds.getConnection();
+			psmt = connection.prepareStatement(GETBAN);
+			psmt.setBoolean(1, true);
 			psmt.setInt(2, memId);
 			psmt.executeUpdate();
 		} catch (SQLException e) {

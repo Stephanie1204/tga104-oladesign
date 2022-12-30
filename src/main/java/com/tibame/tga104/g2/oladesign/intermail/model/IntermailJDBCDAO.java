@@ -677,7 +677,6 @@ public class IntermailJDBCDAO implements IntermailDAO_interface {
 	}
 
 	private static final String CHECKAll =
-//	"SELECT * FROM INTERMAIL where INTERMAIL_ID = ? and IS_SEND = '0' ";
 			"SELECT * FROM INTERMAIL inner join intermail_qn on intermail.NUM_QUE = intermail_qn.NUM_QUE where INTERMAIL_ID = ? ";
 
 	@Override

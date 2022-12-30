@@ -277,7 +277,7 @@ public class SalerServlet extends HttpServlet {
 			}
 		} else if (prodaction != null && prodaction.equals("addImg")) {
 			for (ProductImageBean imgbean : imageList) {
-				if (imgbean.getProductId() != 0) {
+				if (imgbean.getProductId() != 0 && bean.getProductImgByteArray() != null) {
 					productService.insertImg(imgbean);
 				}
 			}

@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductBean;
 import com.tibame.tga104.g2.oladesign.product.model.product.ProductService;
 
@@ -49,7 +51,7 @@ public class ProductServlet extends HttpServlet {
 		String tempSafeStock = request.getParameter("safeStock");// not null
 		String tempStatus = request.getParameter("status");// not null
 		String prodaction = request.getParameter("prodaction");
-		String tempMemId = request.getParameter("memberId");
+
 //For Cart
 		String tempQuantity = request.getParameter("quantity");
 
@@ -209,6 +211,10 @@ public class ProductServlet extends HttpServlet {
 			// 傳遞result list到下面指定的jsp檔
 			request.getRequestDispatcher("/homePage/searchResults.jsp").forward(request, response);
 		} else if (prodaction != null && prodaction.equals("Insert")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			bean.setComTaxId(companyMem.getComTaxId());
 			ProductBean result = productService.insert(bean);
 			if (result == null) {
 				errors.put("action", "Insert fail");
@@ -219,6 +225,10 @@ public class ProductServlet extends HttpServlet {
 					response);
 
 		} else if (prodaction != null && prodaction.equals("SelectById")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			bean.setComTaxId(companyMem.getComTaxId());
 			List<ProductBean> result = productService.selectByComTaxId(bean.getComTaxId());
 			request.setAttribute("selectById", result);
 			// 傳遞result list到下面指定的jsp檔
@@ -226,55 +236,92 @@ public class ProductServlet extends HttpServlet {
 
 		} else if (prodaction != null && prodaction.equals("Update")) {
 //要驗證商品屬於該統編			
-			ProductBean result = productService.update(bean);
-			if (result == null) {
-				errors.put("action", "Update fail");
-			} else {
-				request.setAttribute("update", result);
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			if (companyMem.getComTaxId().equals(comTaxId)) {
+				ProductBean result = productService.update(bean);
+				if (result == null) {
+					errors.put("action", "Update fail");
+				} else {
+					request.setAttribute("update", result);
+				}
 			}
+
 			request.getRequestDispatcher("/pages/productUpdate.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("Delete")) {
-			boolean result = productService.delete(bean);
-			if (!result) {
-				request.setAttribute("delete", 0);
-			} else {
-				request.setAttribute("delete", 1);
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+			bean.setComTaxId(companyMem.getComTaxId());
+			if (companyMem.getComTaxId().equals(comTaxId)) {
+				boolean result = productService.delete(bean);
+				if (!result) {
+					request.setAttribute("delete", 0);
+				} else {
+					request.setAttribute("delete", 1);
+				}
 			}
+
 			request.getRequestDispatcher("/pages/salerProducts.jsp").forward(request, response);
 
 		} // Cart
 		else if (prodaction != null && prodaction.equals("UpdateCart")) {
-			productService.updateFromCart(tempMemId, comTaxId, productId, quantity);
+			HttpSession session = request.getSession();
+			Object objname = session.getAttribute("memId");
+			String userId = "";
+			if (objname != null) {
+				userId = objname.toString();
+			}
+			productService.updateFromCart(userId, comTaxId, productId, quantity);
 
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("AddCart")) {
+			HttpSession session = request.getSession();
+			Object objname = session.getAttribute("memId");
+			String userId = "";
+			if (objname != null) {
+				userId = objname.toString();
+			}
+
 			if (quantity <= 0) {
 				quantity = 1;
-				productService.insertCart(tempMemId, comTaxId, productId, quantity);
+				productService.insertCart(userId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			} else if (quantity > 9) {
 				quantity = 9;
-				productService.insertCart(tempMemId, comTaxId, productId, quantity);
+				productService.insertCart(userId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			} else {
-				productService.insertCart(tempMemId, comTaxId, productId, quantity);
+				productService.insertCart(userId, comTaxId, productId, quantity);
 
 				request.getRequestDispatcher("/homePage/productPage.jsp").forward(request, response);
 			}
 		} else if (prodaction != null && prodaction.equals("AddCartByPage")) {
-			productService.insertCart(tempMemId, comTaxId, productId, quantity);
+			HttpSession session = request.getSession();
+			Object objname = session.getAttribute("memId");
+			String userId = "";
+			if (objname != null) {
+				userId = objname.toString();
+			}
+			productService.insertCart(userId, comTaxId, productId, quantity);
 
 			List<ProductBean> result = productService.select(bean);
-			
+
 			request.setAttribute("select", result);
-			
+
 			request.getRequestDispatcher("/homePage/searchResults.jsp").forward(request, response);
 		} else if (prodaction != null && prodaction.equals("DeleteFromCart")) {
-			productService.deleteFromCart(tempMemId, comTaxId, productId);
+			HttpSession session = request.getSession();
+			Object objname = session.getAttribute("memId");
+			String userId = "";
+			if (objname != null) {
+				userId = objname.toString();
+			}
+			productService.deleteFromCart(userId, comTaxId, productId);
 
 			request.getRequestDispatcher("/homePage/shopping_cart.jsp").forward(request, response);
 

@@ -2,17 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
 <%
-IntermailService intermailSvc = new IntermailService();
-List<IntermailVO> list = intermailSvc.getAll();
+OrderService orderSvc = new OrderService();
+List<OrderBean> list = orderSvc.getAll();
 pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>所有站內信</title>
+<title>訂單管理</title>
 
 
 <meta name="viewport"
@@ -83,7 +83,9 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -100,13 +102,19 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
+									class="fas fa-table"></i><span>站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -118,64 +126,91 @@ pageContext.setAttribute("list", list);
 
 		<div style="padding: 20px 15px;">
 			<div style="display: flex;">
-				<h2>所有站內信</h2>
+				<h2>訂單管理</h2>
 				<div style="display: flex; position: absolute; right: 15px;">
-					<!-- 							<h4> -->
-					<%-- 								<a href="<%=request.getContextPath()%>/back-end/index-admin.jsp">回管理員管理</a> --%>
-					<%-- 								<a href="<%=request.getContextPath()%>/admin/addAdmin.jsp">新增管理員</a> --%>
-					<!-- 							</h4> -->
+				</div>
+			</div>
+
+			<div class="box-tools pull-right">
+				<div class="has-feedback">
+					<form method="post"
+						ACTION="<%=request.getContextPath()%>/order/order.do">
+						<input type="text" name="orderId" placeholder="訂單編號"> 
+						<input type="text" name="comTaxId" placeholder="公司統編"> 
+						<input type="text" name="memId" placeholder="會員編號"> 
+						<input type="text" name="receiver" placeholder="收件人名稱"> 
+						<input type="text" name="orderStatus" placeholder="訂單狀態"> 
+						<input type="text" name="shippingStatus" placeholder="物流狀態">
+<!-- 						<input type="date" name="orderTime" value="2022-01-01">						  -->
+						<input type="date" name="startTime" value="2022-01-01">
+						<input type="date" name="overTime" value="2022-12-31">
+						
+						<input type="submit" value="查詢" class="btn btn-default">  
+						<input type="hidden" name="action" value="Select">
+
+					</form>
+
+<!-- 					<FORM METHOD="post" -->
+<%-- 						ACTION="<%=request.getContextPath()%>/order/order.do" --%>
+<!-- 						style="margin-bottom: 0px;"> -->
+<!-- 						<input type="submit" class="btn back-end-btn" value="查看"> -->
+<%-- 						<input type="hidden" name="orderId" value="${orderBean.orderId}"> --%>
+<!-- 						<input type="hidden" name="action" value="CheckOne"> -->
+<!-- 					</FORM> -->
+
+
+
+
+
+
 				</div>
 			</div>
 
 			<div>
 				<table class="table table-striped table-sm table-hover">
 					<tr>
-						<th>站內信編號</th>
-						<th>會員編號</th>
-						<th>管理員編號</th>
-						<th>問題類型選項</th>
-						<th>內容</th>
-						<th>發送時間</th>
-						<th></th>
-						<th>刪除</th>
+						<th nowrap="nowrap">訂單編號</th>
+						<th nowrap="nowrap">公司統編</th>
+						<th nowrap="nowrap">會員編號</th>
+						<th nowrap="nowrap">訂單日期</th>
+						<th nowrap="nowrap">訂單狀態</th>
+						<th nowrap="nowrap">物流狀態</th>
+						<th nowrap="nowrap">收件人名稱</th>
+						<th nowrap="nowrap">結帳金額</th>
+						<th nowrap="nowrap"></th>
+						<th nowrap="nowrap">查看</th>
 					</tr>
 
 					<%@ include file="page1.file"%>
-					<c:forEach var="intermailVO" items="${list}" begin="<%=pageIndex%>"
+					<c:forEach var="orderBean" items="${list}" begin="<%=pageIndex%>"
 						end="<%=pageIndex+rowsPerPage-1%>">
 
-						<%-- 					<c:forEach var="intermail_qnVO" items="${list}"> --%>
+						<%-- 					 					<c:forEach var="OrderBean" items="${list}"> --%>
 						<tr>
-							<td>${intermailVO.interMailId}</td>
-							<td>${intermailVO.memId}</td>
-							<td>${intermailVO.adminId}</td>
-							<td>${intermailVO.numQue}</td>
-							<td>${intermailVO.conTent}</td>
-							<td><fmt:formatDate value="${intermailVO.sentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-<%-- 							<td>${intermailVO.isSend}</td> --%>
+							<td>${orderBean.orderId}</td>
+							<td>${orderBean.comTaxId}</td>
+							<td>${orderBean.memId}</td>
+							<td>${orderBean.orderTime}</td>
+							<td>${orderBean.orderStatus}</td>
+							<td>${orderBean.shippingStatus}</td>
+							<td>${orderBean.receiver}</td>
+							<td>${orderBean.amount}</td>
+							<%-- 							<td><fmt:formatDate value="${intermailVO.sentTime}" --%>
+							<%-- 									pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 							<td>
-								<!-- 			  <FORM METHOD="post"  --> <%-- 			 ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do" style="margin-bottom: 0px;"> --%>
-								<!-- 			     <input type="submit" class="btn back-end-btn" value="修改"> -->
-								<%-- 			      <input type="hidden" name="numQue"  value="${intermail_qnVO.numQue}"> --%>
-								<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"> -->
-								<!-- 			  </FORM> -->
-							</td>
 							<td>
-
 								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/intermail/intermail.do"
+									ACTION="<%=request.getContextPath()%>/order/order.do"
 									style="margin-bottom: 0px;">
-									<input type="submit" class="btn back-end-btn" value="刪除">
-									<input type="hidden" name="interMailId"
-										value="${intermailVO.interMailId}"> <input
-										type="hidden" name="action" value="delete">
+									<input type="submit" class="btn back-end-btn" value="查看">
+									<input type="hidden" name="orderId"
+										value="${orderBean.orderId}"> <input type="hidden"
+										name="action" value="CheckOne">
 								</FORM>
 							</td>
-							<!-- 								</td>  -->
-						</tr>
 					</c:forEach>
 				</table>
-				<%@ include file="page2.file" %>
+				<%@ include file="page2.file"%>
 			</div>
 		</div>
 

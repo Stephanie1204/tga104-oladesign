@@ -95,7 +95,8 @@ if (companyMem != null) {
 									style="table-layout: fixed;">
 									<thead>
 										<tr>
-											<th style="width: 36%">商品圖片</th>
+											<th style="width: 4%">商品編號</th>
+											<th style="width: 32%">商品圖片</th>
 											<th style="width: 7%">商品類別</th>
 											<th style="width: 7%">商品風格</th>
 											<th style="width: 20%">商品名稱</th>
@@ -116,7 +117,8 @@ if (companyMem != null) {
 												<input type="hidden" name="productId"
 													value="${row.productId}">
 												<tr>
-													<td style="width: 36%"><img
+													<td style="width: 4%">${row.productId}</td>
+													<td style="width: 32%"><img
 														src="${row.productImgBase64}"></td>
 
 													<td style="width: 7%">${row.typeName}<input

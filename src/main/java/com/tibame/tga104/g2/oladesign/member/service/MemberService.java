@@ -3,6 +3,7 @@ package com.tibame.tga104.g2.oladesign.member.service;
 import java.sql.Date;
 import java.util.List;
 
+import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.dao.MemberDAO;
 import com.tibame.tga104.g2.oladesign.member.dao.MemberDAOImpl;
@@ -120,6 +121,24 @@ public class MemberService {
 		dao.resetPWD(newPassword, memId);
 	}
 	
+//<<<<<<< HEAD
+	public MemberVO getCheckOne(Integer memId) {
+		return dao.getCheckOne(memId);
+	}
+	
+//	public MemberVO getBan(Integer memId,Boolean isBan) {
+//		
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setMemId(memId);
+//		memberVO.setBan(isBan);
+//		dao.getBan(memberVO);
+//		return memberVO;
+//	}
+
+	public void getBan(Integer memId,Boolean isBan) {
+		dao.getBan(memId, isBan);
+	}
+//=======
 	public Boolean addReview(OrderItemBean bean) {
 		if(new OrderItemDAOJdbc().update(bean)==1) {
 			return true;
@@ -127,5 +146,6 @@ public class MemberService {
 			return false;
 		}
 		
+//>>>>>>> dev
 	}
 }

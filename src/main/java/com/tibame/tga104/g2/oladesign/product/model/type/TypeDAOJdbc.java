@@ -32,7 +32,7 @@ public class TypeDAOJdbc implements TypeDAO {
 		List<TypeBean> result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		System.out.println("jdbc type");
+//		System.out.println("jdbc type");
 		try {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(GET_ALL_TYPE);
@@ -47,7 +47,6 @@ public class TypeDAOJdbc implements TypeDAO {
 				result.add(bean);
 			}
 			if (conn != null) {
-				System.out.println("type closed");
 				conn.close();
 			}
 		} catch (SQLException e) {

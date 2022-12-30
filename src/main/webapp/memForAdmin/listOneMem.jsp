@@ -1,44 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.service.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.member.bean.*"%>
+<%
+MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+%>
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-<!-- jQuery 1.12.4 -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
-
-<title>商品地區類別管理</title>
-<style>
-.back-end-btn {
-	color: #7f70f5;
-	border-color: #7f70f5
-}
-
-.back-end-btn:hover {
-	background-color: #7f70f5;
-	color: #ffffff !important;
-}
-
-.back-end-li:hover>.back-end-li-child {
-	display: block !important;
-}
-
-.nav-item {
-	list-style-type: none;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>管理員後台頁面</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
+    <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+           
+    <style>
+    	.back-end-li:hover>.back-end-li-child{	
+			display: block !important;
+		}
+		
+		.nav-item{
+			list-style-type: none;
+		}
+		
+		a, a:link, a:visited, a:hover{
+			color:#ffffff;
+			text-decoration:none;
+		}
+    </style>
 </head>
 
 <body id="page-top">
@@ -82,7 +73,7 @@
                     </li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>廣告管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
-                    	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
 <%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 <%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
                     	</ul>
@@ -94,7 +85,7 @@
 <!-- 				</div> -->
 			</div>
 		</nav>
-				<div class="d-flex flex-column" id="content-wrapper">
+		<div class="d-flex flex-column" id="content-wrapper">
 			<div id="content">
 				<nav
 					class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -160,103 +151,110 @@
 						</ul>
 					</div>
 				</nav>
-
-				<div style="padding: 20px 15px;">
-					<h2>商品地區類別管理</h2>
-
-					<c:if test="${not empty errorMsgs}">
-						<b>請修正以下錯誤：</b>
-						<ul>
-							<c:forEach var="msg" items="${errorMsgs}">
-								<li>${msg}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
-
-					<ul>
-						<li><a
-							href="<%=request.getContextPath()%>/product_style/listAllProduct_style.jsp">檢視所有商品地區類別</a>
-						</li>
-						<li><a
-							href="<%=request.getContextPath()%>/product_style/addProduct_style.jsp">新增商品地區類別</a>
-						</li>
-
-						<%-- <li>
-						<form method="post"
-							action="<%=request.getContextPath()%>/admin/GetOneAdminServlet">
-							<h5>請輸入管理員編號：</h5>
-							<input type="text" name="adminid">
-							<button type="submit" name="action" value="getOneAdmin" class="btn back-end-btn">送出</button>
+ 		<!-- 内容區域 -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+			</section>
+			<!-- Main content -->
+			<section class="content">
+				<div class="row">
+					<div class="col-8">
+						<!-- form start -->
+						<form method="post" action="comforadmin.do" name="form1">
+							<!-- left column -->
+							<div class="col-md-6">
+								<!-- general form elements -->
+								<div class="box box-primary">
+									<div class="box-header with-border">
+										<h3 class="box-title">基本資料</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<div class="form-group">
+											<label for="com_taxid">會員編號</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_id"
+												id="com_taxid"
+												value="${memberVO.getMemId()}" />
+										</div>
+										<div class="form-group">
+											<label for="mem_id">會員名稱</label>
+												<input type="text" readonly="readonly" class="form-control" name="mem_name"
+												id="mem_id"
+												value="${memberVO.getMemName()}" />
+										</div>
+	
+										<div class="form-group">
+											<label for="com_name">會員帳號</label>
+												<input type="text" readonly="readonly" class="form-control" name="mem_account"
+												id="com_name"
+												value="${memberVO.getAccount()}"/>
+										</div>
+	
+										<div class="form-group">
+											<label for="com_address">會員手機號碼</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_phone"
+												id="com_address"
+												value="${memberVO.getMemPhone()}"/>
+										</div>
+	
+										<div class="form-group">
+											<label for="com_phone">會員地址</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_address"
+												id="com_phone"
+												value="${memberVO.getMemAddress()}"/>
+										</div>
+										<div class="form-group">
+											<label for="com_owner">會員註冊日期</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_regdate"
+												id="com_owner"
+												value="${memberVO.getMemRegdate()}"/>
+										</div>
+										<div class="form-group">
+											<label for="owner_phone">性別</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_sex"
+												id="owner_phone"
+												value="${memberVO.getSex()}"/>
+										</div>
+	
+										<div class="form-group">
+											<label for="com_bankaccount">紅利點數</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_point"
+												id="com_bankaccount"
+												value="${memberVO.getPoint()}"/>
+										</div>
+										
+										<div class="form-group">
+											<label for="com_bankaccount">會員照片</label>
+											<input type="text" readonly="readonly" class="form-control" name="mem_photo"
+												id="com_bankaccount"
+												value="${memberVO.getMemPhoto()}"/>
+										</div>
+	
+									</div>
+									<!--/.col (left) -->
+								</div>
+								<!-- /.row -->
+							</div>
 						</form>
-					</li> --%>
-						<%-- 					<jsp:useBean id="adminSvc" scope="page" --%>
-						<%-- 						class="com.admin.model.AdministratorService" /> --%>
-
-
-
-						<%-- 					<jsp:useBean id="funcSvc" scope="page" --%>
-						<%-- 						class="com.function.model.FunctionService" /> --%>
-<jsp:useBean id="product_styleSvc" scope="page" 
-class="com.tibame.tga104.g2.oladesign.prodeuct_style.model.Product_styleService" />
-						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/product_style/product_style.do">
-								<b>選擇地區類別編號:</b> <select size="1" name="styleCode">
-									 <c:forEach var="product_styleVO" items="${product_styleSvc.all}" > 
-										 <option value="${product_styleVO.styleCode}">${product_styleVO.styleCode}
-									</c:forEach>
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
-<!-- 								<input type="hidden" name="action" value="getOne_For_Display"> -->
-<!-- 								<input type="submit" value="送出"> -->
-							</FORM>
-						</li>
-
-						<li>
-							<FORM METHOD="post" 
-							ACTION="<%=request.getContextPath()%>/product_style/product_style.do">
-								<b>選擇地區類別名稱:</b> <select size="1" name="styleCode">
-         <c:forEach var="product_styleVO" items="${product_styleSvc.all}" > 
-          <option value="${product_styleVO.styleCode}">${product_styleVO.styleName}
-         </c:forEach> 
-								</select> 
-								<button type="submit" name="action" value="getOne_For_Display" class="btn back-end-btn">送出</button>
-							</FORM>
-						</li>
-
-
-					</ul>
-					<div>
-						<%-- 					<%if (request.getAttribute("adminVO") != null) {%> --%>
-						<%-- 					<jsp:include page="/back-end/admin/listOneAdmin.jsp" /> --%>
-						<%-- 					<% --%>
-						<%-- 					} else if (request.getAttribute("listAdminsByFuncid") != null) {
-<%-- 					%> --%>
-						<%-- 					<jsp:include page="/back-end/function/listAdminsByFuncid.jsp" /> --%>
-						<%-- 					<% --%>
-						<%-- 						}
-<%-- 					%> --%>
 					</div>
 				</div>
-
-			</div>
-			<footer class="bg-white sticky-footer">
-				<div class="container my-auto">
-					<div class="text-center my-auto copyright">
-						<span>oladesign</span>
-					</div>
-				</div>
-			</footer>
+			</section>
+			<!-- /.content -->
 		</div>
-<!-- 		<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
-<!-- 			class="fas fa-angle-up"></i></a> -->
-	</div>
-	<script
-		src="<%=request.getContextPath()%>/back-end/js/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back-end/js/bootstrap.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+		<!-- /.content-wrapper -->
+		<!-- 内容区域 /-->
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>oladesign</span></div>
+            </div>
+        </footer>
+<!--     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div> -->
+	<script src="<%=request.getContextPath()%>/back-end/js/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
 </body>
 

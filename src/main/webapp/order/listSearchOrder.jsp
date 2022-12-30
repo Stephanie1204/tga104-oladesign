@@ -1,18 +1,38 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.admin.model.*"%>
-<%@ page import="com.tibame.tga104.g2.oladesign.intermail.model.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.order.model.*"%>
+
+
 <%
-IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
+Integer orderStatus= null;
+Integer shippingStatus = null;
+OrderService orderSvc = new OrderService();
+String orderId = request.getParameter("orderId");
+String comTaxId = request.getParameter("comTaxId");
+String memId = request.getParameter("memId");
+String receiver = request.getParameter("receiver");
+if(request.getParameter("orderStatus")!=null && request.getParameter("orderStatus") != "") {
+	 orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
+}	
+//Integer orderStatus = Integer.valueOf(req.getParameter("orderStatus"));
+if(request.getParameter("shippingStatus")!=null && request.getParameter("shippingStatus") != "") {
+	shippingStatus = Integer.valueOf(request.getParameter("shippingStatus"));
+}
+// String orderStatus = request.getParameter("orderStatus");
+// String shippingStatus = request.getParameter("shippingStatus");
+// Integer orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
+// Integer shippingStatus = Integer.valueOf(request.getParameter("shippingStatus"));
+List<OrderBean> list = orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+pageContext.setAttribute("list", list);
 %>
-<%
-Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail_qnVO");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>會員問題信件</title>
+<title>訂單管理</title>
 
 
 <meta name="viewport"
@@ -23,38 +43,16 @@ Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/back-end/css/fontawesome-all.min.css">
-
-<!-- BootStrap 5.0.2 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-	crossorigin="anonymous"></script>
-<!-- jQuery 1.12.4 -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"
-	integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-	crossorigin="anonymous"></script>
-
+<title>管理員資料</title>
 <style>
-#addAdmin {
-	width: 40%;
-	margin: auto auto;
+.back-end-btn {
+	color: #7f70f5;
+	border-color: #7f70f5
 }
 
-.title {
-	text-align: center;
-}
-
-.hint {
-	color: red;
-}
-
-#addAdmin .adminLabel {
-	width: 200px;
+.back-end-btn:hover {
+	background-color: #7f70f5;
+	color: #ffffff !important;
 }
 
 .back-end-li:hover>.back-end-li-child {
@@ -65,35 +63,9 @@ Intermail_qnVO intermail_qnVO = (Intermail_qnVO) request.getAttribute("intermail
 	list-style-type: none;
 }
 
-.back-end-btn {
-	color: #7f70f5;
-	border-color: #7f70f5;
-}
-
-.back-end-btn:hover {
-	background-color: #7f70f5;
-	color: #ffffff !important;
-}
-
-textarea {
-	display: block;
-	width: 100%;
-	padding: 0.375rem 0.75rem;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #212529;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	border-radius: 0.25rem;
-	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
 </style>
 </head>
+<body>
 <body id="page-top">
 	<div id="wrapper">
 		<nav
@@ -159,7 +131,9 @@ textarea {
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -168,100 +142,100 @@ textarea {
 		</nav>
 
 
-		<div id="addAdmin">
-			<%-- 錯誤表列 --%>
-			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
-			
-			
-			<form METHOD="post" ACTION="intermail.do" class="addAdmin"
-				name="addAdmin">
-				<div class="col title">
-<!-- 					<h4>新增站內信問題類別</h4> -->
-				</div>
-				<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label>
-					<div class="col-sm-10">
-						<td><input type="text" class="form-control"
-							name="interMailId" id="interMailId"  readonly maxlength="4" size="4"
-							value="${intermailVO.interMailId}" /></td>
-					</div>
-				</div>
 
-				<div class="mb-3 row">
-					<label for="adminName" class="col-sm-2 col-form-label adminLabel">會員編號:</label>
-					<div class="col-sm-10">
-						<td><input type="text" class="form-control" name="memId"
-							id="memId" readonly  maxlength="6" size="6" value="${intermailVO.memId}" /></td>
-					</div>
+		<div style="padding: 20px 15px;">
+			<div style="display: flex;">
+				<h2>訂單管理</h2>
+				<div style="display: flex; position: absolute; right: 15px;">
 				</div>
+			</div>
 
-				<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">管理員編號:</label>
-					<div class="col-sm-10">
-						<td><input type="text" class="form-control" name="adminId"
-							id="adminId" readonly maxlength="4" size="4" value="${intermailVO.adminId}" /></td>
-					</div>
+			<div class="box-tools pull-right">
+				<div class="has-feedback">
+					<form method="post"
+						ACTION="<%=request.getContextPath()%>/order/order.do">
+						<input type="text" name="orderId" placeholder="訂單編號"> 
+						<input type="text" name="comTaxId" placeholder="公司統編"> 
+						<input type="text" name="memId" placeholder="會員編號"> 
+						<input type="text" name="receiver" placeholder="收件人名稱"> 
+						<input type="text" name="orderStatus" placeholder="訂單狀態"> 
+						<input type="text" name="shippingStatus" placeholder="物流狀態">
+						<input type="date" name="startTime" value="2022-01-01">
+						<input type="date" name="overTime" value="2022-12-31">						 
+<!-- 						<input type="date" name="orderTime" value="2022-01-01"> -->
+						<input type="submit" value="查詢" class="btn btn-default">  
+						<input type="hidden" name="action" value="Select">
+
+					</form>
 				</div>
+			</div>
 
-					<div class="mb-3 row">
-<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label> 
-					<div class="col-sm-10">
+			<div>
+				<table class="table table-striped table-sm table-hover">
+					<tr>
+						<th nowrap="nowrap">訂單編號</th>
+						<th nowrap="nowrap">公司統編</th>
+						<th nowrap="nowrap">會員編號</th>
+						<th nowrap="nowrap">訂單日期</th>
+						<th nowrap="nowrap">訂單狀態</th>
+						<th nowrap="nowrap">物流狀態</th>
+						<th nowrap="nowrap">收件人名稱</th>
+						<th nowrap="nowrap">結帳金額</th>
+						<th nowrap="nowrap"></th>
+						<th nowrap="nowrap">查看</th>
+					</tr>
+
+					<%@ include file="page1.file"%>
+					<c:forEach var="orderBean" items="${list}" begin="<%=pageIndex%>"
+						end="<%=pageIndex+rowsPerPage-1%>"> 
+
+						<%-- 					 					<c:forEach var="OrderBean" items="${list}"> --%>
+						<tr>
+							<td>${orderBean.orderId}</td>
+							<td>${orderBean.comTaxId}</td>
+							<td>${orderBean.memId}</td>
+							<td>${orderBean.orderTime}</td>
+							<td>${orderBean.orderStatus}</td>
+							<td>${orderBean.shippingStatus}</td>
+							<td>${orderBean.receiver}</td>
+							<td>${orderBean.amount}</td>
+							<%-- 							<td><fmt:formatDate value="${intermailVO.sentTime}" --%>
+							<%-- 									pattern="yyyy-MM-dd HH:mm:ss" /></td> --%>
 							<td>
-						<td><input type="text" class="form-control" name="numQue" 
-							id="numQue" readonly maxlength="4" size="4"						
-							value="${intermailVO.type}"/>							
-						</td>
-							
-							
-							
-							
-							
-							
-							
-					</div>
-				</div>
-
-<!-- 					<div class="mb-3 row"> -->
-<!-- 						<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容</label> -->
-<!-- 						<div class="col-sm-10"> -->
-<!-- 						<td><textarea  class="form-control" name="conTent" id="conTent" maxlength="1000" -->
-<%-- 							value="${intermailVO.conTent}"></textarea></td> --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
-
-					<div class="mb-3 row">
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容:</label>
-					<div class="col-sm-10">
-							<textarea  class="form-control" name="conTent" 
-							id="conTent" readonly  maxlength="1000">${intermailVO.conTent}</textarea>
-					</div>
-					</div>
-
-
-<!-- 				<input type="hidden" id="adminStatus" name="adminStatus" value="1"> -->
-<!-- <!-- 				<br> -->
-<!-- 				<button class="btn back-end-btn" type="submit" id="adminStatus" -->
-<!-- 					name="action" value="REPLY">回覆</button> -->
-			</form>
+							<td>
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/order/order.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="查看">
+									<input type="hidden" name="orderId"
+										value="${orderBean.orderId}"> <input
+										type="hidden" name="action" value="CheckOne">
+								</FORM>
+								</td>																		
+					</c:forEach>
+				</table>
+				<%@ include file="page2.file"%>
+			</div>
 		</div>
+
 	</div>
+	<footer class="bg-white sticky-footer">
+		<div class="container my-auto">
+			<div class="text-center my-auto copyright">
+				<span>oladesign</span>
+			</div>
+		</div>
 	</footer>
 	</div>
 <!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
 <!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/back-end/css/bootstrap.min.js"></script>
-	<script src="<%=request.getContextPath()%>/back-end/js/theme.js"></script>
+		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/back-end/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/assets/js/theme.js"></script>
 </body>
-
-
 </html>
