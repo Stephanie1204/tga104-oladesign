@@ -58,6 +58,7 @@
 	</section>
 	<!-- Blog Details Hero End -->
 	<!-- Blog Details Section Begin -->
+	<div></div>
 	<section class="blog-details spad">
 		<div class="container">
 			<div class="row">
@@ -81,6 +82,22 @@
 				</div>
 			</div>
 		</div>
+		      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title related-blog-title">
+              <h2>商品總覽</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="companyList">
+              <div class="container">
+                <div class="row" id="productList">
+              </div> 
+          </div>
+        </div>
+      </div>
+
 	</section>
 	<!-- Blog Details Section End -->
 	<%@ include file="../include/footer.jsp"%>
@@ -115,6 +132,33 @@
 								"url('" + dataJson.StoreBannerString + "')");
 					},
 				});
+		  
+		$.ajax({
+			type : "POST",
+			url : "http://localhost:8080/oladesign/shophome/shopinfo.do?action=doGetProducts&comTaxId="
+					+ comTaxId,
+			success : function(data, status, xhr) {
+				var dataJson = JSON.parse(data);
+				total_len = dataJson.length;
+				for(i = 0 ; i< total_len; i++){
+					$("#productList").append(
+	                        "<div class='col-lg-4 col-md-6 col-sm-6'>" +
+	                        "<div class='product__item'>"+
+	                        "<a href='http://localhost:8080/oladesign/homePage/productPage.jsp?productId=" + dataJson[i].productId + "'>"+
+	                        "<div class='product__item__pic set-bg'>"+
+	                        "<img id = 'productImage' src='" + dataJson[i].productImage +  "' />"+
+	                        "</div>"+
+	                        "<div class='product__item__text'>"+
+	                        "<h6 id='productName'>" + dataJson[i].productName + "</h6>"+
+	                        "      </div>" + 
+	                        "</a>" +
+	                        "<h5 id='productprice' class='productpriceis'>" + dataJson[i].productPrice + "</h5>"+
+	                        "      </div>" + 
+	                        "      </div>" 	
+	             )
+				}
+			},
+		});
 
 		$.ajax({
 			url : "http://localhost:8080/oladesign/promo/:coupon",
@@ -153,7 +197,7 @@
 			swal({
 				title : "折扣碼複製成功",
 				type : "success",
-			}); //此行可加可不加
+			});
 		}
 
 		function doGetMemIdByComTaxId(comTaxId) {

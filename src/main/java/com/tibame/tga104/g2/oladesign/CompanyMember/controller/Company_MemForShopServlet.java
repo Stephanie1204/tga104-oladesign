@@ -3,30 +3,21 @@ package com.tibame.tga104.g2.oladesign.CompanyMember.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tibame.tga104.g2.oladesign.Advertisement.service.AdvertisementService;
-import com.tibame.tga104.g2.oladesign.Advertisement.vo.AdvertisementByCheckVO;
-import com.tibame.tga104.g2.oladesign.Advertisement.vo.AdvertisementVO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemByCheckVO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
-import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
-import com.tibame.tga104.g2.oladesign.member.service.MemberIsComService;
-import com.tibame.tga104.g2.oladesign.member.service.MemberService;
+import com.tibame.tga104.g2.oladesign.productbyshop.ProductByShopService;
+import com.tibame.tga104.g2.oladesign.productbyshop.ProductByShopVO;
 
 @WebServlet("/shophome/shopinfo.do")
 @MultipartConfig
@@ -86,5 +77,19 @@ public class Company_MemForShopServlet extends HttpServlet {
 			pw.flush();
 		}
 		
+		if ("doGetProducts".equals(action)) {
+			String comTaxId = req.getParameter("comTaxId");
+			ProductByShopService productbyshopSvc = new ProductByShopService();
+			List<ProductByShopVO> productbyshopVO = productbyshopSvc.getProductByComTaxId(comTaxId);
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+			String jsonString = gson.toJson(productbyshopVO);
+
+			PrintWriter pw = res.getWriter();
+			pw.write(jsonString);
+
+			pw.flush();
+		}
+	
 	}
 }

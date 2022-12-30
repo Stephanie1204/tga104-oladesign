@@ -669,8 +669,9 @@ public class OrderDAOJdbc implements OrderDAO {
 	}
 	@Override
 //	public List<OrderBean>getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus) {
-	public List<OrderBean>getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus) {
+//	public List<OrderBean>getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus) {
 //	List<OrderBean> list = new ArrayList<OrderBean>();
+	public List<OrderBean>getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus,String startTime,String overTime) {
 
 
 	Connection conn = null;
@@ -721,6 +722,18 @@ public class OrderDAOJdbc implements OrderDAO {
 //		orderStatus1 = Integer.parseInt(shippingStatus);
 		sb.append("and SHIPPING_STATUS = ? ");
 		l.add(shippingStatus);
+	}
+	
+	if(startTime != null ) {
+//		orderStatus1 = Integer.parseInt(shippingStatus);
+		sb.append("and ORDER_TIME >= ? ");
+		l.add(startTime);
+	}
+	
+	if(overTime != null ) {
+//		orderStatus1 = Integer.parseInt(shippingStatus);
+		sb.append("and ORDER_TIME <= ? ");
+		l.add(overTime);
 	}
 		
 		

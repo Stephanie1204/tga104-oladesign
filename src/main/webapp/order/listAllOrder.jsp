@@ -139,8 +139,24 @@ pageContext.setAttribute("list", list);
 						<input type="text" name="comTaxId" placeholder="公司統編"> 
 						<input type="text" name="memId" placeholder="會員編號"> 
 						<input type="text" name="receiver" placeholder="收件人名稱"> 
-						<input type="text" name="orderStatus" placeholder="訂單狀態"> 
-						<input type="text" name="shippingStatus" placeholder="物流狀態">
+						<p>
+<!-- 						<input type="text" name="orderStatus" placeholder="訂單狀態">  -->
+						<select name="orderStatus">
+    							<option value ="">請選擇訂單狀態</option>
+    							    <option value="1">待確認</option>
+    								<option value="2">已成立</option>
+   									<option value="3">已取消</option>
+    					</select>
+<!-- 						<input type="text" name="shippingStatus" placeholder="物流狀態"> -->
+						<select name="shippingStatus">
+    							<option value ="">請選擇物流狀態</option>
+    							    <option value="1">待確認</option>
+    								<option value="2">待出貨</option>
+    								<option value="3">已取消</option>
+    								<option value="4">已出貨</option>
+    								<option value="5">運送中</option>
+    								<option value="6">已送達</option>									
+    					</select>
 <!-- 						<input type="date" name="orderTime" value="2022-01-01">						  -->
 						<input type="date" name="startTime" value="2022-01-01">
 						<input type="date" name="overTime" value="2022-12-31">

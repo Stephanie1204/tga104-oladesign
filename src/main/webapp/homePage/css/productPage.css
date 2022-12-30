@@ -1,16 +1,24 @@
-li > a.shop-connect{
+li>a.shop-connect {
 	color: blue;
 }
 
 div.star_block {
-  display: inline-block;
-  position: relative;
+	display: inline-block;
+	position: relative;
 }
-div.star_block > span.star {
-  cursor: pointer;
-  display: inline-block;
-  margin-right: 3px;
+
+div.star_block>span.star {
+	cursor: pointer;
+	display: inline-block;
+	margin-right: 3px;
 }
-div.star_block > span.star.-on {
-  color: yellow;
+
+div.star_block>span.star.-on {
+	color: yellow;
+}
+
+div.star_block {
+	border-bottom: solid 1px grey;
+	width: 100%;
+	margin-top: 5px;
 }

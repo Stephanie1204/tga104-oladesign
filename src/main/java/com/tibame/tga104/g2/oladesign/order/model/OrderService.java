@@ -1,5 +1,6 @@
 package com.tibame.tga104.g2.oladesign.order.model;
 
+import java.util.Date;
 import java.util.List;
 
 import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
@@ -171,8 +172,9 @@ public class OrderService {
 //	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,String orderStatus,String shippingStatus) {
 //		return orderDao.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
 //	} 
-	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus) {
-		return orderDao.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+//	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus) {
+	public List<OrderBean> getSearch(String orderId,String comTaxId,String memId, String receiver ,Integer orderStatus,Integer shippingStatus,String startTime,String overTime) {
+		return orderDao.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus,startTime,overTime);
 	} 
 	
 //	public List<OrderBean> getSearch(String orderId,String comTaxId) {
