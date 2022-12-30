@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />    
 <link rel="stylesheet" href="../css/footer.css" type="text/css" />    
 <!-- Footer Section Begin -->
 	<footer class="footer spad">
@@ -12,7 +13,7 @@
 							<a href="#"><img src="../img/OLA_Logo.svg" alt="logo" /></a>
 						</div>
 						<ul>
-							<li>Email: oladesign02@gmail.com</li>
+							<li><i class="fa-solid fa-envelope"></i> oladesign02@gmail.com</li>
 						</ul>
 					</div>
 				</div>
@@ -21,9 +22,6 @@
 						<ul>
 							<li><h6>探索</h6></li>
 							<li><a href="#">設計館</a></li>
-							<li><a href="#">About Our Shop</a></li>
-							<li><a href="#">Secure Shopping</a></li>
-							<li><a href="#">Delivery infomation</a></li>	
 						</ul>
 						<ul>
 							<li><h6>會員</h6></li>
@@ -34,7 +32,7 @@
 						</ul>
 						<ul>
 							<li><h6>關於OLA Design</h6></li>
-							<li><a href="#">關於我們</a></li>
+							<li><a href="<%=request.getContextPath()%>/homePage/about.jsp">關於我們</a></li>
 							<li><a href="<%=request.getContextPath()%>/member/privacyTerms.jsp" target="_blank">隱私權政策</a></li>
 						</ul>
 					</div>

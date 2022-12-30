@@ -63,6 +63,10 @@ textarea:focus {
 	outline: none;
 }
 
+a{
+	text-decoration: none !important;
+}
+
 a:hover,
 a:focus {
 	text-decoration: none;
@@ -403,8 +407,6 @@ button:disabled{
 	padding: 5px 0;
 	display: block;
 }
-
-
 
 
 

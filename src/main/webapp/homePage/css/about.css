@@ -1,0 +1,267 @@
+*{
+	box-sizing: border-box;
+}
+/* banner */
+section.breadcrumb-section{
+    height: 300px;
+    width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+}
+
+.set-bg {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+}
+
+div.breadcrumb__text{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-weight: bolder ;
+	z-index: 3;
+	position: relative;
+}
+
+div.breadcrumb__text h2{
+	display: inline-block;
+	width: 100%;
+	font-size: 1.5rem ;
+	color: #33658a ;
+}
+
+div.breadcrumb__option{
+	width: 100%;
+}
+
+div.breadcrumb__option span{
+	color: #33658a ;
+}
+
+div.filter{
+	position: absolute;
+	background-color: #F3F1F2;
+	opacity: 0.7;
+	width: 500px;
+	height: 110px;
+	left: 28%;
+	z-index: 2;
+}
+
+/* side nav bar */
+aside.about{
+	width: 250px;
+	position: fixed;
+	top: 250px;
+	left: 0;
+	z-index: 5;
+	display: none;
+}
+
+ul.about{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+ul.about a{
+	text-decoration: none;
+}
+
+ul.about li{
+	list-style: none;
+	margin: 10px 20px;
+	font-weight: bolder;
+	font-size: 20px;
+	color: #4F4E4D;
+}
+
+ul.about span{
+	border-bottom: 4px solid transparent;
+}
+
+ul.about span:hover{
+	border-bottom: 4px solid #E4CD8D;
+	transition: all 0.3s ease-in-out;
+}
+
+/* main */
+section.content{
+	margin: 20px 0 20px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+section.content > div{
+	margin-left: 150px;
+	width: 70%;
+}
+
+section.content div h1{
+	font-weight: bolder;
+	margin: 2rem 0;
+	color: #92AFBF;
+}
+
+section.content div p{
+	text-align: justify;
+	color: #4F4E4D;
+	font-weight: 600;
+}
+
+div.ola{
+	display: flex;
+	align-items: center;
+}
+
+div.ola p{
+	width: 100%;
+}
+
+img.ola{
+	width: 30%;
+	margin-right: 1rem;
+}
+
+/* card */
+.card-list {
+    display: flex;
+    padding: 3rem 0 3rem 0;
+	width: 90%;
+	justify-content: center;
+    /* overflow-x: scroll; */
+}
+
+.a_card{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 350px;
+    width: 250px;
+    padding-bottom: 1rem;
+	border-radius: 18px;
+    background-color: #f8f9fa;
+    box-shadow: -1rem 0 3rem #000;
+	border-radius: 10px;
+    transition: .2s;
+}
+
+.card-deck:hover {
+	transition: 0.5s ease;
+    transform: translateY(-2rem);
+}
+
+/* 下一個同階層的所有匹配到的card向右移動 */
+.card-deck:hover~.card-deck { 
+	transition: 0.5s ease;
+    transform: translateX(130px);
+}
+
+/* 不是第一張卡要向左移動遮住前一張卡 */
+.card-deck:not(:first-child) {
+	transition: 0.5s ease;
+    margin-left: -100px;
+}
+
+/* card head */
+div.card-head1{
+	background-image: url("../img/about/pexels-sevenstorm-juhaszimrus-891030.jpg");
+  	background-size: cover;
+  	background-position: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+div.card-head2{
+	background-image: url("../img/about/jesse_banner.jpg");
+  	background-size: cover;
+  	background-position: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+div.card-head2 span.author-name-prefix{
+	background-color: #E86F62;
+}
+
+div.card-head3{
+	background-image: url("../img/about/france_banner.jpeg");
+  	background-size: cover;
+  	background-position: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+div.card-head3 span.author-name-prefix{
+	background-color: #5e76bf;
+}
+
+div.card-head4{
+	background-image: url("../img/about/pexels-nikita-khandelwal-788855.jpg");
+  	background-size: cover;
+  	background-position: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+div.card-head4 span.author-name-prefix{
+	background-color: #fdb833;
+}
+
+div.card-head5{
+	background-image: url("../img/about/pexels-madison-inouye-1405773.jpg");
+  	background-size: cover;
+  	background-position: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+div.card-head5 span.author-name-prefix{
+	background-color: #52b788;
+}
+
+
+.card-author {
+    position: relative;
+	top: 30%;
+    margin: 3rem 0 0;
+}
+
+a.author-avatar{
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+}
+
+.author-avatar img {
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin: 16px 10px;
+	object-fit: cover; /*圖片不變形*/
+}
+
+span.author-name-prefix{
+	background-color: #47bcd4;
+	border-radius: 50px;
+	color: white;
+	font-weight: bolder;
+	font-size: 18px;
+}
+
+/* card body */
+div.card-body{
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

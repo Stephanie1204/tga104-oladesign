@@ -15,8 +15,27 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(
 		filterName = "LoginFilter",
-		urlPatterns = {"/CompanyBackEnd/regisToCom.jsp",
-					  "/CompanyBackEnd/company_member.do"}
+		urlPatterns = {
+				"/CompanyBackEnd/regisToCom.jsp",
+				"/CompanyBackEnd/addadvertisement.jsp",
+				"/CompanyBackEnd/recordadvertisement.jsp",
+				"/CompanyBackEnd/setcompany_member.jsp",
+				"/CompanyBackEnd/listonecompany_forshop.jsp",
+				"/memberCenter/pages/accountBasicInfo.html",
+				"/memberCenter/pages/accountResetPassword.html",
+				"/memberCenter/pages/interMail.html",
+				"/memberCenter/pages/interMailAdd.html",
+				"/memberCenter/pages/interMailDetail.html",
+				"/memberCenter/pages/orderDetail.html",
+				"/memberCenter/pages/orderList.html",
+				"/memberCenter/pages/orderProductReview.html",
+				"/memberCenter/pages/pointManagement.html",
+				"/promotion/promotion_front/addPromo.html",
+				"/promotion/promotion_front/editPromo.html",
+				"/promotion/promotion_front/promoHome.html",
+				"/promotion/promotion_front/promoList_add.html"
+				
+		}
 		)
 public class LoginFilter extends HttpFilter implements Filter {
   
