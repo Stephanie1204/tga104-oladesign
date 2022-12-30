@@ -2,9 +2,9 @@ package com.tibame.tga104.g2.oladesign.Advertisement.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,7 +36,7 @@ public class AdvertisementServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		// 確定新增之前需確定段該日期區間是否會有重複3組
 		if ("insert".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String, String> errorMsgs = new HashMap<String, String>(); 
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			String reservation = req.getParameter("reservation");
@@ -48,9 +48,9 @@ public class AdvertisementServlet extends HttpServlet {
 			String com_taxid = req.getParameter("com_taxid");
 			String com_taxidReg = "^[0-9]{8}$";
 			if (com_taxid == null || com_taxid.trim().length() == 0) {
-				errorMsgs.add("公司統編請勿空白");
+				errorMsgs.put("com_taxid","公司統編請勿空白");
 			} else if (!com_taxid.trim().matches(com_taxidReg)) {
-				errorMsgs.add("公司統編：需為數字,且長度為8碼");
+				errorMsgs.put("com_taxid","公司統編：需為數字,且長度為8碼");
 			}
 			AdvertisementVO advertisementVO = new AdvertisementVO();
 			advertisementVO.setComTaxId(req.getParameter("com_taxid"));
@@ -65,7 +65,7 @@ public class AdvertisementServlet extends HttpServlet {
 			if (advertisementSvc.getIsInsertAble(advertisementVO)) {
 				adId = advertisementSvc.addAdvertisement(advertisementVO);
 			} else {
-				errorMsgs.add("廣告時段已額滿，請重新選擇日期");
+				errorMsgs.put("adId","廣告時段已額滿，請重新選擇日期");
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("IsInsertAble", "不可");
 					RequestDispatcher failureView = req.getRequestDispatcher("/CompanyBackEnd/addadvertisement.jsp");

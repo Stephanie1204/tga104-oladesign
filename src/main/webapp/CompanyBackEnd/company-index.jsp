@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.tibame.tga104.g2.oladesign.CompanyMember.vo.*"%>
+<%
+Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+if (companyMem != null) {
+	pageContext.setAttribute("comTaxId", companyMem.getComTaxId());
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 页面meta -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>OLA Design 賣家中心</title>
+<title>OLA Design 賣家中心首頁</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
@@ -41,87 +47,14 @@
 	<div class="wrapper">
 		<!-- Ola Design Menu -->
 		<%@ include file="company-menu.jsp"%>
-		<!-- 内容区域 -->
 		<div class="content-wrapper">
-			<!-- 正文区域 -->
 			<section class="content">
-				<!-- 统计数值 -->
-				<div class="row">
 					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-aqua">
-							<div class="inner">
-								<h3>150</h3>
-								<p>新訂單</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-bag"></i>
-							</div>
-							<a href="這裡導去訂單page" class="small-box-footer">詳細 <i
-								class="fa fa-arrow-circle-right"></i>
-							</a>
-						</div>
-					</div>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-green">
-							<div class="inner">
-								<h3>
-									53<sup style="font-size: 20px">%</sup>
-								</h3>
-
-								<p>銷量明細</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-stats-bars"></i>
-							</div>
-							<a href="all-ad-statistics-list.html" class="small-box-footer">詳細
-								<i class="fa fa-arrow-circle-right"></i>
-							</a>
-						</div>
-					</div>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-yellow">
-							<div class="inner">
-								<h3>44</h3>
-
-								<p>不知道要放甚麼!!!</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-person-add"></i>
-							</div>
-							<a href="#all-member-manage-list.html" class="small-box-footer">詳細
-								<i class="fa fa-arrow-circle-right"></i>
-							</a>
-						</div>
-					</div>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-red">
-							<div class="inner">
-								<h3>65</h3>
-
-								<p>促銷明細</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-pie-graph"></i>
-							</div>
-							<a href="#all-ad-statistics-list.html" class="small-box-footer">詳細
-								<i class="fa fa-arrow-circle-right"></i>
-							</a>
-						</div>
-					</div>
-					<!-- ./col -->
+					<div class="designimage"></div>
+					<h1 id="comname"></h1>
 				</div>
-				<!-- /.row -->
 			</section>
-			<!-- 正文区域 /-->
 		</div>
-		<!-- 内容区域 /-->
 		<%@ include file="footer.jsp"%>
 	</div>
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -168,4 +101,15 @@
 	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
 </body>
+<script>
+$.ajax({
+    type: "POST",
+    url:
+      "http://localhost:8080/oladesign/CompanyBackEnd/company_member.do?action=doGetComName&comTaxId=${comMemVO.comTaxId}",
+    success: function (data, status, xhr) {
+      var dataJson = JSON.parse(data);
+      $("#comname").text(dataJson.comName + "   你好,歡迎來到賣家後台!");
+    },
+  });
+</script>
 </html>

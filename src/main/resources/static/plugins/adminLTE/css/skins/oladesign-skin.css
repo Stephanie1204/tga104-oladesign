@@ -226,6 +226,16 @@
 	color: #FF0000
 }
 .btn.btn-primary.logoutbutton{
-	position: relative;
-    top: 8px;
+    margin: inherit;
+}
+.formcss{
+    padding-top: 8px;
+    padding-bottom: 15px;
+}
+
+.btn.btn-primary.searchreport{
+	margin: inherit
+}
+.col-lg-3 {
+    width: 100%;
 }

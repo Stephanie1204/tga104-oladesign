@@ -1,12 +1,12 @@
 .coupon {
 	width: 300px;
 	height: 100px;
-	background-color: #92AFBF;
+	background-color: #E4CD8D;
 	display: flex;
 	float: right;
 	margin-top: 150px;
 	cursor: pointer;
-	color: #FFFFFF;
+	color: #4F4E4D;
 }
 
 .leftcoupon {

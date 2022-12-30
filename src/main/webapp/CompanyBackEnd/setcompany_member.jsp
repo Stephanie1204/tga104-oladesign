@@ -11,7 +11,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- 頁面Meta -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>OLA Design 賣家中心</title>
+    <title>OLA Design 賣家中心 | 賣家基本資料</title>
     <meta name="description" content="AdminLTE2定制版" />
     <meta name="keywords" content="AdminLTE2定制版" />
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"name="viewport"/>
