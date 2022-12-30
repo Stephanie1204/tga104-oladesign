@@ -128,7 +128,7 @@ if (companyMem != null) {
 												<input type="hidden" name="productId"
 													value="${row.productId}">
 												<tr>
-													<td style="width: 4%"><img src="${row.productId}"></td>
+													<td style="width: 4%">${row.productId}</td>
 													<td style="width: 32%"><img
 														src="${row.productImgBase64}"></td>
 
