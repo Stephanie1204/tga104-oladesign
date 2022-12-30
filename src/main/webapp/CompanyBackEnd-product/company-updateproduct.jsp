@@ -249,9 +249,9 @@ System.out.println("test");
 								<hr />
 								<input type="hidden" name="comTaxId" value="${comTaxId }">
 								<input type="submit" name="prodaction" value="Update"
-									class="btn bg-maroon"><input type="submit"
+									class="btn bg-maroon updatebutton"><input type="submit"
 									name="prodaction" value="Delete" class="btn bg-maroon">
-								<input type="button" value="Clear" onclick="clearForm()">
+								<input type="button" value="Clear" class="btn bg-maroon" onclick="clearForm()">
 								<hr />
 							</div>
 							<!--工具栏/-->
