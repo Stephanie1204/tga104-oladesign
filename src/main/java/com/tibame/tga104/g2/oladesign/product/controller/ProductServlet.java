@@ -213,19 +213,22 @@ public class ProductServlet extends HttpServlet {
 		} else if (prodaction != null && prodaction.equals("Insert")) {
 			HttpSession session = request.getSession();
 			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
-			if (companyMem.getComTaxId().equals(comTaxId)) {
-				ProductBean result = productService.insert(bean);
-				if (result == null) {
-					errors.put("action", "Insert fail");
-				} else {
-					request.setAttribute("insert", result);
-				}
-			}
 
+			bean.setComTaxId(companyMem.getComTaxId());
+			ProductBean result = productService.insert(bean);
+			if (result == null) {
+				errors.put("action", "Insert fail");
+			} else {
+				request.setAttribute("insert", result);
+			}
 			request.getRequestDispatcher("/CompanyBackEnd-product/company-updateproduct.jsp").forward(request,
 					response);
 
 		} else if (prodaction != null && prodaction.equals("SelectById")) {
+			HttpSession session = request.getSession();
+			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
+			bean.setComTaxId(companyMem.getComTaxId());
 			List<ProductBean> result = productService.selectByComTaxId(bean.getComTaxId());
 			request.setAttribute("selectById", result);
 			// 傳遞result list到下面指定的jsp檔
@@ -235,6 +238,7 @@ public class ProductServlet extends HttpServlet {
 //要驗證商品屬於該統編			
 			HttpSession session = request.getSession();
 			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+
 			if (companyMem.getComTaxId().equals(comTaxId)) {
 				ProductBean result = productService.update(bean);
 				if (result == null) {
@@ -243,11 +247,13 @@ public class ProductServlet extends HttpServlet {
 					request.setAttribute("update", result);
 				}
 			}
+
 			request.getRequestDispatcher("/pages/productUpdate.jsp").forward(request, response);
 
 		} else if (prodaction != null && prodaction.equals("Delete")) {
 			HttpSession session = request.getSession();
 			Company_MemVO companyMem = (Company_MemVO) session.getAttribute("comMemVO");
+			bean.setComTaxId(companyMem.getComTaxId());
 			if (companyMem.getComTaxId().equals(comTaxId)) {
 				boolean result = productService.delete(bean);
 				if (!result) {

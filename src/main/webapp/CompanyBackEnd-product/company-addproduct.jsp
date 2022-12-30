@@ -142,12 +142,9 @@ if (companyMem != null) {
 							<div class="col-md-2 title">商品狀態</div>
 							<div class="col-md-4 data">
 								<select size="1" name="status">
-									<option value="true" ${param.status == true ? 'selected' : ''}>上架
-
-
-									
+									<option value="true" ${param.status == true ? 'selected' : ''}>上架</option>
 									<option value="false"
-										${param.status == false ? 'selected' : ''}>下架
+										${param.status == false ? 'selected' : ''}>下架</option>
 								</select>
 							</div>
 							<div class="col-md-2 title rowHeight2x">圖片上傳</div>
