@@ -1,6 +1,9 @@
-var memId = new URLSearchParams(location.search).get("memId");
-sessionStorage.setItem("memId",memId);
-console.log(sessionStorage.getItem("memId"));
+let memId = new URLSearchParams(location.search).get("memId");
+if (memId !== null) {
+  sessionStorage.setItem("memId", memId);
+  console.log(sessionStorage.getItem("memId"));
+}
+memId = sessionStorage.getItem("memId");
 
 let memName;
 let password;
@@ -13,13 +16,13 @@ let isCom;
 let memPhoto;
 
 $.ajax({
-  url: "http://localhost:8080/oladesign/member", 
-  type: "GET", 
-  data: {memId:memId}, 
+  url: "http://localhost:8080/oladesign/member",
+  type: "GET",
+  data: { memId: memId },
   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
   success: function (data) {
     console.log(data);
-    alert("success");
+    console.log("success");
 
     let list_html = `
         <div class="form-group">
@@ -56,10 +59,17 @@ $.ajax({
             }> 男
         </div>
         <div class="form-group">
+            <img src="data:image/jpeg;base64,${data.memPhotoBase64}">
             <label for="exampleInputFile">個人圖像上傳</label>
             <input type="file" id="exampleInputFile">
             <p class="help-block">Example block-level help text here.</p>
-        </div>`;
+        </div>
+        <div class="col-md-2 title rowHeight2x">圖片上傳</div>
+        <div class="col-md-10 data" style="height: 320px">
+          <input type="file" name="img_file" accept="image/*" class="upl">
+          <img class="preview" style="max-width: 150px; max-height: 150px;">
+        </div>
+        `;
 
     $("div.box-body").html(list_html);
 
@@ -71,7 +81,7 @@ $.ajax({
     point = data.point;
     isBan = data.isBan;
     isCom = data.isCom;
-    memPhoto = data.memPhoto;
+    memPhoto = data.memPhotoBase64;
     memId = data.memId;
   },
   error: function (xhr) {
@@ -80,7 +90,7 @@ $.ajax({
   },
 });
 
-$("button#btn_submit").on("click", function () {
+$("#btn_submit").on("click", function () {
   const formData = {
     memName: $("input#name").val().trim(),
     memPhone: $("input#phone").val().trim(),
