@@ -72,32 +72,21 @@ if (companyMem != null) {
 				<!-- .box-body -->
 				<div class="box box-primary">
 					<div class="box-header with-border"></div>
-					<div class="box-body">
-						<!-- 数据表格 -->
-						<div class="table-box">
-							<!--工具栏-->
+					<!--工具栏-->
 							<div class="pull-left">
 								<div class="form-group form-inline">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新增"
-											onclick='location.href="all-travellog-manage-edit.html"'>
+										<button type="button" class="btn btn-default addbutton" title="新增"
+											onclick='location.href="<%=request.getContextPath()%>/CompanyBackEnd-product/company-addproduct.jsp"'>
 											<i class="fa fa-file-o"></i>新增
-										</button>
-										<button type="button" class="btn btn-default" title="刪除"
-											onclick='confirm("你確定要刪除嗎？")'>
-											<i class="fa fa-trash-o"></i> 刪除
 										</button>
 									</div>
 								</div>
 							</div>
-							<div class="box-tools pull-right">
-								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜索" /> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
-								</div>
-							</div>
 							<!--工具栏/-->
+					<div class="box-body">
+						<!-- 数据表格 -->
+						<div class="table-box">
 							<jsp:useBean id="prodSvc" scope="page"
 								class="com.tibame.tga104.g2.oladesign.product.model.product.ProductService" />
 							<c:if test="${not empty prodSvc.selectByComTaxId(comTaxId)}">
@@ -106,7 +95,8 @@ if (companyMem != null) {
 									style="table-layout: fixed;">
 									<thead>
 										<tr>
-											<th style="width: 36%">商品圖片</th>
+											<th style="width: 4%">商品編號</th>
+											<th style="width: 32%">商品圖片</th>
 											<th style="width: 7%">商品類別</th>
 											<th style="width: 7%">商品風格</th>
 											<th style="width: 20%">商品名稱</th>
@@ -121,13 +111,14 @@ if (companyMem != null) {
 											items="${prodSvc.selectByComTaxId(comTaxId)}">
 											<form
 												action="<c:url value="/CompanyBackEnd-product/company-updateproduct.jsp">
-						<c:param name="productId" value="${row.productId}" />
-					</c:url>"
+													<c:param name="productId" value="${row.productId}" />
+												</c:url>"
 												method="post" enctype="multipart/form-data">
 												<input type="hidden" name="productId"
 													value="${row.productId}">
 												<tr>
-													<td style="width: 36%"><img
+													<td style="width: 4%">${row.productId}</td>
+													<td style="width: 32%"><img
 														src="${row.productImgBase64}"></td>
 
 													<td style="width: 7%">${row.typeName}<input
@@ -160,51 +151,11 @@ if (companyMem != null) {
 									</thead>
 								</table>
 							</c:if>
-							<!--数据列表-->
 
-							<!--数据列表/-->
-
-							<!--工具栏-->
-							<div class="pull-left">
-								<div class="form-group form-inline">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default" title="新增"
-											onclick='location.href="<%=request.getContextPath()%>/CompanyBackEnd-product/company-addproduct.jsp"'>
-											<i class="fa fa-file-o"></i>新增
-										</button>
-									</div>
-								</div>
-							</div>
-							<div class="box-tools pull-right">
-								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜索" /> <span
-										class="glyphicon glyphicon-search form-control-feedback"></span>
-								</div>
-							</div>
-							<!--工具栏/-->
 						</div>
 						<!-- 数据表格 /-->
 					</div>
 					<!-- /.box-body -->
-
-					<!-- .box-footer-->
-					<div class="box-footer">
-						<div class="box-tools pull-right">
-							<ul class="pagination">
-								<li><a href="#" aria-label="Previous">首頁</a></li>
-								<li><a href="#">上一页</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
-								<li><a href="#" aria-label="Next">尾頁</a></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /.box-footer-->
 				</div>
 			</section>
 			<!-- 正文区域 /-->
@@ -213,12 +164,9 @@ if (companyMem != null) {
 		<!-- Ola Design Footer -->
 		<%@ include file="../CompanyBackEnd/footer.jsp"%>
 	</div>
-
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
-	<script>
-		$.widget.bridge("uibutton", $.ui.button);
-	</script>
+	<script> $.widget.bridge("uibutton", $.ui.button);</script>
 	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/raphael/raphael-min.js"></script>
 	<script src="../plugins/morris/morris.min.js"></script>
@@ -230,10 +178,8 @@ if (companyMem != null) {
 	<script src="../plugins/daterangepicker/daterangepicker.js"></script>
 	<script src="../plugins/daterangepicker/daterangepicker.zh-CN.js"></script>
 	<script src="../plugins/datepicker/bootstrap-datepicker.js"></script>
-	<script
-		src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+	<script src="../plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 	<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script src="../plugins/fastclick/fastclick.js"></script>
 	<script src="../plugins/iCheck/icheck.min.js"></script>
@@ -241,11 +187,9 @@ if (companyMem != null) {
 	<script src="../plugins/treeTable/jquery.treetable.js"></script>
 	<script src="../plugins/select2/select2.full.min.js"></script>
 	<script src="../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-	<script
-		src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
+	<script src="../plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.zh-CN.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-	<script
-		src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+	<script src="../plugins/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/markdown.js"></script>
 	<script src="../plugins/bootstrap-markdown/js/to-markdown.js"></script>
 	<script src="../plugins/ckeditor/ckeditor.js"></script>
@@ -261,50 +205,7 @@ if (companyMem != null) {
 	<script src="../plugins/flot/jquery.flot.categories.min.js"></script>
 	<script src="../plugins/ionslider/ion.rangeSlider.min.js"></script>
 	<script src="../plugins/bootstrap-slider/bootstrap-slider.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
-	<script
-		src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script>
-		$(document).ready(function() {
-			// 选择框
-			$(".select2").select2();
-
-			// WYSIHTML5编辑器
-			$(".textarea").wysihtml5({
-				locale : "zh-CN",
-			});
-		});
-
-		// 设置激活菜单
-		function setSidebarActive(tagUri) {
-			var liObj = $("#" + tagUri);
-			if (liObj.length > 0) {
-				liObj.parent().parent().addClass("active");
-				liObj.addClass("active");
-			}
-		}
-
-		$(document).ready(function() {
-			// 激活导航位置
-			setSidebarActive("travellog-manage");
-
-			// 列表按钮
-			$("#dataList td input[type='checkbox']").iCheck({
-				checkboxClass : "icheckbox_square-blue",
-				increaseArea : "20%",
-			});
-			// 全选操作
-			$("#selall").click(function() {
-				var clicks = $(this).is(":checked");
-				if (!clicks) {
-					$("#dataList td input[type='checkbox']").iCheck("uncheck");
-				} else {
-					$("#dataList td input[type='checkbox']").iCheck("check");
-				}
-				$(this).data("clicks", !clicks);
-			});
-		});
-	</script>
+	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+	<script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 </body>
 </html>

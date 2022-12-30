@@ -15,6 +15,8 @@
 	crossorigin="anonymous"></script>
 
 <header class="header">
+<!-- 聊天室 -->
+<%@ include file="../chatroom/chat02.jsp"%>
 	<!-- <div class="container"> -->
 	<div class="row">
 		<div class="col-lg-3">
@@ -95,7 +97,7 @@
 		<div class="col-lg-8">
 			<nav class="header__menu">
 				<ul class="nav">
-					<li class="active"><a
+					<li><a
 						href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
 					<li><a href="#">全站商品分類</a>
 						<ul class="header__menu__dropdown">
@@ -114,7 +116,7 @@
 						</ul></li>
 					<li><a href="#">促銷商品</a></li>
 					<li><a href="../shophome/shoplist.jsp">設計館</a></li>
-					<li><a href="./contact.html">聯絡我們</a></li>
+					<li><a href="<%=request.getContextPath()%>/homePage/about.jsp">關於我們</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -132,36 +134,45 @@
 		console.log("user=" + user);
 		if (user.trim().length != 0) { //登入狀態
 			console.log("已登入");
-			$("li.logout *").addClass("none");
-			$("#fav").removeClass("down");
+			$("li.logout *").addClass("none"); //註冊登入按鈕不顯示
+			$("#fav").removeClass("down"); //顯示收藏數量
 		} else { //未登入
 			console.log("未登入");
 			$("li.login *").addClass("none");
 			$("span#fav").addClass("down");
 		}
-
+	
 		let isCom = "${isCom}";
 		console.log("isCom=" + isCom);
-		if (isCom == true) {
+		if (isCom == true) { //是賣家身分的話，按鈕顯示進入賣場
 			$("button.mystore").removeClass("none");
 			$("button.regist_com").addClass("none");
 		} else {
 			$("button.regist_com").removeClass("none");
 			$("button.mystore").addClass("none");
 		}
-
-		let registCom = "${memberVO.isRegCom}";
+		
+		//資料庫中會員註冊賣家後被審核通過前的標記
+		let registCom = "${memberVO.isRegCom}"; 
 		console.log("registCom=" + registCom);
-
-		if (registCom == "true") {
-			$(".regist_com").prop("disabled", true);
-			$("a.beCom").text("賣家註冊審核中");
-		} else if ($("input.waiting").hasClass("wait")) {
-			console.log("here");
-			$(".regist_com").prop("disabled", true);
-			$("a.beCom").text("賣家註冊審核中");
+		//重新登入前先抓localStorage
+		let getRegCom = localStorage.getItem("class");
+		console.log("getRegCom=" + getRegCom);
+		if(getRegCom == "wait"){
+			$("input.waiting").addClass("wait");
 		}
-
+		//如果審核中，就顯示審核中的按鈕
+		if(registCom == "true" || $("input.waiting").hasClass("wait")){
+			$(".regist_com").prop("disabled", true);
+			$("a.beCom").text("賣家註冊審核中");	
+		}
+		//登出時移除localStorage、按鈕恢復成為賣家
+		if(user.trim().length == 0){
+			localStorage.removeItem("class");
+			$("input.waiting").removeClass("wait")
+			$(".regist_com").prop("disabled", false);
+			$("a.beCom").text("成為賣家");	
+		}
 	});
 </script>
 

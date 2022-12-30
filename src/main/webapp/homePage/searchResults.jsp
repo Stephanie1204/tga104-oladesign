@@ -2,15 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%
-Object objname = session.getAttribute("memId");
-String userId = "";
-if (objname != null) {
-	userId = objname.toString();
-}
 
-pageContext.setAttribute("userId", userId);
-%>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -181,7 +173,6 @@ pageContext.setAttribute("userId", userId);
 										<form action="<c:url value="/pages/product.controller" />"
 											method="post">
 											<input type="hidden" name="prodaction" value="AddCartByPage">
-											<input type="hidden" name="memberId" value="${userId }">
 											<input type="hidden" name="comTaxId" value="${row.comTaxId }">
 											<input type="hidden" name="productId"
 												value="${row.productId }"> <input type="hidden"

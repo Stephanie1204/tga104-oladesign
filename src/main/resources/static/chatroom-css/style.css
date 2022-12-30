@@ -242,3 +242,25 @@ body, html {
 .chat .input input:placeholder {
 	color: #999;
 }
+
+.chat-nav {
+	z-index: 999;
+	position: fixed;
+	right: 45px;
+	bottom: 25px;
+	font-size: 25px;
+	padding: 25px;
+	background-color: #92AFBF;
+	color: white;
+	cursor: pointer;
+	border-radius: 20px;
+}
+.clicktotalk{
+	font-size: 10px;
+	padding: 15px;
+	background-color: #92AFBF;
+	color: white;
+	border-radius: 20px;
+	border-color: #fff;
+    font-size: 15px;
+}

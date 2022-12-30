@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.tibame.tga104.g2.oladesign.member.helper.EncryptUtils;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 import com.tibame.tga104.g2.oladesign.order.model.OrderItemBean;
 
@@ -29,41 +30,49 @@ public class MemberController {
 //	public MemberVO getVo(@SessionAttribute(name = MEMBER_KEY, required = true) MemberVO memberVO) {
 //		return memberVO;
 //	}
-	
+
 	@PutMapping("/member")
 	public MemberVO putVO(@RequestBody MemberVO vo) {
 		return service.updateMember(vo);
 	}
-	
+
 	@GetMapping("/member")
-	public MemberVO getVo(@RequestParam("memId")Integer memId) {
+	public MemberVO getVo(@RequestParam("memId") Integer memId) {
 		return service.getOneMember(memId);
 	}
-	
+
 	@PutMapping("/productReview")
 	public Boolean addReview(@RequestBody OrderItemBean bean) {
 		return service.addReview(bean);
-		
 	}
 
+	@PutMapping("/member/password")
+	public Boolean changePassword(
+			@RequestParam("originPwd") String originPwd, 
+			@RequestParam("newPwd1") String newPwd1,
+			@RequestParam("newPwd2") String newPwd2, 
+			HttpSession session
+	) {
+		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
 
-//	@PostMapping("/member/mock")
-//	public void fakeVo(HttpSession session) {
-//		MemberVO vo = new MemberVO(); // TODO
-//		vo.setMemId(220001);
-//		vo.setMemName("王承翰");
-//		vo.setAccount("andy54@gmail.com");
-//		vo.setPassword("password");
-//		vo.setMemPhone("0995266655");
-//		vo.setMemAddress("高雄市三民區鼎祥街115號");
-//		vo.setMemRegdate(new Date(2022-12-19));
-//		vo.setSex("M");
-//		vo.setPoint(50);
-//		vo.setBan(false);
-//		vo.setCom(true);
-//		vo.setActive(false);
-////		vo.setMemPhoto(byte[] memPhoto);
-//		session.setAttribute(MEMBER_KEY, vo);
+		// compare
+		String pwd = vo.getPassword();
+		String inputPWS = EncryptUtils.encrypt(originPwd);
+		if (!pwd.equals(inputPWS) || !newPwd1.equals(newPwd2)) {
+			return false;
+		}
+
+		// update
+		vo.setPassword(EncryptUtils.encrypt(newPwd1));
+		service.updateMember(vo);
+		session.removeAttribute("memberVO");
+		return true;
+	}
+
+//	public void changePassword (@RequestParam("memId")Integer memId,@RequestParam("password")String password) {
+//		
 //	}
+
+	
 
 }

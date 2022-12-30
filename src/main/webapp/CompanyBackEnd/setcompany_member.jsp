@@ -11,7 +11,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- 頁面Meta -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>OLA Design 賣家中心</title>
+    <title>OLA Design 賣家中心 | 賣家基本資料</title>
     <meta name="description" content="AdminLTE2定制版" />
     <meta name="keywords" content="AdminLTE2定制版" />
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"name="viewport"/>
@@ -87,8 +87,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <div class="form-group">
                       <label for="com_address">公司地址<font color="red"><b>*</b></font>
                       <span class="errorcolor">${errorMsgs.com_address}</span></label>
-                      <div id="twzipcode"></div>
-
                       <input type="text" class="form-control" name="com_address" id="com_address"
                         value=""/>
                     </div>
@@ -181,9 +179,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="../plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="../plugins/adminLTE/js/oladesign-address.js"></script>
     <script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
-    <script src="./jquery.twzipcode.min.js"></script>
     <script>
-    $("#twzipcode").twzipcode();
         // ajax call api to get CompantMembetInfo
         $.ajax({
           type: "POST",

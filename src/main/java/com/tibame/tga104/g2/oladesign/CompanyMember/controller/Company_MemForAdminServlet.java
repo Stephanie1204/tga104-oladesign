@@ -2,7 +2,6 @@ package com.tibame.tga104.g2.oladesign.CompanyMember.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tibame.tga104.g2.oladesign.CompanyMember.service.Company_MemService;
-import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemByCheckVO;
 import com.tibame.tga104.g2.oladesign.CompanyMember.vo.Company_MemVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
+import com.tibame.tga104.g2.oladesign.member.helper.SendMail;
 import com.tibame.tga104.g2.oladesign.member.service.MemberIsComService;
 import com.tibame.tga104.g2.oladesign.member.service.MemberService;
 
@@ -65,6 +63,9 @@ public class Company_MemForAdminServlet extends HttpServlet {
 			MemberService memberSVC = new MemberService();
 			MemberVO memberVO = memberSVC.getOneMember(memId);
 
+			SendMail sendFirstMail = new SendMail();
+			sendFirstMail.sendComMemMail(memberVO.getAccount(),memberVO.getMemName());
+			
 			Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String jsonString = gson.toJson(memberVO);
 

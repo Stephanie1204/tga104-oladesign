@@ -22,6 +22,7 @@
         <li>
           <form
             method="post"
+            class="formcss"
             action="<%=request.getContextPath()%>/member/MemberLogin">
             <button
               type="submit"
@@ -47,9 +48,6 @@
               <ul class="menu">
                 <li>
                   <a href="<%=request.getContextPath()%>/memberCenter/pages/accountBasicInfo.html?memId=${memId}">會員中心</a>
-                </li>
-                <li>
-                  <a href="<%=request.getContextPath()%>/CompanyBackEnd/company-index.jsp">我的賣場</a>
                 </li>
                 <li>
                   <a href="http://localhost:8080/oladesign/memberCenter/pages/orderList.html">我的訂單</a>
