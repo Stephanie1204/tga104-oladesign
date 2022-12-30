@@ -49,6 +49,8 @@ public class Order_ForAdmin extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer orderStatus= null;
 			Integer shippingStatus = null;
+//			Date startTime = null ;
+//			Date overTime = null ;
 			String orderId = req.getParameter("orderId");
 			String comTaxId = req.getParameter("comTaxId");
 			String memId = req.getParameter("memId");
@@ -69,7 +71,7 @@ public class Order_ForAdmin extends HttpServlet {
 //			Timestamp orderTime = req.getParameter("orderTime");
 			
 			
-//			String startTime = req.getParameter("startTime");
+			String startTime = req.getParameter("startTime");
 //			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 //			try {
 //				Date date = sdf.parse(startTime);
@@ -77,8 +79,8 @@ public class Order_ForAdmin extends HttpServlet {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-//			
-//			String overTime = req.getParameter("overTime");
+			
+			String  overTime = req.getParameter("overTime");
 //			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
 //			try {
 //				Date date = sdf1.parse(startTime);
@@ -91,8 +93,9 @@ public class Order_ForAdmin extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			OrderService orderSvc = new OrderService();
-			List <OrderBean> list =orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
-//			orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+//			List <OrderBean> list =orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);
+			List <OrderBean> list =orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus,startTime,overTime);
+//			orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus);orderTime
 			
 				
 

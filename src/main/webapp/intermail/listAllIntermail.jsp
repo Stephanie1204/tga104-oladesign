@@ -151,7 +151,7 @@ pageContext.setAttribute("list", list);
 							<td>${intermailVO.interMailId}</td>
 							<td>${intermailVO.memId}</td>
 							<td>${intermailVO.adminId}</td>
-							<td>${intermailVO.type}</td>
+							<td>${intermailVO.type}</td>	
 							<%-- 							<td>${intermailVO.numQue}</td> --%>
 							<td>${intermailVO.conTent}</td>
 							<td><fmt:formatDate value="${intermailVO.sentTime}"
