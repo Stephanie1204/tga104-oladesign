@@ -15,7 +15,7 @@ public class OrderByReportJDBCDAO implements OrderByReportDAO {
 	String USERID = "root";
 	String PASSWORD = "password";
 
-	private static final String GET_COM_REPORT = "SELECT COM_TAXID, DATE_FORMAT(ORDER_TIME, '%m') MONT, COUNT(*) DAY_NUM,SUM(AMOUNT) DAY_PRICE FROM tga104g2.orders WHERE COM_TAXID = ? AND DATE_FORMAT(ORDER_TIME, '%Y') = ? GROUP BY DATE_FORMAT(ORDER_TIME, '%Y-%m') ORDER BY MONT ASC";
+	private static final String GET_COM_REPORT = "SELECT A.COM_TAXID,MONT,SUM(A.AMOUNT) AS DAY_PRICE FROM(SELECT COM_TAXID,DATE_FORMAT(ORDER_TIME,'%m') AS MONT,AMOUNT FROM tga104g2.ORDERS WHERE	COM_TAXID = ? AND ORDER_STATUS = 2 AND DATE_FORMAT(ORDER_TIME,'%Y')  = ?) A GROUP BY MONT ORDER BY MONT ASC;";
 
 	@Override
 	public List<OrderByReportVO> getsalesreport(String comTaxId, String reportYears) {
@@ -36,7 +36,6 @@ public class OrderByReportJDBCDAO implements OrderByReportDAO {
 			while (rs.next()) {
 
 				orderByReportVO = new OrderByReportVO();
-				orderByReportVO.setDayNum(rs.getString("DAY_NUM"));
 				orderByReportVO.setDayPrice(rs.getString("DAY_PRICE"));
 				orderByReportVO.setComTaxId(rs.getString("COM_TAXID"));
 				orderByReportVO.setMonth(rs.getString("MONT"));

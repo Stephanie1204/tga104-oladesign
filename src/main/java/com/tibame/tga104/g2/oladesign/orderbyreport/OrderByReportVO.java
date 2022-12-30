@@ -5,7 +5,6 @@ public class OrderByReportVO {
 	private String reportYears;
 	private String month;
 	private String comTaxId;
-	private String dayNum;
 	private String dayPrice;
 	public String getReportYears() {
 		return reportYears;
@@ -25,20 +24,11 @@ public class OrderByReportVO {
 	public void setComTaxId(String comTaxId) {
 		this.comTaxId = comTaxId;
 	}
-	public String getDayNum() {
-		return dayNum;
-	}
-	public void setDayNum(String dayNum) {
-		this.dayNum = dayNum;
-	}
 	public String getDayPrice() {
 		return dayPrice;
 	}
 	public void setDayPrice(String dayPrice) {
 		this.dayPrice = dayPrice;
 	}
-	
 
-
-	
 }
