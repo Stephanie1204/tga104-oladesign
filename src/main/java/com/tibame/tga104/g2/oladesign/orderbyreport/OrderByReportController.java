@@ -39,7 +39,6 @@ public class OrderByReportController extends HttpServlet {
 				OrderByReportVO orderByReport = orderByReportVO.get(i);
 				orderByReport.setComTaxId(orderByReport.getComTaxId());
 				orderByReport.setMonth(orderByReport.getMonth());
-				orderByReport.setDayNum(orderByReport.getDayNum());
 				orderByReport.setDayPrice(orderByReport.getDayPrice());
 				result.add(orderByReport);
 			}

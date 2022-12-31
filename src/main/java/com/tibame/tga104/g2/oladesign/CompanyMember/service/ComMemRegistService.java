@@ -27,7 +27,7 @@ public class ComMemRegistService {
 		Integer	memId = Integer.valueOf(comMemVO.getMemId());
 		MemberService memSvc = new MemberService();
 		MemberVO memberVO = memSvc.getOneMember(memId);		
-		if(memberVO.isCom()) {
+		if(memberVO.getIsCom()) {
 			errorMsgs.put("memName", "會員已具有賣家資格，請勿重複註冊");
 		}
 		

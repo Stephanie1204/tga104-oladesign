@@ -193,10 +193,10 @@ public class MemberServlet extends HttpServlet {
 			memberVO.setMemRegdate(memRegdate);
 			memberVO.setSex(sex);
 			memberVO.setPoint(point);
-			memberVO.setBan(isBan);
-			memberVO.setCom(isCom);
+			memberVO.setIsBan(isBan);
+			memberVO.setIsCom(isCom);
 			memberVO.setMemPhoto(memPhoto);
-			memberVO.setMemPhotoBase64(memPhoto); //memPhoto轉為Base64
+//			memberVO.setMemPhotoBase64(memPhoto); //memPhoto轉為Base64
 			
 			System.out.println("memPhoto=" + memPhoto);
 			if(!errorMsgs.isEmpty()) {
@@ -293,7 +293,7 @@ public class MemberServlet extends HttpServlet {
 			memberVO.setMemPhoto(memPhoto);
 			
 			if(memPhoto != null) {
-				memberVO.setMemPhotoBase64(memPhoto); //memPhoto轉為Base64
+//				memberVO.setMemPhotoBase64(memPhoto); //memPhoto轉為Base64
 			}
 			
 			if(!errorMsgs.isEmpty()) {

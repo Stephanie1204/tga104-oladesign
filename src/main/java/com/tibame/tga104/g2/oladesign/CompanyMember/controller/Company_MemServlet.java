@@ -103,7 +103,7 @@ public class Company_MemServlet extends HttpServlet {
 			}
 			// 公司地址
 			String com_address = req.getParameter("com_address");
-			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,15}$";
+			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,40}$";
 			if (com_address == null || com_address.trim().length() == 0) {
 				errorMsgs.put("com_address","公司地址請勿空白");
 			} else if (!com_address.trim().matches(com_addressReg)) {
@@ -179,7 +179,7 @@ public class Company_MemServlet extends HttpServlet {
 			}
 			// 公司地址
 			String com_address = req.getParameter("com_address");
-			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,15}$";
+			String com_addressReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,40}$";
 			if (com_address == null || com_address.trim().length() == 0) {
 				errorMsgs.put("com_address","公司地址請勿空白");
 			} else if (!com_address.trim().matches(com_addressReg)) {

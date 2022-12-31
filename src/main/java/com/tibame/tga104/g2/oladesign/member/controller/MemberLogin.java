@@ -86,11 +86,11 @@ public class MemberLogin extends HttpServlet {
 			
 			if(memberVO == null) {
 				errorMsgs.add("帳號或密碼錯誤!");
-			}else if(memberVO.isBan()) {
-				System.out.println("isBan = " + memberVO.isBan());
+			}else if(memberVO.getIsBan()) {
+				System.out.println("isBan = " + memberVO.getIsBan());
 				errorMsgs.add("您的帳號已被封鎖，請聯絡客服");
-			}else if(!memberVO.isActive()) {
-				System.out.println("isActive= " + memberVO.isActive());
+			}else if(!memberVO.getIsActive()) {
+				System.out.println("isActive= " + memberVO.getIsActive());
 				errorMsgs.add("您的帳號尚未完成驗證!");
 			}
 			
@@ -106,11 +106,11 @@ public class MemberLogin extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("memName", memberVO.getMemName()); //在session內設定已經登入過的標識
 			session.setAttribute("memId", memberVO.getMemId());
-			session.setAttribute("isCom", memberVO.isCom());
+			session.setAttribute("isCom", memberVO.getIsCom());
 			session.setAttribute("memberVO", memberVO);
 			
 			Company_MemVO comMemVO = null;
-			if(memberVO.isCom()) { //如果會員有賣家資格，就傳入賣家資料
+			if(memberVO.getIsCom()) { //如果會員有賣家資格，就傳入賣家資料
 				Company_MemService comMemSvc = new Company_MemService();
 				comMemVO = comMemSvc.doGetCompanyMemByMemId(memberVO.getMemId());
 				session.setAttribute("comMemVO", comMemVO);

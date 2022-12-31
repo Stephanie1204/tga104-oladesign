@@ -15,21 +15,21 @@
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet" />
 <!-- Css Styles -->
-<link rel="stylesheet" href="../shophome-css/bootstrap.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/bootstrap.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/font-awesome.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/font-awesome.min.css"
 	type="text/css" />
 <!--<link rel="stylesheet" href="../shophome-css/elegant-icons.css" type="text/css">-->
-<link rel="stylesheet" href="../shophome-css/nice-select.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/nice-select.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/jquery-ui.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/jquery-ui.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/owl.carousel.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/owl.carousel.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/slicknav.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/slicknav.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/style.css" type="text/css" />
-<link rel="stylesheet" href="../shophome-css/coupon.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/style.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/coupon.css" type="text/css" />
 <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css"
 	rel="stylesheet" />
 </head>
@@ -58,6 +58,7 @@
 	</section>
 	<!-- Blog Details Hero End -->
 	<!-- Blog Details Section Begin -->
+	<div></div>
 	<section class="blog-details spad">
 		<div class="container">
 			<div class="row">
@@ -81,19 +82,35 @@
 				</div>
 			</div>
 		</div>
+		      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-title related-blog-title">
+              <h2>商品總覽</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="companyList">
+              <div class="container">
+                <div class="row" id="productList">
+              </div> 
+          </div>
+        </div>
+      </div>
+
 	</section>
 	<!-- Blog Details Section End -->
 	<%@ include file="../include/footer.jsp"%>
 
 	<!-- Js Plugins -->
-	<script src="../shophome-js/jquery-3.3.1.min.js"></script>
-	<script src="../shophome-js/bootstrap.min.js"></script>
-	<script src="../shophome-js/jquery.nice-select.min.js"></script>
-	<script src="../shophome-js/jquery-ui.min.js"></script>
-	<script src="../shophome-js/jquery.slicknav.js"></script>
-	<script src="../shophome-js/mixitup.min.js"></script>
-	<script src="../shophome-js/owl.carousel.min.js"></script>
-	<script src="../shophome-js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/main.js"></script>
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
@@ -115,6 +132,33 @@
 								"url('" + dataJson.StoreBannerString + "')");
 					},
 				});
+		  
+		$.ajax({
+			type : "POST",
+			url : "http://localhost:8080/oladesign/shophome/shopinfo.do?action=doGetProducts&comTaxId="
+					+ comTaxId,
+			success : function(data, status, xhr) {
+				var dataJson = JSON.parse(data);
+				total_len = dataJson.length;
+				for(i = 0 ; i< total_len; i++){
+					$("#productList").append(
+	                        "<div class='col-lg-4 col-md-6 col-sm-6'>" +
+	                        "<div class='product__item'>"+
+	                        "<a href='http://localhost:8080/oladesign/homePage/productPage.jsp?productId=" + dataJson[i].productId + "'>"+
+	                        "<div class='product__item__pic set-bg'>"+
+	                        "<img id = 'productImage' src='" + dataJson[i].productImage +  "' />"+
+	                        "</div>"+
+	                        "<div class='product__item__text'>"+
+	                        "<h6 id='productName'>" + dataJson[i].productName + "</h6>"+
+	                        "      </div>" + 
+	                        "</a>" +
+	                        "<h5 id='productprice' class='productpriceis'>" + dataJson[i].productPrice + "</h5>"+
+	                        "      </div>" + 
+	                        "      </div>" 	
+	             )
+				}
+			},
+		});
 
 		$.ajax({
 			url : "http://localhost:8080/oladesign/promo/:coupon",
@@ -153,7 +197,7 @@
 			swal({
 				title : "折扣碼複製成功",
 				type : "success",
-			}); //此行可加可不加
+			});
 		}
 
 		function doGetMemIdByComTaxId(comTaxId) {
