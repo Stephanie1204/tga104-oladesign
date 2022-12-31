@@ -619,7 +619,6 @@ ol {
 	background: #92AFBF;
 	position: relative;
 	padding: 10px 25px 10px 40px;
-	cursor: pointer;
 }
 
 .hero__categories__all i {
@@ -635,15 +634,15 @@ ol {
 	color: #FEFEFE;
 }
 
-.hero__categories__all:after {
-	position: absolute;
-	right: 18px;
-	top: 9px;
-	content: "3";
-	font-family: "ElegantIcons";
-	font-size: 18px;
-	color: #ffffff;
-}
+/* .hero__categories__all:after { */
+/* 	position: absolute; */
+/* 	right: 18px; */
+/* 	top: 9px; */
+/* 	content: "3"; */
+/* 	font-family: "ElegantIcons"; */
+/* 	font-size: 18px; */
+/* 	color: #ffffff; */
+/* } */
 
 .hero__categories ul {
 	border: 1px solid #ebebeb;
@@ -782,6 +781,51 @@ ol {
 .hero__text p {
 	margin-bottom: 35px;
 }
+
+/* jesse調整 */
+section.hero div.container{
+	width: 100%;
+	margin: 0;
+	padding: 0 60px 0 60px;
+}
+
+section.hero div.container div.row{
+	margin: 0;
+}
+
+section.hero div.container div.row div.col-lg-3{
+	margin: 0;
+}
+
+/* 輪播圖 */
+
+#ad_image{
+	width: 930px;
+	height: 480px;
+}
+
+div.carousel{
+	width: 100%;
+}
+
+@media(min-width: 1400px){
+	section.hero div.container{
+	min-width: 1400px;
+	}
+}
+
+@media (min-width: 1200px) and (max-width: 1400px){
+	#ad_image{
+	height: 400px;
+	}
+}
+
+@media (min-width: 991px) and (max-width: 1200px){
+	#ad_image{
+	height: 350px;
+	}
+}
+
 
 /*---------------------
   Categories

@@ -47,9 +47,6 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/searchResults.css"
 	type="text/css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/favorite.css"
-	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -191,7 +188,7 @@
 										href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 										class="results" target="_blank">${row.getName()}</a>
 								</h6>
-								<h5>${row.getPrice()}</h5>
+								<h5>NT$ ${row.getPrice()}</h5>
 							</div>
 						</div>
 					</c:forEach>
@@ -305,129 +302,8 @@
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
 
-	<script>
-	$(window).on("load", function(){
-		let memId = "${memId}";
-	    console.log("memId=" + memId);
-	  //先查詢已經加入收藏的商品
-	    if(memId.length != 0){ 
-    		$.ajax({
-    			url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-    			type: "PUT",
-    			data: JSON.stringify({
-    				"memId": memId
-    			}),
-        		dataType: "json",
-        		contentType: "application/json",
-        		processData: false,
-        		success: function(data){
-	            	console.log("data");
-	            	var favorObj = JSON.parse(data.getFavor);
-	            	console.log(favorObj);
-	            	console.log("favorObj.length:" + favorObj.length);
-	            	$("#fav").text(favorObj.length); //在收藏icon顯示收藏數量
-	            	
-	            	$.each(favorObj, function(index, item){ //取出已收藏的商品ID
-		            	console.log(item.prodId);
-	            		$("#" + item.prodId + "").addClass("active");
-	            		$("#" + item.prodId + "").closest("a").addClass("active");
-		            });	            	
-	            },
-	            error: function(xhr){
-	            	console.log(xhr);
-	            },
-	            complete: function(xhr){
-	            	console.log(xhr);
-	            }
-    		});
-    	}
-	  
-	  	//新增收藏
-	    $(".favorcircle").on("click", function(e){
-	    	if(memId == null || memId.length == 0){
-	    		alert("請先登入會員");
-	    	}else{
-	    		let prodId = $(e.target).attr("data");
-	    		console.log("prodId=" + prodId);
-	    		$(e.target).toggleClass("active");
-		        $(e.target).closest("a").toggleClass("active");
-		        
-		        var favordata ={
-		        		"memId": memId,
-		        		"prodId": prodId
-		        };
-		        console.log(favordata);
-		        let active = $(e.target).hasClass("active");
-		        console.log("active=" + active);
-		        if(active == true){ //新增收藏
-		        	$.ajax({
-			            url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-			            type: "POST",
-			            data: JSON.stringify(favordata),
-			            dataType: "json",
-			            contentType: "application/json",
-			            processData: false,
-			            success: function(adddata){
-			            	console.log("adddata=" + adddata);
-			            	var count = $("#fav").text();
-			            	var countFav = parseInt(count); //String 轉為 number
-			            	$("#fav").text(countFav + 1);
-			            },
-			            error: function(xhr){
-			            	console.log(xhr);
-			            },
-			            complete: function(xhr){
-			            	console.log(xhr);
-			            }
-			        });
-		        }else{ //移除收藏
-		        	$.ajax({
-		        		url: "<%=request.getContextPath()%>
-		/favorite/FavorServlet",
-																	type : "DELETE",
-																	data : JSON
-																			.stringify(favordata),
-																	dataType : "json",
-																	contentType : "application/json",
-																	processData : false,
-																	success : function(
-																			deldata) {
-																		console
-																				.log("deldata");
-																		console
-																				.log(deldata);
-																		var count = $(
-																				"#fav")
-																				.text();
-																		var countFav = parseInt(count); //String 轉為 number
-																		$(
-																				"#fav")
-																				.text(
-																						countFav - 1);
-																	},
-																	error : function(
-																			xhr) {
-																		console
-																				.log(xhr);
-																	},
-																	complete : function(
-																			xhr) {
-																		console
-																				.log(xhr);
-																	}
-																});
-													}
-
-												}
-
-											});
-						});
-	</script>
-	=======
-
 
 	<%@ include file="../include/favorite.jsp"%>
 
-	>>>>>>> dev
 </body>
 </html>

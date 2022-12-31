@@ -195,7 +195,7 @@
 								href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 								class="results" target="_blank">${row.getName()}</a>
 						</h6>
-						<h5>${row.getPrice()}</h5>
+						<h5>NT$ ${row.getPrice()}</h5>
 					</div>
 				</div>
 			</c:forEach>
@@ -329,8 +329,8 @@
 	});
 	</script>
 	<%@ include file="../include/favorite.jsp"%>
-	<script>sessionStorage.setItem("comTaxId", ${comMemVO.comTaxId});</script>
-	<script>sessionStorage.setItem("memId", ${memId});</script>
+	<script>sessionStorage.setItem("comTaxId", "${comMemVO.comTaxId}");</script>
+	<script>sessionStorage.setItem("memId", "${memId}");</script>
 </body>
 
 

@@ -68,8 +68,8 @@
                 <h2>TibaMe TGA104 第二組</h2>
               </div>
               <div class="breadcrumb__option">
-                <span
-                  >指導老師: 吳永志老師、吳冠宏老師、郭惠民老師、陳怡榕老師
+                <span>
+                  指導老師: 吳永志老師、吳冠宏老師、郭惠民老師、陳怡榕老師、李偉銘老師
                 </span>
               </div>
             </div>
@@ -124,10 +124,10 @@
             <div class="card-head1">
               <div class="card-author">
                 <a class="author-avatar" href="https://github.com/Stephanie1204" target="_blank">
-                  <img src="./img/about/avatar.png" />
+                  <img src="./img/about/steph.jpg" />
     
                 <div class="author-name">
-                  <span class="author-name-prefix">組長__黃絹文</span>
+                  <span class="author-name-prefix">組長__黃絹雯 <i class="fa-brands fa-github"></i></span>
                 </div>
               </a>
               </div>
@@ -135,9 +135,12 @@
             <div class="card-body">
               <h5 class="card-text">負責功能:</h5>
               <ul>
-                <li>促銷活動</li>
-                <li>會員中心</li>
-                <li>後台</li>
+                <li>賣家-促銷活動</li>
+                <li>會員-基本資料</li>
+                <li>會員-修改密碼</li>
+                <li>會員-紅利</li>
+                <li>會員-站內信</li>
+                <li>會員-訂單管理</li>
               </ul>
               
             </div>
@@ -156,7 +159,7 @@
                   <img src="./img/about/jesse.jpg" />
     
                 <div class="author-name">
-                  <span class="author-name-prefix">組員__孟子翔</span>
+                  <span class="author-name-prefix">組員__孟子翔 <i class="fa-brands fa-github"></i></span>
                 </div>
               </a>
               </div>
@@ -183,11 +186,11 @@
           <div class="a_card">
             <div class="card-head3">
               <div class="card-author">
-                <a class="author-avatar" href="#" target="_blank">
+                <a class="author-avatar" href="https://github.com/Frances75" target="_blank">
                   <img src="./img/about/france.png" />
     
                 <div class="author-name">
-                  <span class="author-name-prefix">組員__吳佳璇</span>
+                  <span class="author-name-prefix">組員__吳佳璇 <i class="fa-brands fa-github"></i></span>
                 </div>
               </a>
               </div>
@@ -197,7 +200,8 @@
               <ul>
                 <li>賣家基本資料</li>
                 <li>賣場後台</li>
-                <li>廣告申請</li>
+                <li>賣場報表生成</li>
+                <li>賣家廣告申請</li>
                 <li>聊天室</li>
               </ul>
               
@@ -212,11 +216,11 @@
           <div class="a_card">
             <div class="card-head4">
               <div class="card-author">
-                <a class="author-avatar" href="#" target="_blank">
-                  <img src="./img/about/avatar.png" />
+                <a class="author-avatar" href="https://github.com/shu2320" target="_blank">
+                  <img src="./img/about/hsu.png" />
     
                 <div class="author-name">
-                  <span class="author-name-prefix">組員__徐翊庭</span>
+                  <span class="author-name-prefix">組員__徐翊庭 <i class="fa-brands fa-github"></i></span>
                 </div>
               </a>
               </div>
@@ -227,6 +231,8 @@
                 <li>購物車</li>
                 <li>訂單</li>
                 <li>商城頁面</li>
+                <li>商品結帳</li>
+                <li>綠界金流API串接</li>
               </ul>
               
             </div>
@@ -240,11 +246,11 @@
           <div class="a_card">
             <div class="card-head5">
               <div class="card-author">
-                <a class="author-avatar" href="#" target="_blank">
-                  <img src="./img/about/avatar.png" />
+                <a class="author-avatar" href="###" target="_blank">
+                  <img src="./img/about/leo2.jpg" />
     
                 <div class="author-name">
-                  <span class="author-name-prefix">組員__陳彥竹</span>
+                  <span class="author-name-prefix">組員__陳彥竹 <i class="fa-brands fa-github"></i></span>
                 </div>
               </a>
               </div>
@@ -252,9 +258,12 @@
             <div class="card-body">
               <h5 class="card-text">負責功能:</h5>
               <ul>
-                <li>後台管理員</li>
-                <li>站內信</li>
-                
+                <li>管理員-登入</li>
+                <li>管理員-站內信</li>
+                <li>管理員-會員管理</li>
+                <li>管理員-廠商管理</li>
+                <li>管理員-訂單管理</li>
+                <li>管理員-商品類別管理</li>
               </ul>
               
             </div>

@@ -47,9 +47,9 @@ div.filter{
 	position: absolute;
 	background-color: #F3F1F2;
 	opacity: 0.7;
-	width: 500px;
+	width: 700px;
 	height: 110px;
-	left: 28%;
+	left: 20%;
 	z-index: 2;
 }
 
@@ -79,6 +79,7 @@ ul.about li{
 	font-weight: bolder;
 	font-size: 20px;
 	color: #4F4E4D;
+	cursor: pointer;
 }
 
 ul.about span{
@@ -173,7 +174,7 @@ img.ola{
 
 /* card head */
 div.card-head1{
-	background-image: url("../img/about/pexels-sevenstorm-juhaszimrus-891030.jpg");
+	background-image: url("../img/about/steph_banner.jpg");
   	background-size: cover;
   	background-position: center;
 	border-top-left-radius: 10px;
@@ -193,7 +194,7 @@ div.card-head2 span.author-name-prefix{
 }
 
 div.card-head3{
-	background-image: url("../img/about/france_banner.jpeg");
+	background-image: url("../img/about/france_banner3.jpg");
   	background-size: cover;
   	background-position: center;
 	border-top-left-radius: 10px;
@@ -205,7 +206,7 @@ div.card-head3 span.author-name-prefix{
 }
 
 div.card-head4{
-	background-image: url("../img/about/pexels-nikita-khandelwal-788855.jpg");
+	background-image: url("../img/about/hsu_banner2.jpg");
   	background-size: cover;
   	background-position: center;
 	border-top-left-radius: 10px;
@@ -217,7 +218,7 @@ div.card-head4 span.author-name-prefix{
 }
 
 div.card-head5{
-	background-image: url("../img/about/pexels-madison-inouye-1405773.jpg");
+	background-image: url("../img/about/leo_banner.JPG");
   	background-size: cover;
   	background-position: center;
 	border-top-left-radius: 10px;
@@ -260,7 +261,7 @@ span.author-name-prefix{
 
 /* card body */
 div.card-body{
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

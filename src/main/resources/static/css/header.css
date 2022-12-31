@@ -147,7 +147,7 @@ ul.nav{
 	
 }
 
-.header__menu ul li .header__menu__dropdown li {
+.header__menu ul li .header__menu__dropdown form {
 	margin-right: 0;
 	display: block;
 }
@@ -156,16 +156,19 @@ ul.nav{
 	color: #92AFBF;
 }
 
-.header__menu ul li .header__menu__dropdown li a {
-	text-transform: capitalize;
+.header__menu ul li .header__menu__dropdown li{
 	color: #4F4E4D;
 	font-weight: 400;
 	padding: 5px 15px;
 }
 
-.header__menu ul li.active a {
-	color: #92AFBF;
+.header__menu ul li .header__menu__dropdown form li {
+	transition: all 0.3s;
 }
+
+/* .header__menu ul li.active a { */
+/* 	color: #92AFBF; */
+/* } */
 
 .header__menu ul li:hover .header__menu__dropdown {
 	top: 30px;
@@ -352,6 +355,7 @@ button:disabled{
 
 .header__cart ul li .member__menu__dropdown {
 	position: absolute;
+	top: 30px;
 	left: -50px;
 	background: #F3F1F2;
 	width: 180px;

@@ -21,7 +21,7 @@
 					<div class="footer__widget">
 						<ul>
 							<li><h6>探索</h6></li>
-							<li><a href="#">設計館</a></li>
+							<li><a href="../shophome/shoplist.jsp">設計館</a></li>
 						</ul>
 						<ul>
 							<li><h6>會員</h6></li>

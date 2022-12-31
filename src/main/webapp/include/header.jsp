@@ -99,7 +99,7 @@
 				<ul class="nav">
 					<li><a
 						href="<%=request.getContextPath()%>/homePage/index.jsp">首頁</a></li>
-					<li><a href="#">全站商品分類</a>
+					<li><a href="###">全站商品分類</a>
 						<ul class="header__menu__dropdown">
 							<jsp:useBean id="typeSvc2" scope="page"
 								class="com.tibame.tga104.g2.oladesign.product.model.type.TypeService" />
@@ -143,8 +143,8 @@
 		}
 	
 		let isCom = "${isCom}";
-		console.log("isCom=" + isCom);
-		if (isCom == true) { //是賣家身分的話，按鈕顯示進入賣場
+		if (isCom == "true") { //是賣家身分的話，按鈕顯示進入賣場
+			console.log("isCom裡面");
 			$("button.mystore").removeClass("none");
 			$("button.regist_com").addClass("none");
 		} else {
@@ -173,6 +173,19 @@
 			$(".regist_com").prop("disabled", false);
 			$("a.beCom").text("成為賣家");	
 		}
+		
+// 		header__menu__dropdown hover效果
+		$("ul.header__menu__dropdown input[type='submit']").mouseenter(function(){
+			$(this).animate({
+				"color": "#92AFBF"
+			}, 300);
+		});
+		
+		$("ul.header__menu__dropdown input[type='submit']").mouseleave(function(){
+			$(this).animate({
+				"color": "#4F4E4D"
+			}, 300);
+		});
 	});
 </script>
 
