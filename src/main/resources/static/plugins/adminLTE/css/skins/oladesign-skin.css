@@ -245,3 +245,6 @@
 .btn btn-default updatebutton{
 	margin-right: 5px;
 }
+.form-control.pull-right{
+	cursor: pointer;
+}
