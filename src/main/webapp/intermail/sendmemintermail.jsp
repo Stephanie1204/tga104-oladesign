@@ -65,9 +65,19 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
@@ -83,7 +93,9 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -100,13 +112,19 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
+									class="fas fa-table"></i><span>站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-						<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -151,8 +169,9 @@ pageContext.setAttribute("list", list);
 							<td>${intermailVO.adminId}</td>
 							<td>${intermailVO.numQue}</td>
 							<td>${intermailVO.conTent}</td>
-							<td><fmt:formatDate value="${intermailVO.sentTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-<%-- 							<td>${intermailVO.isSend}</td> --%>
+							<td><fmt:formatDate value="${intermailVO.sentTime}"
+									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<%-- 							<td>${intermailVO.isSend}</td> --%>
 							<td>
 								<!-- 			  <FORM METHOD="post"  --> <%-- 			 ACTION="<%=request.getContextPath()%>/intermail_qn/intermail_qn.do" style="margin-bottom: 0px;"> --%>
 								<!-- 			     <input type="submit" class="btn back-end-btn" value="修改"> -->
@@ -175,7 +194,7 @@ pageContext.setAttribute("list", list);
 						</tr>
 					</c:forEach>
 				</table>
-				<%@ include file="page2.file" %>
+				<%@ include file="page2.file"%>
 			</div>
 		</div>
 
@@ -188,8 +207,8 @@ pageContext.setAttribute("list", list);
 		</div>
 	</footer>
 	</div>
-<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
-<!-- 		class="fas fa-angle-up"></i></a> -->
+	<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+	<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>

@@ -206,7 +206,7 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
+//				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式	
 				
 			}
 		} catch (SQLException e) {
@@ -574,7 +574,9 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setCom(rs.getBoolean("IS_COM"));
 				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
-				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
+//				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
+
+				
 				
 				if(rs.getBytes("MEM_PHOTO") != null) {
 					memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
@@ -582,7 +584,10 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}finally {
+			}
+		catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 				if(rs != null) {
 					try {
 						rs.close();
@@ -656,6 +661,39 @@ public class MemberDAOImpl implements MemberDAO {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(GETBAN);
 			psmt.setBoolean(1, true);
+			psmt.setInt(2, memId);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(psmt != null) {
+				try {
+					psmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private static final String GETUNBAN =
+	"UPDATE MEMBER SET IS_BAN = ? where MEM_ID = ?";
+	@Override
+	public void getUnBan(Integer memId, Boolean isBan) {
+		Connection connection = null;
+		PreparedStatement psmt = null;
+		
+		try {
+			connection = ds.getConnection();
+			psmt = connection.prepareStatement(GETBAN);
+			psmt.setBoolean(1, false);
 			psmt.setInt(2, memId);
 			psmt.executeUpdate();
 		} catch (SQLException e) {

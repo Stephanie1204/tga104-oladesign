@@ -62,9 +62,19 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
@@ -80,25 +90,44 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>商品分類</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i
+									class="fas fa-table"></i><span>商品地區類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i
+									class="fas fa-table"></i><span>商品類別</span></a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>						</ul></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i
+									class="fas fa-table"></i><span>所有站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i
+									class="fas fa-table"></i><span>新增站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i
+									class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -132,8 +161,8 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 
 					<%-- 					<c:forEach var="adminVO" items="${list}"> --%>
 					<tr>
-		<td><%=product_typeVO.getTypeCode()%></td>
-		<td><%=product_typeVO.getTypeName()%></td>
+						<td><%=product_typeVO.getTypeCode()%></td>
+						<td><%=product_typeVO.getTypeName()%></td>
 					</tr>
 					<%-- 					</c:forEach> --%>
 				</table>
@@ -149,8 +178,8 @@ Product_typeVO product_typeVO = (Product_typeVO) request.getAttribute("product_t
 		</div>
 	</footer>
 	</div>
-<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
-<!-- 		class="fas fa-angle-up"></i></a> -->
+	<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+	<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>

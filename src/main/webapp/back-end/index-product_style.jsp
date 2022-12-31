@@ -52,8 +52,14 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i class="fas fa-table"></i>管理員管理</a></li>
-                    
+<%--                     <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i class="fas fa-table"></i>管理員管理</a></li> --%>
+                   <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>管理員管理</span></a>
+                        <ul class="back-end-li-child" style="display:none;">
+                           <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i class="fas fa-table"></i>所有管理員</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i class="fas fa-table"></i>新增管理員</a></li>
+                        </ul>
+                    </li> 
+                   
                      <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>前台會員管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
 		                    <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i class="fas fa-table"></i>一般會員管理</a></li>
@@ -76,8 +82,10 @@
 
                     <li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>站內信管理</span></a>
                     	<ul class="back-end-li-child" style="display:none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i class="fas fa-table"></i><span>所有站內信</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i class="fas fa-table"></i><span>新增站內信</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
                     	</ul>
                     </li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i class="fas fa-table"></i><span>廣告管理</span></a>

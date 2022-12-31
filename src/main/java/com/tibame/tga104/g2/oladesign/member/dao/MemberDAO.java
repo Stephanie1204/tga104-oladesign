@@ -35,4 +35,6 @@ public interface MemberDAO {
 //	public void getBan(MemberVO memberVO);
 	
 	public void getBan(Integer memId,Boolean isBan);
+	
+	public void getUnBan(Integer memId,Boolean isBan);
 }

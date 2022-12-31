@@ -1,5 +1,6 @@
 package com.tibame.tga104.g2.oladesign.member.bean;
 
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Arrays;
@@ -96,6 +97,11 @@ public class MemberVO implements Serializable{
 	public Boolean isCom() {
 		return isCom;
 	}
+	//新加
+	public Boolean getIsBan() {
+		return isBan;
+	}
+	
 	public void setCom(boolean isCom) {
 		this.isCom = isCom;
 	}

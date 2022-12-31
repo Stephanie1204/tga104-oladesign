@@ -89,15 +89,25 @@
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+								href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsplistallcompanymember.jsp"><i
@@ -107,7 +117,9 @@
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -125,8 +137,14 @@
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
-									class="fas fa-table"></i><span>站內信</span></a></li>
+								href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i
+									class="fas fa-table"></i><span>所有站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i
+									class="fas fa-table"></i><span>新增站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i
+									class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
 									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
@@ -134,7 +152,9 @@
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -178,7 +198,7 @@
 					<label for="account" class="col-sm-2 col-form-label adminLabel">帳號：</label>
 					<div class="col-sm-10">
 						<input type="email" class="form-control" name="account"
-							id="account" maxlength="20" size="20" placeholder="請輸入電子郵件帳號"
+							id="account" maxlength="30" size="30" placeholder="請輸入電子郵件帳號"
 							required />
 					</div>
 				</div>

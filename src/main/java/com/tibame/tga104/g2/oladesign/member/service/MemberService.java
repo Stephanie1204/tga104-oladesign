@@ -138,6 +138,10 @@ public class MemberService {
 	public void getBan(Integer memId,Boolean isBan) {
 		dao.getBan(memId, isBan);
 	}
+	
+	public void getUnBan(Integer memId,Boolean isBan) {
+		dao.getUnBan(memId, isBan);
+	}
 //=======
 	public Boolean addReview(OrderItemBean bean) {
 		if(new OrderItemDAOJdbc().update(bean)==1) {

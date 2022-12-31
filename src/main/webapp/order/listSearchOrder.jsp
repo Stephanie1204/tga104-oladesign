@@ -6,27 +6,28 @@
 
 
 <%
-Integer orderStatus= null;
+Integer orderStatus = null;
 Integer shippingStatus = null;
 OrderService orderSvc = new OrderService();
 String orderId = request.getParameter("orderId");
 String comTaxId = request.getParameter("comTaxId");
 String memId = request.getParameter("memId");
 String receiver = request.getParameter("receiver");
-if(request.getParameter("orderStatus")!=null && request.getParameter("orderStatus") != "") {
-	 orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
-}	
+if (request.getParameter("orderStatus") != null && request.getParameter("orderStatus") != "") {
+	orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
+}
 //Integer orderStatus = Integer.valueOf(req.getParameter("orderStatus"));
-if(request.getParameter("shippingStatus")!=null && request.getParameter("shippingStatus") != "") {
+if (request.getParameter("shippingStatus") != null && request.getParameter("shippingStatus") != "") {
 	shippingStatus = Integer.valueOf(request.getParameter("shippingStatus"));
 }
 String startTime = request.getParameter("startTime");
-String  overTime = request.getParameter("overTime");
+String overTime = request.getParameter("overTime");
 // String orderStatus = request.getParameter("orderStatus");
 // String shippingStatus = request.getParameter("shippingStatus");
 // Integer orderStatus = Integer.valueOf(request.getParameter("orderStatus"));
 // Integer shippingStatus = Integer.valueOf(request.getParameter("shippingStatus"));
-List<OrderBean> list = orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus,startTime,overTime);
+List<OrderBean> list = orderSvc.getSearch(orderId, comTaxId, memId, receiver, orderStatus, shippingStatus, startTime,
+		overTime);
 pageContext.setAttribute("list", list);
 %>
 
@@ -64,7 +65,6 @@ pageContext.setAttribute("list", list);
 .nav-item {
 	list-style-type: none;
 }
-
 </style>
 </head>
 <body>
@@ -88,9 +88,19 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
@@ -106,7 +116,9 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -124,8 +136,14 @@ pageContext.setAttribute("list", list);
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
-									class="fas fa-table"></i><span>站內信</span></a></li>
+								href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i
+									class="fas fa-table"></i><span>所有站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i
+									class="fas fa-table"></i><span>新增站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i
+									class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
 									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
@@ -156,34 +174,32 @@ pageContext.setAttribute("list", list);
 				<div class="has-feedback">
 					<form method="post"
 						ACTION="<%=request.getContextPath()%>/order/order.do">
-						<input type="text" name="orderId" placeholder="訂單編號"> 
-						<input type="text" name="comTaxId" placeholder="公司統編"> 
-						<input type="text" name="memId" placeholder="會員編號"> 
-						<input type="text" name="receiver" placeholder="收件人名稱"> 
+						<input type="text" name="orderId" placeholder="訂單編號"> <input
+							type="text" name="comTaxId" placeholder="公司統編"> <input
+							type="text" name="memId" placeholder="會員編號"> <input
+							type="text" name="receiver" placeholder="收件人名稱">
 						<p>
-<!-- 						<input type="text" name="orderStatus" placeholder="訂單狀態">  -->
-						<select name="orderStatus">
-    							<option value ="">請選擇訂單狀態</option>
-    							    <option value="1">待確認</option>
-    								<option value="2">已成立</option>
-   									<option value="3">已取消</option>
-    					</select>
-<!-- 						<input type="text" name="shippingStatus" placeholder="物流狀態"> -->
-						<select name="shippingStatus">
-    							<option value ="">請選擇物流狀態</option>
-    							    <option value="1">待確認</option>
-    								<option value="2">待出貨</option>
-    								<option value="3">已取消</option>
-    								<option value="4">已出貨</option>
-    								<option value="5">運送中</option>
-    								<option value="6">已送達</option>									
-    					</select>
-						<input type="date" name="startTime" value="2022-01-01">
-						<input type="date" name="overTime" value="2022-12-31">						 
-<!-- 						<input type="date" name="orderTime" value="2022-01-01"> -->
-						<input type="submit" value="查詢" class="btn btn-default">  
-						<input type="hidden" name="action" value="Select">
-
+							<!-- 						<input type="text" name="orderStatus" placeholder="訂單狀態">  -->
+							<select name="orderStatus">
+								<option value="">請選擇訂單狀態</option>
+								<option value="1">待確認</option>
+								<option value="2">已成立</option>
+								<option value="3">已取消</option>
+							</select>
+							<!-- 						<input type="text" name="shippingStatus" placeholder="物流狀態"> -->
+							<select name="shippingStatus">
+								<option value="">請選擇物流狀態</option>
+								<option value="1">待確認</option>
+								<option value="2">待出貨</option>
+								<option value="3">已取消</option>
+								<option value="4">已出貨</option>
+								<option value="5">運送中</option>
+								<option value="6">已送達</option>
+							</select> <input type="date" name="startTime" value="2022-01-01">
+							<input type="date" name="overTime" value="2022-12-31">
+							<!-- 						<input type="date" name="orderTime" value="2022-01-01"> -->
+							<input type="submit" value="查詢" class="btn btn-default">
+							<input type="hidden" name="action" value="Select">
 					</form>
 				</div>
 			</div>
@@ -205,7 +221,7 @@ pageContext.setAttribute("list", list);
 
 					<%@ include file="page1.file"%>
 					<c:forEach var="orderBean" items="${list}" begin="<%=pageIndex%>"
-						end="<%=pageIndex+rowsPerPage-1%>"> 
+						end="<%=pageIndex+rowsPerPage-1%>">
 
 						<%-- 					 					<c:forEach var="OrderBean" items="${list}"> --%>
 						<tr>
@@ -213,8 +229,19 @@ pageContext.setAttribute("list", list);
 							<td>${orderBean.comTaxId}</td>
 							<td>${orderBean.memId}</td>
 							<td>${orderBean.orderTime}</td>
-							<td>${orderBean.orderStatus}</td>
-							<td>${orderBean.shippingStatus}</td>
+							<td><c:if test="${orderBean.orderStatus==1}">待確認</c:if> <c:if
+									test="${orderBean.orderStatus==2}">已成立</c:if> <c:if
+									test="${orderBean.orderStatus==3}">已取消</c:if></td>
+
+							<td><c:if test="${orderBean.shippingStatus==1}">待確認</c:if> <c:if
+									test="${orderBean.shippingStatus==2}">待出貨</c:if> <c:if
+									test="${orderBean.shippingStatus==3}">已取消</c:if> <c:if
+									test="${orderBean.shippingStatus==4}">已出貨</c:if> <c:if
+									test="${orderBean.shippingStatus==5}">運送中</c:if> <c:if
+									test="${orderBean.shippingStatus==6}">已送達</c:if></td>
+
+							<%-- 							<td>${orderBean.orderStatus}</td> --%>
+							<%-- 							<td>${orderBean.shippingStatus}</td> --%>
 							<td>${orderBean.receiver}</td>
 							<td>${orderBean.amount}</td>
 							<%-- 							<td><fmt:formatDate value="${intermailVO.sentTime}" --%>
@@ -226,10 +253,10 @@ pageContext.setAttribute("list", list);
 									style="margin-bottom: 0px;">
 									<input type="submit" class="btn back-end-btn" value="查看">
 									<input type="hidden" name="orderId"
-										value="${orderBean.orderId}"> <input
-										type="hidden" name="action" value="CheckOne">
+										value="${orderBean.orderId}"> <input type="hidden"
+										name="action" value="CheckOne">
 								</FORM>
-								</td>																		
+							</td>
 					</c:forEach>
 				</table>
 				<%@ include file="page2.file"%>
@@ -245,8 +272,8 @@ pageContext.setAttribute("list", list);
 		</div>
 	</footer>
 	</div>
-<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
-<!-- 		class="fas fa-angle-up"></i></a> -->
+	<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+	<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/assets/js/jquery.min.js"></script>

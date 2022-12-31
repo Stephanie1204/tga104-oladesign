@@ -114,9 +114,19 @@ textarea {
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
@@ -132,7 +142,9 @@ textarea {
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
@@ -150,8 +162,14 @@ textarea {
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i
-									class="fas fa-table"></i><span>站內信</span></a></li>
+								href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i
+									class="fas fa-table"></i><span>所有站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i
+									class="fas fa-table"></i><span>新增站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i
+									class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
 									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
@@ -159,7 +177,9 @@ textarea {
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -178,19 +198,19 @@ textarea {
 					</c:forEach>
 				</ul>
 			</c:if>
-			
-			
+
+
 			<form METHOD="post" ACTION="intermail.do" class="addAdmin"
 				name="addAdmin">
 				<div class="col title">
-<!-- 					<h4>新增站內信問題類別</h4> -->
+					<!-- 					<h4>新增站內信問題類別</h4> -->
 				</div>
 				<div class="mb-3 row">
 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control"
-							name="interMailId" id="interMailId"  readonly maxlength="4" size="4"
-							value="${intermailVO.interMailId}" /></td>
+							name="interMailId" id="interMailId" readonly maxlength="4"
+							size="4" value="${intermailVO.interMailId}" /></td>
 					</div>
 				</div>
 
@@ -198,7 +218,8 @@ textarea {
 					<label for="adminName" class="col-sm-2 col-form-label adminLabel">會員編號:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="memId"
-							id="memId" readonly  maxlength="6" size="6" value="${intermailVO.memId}" /></td>
+							id="memId" readonly maxlength="6" size="6"
+							value="${intermailVO.memId}" /></td>
 					</div>
 				</div>
 
@@ -206,57 +227,57 @@ textarea {
 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">管理員編號:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="adminId"
-							id="adminId" readonly maxlength="4" size="4" value="${intermailVO.adminId}" /></td>
+							id="adminId" readonly maxlength="4" size="4"
+							value="${intermailVO.adminId}" /></td>
 					</div>
 				</div>
 
-					<div class="mb-3 row">
-<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label> 
+				<div class="mb-3 row">
+					<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label>
 					<div class="col-sm-10">
-							<td>
-						<td><input type="text" class="form-control" name="numQue" 
-							id="numQue" readonly maxlength="4" size="4"						
-							value="${intermailVO.type}"/>							
-						</td>
-							
-							
-							
-							
-							
-							
-							
+						<td>
+						<td><input type="text" class="form-control" name="numQue"
+							id="numQue" readonly maxlength="4" size="4"
+							value="${intermailVO.type}" /></td>
+
+
+
+
+
+
+
 					</div>
 				</div>
 
-<!-- 					<div class="mb-3 row"> -->
-<!-- 						<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容</label> -->
-<!-- 						<div class="col-sm-10"> -->
-<!-- 						<td><textarea  class="form-control" name="conTent" id="conTent" maxlength="1000" -->
-<%-- 							value="${intermailVO.conTent}"></textarea></td> --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
+				<!-- 					<div class="mb-3 row"> -->
+				<!-- 						<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容</label> -->
+				<!-- 						<div class="col-sm-10"> -->
+				<!-- 						<td><textarea  class="form-control" name="conTent" id="conTent" maxlength="1000" -->
+				<%-- 							value="${intermailVO.conTent}"></textarea></td> --%>
+				<!-- 						</div> -->
+				<!-- 					</div> -->
 
-					<div class="mb-3 row">
+				<div class="mb-3 row">
 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容:</label>
 					<div class="col-sm-10">
-							<textarea  class="form-control" name="conTent" 
-							id="conTent" readonly  maxlength="1000">${intermailVO.conTent}</textarea>
+						<textarea class="form-control" name="conTent" id="conTent"
+							readonly maxlength="1000">${intermailVO.conTent}</textarea>
 					</div>
-					</div>
+				</div>
 
 
-<!-- 				<input type="hidden" id="adminStatus" name="adminStatus" value="1"> -->
-<!-- <!-- 				<br> -->
-<!-- 				<button class="btn back-end-btn" type="submit" id="adminStatus" -->
-<!-- 					name="action" value="REPLY">回覆</button> -->
+				<!-- 				<input type="hidden" id="adminStatus" name="adminStatus" value="1"> -->
+				<!-- <!-- 				<br> -->
+				<!-- 				<button class="btn back-end-btn" type="submit" id="adminStatus" -->
+				<!-- 					name="action" value="REPLY">回覆</button> -->
 			</form>
 		</div>
 	</div>
 	</footer>
 	</div>
-<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
-<!-- 		class="fas fa-angle-up"></i></a> -->
+	<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+	<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/css/bootstrap.min.js"></script>

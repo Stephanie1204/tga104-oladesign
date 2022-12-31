@@ -64,15 +64,25 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
 							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/back-end/mem/allMem.jsp"><i
+								href="<%=request.getContextPath()%>/memForAdmin/listallmember.jsp"><i
 									class="fas fa-table"></i>一般會員管理</a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="<%=request.getContextPath()%>/back-end/listallcompanymember.jsp"><i
@@ -82,26 +92,44 @@ pageContext.setAttribute("list", list);
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>商品分類</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i
+									class="fas fa-table"></i><span>商品地區類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i
+									class="fas fa-table"></i><span>商品類別</span></a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i
+									class="fas fa-table"></i><span>所有站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i
+									class="fas fa-table"></i><span>新增站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i
+									class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -131,11 +159,11 @@ pageContext.setAttribute("list", list);
 						<th scope="col">密碼</th>
 						<th scope="col">修改</th>
 						<th scope="col">刪除</th>
-						
+
 					</tr>
 
-<%-- 	<%@ include file="page1.file" %>  --%>
-<%-- 	<c:forEach var="adminVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+					<%-- 	<%@ include file="page1.file" %>  --%>
+					<%-- 	<c:forEach var="adminVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
 
 					<c:forEach var="adminVO" items="${list}">
 						<tr>
@@ -148,31 +176,30 @@ pageContext.setAttribute("list", list);
 							<%-- 									<c:if test="${administratorVO.adminStatus==0}">失效</c:if> --%>
 							<!-- 								</td> -->
 							<td>
-<!-- 								<FORM METHOD="post" -->
-<%-- 									ACTION="<%=request.getContextPath()%>/admin/admin.do"> --%>
-<%-- 									<input type="hidden" name="adminId" value="${adminVO.adminId}"> --%>
-<!-- 									<button type="submit" name="action" value="getOne_For_Update" -->
-<!-- 										class="btn back-end-btn">修改</button> -->
-<!-- 								</FORM> -->
-			  <FORM METHOD="post" 
-			  ACTION="<%=request.getContextPath()%>/admin/admin.do" style="margin-bottom: 0px;">
-			     <input type="submit" class="btn back-end-btn" value="修改">
-			     <input type="hidden" name="adminId"  value="${adminVO.adminId}">
-			     <input type="hidden" name="action"	value="getOne_For_Update">
-			  </FORM>
+								<!-- 								<FORM METHOD="post" --> <%-- 									ACTION="<%=request.getContextPath()%>/admin/admin.do"> --%>
+								<%-- 									<input type="hidden" name="adminId" value="${adminVO.adminId}"> --%>
+								<!-- 									<button type="submit" name="action" value="getOne_For_Update" -->
+								<!-- 										class="btn back-end-btn">修改</button> --> <!-- 								</FORM> -->
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/admin/admin.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="修改">
+									<input type="hidden" name="adminId" value="${adminVO.adminId}">
+									<input type="hidden" name="action" value="getOne_For_Update">
+								</FORM>
 							</td>
 							<td>
-<!-- 								  <FORM METHOD="post"  -->
-<%-- 									ACTION="<%=request.getContextPath()%>/admin/admin.do"> --%>
-<%-- 									<input type="hidden" name="adminid" value="${adminVO.adminId}"> --%>
-<!-- 									<button type="submit" name="action" value="delete" -->
-<!-- 										class="btn back-end-btn">刪除</button> -->
-<!-- 								</FORM> -->
-			  <FORM METHOD="post" 
-			  ACTION="<%=request.getContextPath()%>/admin/admin.do" style="margin-bottom: 0px;">
-			     <input type="submit" class="btn back-end-btn" value="刪除">
-			     <input type="hidden" name="adminId"  value="${adminVO.adminId}">
-			     <input type="hidden" name="action" value="delete"></FORM>
+								<!-- 								  <FORM METHOD="post"  --> <%-- 									ACTION="<%=request.getContextPath()%>/admin/admin.do"> --%>
+								<%-- 									<input type="hidden" name="adminid" value="${adminVO.adminId}"> --%>
+								<!-- 									<button type="submit" name="action" value="delete" -->
+								<!-- 										class="btn back-end-btn">刪除</button> --> <!-- 								</FORM> -->
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/admin/admin.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" class="btn back-end-btn" value="刪除">
+									<input type="hidden" name="adminId" value="${adminVO.adminId}">
+									<input type="hidden" name="action" value="delete">
+								</FORM>
 							</td>
 							<!-- 								<td> -->
 							<!-- 									<form method="post" -->

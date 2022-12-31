@@ -143,6 +143,25 @@ public class MemberForAdmin extends HttpServlet {
 			successView.forward(req, res);
 		}
 		
+		if ("UnBan".equals(action)) {
+			MemberVO memberVO = new MemberVO();
+			Boolean isBan = false;
+			memberVO.setBan(isBan);
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Integer memId = Integer.valueOf(req.getParameter("memId"));
+			System.out.println(memId);
+
+			/*************************** 2.開始查詢資料 *****************************************/
+			MemberService memberService = new MemberService();
+//			memberVO = memberService.getBan(memId, isBan)
+			memberService.getUnBan(memId, isBan);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("memberVO", memberVO);
+			String url = "/memForAdmin/listallmember.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); //
+			successView.forward(req, res);
+		}
+		
 
 	}
 

@@ -42,7 +42,7 @@ IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
 	crossorigin="anonymous"></script>
 
 <style>
-#addAdmin{
+#addAdmin {
 	width: 40%;
 	margin: auto auto;
 }
@@ -56,9 +56,8 @@ IntermailVO intermailVO = (IntermailVO) request.getAttribute("intermailVO");
 }
 
 #addAdmin .adminLabel {
-width: 200px; 
+	width: 200px;
 }
-
 
 .back-end-li:hover>.back-end-li-child {
 	display: block !important;
@@ -80,22 +79,21 @@ width: 200px;
 
 textarea {
 	display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	width: 100%;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0.25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
-
 </style>
 </head>
 <body id="page-top">
@@ -118,9 +116,19 @@ textarea {
 					<li class="nav-item"><a class="nav-link active"
 						href="<%=request.getContextPath()%>/back-end/back-end-index.jsp"><i
 							class="fas fa-tachometer-alt"></i><span>首頁</span></a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i
-							class="fas fa-table"></i>管理員管理</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<%-- 						href="<%=request.getContextPath()%>/back-end/index-admin.jsp"><i --%>
+					<!-- 							class="fas fa-table"></i>管理員管理</a></li> -->
+					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
+							class="fas fa-table"></i><span>管理員管理</span></a>
+						<ul class="back-end-li-child" style="display: none;">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/listAllAdmin.jsp"><i
+									class="fas fa-table"></i>所有管理員</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/admin/addAdmin.jsp"><i
+									class="fas fa-table"></i>新增管理員</a></li>
+						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>前台會員管理</span></a>
@@ -136,26 +144,44 @@ textarea {
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i>訂單管理</a>
 						<ul class="back-end-li-child" style="display: none;">
-							                    		                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i class="fas fa-table"></i><span>訂單管理</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/order/listAllOrder.jsp"><i
+									class="fas fa-table"></i><span>訂單管理</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/product/prodInfoQuery.jsp"><i class="fas fa-table"></i><span>商品管理審核</span></a></li> --%>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>商品分類</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i class="fas fa-table"></i><span>商品地區類別</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i class="fas fa-table"></i><span>商品類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_style.jsp"><i
+									class="fas fa-table"></i><span>商品地區類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-product_type.jsp"><i
+									class="fas fa-table"></i><span>商品類別</span></a></li>
 						</ul></li>
 
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>站內信管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail.jsp"><i class="fas fa-table"></i><span>站內信</span></a></li>
-                    		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i class="fas fa-table"></i><span>站內信問題類別</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/listAllIntermail.jsp"><i
+									class="fas fa-table"></i><span>所有站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/addIntermail.jsp"><i
+									class="fas fa-table"></i><span>新增站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/intermail/unreadIntermail.jsp"><i
+									class="fas fa-table"></i><span>尚未回覆站內信</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/index-intermail_qn.jsp"><i
+									class="fas fa-table"></i><span>站內信問題類別</span></a></li>
 						</ul></li>
 					<li class="nav-item back-end-li"><a class="nav-link" href="#"><i
 							class="fas fa-table"></i><span>廣告管理</span></a>
 						<ul class="back-end-li-child" style="display: none;">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i class="fas fa-table"></i><span>廣告審核</span></a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/back-end/listalladvertisement.jsp"><i
+									class="fas fa-table"></i><span>廣告審核</span></a></li>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/news/select_page.jsp"><i class="fas fa-table"></i><span>查看最新消息</span></a></li> --%>
 							<%--                     		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/shopEvent/select_page.jsp"><i class="fas fa-table"></i><span>查看商城活動</span></a></li> --%>
 						</ul></li>
@@ -166,75 +192,74 @@ textarea {
 
 		<div id="addAdmin">
 			<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-			<form METHOD="post" ACTION="intermail.do" class="addAdmin" name="addAdmin">
+			<c:if test="${not empty errorMsgs}">
+				<font style="color: red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+						<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+			</c:if>
+			<form METHOD="post" ACTION="intermail.do" class="addAdmin"
+				name="addAdmin">
 				<div class="col title">
 					<h4>新增站內信問題類別</h4>
 				</div>
-<!-- 				<div class="mb-3 row"> -->
-<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label> -->
-<!-- 					<div class="col-sm-10"> -->
-<!-- 						<td><input type="text" class="form-control" name="interMailId" -->
-<!-- 							id="interMailId" maxlength="4" size="4" -->
-<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
+				<!-- 				<div class="mb-3 row"> -->
+				<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">站內信編號:</label> -->
+				<!-- 					<div class="col-sm-10"> -->
+				<!-- 						<td><input type="text" class="form-control" name="interMailId" -->
+				<!-- 							id="interMailId" maxlength="4" size="4" -->
+				<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getInterMailId()%>" /></td> --%>
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+
 				<div class="mb-3 row">
 					<label for="adminName" class="col-sm-2 col-form-label adminLabel">會員編號:</label>
 					<div class="col-sm-10">
 						<td><input type="text" class="form-control" name="memId"
 							id="memId" maxlength="6" size="6"
-							value="<%= (intermailVO==null)? "" : intermailVO.getMemId()%>"
-							 /></td>
+							value="<%=(intermailVO == null) ? "" : intermailVO.getMemId()%>" /></td>
 					</div>
 				</div>
-				
-					<div class="mb-3 row">
+
+				<div class="mb-3 row">
 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">管理員編號:</label>
 					<div class="col-sm-10">
-						<td><input type="text" class="form-control" name="adminId"
+						<td><input type="text" class="form-control" name="adminId" readonly="readonly"
 							id="adminId" maxlength="4" size="4"
-							value="<%= (intermailVO==null)? adminVO.getAdminId() : intermailVO.getAdminId()%>"
-							 /></td>
+							value="<%=(intermailVO == null) ? adminVO.getAdminId() : intermailVO.getAdminId()%>" /></td>
 					</div>
 				</div>
-				
-					<div class="mb-3 row">
-<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
-					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label> 
+
+				<div class="mb-3 row">
+					<!-- 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別編號:</label> -->
+					<label for="adminid" class="col-sm-2 col-form-label adminLabel">問題類別:</label>
 					<div class="col-sm-10">
-<!-- 						<td><input type="text" class="form-control" name="numQue" placeholder=" 請輸入1或2, 1為檢舉 2為疑難雜症 " -->
-<!-- 							id="numQue" maxlength="4" size="4" -->
-<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>" --%>
-<!-- 							 /></td> -->
+						<!-- 						<td><input type="text" class="form-control" name="numQue" placeholder=" 請輸入1或2, 1為檢舉 2為疑難雜症 " -->
+						<!-- 							id="numQue" maxlength="4" size="4" -->
+						<%-- 							value="<%= (intermailVO==null)? "" : intermailVO.getNumQue()%>" --%>
+						<!-- 							 /></td> -->
 						<jsp:useBean id="intermail_qnSvc" scope="page"
 							class="com.tibame.tga104.g2.oladesign.intermail.model.Intermail_qnService" />
-							
-							<td>
-								<select size="1" name="numQue">
+
+						<td><select size="1" name="numQue">
 								<c:forEach var="intermail_qnVO" items="${intermail_qnSvc.all}">
-								<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type}
-									</c:forEach>
-								</select>
-							</td>
+									<option value="${intermail_qnVO.numQue}">${intermail_qnVO.type}
+								</c:forEach>
+						</select></td>
 					</div>
 				</div>
-				
+
 				<div class="mb-3 row">
 					<label for="adminid" class="col-sm-2 col-form-label adminLabel">內容:</label>
 					<div class="col-sm-10">
-<!-- 						<input type="textarea" class="form-control" name="conTent" -->
-<!-- 							id="conTent" maxlength="1000" size="1000"/> -->
-						<td><textarea style="width: 420px;height: 300px" name="conTent" id="conTent" maxlength="1000" placeholder="請輸入內容 (1-1000個字) "
-							value="<%= (intermailVO==null)? "" : intermailVO.getConTent()%>"></textarea></td>
+						<!-- 						<input type="textarea" class="form-control" name="conTent" -->
+						<!-- 							id="conTent" maxlength="1000" size="1000"/> -->
+						<td><textarea style="width: 420px; height: 300px"
+								name="conTent" id="conTent" maxlength="1000"
+								placeholder="請輸入內容 (1-1000個字) "
+								value="<%=(intermailVO == null) ? "" : intermailVO.getConTent()%>"></textarea></td>
 					</div>
 				</div>
 
@@ -245,11 +270,11 @@ textarea {
 					name="action" value="insert">送出</button>
 			</form>
 		</div>
-		</div>
+	</div>
 	</footer>
 	</div>
-<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
-<!-- 		class="fas fa-angle-up"></i></a> -->
+	<!-- 	<a class="border rounded d-inline scroll-to-top" href="#page-top"><i -->
+	<!-- 		class="fas fa-angle-up"></i></a> -->
 	</div>
 	<script
 		src="<%=request.getContextPath()%>/back-end/css/bootstrap.min.js"></script>
