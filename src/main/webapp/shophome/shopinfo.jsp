@@ -15,21 +15,21 @@
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet" />
 <!-- Css Styles -->
-<link rel="stylesheet" href="../shophome-css/bootstrap.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/bootstrap.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/font-awesome.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/font-awesome.min.css"
 	type="text/css" />
 <!--<link rel="stylesheet" href="../shophome-css/elegant-icons.css" type="text/css">-->
-<link rel="stylesheet" href="../shophome-css/nice-select.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/nice-select.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/jquery-ui.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/jquery-ui.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/owl.carousel.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/owl.carousel.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/slicknav.min.css"
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/slicknav.min.css"
 	type="text/css" />
-<link rel="stylesheet" href="../shophome-css/style.css" type="text/css" />
-<link rel="stylesheet" href="../shophome-css/coupon.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/style.css" type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/shophome-css/coupon.css" type="text/css" />
 <link href="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css"
 	rel="stylesheet" />
 </head>
@@ -103,14 +103,14 @@
 	<%@ include file="../include/footer.jsp"%>
 
 	<!-- Js Plugins -->
-	<script src="../shophome-js/jquery-3.3.1.min.js"></script>
-	<script src="../shophome-js/bootstrap.min.js"></script>
-	<script src="../shophome-js/jquery.nice-select.min.js"></script>
-	<script src="../shophome-js/jquery-ui.min.js"></script>
-	<script src="../shophome-js/jquery.slicknav.js"></script>
-	<script src="../shophome-js/mixitup.min.js"></script>
-	<script src="../shophome-js/owl.carousel.min.js"></script>
-	<script src="../shophome-js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/shophome-js/main.js"></script>
 	<script
 		src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script>
