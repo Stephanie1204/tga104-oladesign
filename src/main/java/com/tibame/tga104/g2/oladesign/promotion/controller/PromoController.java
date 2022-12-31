@@ -44,7 +44,7 @@ public class PromoController {
 	@PostMapping("/promo") // create new promo (should auto set comTaxId)
 	public PromoVO postVO(@RequestBody PromoVO promoVO) {
 //		String comTaxId  = (String) session.getAttribute("comTaxId");
-//		promoVO.setComTaxId(comTaxId);
+//		promoVO.setComTaxId((String) session.getAttribute("comTaxId"));
 		return service.addPromo(promoVO);
 	}
 

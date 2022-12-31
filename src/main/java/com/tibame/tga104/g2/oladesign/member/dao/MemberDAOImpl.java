@@ -1,7 +1,5 @@
 package com.tibame.tga104.g2.oladesign.member.dao;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,17 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.tibame.tga104.g2.oladesign.intermail.model.IntermailVO;
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
-
 
 public class MemberDAOImpl implements MemberDAO {
 	private boolean checkMail = true;
@@ -38,11 +30,10 @@ public class MemberDAOImpl implements MemberDAO {
 		config.setPassword("password");
 
 		ds = new HikariDataSource(config);
-		
+
 	}
 
-	private static final String InsertSQL = 
-			"insert into MEMBER(MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, SEX, MEM_PHOTO)"
+	private static final String InsertSQL = "insert into MEMBER(MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, SEX, MEM_PHOTO)"
 			+ "	values (?, ?, ?, ?, ?, ?, ?)";
 
 	@Override
@@ -53,7 +44,7 @@ public class MemberDAOImpl implements MemberDAO {
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(InsertSQL, Statement.RETURN_GENERATED_KEYS);
-			
+
 			psmt.setString(1, memberVO.getMemName());
 			psmt.setString(2, memberVO.getAccount());
 			psmt.setString(3, memberVO.getPassword());
@@ -61,26 +52,26 @@ public class MemberDAOImpl implements MemberDAO {
 			psmt.setString(5, memberVO.getMemAddress());
 			psmt.setString(6, memberVO.getSex());
 			psmt.setBytes(7, memberVO.getMemPhoto());
-			
+
 			psmt.executeUpdate();
 			ResultSet rs = psmt.getGeneratedKeys();
 			rs.next();
 			memId = rs.getInt(1);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Duplicate mail entry");
-			this.checkMail = false;  //帳號已經存在，false傳到MemberService
+			this.checkMail = false; // 帳號已經存在，false傳到MemberService
 			e.printStackTrace();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
@@ -91,43 +82,42 @@ public class MemberDAOImpl implements MemberDAO {
 		return memId;
 	}
 
-	private static final String UpdateSQL = "update member  "
-			+ "set MEM_NAME = ?, PASSWORD = ?, MEM_PHONE = ?, "
+	private static final String UpdateSQL = "update member  " + "set MEM_NAME = ?, PASSWORD = ?, MEM_PHONE = ?, "
 			+ " MEM_ADDRESS = ?, SEX = ?, POINT = ?, IS_BAN = ?, IS_COM = ?, MEM_PHOTO = ifnull(?, MEM_PHOTO) "
 			+ "where MEM_ID = ?;";
-	
+
 	@Override
 	public void update(MemberVO memberVO) {
 		Connection connection = null;
 		PreparedStatement psmt = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(UpdateSQL);
-			
+
 			psmt.setString(1, memberVO.getMemName());
 			psmt.setString(2, memberVO.getPassword());
 			psmt.setString(3, memberVO.getMemPhone());
 			psmt.setString(4, memberVO.getMemAddress());
 			psmt.setString(5, memberVO.getSex());
 			psmt.setInt(6, memberVO.getPoint());
-			psmt.setBoolean(7, memberVO.isBan());
-			psmt.setBoolean(8, memberVO.isCom());
-			psmt.setBytes(9, memberVO.getMemPhoto());
+			psmt.setBoolean(7, memberVO.getIsBan());
+			psmt.setBoolean(8, memberVO.getIsCom());
+			psmt.setBytes(9, memberVO.getMemPhotoBase64().getBytes());
 			psmt.setInt(10, memberVO.getMemId());
-			
+
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
@@ -136,33 +126,31 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 		}
 	}
-	
 
-	private static final String DeleteSQL = 
-			"delete from member where MEM_ID = ?;";
-	
+	private static final String DeleteSQL = "delete from member where MEM_ID = ?;";
+
 	@Override
 	public void delete(Integer memId) {
 		Connection connection = null;
 		PreparedStatement psmt = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(DeleteSQL);
-			
+
 			psmt.setInt(1, memId);
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
@@ -170,27 +158,26 @@ public class MemberDAOImpl implements MemberDAO {
 				}
 			}
 		}
-		
+
 	}
 
-	private static final String GetOneSQL = 
-			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
+	private static final String GetOneSQL = "select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
 			+ " from member where MEM_ID = ?;";
-	
+
 	@Override
 	public MemberVO findByPrimaryKey(Integer memId) {
 		MemberVO memberVO = null;
 		Connection connection = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(GetOneSQL);
 			psmt.setInt(1, memId);
 			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				memberVO = new MemberVO();
 				memberVO.setMemId(rs.getInt("MEM_ID"));
 				memberVO.setMemName(rs.getString("MEM_NAME"));
@@ -201,32 +188,32 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setMemRegdate(rs.getDate("MEM_REGDATE"));
 				memberVO.setSex(rs.getString("SEX"));
 				memberVO.setPoint(rs.getInt("POINT"));
-				memberVO.setBan(rs.getBoolean("IS_BAN"));
-				memberVO.setCom(rs.getBoolean("IS_COM"));
-				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsBan(rs.getBoolean("IS_BAN"));
+				memberVO.setIsCom(rs.getBoolean("IS_COM"));
+				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
-				
+				memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(rs != null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(psmt != null) {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
@@ -236,10 +223,8 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		return memberVO;
 	}
-	
-	
-	private static final String GetOnebyEmailSQL = 
-			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
+
+	private static final String GetOnebyEmailSQL = "select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
 			+ " from member where ACCOUNT = ?;";
 
 	@Override
@@ -248,14 +233,14 @@ public class MemberDAOImpl implements MemberDAO {
 		Connection connection = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(GetOnebyEmailSQL);
 			psmt.setString(1, account);
 			rs = psmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				memberVO = new MemberVO();
 				memberVO.setMemId(rs.getInt("MEM_ID"));
 				memberVO.setMemName(rs.getString("MEM_NAME"));
@@ -266,32 +251,32 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setMemRegdate(rs.getDate("MEM_REGDATE"));
 				memberVO.setSex(rs.getString("SEX"));
 				memberVO.setPoint(rs.getInt("POINT"));
-				memberVO.setBan(rs.getBoolean("IS_BAN"));
-				memberVO.setCom(rs.getBoolean("IS_COM"));
-				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsBan(rs.getBoolean("IS_BAN"));
+				memberVO.setIsCom(rs.getBoolean("IS_COM"));
+				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
-				
+				memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(rs != null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(psmt != null) {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
@@ -302,8 +287,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return memberVO;
 	}
 
-	private static final String GetAllSQL = 
-			"select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
+	private static final String GetAllSQL = "select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO"
 			+ " from member order by MEM_ID;";
 
 	@Override
@@ -331,36 +315,36 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setMemRegdate(rs.getDate("MEM_REGDATE"));
 				memberVO.setSex(rs.getString("SEX"));
 				memberVO.setPoint(rs.getInt("POINT"));
-				memberVO.setBan(rs.getBoolean("IS_BAN"));
-				memberVO.setCom(rs.getBoolean("IS_COM"));
-				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsBan(rs.getBoolean("IS_BAN"));
+				memberVO.setIsCom(rs.getBoolean("IS_COM"));
+				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				
-				if(rs.getBytes("MEM_PHOTO") != null) {
-					memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
+
+				if (rs.getBytes("MEM_PHOTO") != null) {
+					memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
 				}
 
 				memList.add(memberVO);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(rs != null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(psmt != null) {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
@@ -374,23 +358,23 @@ public class MemberDAOImpl implements MemberDAO {
 
 	private static final String CheckLoginSQL = "select MEM_ID, MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, MEM_REGDATE, SEX, POINT, IS_BAN, IS_COM, IS_ACTIVE, IS_REGCOM, MEM_PHOTO "
 			+ "from MEMBER where ACCOUNT = ? and `PASSWORD` = ? ;";
-	
+
 	@Override
 	public MemberVO login(String inputAccount, String inputPassword) {
 		MemberVO memberVO = null;
 		Connection connection = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(CheckLoginSQL);
 			psmt.setString(1, inputAccount);
 			psmt.setString(2, inputPassword);
-			
+
 			rs = psmt.executeQuery();
-						
-			while(rs.next()) {
+
+			while (rs.next()) {
 				memberVO = new MemberVO();
 				memberVO.setMemId(rs.getInt("MEM_ID"));
 				memberVO.setMemName(rs.getString("MEM_NAME"));
@@ -401,34 +385,34 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setMemRegdate(rs.getDate("MEM_REGDATE"));
 				memberVO.setSex(rs.getString("SEX"));
 				memberVO.setPoint(rs.getInt("POINT"));
-				memberVO.setBan(rs.getBoolean("IS_BAN"));
-				memberVO.setCom(rs.getBoolean("IS_COM"));
-				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsBan(rs.getBoolean("IS_BAN"));
+				memberVO.setIsCom(rs.getBoolean("IS_COM"));
+				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				
-				if(rs.getBytes("MEM_PHOTO") != null) {
-					memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
+
+				if (rs.getBytes("MEM_PHOTO") != null) {
+					memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(rs != null) {
+		} finally {
+			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(psmt != null) {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
@@ -436,16 +420,17 @@ public class MemberDAOImpl implements MemberDAO {
 				}
 			}
 		}
-		
+
 		return memberVO;
 	}
 
 	private static final String ActiveMemberSQL = "update MEMBER set IS_ACTIVE = ? where MEM_ID = ?;";
+
 	@Override
 	public void activeMember(Integer memId, Boolean isActive) {
 		Connection connection = null;
 		PreparedStatement psmt = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(ActiveMemberSQL);
@@ -454,15 +439,15 @@ public class MemberDAOImpl implements MemberDAO {
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
@@ -470,16 +455,16 @@ public class MemberDAOImpl implements MemberDAO {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	private static final String resetPWDMemberSQL = "UPDATE MEMBER SET PASSWORD = ? WHERE MEM_ID = ?;";
-			
+
 	@Override
 	public void resetPWD(String newPassword, Integer memId) {
 		Connection connection = null;
 		PreparedStatement psmt = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(resetPWDMemberSQL);
@@ -488,15 +473,15 @@ public class MemberDAOImpl implements MemberDAO {
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
@@ -505,14 +490,14 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 		}
 	}
-	
+
 	private static final String setRegComTagSQL = "update MEMBER set IS_REGCOM = ? where MEM_ID = ?;";
 
 	@Override
 	public void regComTag(Integer memId, Boolean isRegCom) {
 		Connection connection = null;
 		PreparedStatement psmt = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(setRegComTagSQL);
@@ -521,15 +506,15 @@ public class MemberDAOImpl implements MemberDAO {
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
@@ -538,8 +523,9 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 		}
 	}
-	private static final String CHECKONE =
-			"SELECT * FROM MEMBER  where MEM_ID = ? ";
+
+	private static final String CHECKONE = "SELECT * FROM MEMBER  where MEM_ID = ? ";
+
 	@Override
 	public MemberVO getCheckOne(Integer memId) {
 		MemberVO memberVO = null;
@@ -557,9 +543,8 @@ public class MemberDAOImpl implements MemberDAO {
 			psmt.setInt(1, memId);
 
 			rs = psmt.executeQuery();
-				
 
-			while(rs.next()) {
+			while (rs.next()) {
 				memberVO = new MemberVO();
 				memberVO.setMemId(rs.getInt("MEM_ID"));
 				memberVO.setMemName(rs.getString("MEM_NAME"));
@@ -570,45 +555,45 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setMemRegdate(rs.getDate("MEM_REGDATE"));
 				memberVO.setSex(rs.getString("SEX"));
 				memberVO.setPoint(rs.getInt("POINT"));
-				memberVO.setBan(rs.getBoolean("IS_BAN"));
-				memberVO.setCom(rs.getBoolean("IS_COM"));
-				memberVO.setActive(rs.getBoolean("IS_ACTIVE"));
+				memberVO.setIsBan(rs.getBoolean("IS_BAN"));
+				memberVO.setIsCom(rs.getBoolean("IS_COM"));
+				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				
-				if(rs.getBytes("MEM_PHOTO") != null) {
-					memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式
+
+				if (rs.getBytes("MEM_PHOTO") != null) {
+					memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
 				}
 			}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				if(rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				if(psmt != null) {
-					try {
-						psmt.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				if(connection != null) {
-					try {
-						connection.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 			}
-			
-			return memberVO;
+			if (psmt != null) {
+				try {
+					psmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-	
+
+		return memberVO;
+	}
+
 //	private static final String GETBAN =
 //			"UPDATE MEMBER SET IS_BAN = ? where MEM_ID = ?";
 //	@Override
@@ -644,14 +629,14 @@ public class MemberDAOImpl implements MemberDAO {
 //		}
 //		
 //	}
-	
-	private static final String GETBAN =
-	"UPDATE MEMBER SET IS_BAN = ? where MEM_ID = ?";
+
+	private static final String GETBAN = "UPDATE MEMBER SET IS_BAN = ? where MEM_ID = ?";
+
 	@Override
 	public void getBan(Integer memId, Boolean isBan) {
 		Connection connection = null;
 		PreparedStatement psmt = null;
-		
+
 		try {
 			connection = ds.getConnection();
 			psmt = connection.prepareStatement(GETBAN);
@@ -660,15 +645,15 @@ public class MemberDAOImpl implements MemberDAO {
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(psmt != null) {
+		} finally {
+			if (psmt != null) {
 				try {
 					psmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			if(connection != null) {
+			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
@@ -677,6 +662,5 @@ public class MemberDAOImpl implements MemberDAO {
 			}
 		}
 	}
-	
-	
+
 }

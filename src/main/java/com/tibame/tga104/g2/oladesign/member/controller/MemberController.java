@@ -1,18 +1,13 @@
 package com.tibame.tga104.g2.oladesign.member.controller;
 
-import java.sql.Date;
-
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.VoiceStatus;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.tibame.tga104.g2.oladesign.member.bean.MemberVO;
 import com.tibame.tga104.g2.oladesign.member.helper.EncryptUtils;
@@ -47,12 +42,8 @@ public class MemberController {
 	}
 
 	@PutMapping("/member/password")
-	public Boolean changePassword(
-			@RequestParam("originPwd") String originPwd, 
-			@RequestParam("newPwd1") String newPwd1,
-			@RequestParam("newPwd2") String newPwd2, 
-			HttpSession session
-	) {
+	public Boolean changePassword(@RequestParam("originPwd") String originPwd, @RequestParam("newPwd1") String newPwd1,
+			@RequestParam("newPwd2") String newPwd2, HttpSession session) {
 		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
 
 		// compare
@@ -68,11 +59,5 @@ public class MemberController {
 		session.removeAttribute("memberVO");
 		return true;
 	}
-
-//	public void changePassword (@RequestParam("memId")Integer memId,@RequestParam("password")String password) {
-//		
-//	}
-
-	
 
 }

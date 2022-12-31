@@ -127,7 +127,7 @@ public class MemberForAdmin extends HttpServlet {
 		if ("Ban".equals(action)) {
 			MemberVO memberVO = new MemberVO();
 			Boolean isBan = false;
-			memberVO.setBan(isBan);
+			memberVO.setIsBan(isBan);
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer memId = Integer.valueOf(req.getParameter("memId"));
 			System.out.println(memId);
