@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- 页面meta -->
+    <!-- 頁面meta -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -14,7 +14,7 @@
       content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
       name="viewport"
     />
-    <!-- 页面meta /-->
+    <!-- 頁面meta /-->
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css" />
     <link
       rel="stylesheet"
@@ -74,7 +74,7 @@
       rel="stylesheet"
       href="../../../resources/static/css/olaDesingMember.css"
     />
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    
 
     <style>
       /* ===== 評論的星號 ===== */
@@ -117,6 +117,9 @@
   <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
       <!-- 頂端列/側邊欄 匯入 /-->
+      <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+      <script src="https://www.w3schools.com/lib/w3.js"></script>
+      <script src="./sideBar.js"></script>
       <script>
         w3.includeHTML();
       </script>
@@ -214,7 +217,7 @@
                   </div>
                 </div>
                 <div class="box-tools pull-right">
-                  <div class="has-feedback">
+                  <!-- <div class="has-feedback">
                     <input
                       type="text"
                       class="form-control input-sm"
@@ -223,7 +226,7 @@
                     <span
                       class="glyphicon glyphicon-search form-control-feedback"
                     ></span>
-                  </div>
+                  </div> -->
                 </div>
                 <!--工具栏/-->
               </div>
@@ -232,10 +235,10 @@
             <!-- /.box-body -->
 
             <!-- .box-footer-->
-            <div class="box-footer">
+            <!-- <div class="box-footer">
               <div class="pull-left">
                 <div class="form-group form-inline">
-                  总共2 页，共14 条数据。 每页
+                  总共2 頁，共14 条数据。 每頁
                   <select class="form-control">
                     <option>10</option>
                     <option>15</option>
@@ -250,41 +253,32 @@
               <div class="box-tools pull-right">
                 <ul class="pagination">
                   <li>
-                    <a href="#" aria-label="Previous">首页</a>
+                    <a href="#" aria-label="Previous">首頁</a>
                   </li>
-                  <li><a href="#">上一页</a></li>
+                  <li><a href="#">上一頁</a></li>
                   <li><a href="#">1</a></li>
                   <li><a href="#">2</a></li>
                   <li><a href="#">3</a></li>
                   <li><a href="#">4</a></li>
                   <li><a href="#">5</a></li>
-                  <li><a href="#">下一页</a></li>
+                  <li><a href="#">下一頁</a></li>
                   <li>
-                    <a href="#" aria-label="Next">尾页</a>
+                    <a href="#" aria-label="Next">尾頁</a>
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> -->
             <!-- /.box-footer-->
+            
           </div>
         </section>
         <!-- 正文区域 /-->
       </div>
+      <div w3-include-html="./footer.html"></div>
       <!-- 内容区域 /-->
-
-      <!-- 底部导航 -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs"><b>Version</b> 1.0.8</div>
-        <strong
-          >Copyright &copy; 2014-2017
-          <a href="http://www.itcast.cn">研究院研发部</a>.</strong
-        >
-        All rights reserved.
-      </footer>
-      <!-- 底部导航 /-->
     </div>
-
-    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+       
+    
     <script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
     <script>
       $.widget.bridge("uibutton", $.ui.button);
