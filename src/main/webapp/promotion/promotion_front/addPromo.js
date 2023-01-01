@@ -1,4 +1,4 @@
-// while click submit button
+// 送出新增
 $("button#submit").on("click", function () {
   if (new Date($("input.start_date").val().trim()) < new Date()) {
     alert("開始日期不可小於今日");
@@ -26,7 +26,7 @@ $("button#submit").on("click", function () {
     contentType: "application/json; charset=UTF-8",
 
     success: function (data) {
-      alert("success ");
+      console.log("success ");
       window.location.href = `http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html`;
     },
     error: function (xhr) {
@@ -70,7 +70,7 @@ String.prototype.len = function () {
 
 //檢查專案名稱字數
 $("input.promoName").on("keyup", function () {
-  if ($("input.promoName").val().len() > 20) {
+  if ($("input.promoName").val().len() > 12) {
     $("span#promoName_alert").show();
   } else {
     $("span#promoName_alert").hide();
@@ -79,7 +79,7 @@ $("input.promoName").on("keyup", function () {
 
 //檢查coupon字數
 $("input#coupon_input").on("keyup", function () {
-  if ($("input#coupon_input").val().len() > 15) {
+  if ($("input#coupon_input").val().len() > 8) {
     $("span#coupon_alert").show();
   } else {
     $("span#coupon_alert").hide();

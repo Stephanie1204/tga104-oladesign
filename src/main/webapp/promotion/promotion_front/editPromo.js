@@ -11,7 +11,7 @@ $.ajax({
   dataType: "json",
   contentType: "application/json; charset=UTF-8",
   success: function (res) {
-    alert("success");
+    console.log("success");
   promoStatus = res.promoStatus;
 
     let form_html = `
@@ -137,7 +137,7 @@ $("#submit_btn").on("click", function () {
     contentType: "application/json; charset=UTF-8",
     success: function (data) {
       console.log(data);
-      alert("success");
+      console.log("success");
       if(data === true){
         window.location.href =
         "http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html";
