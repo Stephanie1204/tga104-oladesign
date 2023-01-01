@@ -62,6 +62,11 @@ $("tbody#list").on("click", "span.star", function (e) {
 //觸發送出新增按鍵
 $("tbody#list").on("click", "button.submit", function () {
   const $thisRow = $(this).closest("tr");
+  console.log($thisRow.find("div.star_block").find("span.-on").length);
+  if($thisRow.find("div.star_block").find("span.-on").length===0){
+    alert("請評分星等");
+    return;
+  }
   $.ajax({
     url: "http://localhost:8080/oladesign/productReview",
     type: "PUT",
