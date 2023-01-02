@@ -69,7 +69,7 @@
 		            	var favorObj = JSON.parse(data.getFavor);
 		            	console.log(favorObj);
 		            	console.log("favorObj.length:" + favorObj.length);	
-		            	$("div.prodcontainer *").css("display", "none");
+		            	$("div.productDisplay *").css("display", "none");
 		            	
 		            	let container_html= "";
 		            	container_html += '<h3>'+ favorObj.length +'項收藏商品</h3>';
@@ -93,9 +93,9 @@
 			            	fav_html +=	'class="results" target="_blank" class="set-bg"';
 			            	fav_html +=	'data-setbg="img/featured/feature-4.jpg"><img class="product__details__pic__item--large"';
 			            	fav_html +=	'src="'+ img +'" alt="'+ prodName +'"></a>';
-							fav_html +=	'<ul class="featured__item__pic__hover">';
+							fav_html +=	'<ul class="featured__item__pic__hover active">';
 							fav_html +=	'<li>';
-							fav_html +=	'<i class="fa fa-heart favorheart" id="'+ prodId + '" data="'+ prodId + '"></i></li>';
+							fav_html +=	'<i class="fa fa-heart favorheart active" id="'+ prodId + '" data="'+ prodId + '"></i></li>';
 							fav_html +=	'<li>';
 							fav_html +=	'<form action="/pages/product.controller" method="post">';
 							fav_html +=	'<input type="hidden" name="prodaction" value="AddCartByPage">';
@@ -106,7 +106,7 @@
 	                        fav_html +=	'<input type="hidden" name="typeCode" value="'+ typeCode + '">';
 	                        fav_html +=	'<input	type="hidden" name="styleCode" value="'+ styleCode + '">';
 							fav_html +=	'<input type="hidden" name="price" value="'+ price + '">';
-							fav_html +=	'<button type="submit" class="fa fa-shopping-cart"></button>';
+							fav_html +=	'<button type="submit" class="fa fa-shopping-bag mycart"></button>';
 							fav_html +=	'</form>';
 							fav_html +=	'</li></ul></div>';
 							fav_html +=	'<div class="featured__item__text">';
