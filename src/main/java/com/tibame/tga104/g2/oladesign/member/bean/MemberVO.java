@@ -104,9 +104,6 @@ public class MemberVO implements Serializable {
 		this.point = point;
 	}
 
-	public Boolean getIsBan() {
-		return isBan;
-	}
 
 	public void setIsBan(Boolean isBan) {
 		this.isBan = isBan;
@@ -115,17 +112,17 @@ public class MemberVO implements Serializable {
 	public Boolean getIsCom() {
 		return isCom;
 	}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	//新加
 	public Boolean getIsBan() {
 		return isBan;
 	}
 	
 	public void setCom(boolean isCom) {
-=======
-
+//=======
+	}
 	public void setIsCom(Boolean isCom) {
->>>>>>> dev
+//>>>>>>> dev
 		this.isCom = isCom;
 	}
 
