@@ -20,8 +20,7 @@ $.ajax({
       list_html += '  <td class="start_date">' + item.startDate + "</td>";
       list_html += '  <td class="end_date">' + item.endDate + "</td>";
       list_html += '  <td class="coupon">' + item.coupon + "</td>";
-      list_html += '  <td class="promo_status">' + item.promoStatus + "</td>";
-      list_html += '  <td class="limit">是/否</td>';
+      list_html += '  <td class="promo_status">' + code2CodeName(item.promoStatus,promoStatusType) + "</td>";
       list_html += '  <td class="text-center">';
       list_html +=
         '  <button type="button" class="btn bg-olive btn-xs edit_btn" onclick=\'location.href="editPromo.html?&promoId=' +
@@ -68,4 +67,19 @@ const formatDate = (dateStr) => {
   const timeformat = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
   return timeformat;
+};
+
+
+const promoStatusType = [
+  { code: "PS001", codeName: "未開始" },
+  { code: "PS002", codeName: "進行中" },
+  { code: "PS003", codeName: "已失效" },
+];
+
+const code2CodeName = (code, types) => {
+  const obj = types.find((type) => type.code === code);
+  if (obj) {
+    return obj.codeName;
+  }
+  return "";
 };

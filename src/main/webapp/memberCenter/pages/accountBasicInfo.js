@@ -14,6 +14,8 @@ let point;
 let isBan;
 let isCom;
 let memPhoto;
+let isActive;
+let isRegCom;
 
 $.ajax({
   url: "http://localhost:8080/oladesign/member",
@@ -58,31 +60,27 @@ $.ajax({
               data.sex === "M" ? 'checked="checked"' : "disabled"
             }> 男
         </div>
+
         <div class="form-group">
-            <img src="data:image/jpeg;base64,${data.memPhotoBase64}">
             <label for="exampleInputFile">個人圖像上傳</label>
-            <input type="file" id="exampleInputFile">
-            <p class="help-block">Example block-level help text here.</p>
+            <input type="file" id="member_photo" >
+            <img id="preview_member_photo" width=50% src="${ data.memPhotoBase64 }">
         </div>
-        <div class="col-md-2 title rowHeight2x">圖片上傳</div>
-        <div class="col-md-10 data" style="height: 320px">
-          <input type="file" name="img_file" accept="image/*" class="upl">
-          <img class="preview" style="max-width: 150px; max-height: 150px;">
-        </div>
+      
         `;
 
     $("div.box-body").html(list_html);
 
-    memName = data.memName;
     password = data.password;
-    memPhone = data.memPhone;
-    memAddress = data.memAddress;
     sex = data.sex;
     point = data.point;
     isBan = data.isBan;
     isCom = data.isCom;
-    memPhoto = data.memPhotoBase64;
+    memPhoto = data.memPhoto;
     memId = data.memId;
+    isActive = data.isActive;
+    isRegCom = data.isRegCom;
+    memPhotoBase64 = data.memPhotoBase64;
   },
   error: function (xhr) {
     console.log("error");
@@ -90,12 +88,31 @@ $.ajax({
   },
 });
 
+// {
+//   "memId": 220021,
+//   "memName": "絹雯",
+//   "account": "muamua124@gmail.com",
+//   "password": "20F645C703944A0027ACF6FAD92EC465247842450605C5406B50676FF0DCD5EA",
+//   "memPhone": "0911111111",
+//   "memAddress": "950臺東縣臺東市ddd",
+//   "memRegdate": "2022-12-30",
+//   "sex": "F",
+//   "point": 0,
+//   "isBan": false,
+//   "isCom": true,
+//   "isActive": true,
+//   "isRegCom": false,
+//   "memPhoto": null,
+//   "memPhotoBase64": ""
+// }
+
+//送出修改
 $("#btn_submit").on("click", function () {
   const formData = {
     memName: $("input#name").val().trim(),
     memPhone: $("input#phone").val().trim(),
     memAddress: $("input#address").val().trim(),
-    memPhoto: $("input#exampleInputFile").val().trim(),
+    memPhotoBase64: $("#preview_member_photo").attr("src"),
 
     // can not be change by user
     password: password,
@@ -113,7 +130,7 @@ $("#btn_submit").on("click", function () {
     contentType: "application/json; charset=UTF-8",
 
     success: function (data) {
-      alert("success ");
+      alert("已完成修改");
       location.reload();
       //   window.location.href = `http://localhost:8080/oladesign/promotion/promotion_front/promoHome.html?comTaxId=${data.comTaxId}`;
     },
@@ -123,3 +140,20 @@ $("#btn_submit").on("click", function () {
     },
   });
 });
+
+//上傳圖片
+$(document).on("change", "#member_photo", function () {
+  //當檔案改變後，做一些事
+  console.log(this);
+  readURL(this); // this代表<input id="imgInp">
+});
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $("#preview_member_photo").attr("src", e.target.result); //result是用 new FileReader() 讀進來的結果
+    };
+    reader.readAsDataURL(input.files[0]);//readAsDataURL方法會使用base-64進行編碼
+  }
+}

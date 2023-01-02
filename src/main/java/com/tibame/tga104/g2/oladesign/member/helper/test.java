@@ -8,21 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 public class test {
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		String password = "123456";
-		//將密碼經SHA256運算
-		MessageDigest md;
-		HexBinaryAdapter hba;
-		try {
-			md = MessageDigest.getInstance("SHA-256");
-			byte[] hash = md.digest(password.getBytes("UTF-8"));
-			hba = new HexBinaryAdapter();
-			String playerHash = hba.marshal(hash);
-			System.out.println(playerHash);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public static void main(String[] args){
+		SendMail sendFirstMail = new SendMail();
+		sendFirstMail.sendComMemMail("tga104g2@gmail.com", "測試");
 	}
 }

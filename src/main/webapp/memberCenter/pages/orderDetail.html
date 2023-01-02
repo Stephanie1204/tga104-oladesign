@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- 页面meta -->
+    <!-- 頁面meta -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -82,8 +82,10 @@
   <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
       <!-- 頂端列/側邊欄 匯入-->
+      <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
       <script src="https://www.w3schools.com/lib/w3.js"></script>
-      
+      <script src="./sideBar.js"></script>
+
       <script>
         w3.includeHTML();
       </script>
@@ -130,70 +132,66 @@
 
           <!--訂單明細-->
           <div class="panel panel-default">
-            
-            <div class="panel-heading ">訂單明細</div>
-  
-              <div class="row data-type">
+            <div class="panel-heading">訂單明細</div>
 
-                <div class="order_sellerInfo">
-                  <div class="col-md-2 title">賣家</div>
-                  <div class="col-md-4 data text">xx小舖</div>
+            <div class="row data-type">
+              <div class="order_sellerInfo">
+                <div class="col-md-2 title">賣家</div>
+                <div class="col-md-4 data text">xx小舖</div>
 
-                  <div class="col-md-2 title">訂單日期</div>
-                  <div class="col-md-4 data text">2022/22/22</div>
-                </div>
-            
-                <div class="all_list">
+                <div class="col-md-2 title">訂單日期</div>
+                <div class="col-md-4 data text">2022/22/22</div>
+              </div>
 
-                  <div class="one_list">
-                    <div class="col-md-2 title">商品編號</div>
-                    <div class="col-md-4 data text">xxxxxxxxx</div>
-                    <div class="col-md-6 data text"></div>
-
-                    <div class="col-md-2 title">商品名稱</div>
-                    <div class="col-md-4 data text">美式餐具組</div>
-                    
-                    <div class="col-md-1 title">原價</div>
-                    <div class="col-md-1 data text">$99</div>
-
-                    <div class="col-md-1 title">折扣後金額</div>
-                    <div class="col-md-1 data text">$99</div>
-
-                    <div class="col-md-1 title">購買數量</div>
-                    <div class="col-md-1 data text">3</div>
-                  </div>
-
-                </div>
-            
-                <div class="col-md data"></div>
-
-                <div class="order_sellerInfo2">
-                  <div class="col-md-2 title">訂單狀態</div>
-                  <div class="col-md-4 data text">未確認</div>
-
-                  <div class="col-md-2 title">商品小計</div>
-                  <div class="col-md-4 data text">$9999</div>
-
-                  <div class="col-md-2 title">物流狀態</div>
-                  <div class="col-md-4 data text">xxxx未確認</div>
-
-                  <div class="col-md-2 title">使用折扣碼</div>
-                  <div class="col-md-4 data text">$60</div>
-
+              <div class="all_list">
+                <div class="one_list">
+                  <div class="col-md-2 title">商品編號</div>
+                  <div class="col-md-4 data text">xxxxxxxxx</div>
                   <div class="col-md-6 data text"></div>
-                  <div class="col-md-2 title">使用紅利點數</div>
-                  <div class="col-md-4 data text">$60</div>
 
-                  <div class="col-md-6 data text"></div>
-                  <div class="col-md-2 title">訂單總金額</div>
-                  <div class="col-md-4 data text">$60</div>
+                  <div class="col-md-2 title">商品名稱</div>
+                  <div class="col-md-4 data text">美式餐具組</div>
 
-                  <div class="col-md-6 data text"></div>
-                  <div class="col-md-2 title">付款方式</div>
-                  <div class="col-md-4 data text">信用卡</div>
+                  <div class="col-md-1 title">原價</div>
+                  <div class="col-md-1 data text">$99</div>
+
+                  <div class="col-md-1 title">折扣後金額</div>
+                  <div class="col-md-1 data text">$99</div>
+
+                  <div class="col-md-1 title">購買數量</div>
+                  <div class="col-md-1 data text">3</div>
                 </div>
               </div>
+
+              <div class="col-md data"></div>
+
+              <div class="order_sellerInfo2">
+                <div class="col-md-2 title">訂單狀態</div>
+                <div class="col-md-4 data text">未確認</div>
+
+                <div class="col-md-2 title">商品小計</div>
+                <div class="col-md-4 data text">$9999</div>
+
+                <div class="col-md-2 title">物流狀態</div>
+                <div class="col-md-4 data text">xxxx未確認</div>
+
+                <div class="col-md-2 title">使用折扣碼</div>
+                <div class="col-md-4 data text">$60</div>
+
+                <div class="col-md-6 data text"></div>
+                <div class="col-md-2 title">使用紅利點數</div>
+                <div class="col-md-4 data text">$60</div>
+
+                <div class="col-md-6 data text"></div>
+                <div class="col-md-2 title">訂單總金額</div>
+                <div class="col-md-4 data text">$60</div>
+
+                <div class="col-md-6 data text"></div>
+                <div class="col-md-2 title">付款方式</div>
+                <div class="col-md-4 data text">信用卡</div>
+              </div>
             </div>
+          </div>
 
           <!--数据列表/-->
 
@@ -209,7 +207,6 @@
             >
               <i class="fa fa-file-o"></i>回到訂單管理頁面
             </button>
-         
           </div>
           <!--工具栏/-->
         </section>
@@ -218,18 +215,10 @@
       <!-- 内容区域 /-->
 
       <!-- 底部导航 -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs"><b>Version</b> 1.0.8</div>
-        <strong
-          >Copyright &copy; 2014-2017
-          <a href="http://www.itcast.cn">研究院研发部</a>.</strong
-        >
-        All rights reserved.
-      </footer>
+      <div w3-include-html="./footer.html"></div>
       <!-- 底部导航 /-->
     </div>
 
-    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/jQueryUI/jquery-ui.min.js"></script>
     <script>
       $.widget.bridge("uibutton", $.ui.button);

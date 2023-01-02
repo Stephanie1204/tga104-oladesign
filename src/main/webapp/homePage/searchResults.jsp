@@ -47,9 +47,6 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/homePage/css/searchResults.css"
 	type="text/css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/homePage/css/favorite.css"
-	type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -180,7 +177,7 @@
 												name="typeCode" value="${param.typeCode }"> <input
 												type="hidden" name="styleCode" value="${param.styleCode }">
 											<input type="hidden" name="price" value="${param.price }">
-											<button type="submit" class="fa fa-shopping-cart"></button>
+											<button type="submit" class="fa fa-shopping-bag mycart"></button>
 										</form>
 									</li>
 								</ul>
@@ -191,7 +188,7 @@
 										href="<c:url value="../homePage/productPage.jsp"><c:param name="productId" value="${row.productId}" /></c:url>"
 										class="results" target="_blank">${row.getName()}</a>
 								</h6>
-								<h5>${row.getPrice()}</h5>
+								<h5>NT$ ${row.getPrice()}</h5>
 							</div>
 						</div>
 					</c:forEach>
@@ -202,87 +199,7 @@
 
 
 	<!-- Footer Section Begin -->
-	<footer class="footer spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="footer__about">
-						<div class="footer__about__logo">
-							<a href="./index.html"><img
-								src="<%=request.getContextPath()%>/homePage/img/logo.png" alt="" /></a>
-						</div>
-						<ul>
-							<li>Address: 60-49 Road 11378 New York</li>
-							<li>Phone: +65 11.188.888</li>
-							<li>Email: hello@colorlib.com</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-					<div class="footer__widget">
-						<h6>Useful Links</h6>
-						<ul>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">About Our Shop</a></li>
-							<li><a href="#">Secure Shopping</a></li>
-							<li><a href="#">Delivery infomation</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="#">Our Sitemap</a></li>
-						</ul>
-						<ul>
-							<li><a href="#">Who We Are</a></li>
-							<li><a href="#">Our Services</a></li>
-							<li><a href="#">Projects</a></li>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">Innovation</a></li>
-							<li><a href="#">Testimonials</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-12">
-					<div class="footer__widget">
-						<h6>Join Our Newsletter Now</h6>
-						<p>Get E-mail updates about our latest shop and special
-							offers.</p>
-						<form action="#">
-							<input type="text" placeholder="Enter your mail" />
-							<button type="submit" class="site-btn">Subscribe</button>
-						</form>
-						<div class="footer__widget__social">
-							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-								class="fa fa-instagram"></i></a> <a href="#"><i
-								class="fa fa-twitter"></i></a> <a href="#"><i
-								class="fa fa-pinterest"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="footer__copyright">
-						<div class="footer__copyright__text">
-							<p>
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;
-								<script>
-									document.write(new Date().getFullYear());
-								</script>
-								All rights reserved | This template is made with <i
-									class="fa fa-heart" aria-hidden="true"></i> by <a
-									href="https://colorlib.com" target="_blank">Colorlib</a>
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							</p>
-						</div>
-						<div class="footer__copyright__payment">
-							<img
-								src="<%=request.getContextPath()%>/homePage/img/payment-item.png"
-								alt="" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<%@ include file="../include/footer.jsp"%>
 	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
@@ -305,129 +222,8 @@
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
 
-	<script>
-	$(window).on("load", function(){
-		let memId = "${memId}";
-	    console.log("memId=" + memId);
-	  //先查詢已經加入收藏的商品
-	    if(memId.length != 0){ 
-    		$.ajax({
-    			url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-    			type: "PUT",
-    			data: JSON.stringify({
-    				"memId": memId
-    			}),
-        		dataType: "json",
-        		contentType: "application/json",
-        		processData: false,
-        		success: function(data){
-	            	console.log("data");
-	            	var favorObj = JSON.parse(data.getFavor);
-	            	console.log(favorObj);
-	            	console.log("favorObj.length:" + favorObj.length);
-	            	$("#fav").text(favorObj.length); //在收藏icon顯示收藏數量
-	            	
-	            	$.each(favorObj, function(index, item){ //取出已收藏的商品ID
-		            	console.log(item.prodId);
-	            		$("#" + item.prodId + "").addClass("active");
-	            		$("#" + item.prodId + "").closest("a").addClass("active");
-		            });	            	
-	            },
-	            error: function(xhr){
-	            	console.log(xhr);
-	            },
-	            complete: function(xhr){
-	            	console.log(xhr);
-	            }
-    		});
-    	}
-	  
-	  	//新增收藏
-	    $(".favorcircle").on("click", function(e){
-	    	if(memId == null || memId.length == 0){
-	    		alert("請先登入會員");
-	    	}else{
-	    		let prodId = $(e.target).attr("data");
-	    		console.log("prodId=" + prodId);
-	    		$(e.target).toggleClass("active");
-		        $(e.target).closest("a").toggleClass("active");
-		        
-		        var favordata ={
-		        		"memId": memId,
-		        		"prodId": prodId
-		        };
-		        console.log(favordata);
-		        let active = $(e.target).hasClass("active");
-		        console.log("active=" + active);
-		        if(active == true){ //新增收藏
-		        	$.ajax({
-			            url: "<%=request.getContextPath()%>/favorite/FavorServlet",
-			            type: "POST",
-			            data: JSON.stringify(favordata),
-			            dataType: "json",
-			            contentType: "application/json",
-			            processData: false,
-			            success: function(adddata){
-			            	console.log("adddata=" + adddata);
-			            	var count = $("#fav").text();
-			            	var countFav = parseInt(count); //String 轉為 number
-			            	$("#fav").text(countFav + 1);
-			            },
-			            error: function(xhr){
-			            	console.log(xhr);
-			            },
-			            complete: function(xhr){
-			            	console.log(xhr);
-			            }
-			        });
-		        }else{ //移除收藏
-		        	$.ajax({
-		        		url: "<%=request.getContextPath()%>
-		/favorite/FavorServlet",
-																	type : "DELETE",
-																	data : JSON
-																			.stringify(favordata),
-																	dataType : "json",
-																	contentType : "application/json",
-																	processData : false,
-																	success : function(
-																			deldata) {
-																		console
-																				.log("deldata");
-																		console
-																				.log(deldata);
-																		var count = $(
-																				"#fav")
-																				.text();
-																		var countFav = parseInt(count); //String 轉為 number
-																		$(
-																				"#fav")
-																				.text(
-																						countFav - 1);
-																	},
-																	error : function(
-																			xhr) {
-																		console
-																				.log(xhr);
-																	},
-																	complete : function(
-																			xhr) {
-																		console
-																				.log(xhr);
-																	}
-																});
-													}
-
-												}
-
-											});
-						});
-	</script>
-	=======
-
 
 	<%@ include file="../include/favorite.jsp"%>
 
-	>>>>>>> dev
 </body>
 </html>
