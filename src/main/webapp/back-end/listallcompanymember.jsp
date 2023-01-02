@@ -197,7 +197,6 @@
 										<th nowrap="nowrap">負責人</th>
 										<th nowrap="nowrap">負責人手機號碼</th>
 										<th nowrap="nowrap">註冊日期</th>
-										<th nowrap="nowrap">賣場名稱</th>
 										<th nowrap="nowrap">操作</th>
 									</tr>
 								</thead>
@@ -242,7 +241,6 @@
 								"<td>"+dataJson[i].comOwner+"</td>"+
 								"<td>"+dataJson[i].ownerPhone+"</td>"+
 								"<td>"+dataJson[i].comRegdate+"</td>"+
-								"<td>"+dataJson[i].storeName+"</td>"+
 								"<td><button type='button' class='btn btn-default reviewcom' memId=" + dataJson[i].memId + ">審核</button></td>"+
 								"</tr>"
 						)

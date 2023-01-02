@@ -221,7 +221,26 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-
+	<script>
+	$.ajax({
+	    type : 'POST',
+	    url: "http://localhost:8080/oladesign/homePage/adforshop.do?action=doGetTodayAD",
+	    success : function (data, status, xhr) {
+	        var dataJson = JSON.parse(data);
+	        var total_len = dataJson.length;
+	        for(i=0;i<total_len;i++){
+	        	var active = i === 0? " active": "";
+	        	
+	            $("#todayAD").append(
+	                    " <div class='carousel-item" + active + "'>"+
+	                    " <a href='http://localhost:8080/oladesign/shophome/shopinfo.jsp?comTaxId=" + dataJson[i].comTaxId + "'><img id = 'ad_image' src='" + dataJson[i].adImageString +  "' /></a>"+
+	                    " </div>"
+	            )
+	        }
+	       
+	    }
+	});
+	</script>
 
 	<%@ include file="../include/favorite.jsp"%>
 
