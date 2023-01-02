@@ -60,3 +60,9 @@ div.carousel{
 	height: 350px;
 	}
 }
+
+/* 商品列表 */
+div.prodcontainer h3{
+	text-align: center;
+	padding-bottom: 50px;
+}

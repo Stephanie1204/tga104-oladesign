@@ -121,7 +121,7 @@
 		            		$("#" + item.prodId + "").closest("ul").addClass("active");
 		            		
 			            });	   
-		            	clickFavor(memId);
+		            	clickFavor(memId); //新增、移除收藏
 		            },
 		            error: function(xhr){
 		            	console.log(xhr);

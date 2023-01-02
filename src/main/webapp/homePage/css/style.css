@@ -880,6 +880,26 @@ div.carousel{
 	right: -35px;
 }
 
+/* 商品列表 */
+div.productDisplay{
+	padding: 0 50px;
+	margin: 0;
+}
+div.productDisplay div{
+	width: 100%;
+}
+
+div.productDisplay div img{
+	width: 100%;
+}
+
+div.featured__item__pic{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
 /*---------------------
   Featured
 -----------------------*/
