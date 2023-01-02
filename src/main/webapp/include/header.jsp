@@ -114,7 +114,6 @@
 								</form>
 							</c:forEach>
 						</ul></li>
-					<li><a href="#">促銷商品</a></li>
 					<li><a href="../shophome/shoplist.jsp">設計館</a></li>
 					<li><a href="<%=request.getContextPath()%>/homePage/about.jsp">關於我們</a></li>
 				</ul>
