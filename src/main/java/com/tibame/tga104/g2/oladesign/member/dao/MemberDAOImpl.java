@@ -24,13 +24,13 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	static {
-		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
-		config.setUsername("root");
-		config.setPassword("password");
+		// HikariConfig config = new HikariConfig();
+		// config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		// config.setUsername("root");
+		// config.setPassword("password");
 
-		ds = new HikariDataSource(config);
-
+		// ds = new HikariDataSource(config);
+		ds = com.tibame.tga104.g2.oladesign.utils.DBConnectionUtils.getDataSource();
 	}
 
 	private static final String InsertSQL = "insert into MEMBER(MEM_NAME, ACCOUNT, PASSWORD, MEM_PHONE, MEM_ADDRESS, SEX, MEM_PHOTO)"

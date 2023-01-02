@@ -24,12 +24,13 @@ public class OrderDAOJdbc implements OrderDAO {
 
 	private static DataSource dataSource = null;
 	static {
-		System.out.println("pass jdbc connect");
-		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
-		config.setUsername("root");
-		config.setPassword("password");
-		dataSource = new HikariDataSource(config);
+		// System.out.println("pass jdbc connect");
+		// HikariConfig config = new HikariConfig();
+		// config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		// config.setUsername("root");
+		// config.setPassword("password");
+		// dataSource = new HikariDataSource(config);
+		dataSource = com.tibame.tga104.g2.oladesign.utils.DBConnectionUtils.getDataSource();
 
 	}
 

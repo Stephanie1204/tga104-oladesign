@@ -15,12 +15,13 @@ import com.tibame.tga104.company_promo.model.PromoVO;
 public class getComTaxIdJNDIDAO {
 	private static DataSource ds = null;
 	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		// try {
+		// 	Context ctx = new InitialContext();
+		// 	ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
+		// } catch (NamingException e) {
+		// 	e.printStackTrace();
+		// }
+		ds = com.tibame.tga104.g2.oladesign.utils.DBConnectionUtils.getDataSource();
 	}
 	
 	private static final String GETCOMTAXID="SELECT * FROM COMPANY_MEM where MEM_ID=?";
