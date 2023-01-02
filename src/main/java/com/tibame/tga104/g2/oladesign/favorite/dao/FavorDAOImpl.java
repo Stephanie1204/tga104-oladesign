@@ -20,11 +20,13 @@ public class FavorDAOImpl implements FavorDAO{
 
 	static {
 		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
-		config.setUsername("root");
-		config.setPassword("password");
+		// config.setJdbcUrl("jdbc:mysql://localhost:3306/TGA104G2?serverTimezone=Asia/Taipei");
+		// config.setUsername("root");
+		// config.setPassword("password");
 
-		ds = new HikariDataSource(config);
+		// ds = new HikariDataSource(config);
+
+		ds = com.tibame.tga104.g2.oladesign.utils.DBConnectionUtils.getDataSource();
 		
 	}
 	
