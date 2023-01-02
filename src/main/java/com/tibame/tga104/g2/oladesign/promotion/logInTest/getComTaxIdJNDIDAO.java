@@ -13,12 +13,13 @@ import javax.sql.DataSource;
 public class getComTaxIdJNDIDAO {
 	private static DataSource ds = null;
 	static {
-		try {
-			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+//		try {
+			ds = com.tibame.tga104.g2.oladesign.utils.DBConnectionUtils.getDataSource();
+//			 Context ctx = new InitialContext();
+//			 ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TGA104G2"); // 放在context.xml
+//		} catch (NamingException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	private static final String GETCOMTAXID="SELECT * FROM COMPANY_MEM where MEM_ID=?";
