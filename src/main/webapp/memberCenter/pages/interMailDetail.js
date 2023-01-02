@@ -8,7 +8,6 @@ $.ajax({
   
     success: function (data) {
       console.log(data);
-      alert("success");
   
         let list_html = `
         
