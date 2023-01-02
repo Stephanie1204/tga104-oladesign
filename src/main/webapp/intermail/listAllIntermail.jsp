@@ -159,7 +159,7 @@ pageContext.setAttribute("list", list);
 						<th nowrap="nowrap">發送時間</th>
 						<th nowrap="nowrap"></th>
 						<th nowrap="nowrap">查看</th>
-						<th nowrap="nowrap">刪除</th>
+<!-- 						<th nowrap="nowrap">刪除</th> -->
 					</tr>
 
 					<%@ include file="page1.file"%>
@@ -190,16 +190,16 @@ pageContext.setAttribute("list", list);
 								</FORM>
 							</td>
 
-							<td>
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/intermail/intermail.do"
-									style="margin-bottom: 0px;">
-									<input type="submit" class="btn back-end-btn" value="刪除">
-									<input type="hidden" name="interMailId"
-										value="${intermailVO.interMailId}"> <input
-										type="hidden" name="action" value="delete">
-								</FORM>
-							</td>
+<!-- 							<td> -->
+<!-- 								<FORM METHOD="post" -->
+<%-- 									ACTION="<%=request.getContextPath()%>/intermail/intermail.do" --%>
+<!-- 									style="margin-bottom: 0px;"> -->
+<!-- 									<input type="submit" class="btn back-end-btn" value="刪除"> -->
+<!-- 									<input type="hidden" name="interMailId" -->
+<%-- 										value="${intermailVO.interMailId}"> <input --%>
+<!-- 										type="hidden" name="action" value="delete"> -->
+<!-- 								</FORM> -->
+<!-- 							</td> -->
 							<!-- 								</td>  -->
 						</tr>
 					</c:forEach>

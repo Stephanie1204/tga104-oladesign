@@ -232,13 +232,13 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 												value="${memberVO.getPoint()}"/>
 										</div>
 										
-										<div class="form-group">
-											<label for="com_bankaccount">會員照片</label>
-											<input type="text" readonly="readonly" class="form-control" name="mem_photo"
-												id="com_bankaccount"
+<!-- 										<div class="form-group"> -->
+<!-- 											<label for="com_bankaccount">會員照片</label> -->
+<!-- 											<input type="text" readonly="readonly" class="form-control" name="mem_photo" -->
+<!-- 												id="com_bankaccount" -->
 <%-- 												value="${memberVO.getMemPhoto()}"/> --%>
-													value="${memberVO.getMemPhoto()}"/>
-										</div>
+<%-- 													value="${memberVO.getMemPhoto()}"/> --%>
+<!-- 										</div> -->
 	
 									</div>
 									<!--/.col (left) -->
