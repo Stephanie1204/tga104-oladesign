@@ -193,13 +193,9 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-//<<<<<<< HEAD
-//				memberVO.setMemPhotoBase64(rs.getBytes("MEM_PHOTO")); //將byte[] memPhoto轉為Base64格式	
-				
-//=======
-				memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
-
-//>>>>>>> dev
+				if (rs.getBytes("MEM_PHOTO") != null) {
+					memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -261,8 +257,9 @@ public class MemberDAOImpl implements MemberDAO {
 				memberVO.setIsActive(rs.getBoolean("IS_ACTIVE"));
 				memberVO.setIsRegCom(rs.getBoolean("IS_REGCOM"));
 				memberVO.setMemPhoto(rs.getBytes("MEM_PHOTO"));
-				memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
-
+				if (rs.getBytes("MEM_PHOTO") != null) {
+					memberVO.setMemPhotoBase64(new String(rs.getBytes("MEM_PHOTO"))); // 將byte[] memPhoto轉為Base64格式
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
