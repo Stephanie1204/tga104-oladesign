@@ -5,7 +5,6 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet" />
-
 <!-- header css -->
 <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="../css/header.css" type="text/css" />
@@ -185,6 +184,25 @@
 				"color": "#4F4E4D"
 			}, 300);
 		});
+		
+// 		照片即時更新
+		$.ajax({
+		    url: "http://localhost:8080/oladesign/member",
+		    type: "GET",
+		    data: { memId: sessionStorage.getItem("memId") },
+		    dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+		    success: function (data) {
+		      console.log(data.memName);
+		      console.log("success to get memName");
+
+		      $("#memPhoto").attr("src", data.memPhotoBase64);
+		      
+		    },
+		    error: function (xhr) {
+		      console.log("error");
+		      console.log(xhr);
+		    },
+		  });
 	});
 </script>
 

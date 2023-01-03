@@ -94,8 +94,8 @@
 			            	fav_html +=	'data-setbg="img/featured/feature-4.jpg"><img class="product__details__pic__item--large"';
 			            	fav_html +=	'src="'+ img +'" alt="'+ prodName +'"></a>';
 							fav_html +=	'<ul class="featured__item__pic__hover active">';
-							fav_html +=	'<li>';
-							fav_html +=	'<i class="fa fa-heart favorheart active" id="'+ prodId + '" data="'+ prodId + '"></i></li>';
+							fav_html +=	'<li><a href="##" class="favorcircle">';
+							fav_html +=	'<i class="fa fa-heart favorheart active" id="'+ prodId + '" data="'+ prodId + '"></i></a></li>';
 							fav_html +=	'<li>';
 							fav_html +=	'<form action="/pages/product.controller" method="post">';
 							fav_html +=	'<input type="hidden" name="prodaction" value="AddCartByPage">';
@@ -113,7 +113,7 @@
 							fav_html +=	'<h6><a	href="../homePage/productPage.jsp?productId='+ prodId + '"';
 							fav_html +=	'class="results" target="_blank">'+ prodName +'</a>';
 							fav_html +=	'</h6>';
-							fav_html +=	'<h5>'+ price + '</h5>';
+							fav_html +=	'<h5>NT$ '+ price + '</h5>';
 							fav_html +=	'</div></div>';
 							
 							$("div.productDisplay").append(fav_html);
