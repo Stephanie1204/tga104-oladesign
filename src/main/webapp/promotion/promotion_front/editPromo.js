@@ -24,19 +24,8 @@ $.ajax({
       </label><br>
       <label>開始日期 ：</label> <input class="start_date" type="date" value="${res.startDate}"><br>
       <label>結束日期 ：</label> <input class="end_date" type="date" value="${res.endDate}"><br>
-      <label>限定可使用會員ID : </label> <input class="limitMemberId" type="text">
-      <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
-        <thead>
-          <tr>
-            <th class="sorting">可使用會員明細</th> 
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>xxx</td> <td><input type="submit" value="移除"></input></td>
-          </tr>
-        </tbody>
-      </table> `;
+      
+     `;
 
     $("div.edit_form").html(form_html);
   },
