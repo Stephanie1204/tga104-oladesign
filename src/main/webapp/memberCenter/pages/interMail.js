@@ -13,7 +13,7 @@ $.ajax({
       list_html += `
 
           <tr>
-              <td>客服回覆 / 信件寄送</td>
+              <td>${code2CodeName(item.isSend,isResponse)}</td>
               <td>${formatDate(item.sentTime)}</td>
               <td>${item.interMailId}</td>
               <td>${item.type}</td>
@@ -51,4 +51,17 @@ const formatDate = (dateStr) => {
   const timeformat = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
   return timeformat;
+};
+
+const isResponse = [
+  { code: false, codeName: "信件寄出" },
+  { code: true, codeName: "客服回覆" },
+];
+
+const code2CodeName = (code, types) => {
+  const obj = types.find((type) => type.code === code);
+  if (obj) {
+    return obj.codeName;
+  }
+  return "";
 };
