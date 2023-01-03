@@ -25,9 +25,7 @@ import com.tibame.tga104.g2.oladesign.order.model.OrderService;
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	Date date = new Date();
-	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	String sdate = dateFormat.format(date);
+	
 
     
 	// create productService object
@@ -113,7 +111,7 @@ public class OrderServlet extends HttpServlet {
 		bean.setAddress(address_zone + " " + address);
 		bean.setCoupon(coupon);
 		bean.setPointUse(point_use);
-		bean.setOrderTime_toSec(sdate);
+		
 		// insert測試用
 		bean.setMemId(tempMemId);
 		bean.setComTaxId(comTaxId);

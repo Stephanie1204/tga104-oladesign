@@ -1,5 +1,7 @@
 package com.tibame.tga104.g2.oladesign.order.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +87,10 @@ public class OrderService {
 
 	// 到這裡bean只會有receiver, address, pointUse, coupon
 	public boolean insert(OrderBean bean) {
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String sdate = dateFormat.format(date);
+		bean.setOrderTime_toSec(sdate);
 		if (productDao_Cart.salerExist(bean.getMemId(), bean.getComTaxId())) {
 			// 產生訂單編號
 			String deleteChar = "[/: ]";
