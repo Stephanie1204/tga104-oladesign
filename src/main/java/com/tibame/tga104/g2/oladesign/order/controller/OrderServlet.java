@@ -91,17 +91,16 @@ public class OrderServlet extends HttpServlet {
 		//
 		if (prodaction.equals("Coupon") && (!coupon.equals(orderService.getCoupon(comTaxId)) || coupon.length() == 0)) {// 暫定使用者ID
 			errors.put("couponError", "無此序號");
-		} else if (prodaction.equals("Coupon")) {
+			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
+			return;
+		} else if (prodaction.equals("Coupon") && coupon.equals(orderService.getCoupon(comTaxId))) {
 			errors.put("couponError", "使用成功");
 
 			request.setAttribute("AfterDiscount", orderService.getDiscountTotalPrice(tempMemId, comTaxId, coupon));
 			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
-		}
-		// 驗證序號用 因為prodaction為null故要先在這邊判斷
-		if (prodaction.equals("Coupon") && errors != null && !errors.isEmpty()) {
-			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
 			return;
 		}
+		// 驗證序號用 因為prodaction為null故要先在這邊判斷
 		if (prodaction.equals("PlaceOrder") && errors != null && !errors.isEmpty()) {
 			request.getRequestDispatcher("/homePage/checkOut.jsp").forward(request, response);
 			return;

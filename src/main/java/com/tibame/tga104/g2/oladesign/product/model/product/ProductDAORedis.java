@@ -149,20 +149,28 @@ public class ProductDAORedis implements ProductDAO_Cart {
 
 		for (String prodId : jedis.zrange(userId + ":" + comTaxId, 0, -1)) {
 			int quantity = jedis.zscore(userId + ":" + comTaxId, prodId).intValue();
+			boolean isDiscountItem = false;
 
 			for (DiscountItem item : orderDao.getDiscountItem(coupon)) {
+				System.out.println(prodId + ":" + Integer.toString(item.getProductId()) + ":" + item.getDiscountCode());
 				if (prodId.equals(Integer.toString(item.getProductId()))
 						&& item.getDiscountCode().equals(DiscountStatus.PRICEDOWN.getCode())) {
-					totalPrice += productDao.getPrice(Integer.parseInt(prodId)) * quantity - item.getDiscount();
+					totalPrice += (productDao.getPrice(Integer.parseInt(prodId)) - item.getDiscount()) * quantity ;
+					System.out.println(totalPrice);
+					isDiscountItem = true;
 					break;
 				} else if (prodId.equals(Integer.toString(item.getProductId()))
 						&& item.getDiscountCode().equals(DiscountStatus.PERCENTOFF.getCode())) {
 					totalPrice += (int) (productDao.getPrice(Integer.parseInt(prodId)) * quantity * item.getDiscount()
 							/ 100);
+					System.out.println(totalPrice);
+					isDiscountItem = true;
 					break;
-				} else {
-					totalPrice += productDao.getPrice(Integer.parseInt(prodId)) * quantity;
-				}
+				} 
+			}
+			if(isDiscountItem == false) {
+				totalPrice = productDao.getPrice(Integer.parseInt(prodId)) * quantity;
+				System.out.println(totalPrice);
 			}
 		}
 		jedis.close();
