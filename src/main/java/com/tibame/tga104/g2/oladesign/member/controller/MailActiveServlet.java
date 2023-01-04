@@ -113,7 +113,7 @@ public class MailActiveServlet extends HttpServlet {
 				request.setAttribute("memId", memId); //將memId傳到recoverpwd.jsp
 				RequestDispatcher successView = request.getRequestDispatcher("/member/recoverpwd.jsp");
 				successView.forward(request, response);
-				jedis.del(reset);
+//				jedis.del(reset);
 				jedis.close();	
 				System.out.println("驗證成功，可以重設密碼");
 				return;
