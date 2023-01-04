@@ -93,6 +93,14 @@ public class MemberPWD extends HttpServlet {
 			// 錯誤處理
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
+			
+			Integer memId = null;
+			try {
+				memId = Integer.valueOf(request.getParameter("memId"));
+				System.out.println("recover memId=" + memId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 			// 接收參數
 			String newPassword = request.getParameter("newpassword");
@@ -111,6 +119,7 @@ public class MemberPWD extends HttpServlet {
 			}
 
 			if (!errorMsgs.isEmpty()) {
+				request.setAttribute("memId", memId);
 				String url = "/member/recoverpwd.jsp";
 				RequestDispatcher errView = request.getRequestDispatcher(url);
 				errView.forward(request, response);
@@ -130,14 +139,6 @@ public class MemberPWD extends HttpServlet {
 					newPasswordKey = hba.marshal(hash); // 將byte[] hash轉換為字串
 				}
 			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-
-			Integer memId = null;
-			try {
-				memId = Integer.valueOf(request.getParameter("memId"));
-				System.out.println("recover memId=" + memId);
-			} catch (Exception e) {
 				e.printStackTrace();
 			}
 

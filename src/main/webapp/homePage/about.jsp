@@ -124,7 +124,7 @@
             <div class="card-head1">
               <div class="card-author">
                 <a class="author-avatar" href="https://github.com/Stephanie1204" target="_blank">
-                  <img src="./img/about/steph.jpg" />
+                  <img src="./img/about/steph2.jpg" />
     
                 <div class="author-name">
                   <span class="author-name-prefix">組長__黃絹雯 <i class="fa-brands fa-github"></i></span>

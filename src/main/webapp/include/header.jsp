@@ -194,8 +194,12 @@
 		    success: function (data) {
 		      console.log(data.memName);
 		      console.log("success to get memName");
-
-		      $("#memPhoto").attr("src", data.memPhotoBase64);
+			  if(data.memPhotoBase64 == null){
+				  $("#memPhoto").attr("src", "../img/default_photo.jpg");
+			  }else{
+				  $("#memPhoto").attr("src", data.memPhotoBase64);  
+			  }
+		      
 		      
 		    },
 		    error: function (xhr) {
