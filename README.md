@@ -26,4 +26,4 @@ Ola是葡萄牙人的「你好」，希望這個平台給大家像葡萄牙人�
 
 專案連結網址：http://34.81.54.207:8080/oladesign/homePage/index.jsp
 
-專案影片介紹: https://www.youtube.com/watch?v=IW_xWys15eE
+專案影片介紹：https://www.youtube.com/watch?v=IW_xWys15eE
