@@ -25,3 +25,4 @@ Ola是葡萄牙人的「你好」，希望這個平台給大家像葡萄牙人�
 管理員-登入、 管理員-站內信、 管理員-會員管理、 管理員-廠商管理、 管理員-訂單管理、 管理員-商品類別管理
 
 專案連結網址：http://34.81.54.207:8080/oladesign/homePage/index.jsp
+專案影片介紹: https://www.youtube.com/watch?v=IW_xWys15eE
